@@ -171,10 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
-  startForceX: 5
-  startForceY: 3
+  startForceX: 7
+  startForceY: 4.5
   size: 1
   mass: 1
+  gravityScale: 1
 --- !u!50 &4984856718394615251
 Rigidbody2D:
   serializedVersion: 5
