@@ -4,13 +4,16 @@ namespace Balltallion
 {
     public class BattleBall : MonoBehaviour
     {
-        [SerializeField] private int health = 100;
+        [SerializeField] private int maxHealth = 100;
+        private int health;
         
         private BallBody ballBody;
 
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
+            
+            health = maxHealth;
         }
         
         private void OnEnable()
@@ -42,6 +45,9 @@ namespace Balltallion
             Debug.Log($"{name} died! :(");
             Destroy(gameObject);
         }
+        
+        public float GetHealth() => health;
+        public float GetMaxHealth() => maxHealth;
 
         private void OnBounce(BallCollisionData data)
         {
