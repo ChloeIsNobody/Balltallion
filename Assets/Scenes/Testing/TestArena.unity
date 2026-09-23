@@ -1274,9 +1274,29 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3603556060819865620, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugDraw
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForceX
       value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugDrawColor.b
+      value: 0.34901962
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugDrawColor.g
+      value: 0.30588236
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugDrawColor.r
+      value: 0.92549026
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
@@ -1733,13 +1753,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugDraw
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
       value: PlayerBall
-      objectReference: {fileID: 0}
-    - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
-      propertyPath: m_Layer
-      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

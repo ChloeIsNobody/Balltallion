@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class BallBody : MonoBehaviour
 {
+    public event Action OnBounce;
+    public event Action<BallBody> OnBallCollision;
+
+    [Header("Debug")]
+    [SerializeField] private bool debugDraw;
+    [SerializeField] private Color debugDrawColor;
+    
+    [Header("LayerMasks")]
     [SerializeField] private LayerMask wallLayerMask;
     [SerializeField] private LayerMask ballLayerMask;
     
@@ -33,14 +41,27 @@ public class BallBody : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        ContactPoint2D contact = other.GetContact(0);
+        
         if (IsLayerIdInMask(other.gameObject.layer, wallLayerMask))
         {
             Debug.Log("Bounce!");
+            OnBounce?.Invoke();
         }
         else if (IsLayerIdInMask(other.gameObject.layer, ballLayerMask))
         {
-            Debug.Log("Collide!");    
+            if (other.gameObject.TryGetComponent(out BallBody ballBody))
+            {
+                Debug.Log($"Collided with {other.gameObject.name}!");
+                OnBallCollision?.Invoke(ballBody);
+                if (debugDraw) DebugDrawCollision(contact.point, contact.normal);
+            }
         }
+    }
+
+    private void DebugDrawCollision(Vector2 point, Vector2 normal)
+    {
+        Debug.DrawLine(point, point + normal, debugDrawColor, 2, false);
     }
 
     private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;

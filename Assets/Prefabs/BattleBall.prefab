@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3603556060819865620, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+  m_Sprite: {fileID: 2051009945517871295, guid: 437b22599aceb294da5be721ddafc647, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -171,6 +171,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
+  debugDraw: 0
+  debugDrawColor: {r: 0.30980393, g: 0.6, b: 0.92549026, a: 1}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1
