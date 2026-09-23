@@ -594,6 +594,65 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &602381334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 602381337}
+  - component: {fileID: 602381336}
+  - component: {fileID: 602381335}
+  m_Layer: 0
+  m_Name: ScoreFloaterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!210 &602381335
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602381334}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 10
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
+--- !u!114 &602381336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602381334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bde22d33e4c82034e84d42c4f3d298c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScoreFloaterSpawner
+  scoreFloaterPrefab: {fileID: 7145654747828830572, guid: 1c4314d782bc91447828379087f63db5, type: 3}
+--- !u!4 &602381337
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602381334}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.11838, y: -0.38458, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,11 +1692,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 672354584043719493, guid: 4a6edd5ee9f793043b2663a9e9c8bb9c, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 24.429993
+      value: 24.429932
       objectReference: {fileID: 0}
     - target: {fileID: 672354584043719493, guid: 4a6edd5ee9f793043b2663a9e9c8bb9c, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -25.340027
+      value: -25.340088
       objectReference: {fileID: 0}
     - target: {fileID: 672354584043719493, guid: 4a6edd5ee9f793043b2663a9e9c8bb9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1822,3 +1881,4 @@ SceneRoots:
   - {fileID: 767285512}
   - {fileID: 1790926428}
   - {fileID: 709314334}
+  - {fileID: 602381337}

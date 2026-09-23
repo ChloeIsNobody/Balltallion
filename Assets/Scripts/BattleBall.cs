@@ -4,6 +4,8 @@ namespace Balltallion
 {
     public class BattleBall : MonoBehaviour
     {
+        [SerializeField] private int health = 100;
+        
         private BallBody ballBody;
 
         private void Awake()
@@ -23,6 +25,24 @@ namespace Balltallion
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
+        public void TakeDamage(int damage)
+        {
+            if (damage <= 0) return;
+            
+            health -= damage;
+            
+            string damageText = damage.ToString();
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damageText, Color.white);
+            
+            if (health < 0) Die();
+        }
+
+        public void Die()
+        {
+            Debug.Log($"{name} died! :(");
+            Destroy(gameObject);
+        }
+
         private void OnBounce(BallCollisionData data)
         {
             Debug.Log($"{name} bounced!");
@@ -33,7 +53,8 @@ namespace Balltallion
             BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
             if (!otherBall) return;
 
-            float damage = data.collisionPower;
+            int damage = (int)data.collisionPower;
+            otherBall.TakeDamage(damage);
             
             Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
         }
