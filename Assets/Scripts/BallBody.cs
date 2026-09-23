@@ -4,8 +4,8 @@ public class BallBody : MonoBehaviour
 {
     [SerializeField] private float startForceX;
     [SerializeField] private float startForceY;
-    [SerializeField] private float floorHeight;
     [SerializeField, Range(0.5f, 5.0f)] private float size;
+    [SerializeField, Range(0.2f, 10.0f)] private float mass; 
 
     private Rigidbody2D rb;
 
@@ -22,6 +22,6 @@ public class BallBody : MonoBehaviour
 
     private void Update()
     {
-        
+        rb.mass = mass;
     }
 }
