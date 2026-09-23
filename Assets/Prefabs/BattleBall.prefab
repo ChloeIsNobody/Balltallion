@@ -133,6 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244566083526506897}
+  - component: {fileID: 9031067662783963187}
   - component: {fileID: 1537891911829373851}
   - component: {fileID: 4984856718394615251}
   - component: {fileID: 6997567387644268533}
@@ -159,6 +160,18 @@ Transform:
   - {fileID: 561035228263194426}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9031067662783963187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6194298661798478868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 859e44b0c1ef36743a3fdf07a5fa90a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
 --- !u!114 &1537891911829373851
 MonoBehaviour:
   m_ObjectHideFlags: 0

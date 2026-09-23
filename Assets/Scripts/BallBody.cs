@@ -5,7 +5,7 @@ namespace Balltallion
 {
     public class BallBody : MonoBehaviour
     {
-        public event Action OnBounce;
+        public event Action<BallCollisionData> OnBounce;
         public event Action<BallCollisionData> OnBallCollision;
 
         [Header("Debug")]
@@ -64,7 +64,16 @@ namespace Balltallion
 
         private void ProcessWallCollision(Collision2D collision)
         {
-            OnBounce?.Invoke();
+            ContactPoint2D contact = collision.GetContact(0);
+            float collisionPowerA = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
+            
+            OnBounce?.Invoke(new BallCollisionData
+            {
+                otherBall = null,
+                contactPoint = contact.point,
+                contactNormal = -contact.normal,
+                collisionPower = collisionPowerA
+            });
         }
 
         private void ProcessBallCollision(Collision2D collision, BallBody otherBall)
