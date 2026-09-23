@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 1537891911829373851}
   - component: {fileID: 4984856718394615251}
   - component: {fileID: 6997567387644268533}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BattleBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
+  wallLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  ballLayerMask:
+    serializedVersion: 2
+    m_Bits: 384
   startForceX: 7
   startForceY: 4.5
   size: 1

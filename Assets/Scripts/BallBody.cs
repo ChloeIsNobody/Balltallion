@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public class BallBody : MonoBehaviour
 {
+    [SerializeField] private LayerMask wallLayerMask;
+    [SerializeField] private LayerMask ballLayerMask;
+    
     [SerializeField] private float startForceX;
     [SerializeField] private float startForceY;
     [SerializeField, Range(0.5f, 5.0f)] private float size = 1.0f;
@@ -26,4 +30,18 @@ public class BallBody : MonoBehaviour
         rb.mass = mass;
         rb.gravityScale = gravityScale;
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (IsLayerIdInMask(other.gameObject.layer, wallLayerMask))
+        {
+            Debug.Log("Bounce!");
+        }
+        else if (IsLayerIdInMask(other.gameObject.layer, ballLayerMask))
+        {
+            Debug.Log("Collide!");    
+        }
+    }
+
+    private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
 }
