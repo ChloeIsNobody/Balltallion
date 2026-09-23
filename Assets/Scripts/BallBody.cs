@@ -21,6 +21,7 @@ public class BallBody : MonoBehaviour
     [SerializeField, Range(0.0f, 5.0f)] private float gravityScale = 1.0f; 
 
     private Rigidbody2D rb;
+    private Vector2 velocityLastFixedUpdate;
 
     private void OnValidate()
     {
@@ -31,12 +32,15 @@ public class BallBody : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         rb.AddForce(new Vector2(startForceX, startForceY), ForceMode2D.Impulse);
+        rb.mass = mass;
+        rb.gravityScale = gravityScale;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         rb.mass = mass;
         rb.gravityScale = gravityScale;
+        velocityLastFixedUpdate = rb.linearVelocity;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -50,19 +54,28 @@ public class BallBody : MonoBehaviour
         }
         else if (IsLayerIdInMask(other.gameObject.layer, ballLayerMask))
         {
-            if (other.gameObject.TryGetComponent(out BallBody ballBody))
+            if (other.gameObject.TryGetComponent(out BallBody otherBody))
             {
-                Debug.Log($"Collided with {other.gameObject.name}!");
-                OnBallCollision?.Invoke(ballBody);
-                if (debugDraw) DebugDrawCollision(contact.point, contact.normal);
+                // CollisionPower is positive if the velocity is going towards the other ball, negative if it's going away
+                float collisionPowerA = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
+                float collisionPowerB = Vector2.Dot(otherBody.velocityLastFixedUpdate, contact.normal);
+                
+                if (collisionPowerA < 0.0f) collisionPowerA = 0.0f;
+                else if (collisionPowerB < 0.0f) collisionPowerA += collisionPowerB;
+                
+                Debug.Log($"{gameObject.name} collided with {other.gameObject.name} with a {collisionPowerA:F2} collision!!");
+                OnBallCollision?.Invoke(otherBody);
+                if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f);
             }
         }
     }
 
-    private void DebugDrawCollision(Vector2 point, Vector2 normal)
+    private void DebugDrawCollision(Vector2 point, Vector2 normal, float size = 1.0f)
     {
-        Debug.DrawLine(point, point + normal, debugDrawColor, 2, false);
+        Debug.DrawLine(point, point + normal*size, debugDrawColor, 2, false);
     }
+
+    private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
 
     private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
 }
