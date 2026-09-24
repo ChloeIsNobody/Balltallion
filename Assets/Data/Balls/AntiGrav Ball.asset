@@ -15,8 +15,8 @@ MonoBehaviour:
   displayName: AntiGrav Ball
   ballSprite: {fileID: 21300000, guid: 4e463df4b48066049964fff12c18dcbe, type: 3}
   maxHealth: 100
-  velocityScaledContactDamage: 1
   contactDamage: 3
+  velocityScaledContactDamage: 1
   velocityScalingRange: {x: 3, y: 15}
   contactDamageRange: {x: 2, y: 10}
   size: 1

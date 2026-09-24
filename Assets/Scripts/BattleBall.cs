@@ -87,5 +87,7 @@ namespace Balltallion
             
             Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
         }
+        
+        public Sprite GetSprite() => ballSpriteRenderer.sprite;
     }
 }

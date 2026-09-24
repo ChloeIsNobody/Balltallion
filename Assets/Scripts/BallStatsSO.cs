@@ -17,11 +17,10 @@ namespace Balltallion
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, Range(10, 1000)] public int maxHealth = 100;
         
-        [SerializeField] public bool velocityScaledContactDamage;
-        [SerializeField, HideIf("VelocityScaling")] public int contactDamage = 3;
-        [SerializeField, ShowIf("VelocityScaling")] private Vector2 velocityScalingRange;
-        [SerializeField, ShowIf("VelocityScaling")] private Vector2 contactDamageRange;
-        
+        [SerializeField] public int contactDamage = 3;
+        [SerializeField, Space] public bool velocityScaledContactDamage;
+        [SerializeField, EnableIf("VelocityScaling")] private Vector2 velocityScalingRange;
+        [SerializeField, EnableIf("VelocityScaling")] private Vector2 contactDamageRange;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]

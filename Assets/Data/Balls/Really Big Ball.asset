@@ -15,8 +15,8 @@ MonoBehaviour:
   displayName: Really Big Ball
   ballSprite: {fileID: 21300000, guid: b32edda9333cbfb428ba49dca10f9446, type: 3}
   maxHealth: 200
-  velocityScaledContactDamage: 0
   contactDamage: 10
+  velocityScaledContactDamage: 1
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
   size: 2.5
