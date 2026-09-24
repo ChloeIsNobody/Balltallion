@@ -5,6 +5,8 @@ namespace Balltallion
     public class BattleBall : MonoBehaviour
     {
         [SerializeField] private int maxHealth = 100;
+        [SerializeField] private int contactDamage;
+        [SerializeField] private bool velocityScaledContactDamage;
         private int health;
         
         private BallBody ballBody;
@@ -59,7 +61,10 @@ namespace Balltallion
             BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
             if (!otherBall) return;
 
-            int damage = (int)data.collisionPower;
+            int damage;
+            if (velocityScaledContactDamage) damage = (int)data.collisionPower;
+            else damage = contactDamage;
+            
             otherBall.TakeDamage(damage);
             
             Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");

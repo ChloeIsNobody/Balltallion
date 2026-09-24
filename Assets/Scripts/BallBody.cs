@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Balltallion
 {
@@ -15,9 +16,10 @@ namespace Balltallion
         [Header("LayerMasks")]
         [SerializeField] private LayerMask wallLayerMask;
         [SerializeField] private LayerMask ballLayerMask;
-        
-        [SerializeField] private float startForceX;
-        [SerializeField] private float startForceY;
+
+        [SerializeField] private float startAngleBase;
+        [SerializeField] private float startAngleVariation;
+        [SerializeField] private float startForce;
         [SerializeField, Range(0.5f, 5.0f)] private float size = 1.0f;
         [SerializeField, Range(0.2f, 10.0f)] private float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] private float gravityScale = 1.0f; 
@@ -33,7 +35,11 @@ namespace Balltallion
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-            rb.AddForce(new Vector2(startForceX, startForceY), ForceMode2D.Impulse);
+
+            float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
+            Vector2 force = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * startForce;
+            rb.AddForce(force, ForceMode2D.Impulse);
+            
             rb.mass = mass;
             rb.gravityScale = gravityScale;
         }

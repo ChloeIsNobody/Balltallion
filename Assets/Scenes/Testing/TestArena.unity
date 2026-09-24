@@ -1487,6 +1487,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForceX
       value: -5
       objectReference: {fileID: 0}
@@ -1497,6 +1501,10 @@ PrefabInstance:
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: gravityScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startAngleBase
+      value: 135
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: debugDrawColor.b
@@ -1510,6 +1518,10 @@ PrefabInstance:
       propertyPath: debugDrawColor.r
       value: 0.92549026
       objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startAngleVariation
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
       value: EnemyBall
@@ -1520,6 +1532,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: contactDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: velocityScaledContactDamage
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1992,6 +2012,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForceX
       value: 4
       objectReference: {fileID: 0}
@@ -2003,6 +2027,14 @@ PrefabInstance:
       propertyPath: gravityScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startAngleBase
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: startAngleVariation
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
       value: 1
@@ -2010,6 +2042,14 @@ PrefabInstance:
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
       value: PlayerBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: contactDamage
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: velocityScaledContactDamage
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
