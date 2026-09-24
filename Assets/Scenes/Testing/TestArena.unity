@@ -1445,15 +1445,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1498,7 +1498,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
+      objectReference: {fileID: 21300000, guid: e6f4c3d34b99f9d449e9ccf32407a4fe, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -1545,15 +1545,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Mass
-      value: 0.05
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
-      value: 0.7
+      value: 1.3
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Super Ball
+      value: Small Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Layer
@@ -1566,7 +1566,7 @@ PrefabInstance:
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 
-      objectReference: {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
+      objectReference: {fileID: 11400000, guid: afbf1dba99313a5479b8487d4bf772d3, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: contactDamage
       value: 5

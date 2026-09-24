@@ -7,6 +7,7 @@ namespace Balltallion
     {
         [SerializeField, Expandable] private BallStatsSO ballStats;
         [SerializeField] private SpriteRenderer ballSpriteRenderer;
+        [SerializeField] private bool debugLogToConsole = false;
         
         private int health;
         
@@ -62,7 +63,7 @@ namespace Balltallion
 
         public void Die()
         {
-            Debug.Log($"{name} died! :(");
+            if (debugLogToConsole) Debug.Log($"{name} died! :(");
             Destroy(gameObject, 0f);
         }
         
@@ -71,7 +72,7 @@ namespace Balltallion
 
         private void OnBounce(BallCollisionData data)
         {
-            Debug.Log($"{name} bounced!");
+            if (debugLogToConsole) Debug.Log($"{name} bounced!");
         }
 
         private void OnBallCollision(BallCollisionData data)
@@ -85,7 +86,7 @@ namespace Balltallion
             
             if (damage >= 0) otherBall.TakeDamage(damage);
             
-            Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
+            if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
         }
         
         public Sprite GetSprite() => ballSpriteRenderer.sprite;
