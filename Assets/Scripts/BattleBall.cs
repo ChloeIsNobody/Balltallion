@@ -1,12 +1,13 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Balltallion
 {
     public class BattleBall : MonoBehaviour
     {
-        [SerializeField] private int maxHealth = 100;
-        [SerializeField] private int contactDamage;
-        [SerializeField] private bool velocityScaledContactDamage;
+        [SerializeField, Expandable] private BallStatsSO ballStats;
+        [SerializeField] private SpriteRenderer ballSpriteRenderer;
+        
         private int health;
         
         private BallBody ballBody;
@@ -14,8 +15,23 @@ namespace Balltallion
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
+            if (ballStats) LoadBallStats(ballStats);
+        }
+
+        [Button("Editor Refresh Stats")]
+        private void EditorLoadStats()
+        {
+            if (ballStats != null) LoadBallStats(ballStats);
+        }
+
+        private void LoadBallStats(BallStatsSO ballStats)
+        {
+            this.ballStats = ballStats;
+            name = ballStats.displayName;
+            ballSpriteRenderer.sprite = ballStats.ballSprite;
             
-            health = maxHealth;
+            if (!ballBody) ballBody = GetComponent<BallBody>();
+            ballBody.LoadBallStats(ballStats);
         }
         
         private void OnEnable()
@@ -49,7 +65,7 @@ namespace Balltallion
         }
         
         public float GetHealth() => health;
-        public float GetMaxHealth() => maxHealth;
+        public float GetMaxHealth() => ballStats.maxHealth;
 
         private void OnBounce(BallCollisionData data)
         {
@@ -62,8 +78,8 @@ namespace Balltallion
             if (!otherBall) return;
 
             int damage;
-            if (velocityScaledContactDamage) damage = (int)data.collisionPower;
-            else damage = contactDamage;
+            if (ballStats.velocityScaledContactDamage) damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
+            else damage = ballStats.contactDamage;
             
             otherBall.TakeDamage(damage);
             

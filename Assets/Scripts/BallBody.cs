@@ -20,17 +20,9 @@ namespace Balltallion
         [SerializeField] private float startAngleBase;
         [SerializeField] private float startAngleVariation;
         [SerializeField] private float startForce;
-        [SerializeField, Range(0.5f, 5.0f)] private float size = 1.0f;
-        [SerializeField, Range(0.2f, 10.0f)] private float mass = 1.0f;
-        [SerializeField, Range(0.0f, 5.0f)] private float gravityScale = 1.0f; 
 
         private Rigidbody2D rb;
         private Vector2 velocityLastFixedUpdate;
-
-        private void OnValidate()
-        {
-            transform.localScale = Vector3.one * size;
-        }
         
         private void Awake()
         {
@@ -39,15 +31,19 @@ namespace Balltallion
             float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
             Vector2 force = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * startForce;
             rb.AddForce(force, ForceMode2D.Impulse);
+        }
+
+        public void LoadBallStats(BallStatsSO ballStats)
+        {
+            transform.localScale = Vector3.one * ballStats.size;
             
-            rb.mass = mass;
-            rb.gravityScale = gravityScale;
+            if (!rb) rb = GetComponent<Rigidbody2D>();
+            rb.mass = ballStats.mass;
+            rb.gravityScale = ballStats.gravityScale;
         }
 
         private void FixedUpdate()
         {
-            rb.mass = mass;
-            rb.gravityScale = gravityScale;
             velocityLastFixedUpdate = rb.linearVelocity;
         }
 

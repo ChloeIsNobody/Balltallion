@@ -130,6 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859e44b0c1ef36743a3fdf07a5fa90a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
+--- !u!212 &183632258 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+  m_PrefabInstance: {fileID: 255902307227013618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &251578853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1949,15 +1954,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.01
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1999,6 +2004,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2051009945517871295, guid: 437b22599aceb294da5be721ddafc647, type: 3}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: mass
       value: 1
@@ -2036,17 +2045,29 @@ PrefabInstance:
       value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: PlayerBall
+      value: Regular Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: ballStats
+      value: 
+      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: contactDamage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: ballSpriteRenderer
+      value: 
+      objectReference: {fileID: 183632258}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: velocityScaledContactDamage
       value: 1
