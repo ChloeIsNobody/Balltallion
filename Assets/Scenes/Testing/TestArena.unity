@@ -1488,7 +1488,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForce
-      value: 10
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForceX
@@ -2013,7 +2013,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForce
-      value: 10
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForceX
