@@ -1444,6 +1444,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3
       objectReference: {fileID: 0}
@@ -1486,7 +1498,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+      objectReference: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -1531,9 +1543,17 @@ PrefabInstance:
       propertyPath: startAngleVariation
       value: 45
       objectReference: {fileID: 0}
+    - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_Mass
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_GravityScale
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Regular Ball
+      value: Super Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Layer
@@ -1546,7 +1566,7 @@ PrefabInstance:
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 
-      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: contactDamage
       value: 5

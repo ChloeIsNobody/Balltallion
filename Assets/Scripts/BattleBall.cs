@@ -27,6 +27,8 @@ namespace Balltallion
         private void LoadBallStats(BallStatsSO ballStats)
         {
             this.ballStats = ballStats;
+            health = ballStats.maxHealth;
+            
             name = ballStats.displayName;
             ballSpriteRenderer.sprite = ballStats.ballSprite;
             
@@ -55,13 +57,13 @@ namespace Balltallion
             string damageText = damage.ToString();
             ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damageText, Color.white);
             
-            if (health < 0) Die();
+            if (health <= 0) Die();
         }
 
         public void Die()
         {
             Debug.Log($"{name} died! :(");
-            Destroy(gameObject);
+            Destroy(gameObject, 0f);
         }
         
         public float GetHealth() => health;
@@ -81,7 +83,7 @@ namespace Balltallion
             if (ballStats.velocityScaledContactDamage) damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
             else damage = ballStats.contactDamage;
             
-            otherBall.TakeDamage(damage);
+            if (damage >= 0) otherBall.TakeDamage(damage);
             
             Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
         }

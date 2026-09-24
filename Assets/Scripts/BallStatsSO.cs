@@ -24,12 +24,13 @@ namespace Balltallion
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(0.5f, 5.0f)] public float size = 1.0f;
-        [SerializeField, Range(0.2f, 10.0f)] public float mass = 1.0f;
+        [SerializeField, Range(0.05f, 5.0f)] public float size = 1.0f;
+        [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
 
         public int GetVelocityScaledDamage(float velocity)
         {
+            if (velocity < velocityScalingRange.x) return 0;
             float t = Mathf.InverseLerp(velocityScalingRange.x, velocityScalingRange.y, velocity);
             t = Mathf.Clamp01(t);
             float damage = Mathf.Lerp(contactDamageRange.x, contactDamageRange.y, t);

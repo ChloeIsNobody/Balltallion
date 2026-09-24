@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
-  m_Name: RegularBall
+  m_Name: Normal Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
-  displayName: Regular Ball
+  displayName: Normal Ball
   ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   maxHealth: 100
   velocityScaledContactDamage: 0
-  contactDamage: 3
-  velocityScalingRange: {x: 0, y: 0}
-  contactDamageRange: {x: 0, y: 0}
+  contactDamage: 5
+  velocityScalingRange: {x: 1, y: 15}
+  contactDamageRange: {x: 1, y: 15}
   size: 1
   mass: 1
   gravityScale: 1

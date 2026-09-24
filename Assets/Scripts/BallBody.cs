@@ -29,8 +29,8 @@ namespace Balltallion
             rb = GetComponent<Rigidbody2D>();
 
             float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
-            Vector2 force = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * startForce;
-            rb.AddForce(force, ForceMode2D.Impulse);
+            Vector2 startVelocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * startForce;
+            rb.linearVelocity = startVelocity;
         }
 
         public void LoadBallStats(BallStatsSO ballStats)
@@ -89,7 +89,7 @@ namespace Balltallion
             if (collisionPowerA < 0.0f) collisionPowerA = 0.0f;
             else if (collisionPowerB < 0.0f) collisionPowerA += collisionPowerB;
                     
-            collisionPowerA *= rb.mass;
+            //collisionPowerA *= rb.mass;
                     
             OnBallCollision?.Invoke(new BallCollisionData
             {
