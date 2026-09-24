@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RegularBall
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: Regular Ball
-  ballSprite: {fileID: -3603556060819865620, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+  ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   maxHealth: 100
   velocityScaledContactDamage: 0
   contactDamage: 3

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 437b22599aceb294da5be721ddafc647
+guid: fd90ccad3302eb340b9e9939347636b3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2051009945517871295
-    second: BlueBall_0
+      213: 5025437265661322431
+    second: YellowBall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BlueBall_0
+      name: YellowBall_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fb0d261cda6a67c10800000000000000
-      internalID: 2051009945517871295
+      spriteID: fb4e0c43190fdb540800000000000000
+      internalID: 5025437265661322431
       vertices: []
       indices: 
       edges: []
@@ -140,7 +140,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      BlueBall_0: 2051009945517871295
+      YellowBall_0: 5025437265661322431
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

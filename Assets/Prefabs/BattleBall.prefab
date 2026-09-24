@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2051009945517871295, guid: 437b22599aceb294da5be721ddafc647, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.56, y: 2.56}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -172,6 +172,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859e44b0c1ef36743a3fdf07a5fa90a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
+  ballStats: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+  ballSpriteRenderer: {fileID: 1239046737287715538}
 --- !u!114 &1537891911829373851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,11 +194,9 @@ MonoBehaviour:
   ballLayerMask:
     serializedVersion: 2
     m_Bits: 384
-  startForceX: 7
-  startForceY: 4.5
-  size: 1
-  mass: 1
-  gravityScale: 1
+  startAngleBase: 0
+  startAngleVariation: 0
+  startForce: 0
 --- !u!50 &4984856718394615251
 Rigidbody2D:
   serializedVersion: 5
