@@ -1,3 +1,4 @@
+using System;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Balltallion
         [Header("Display Info")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public string displayName = "Ball";
-        [SerializeField, ShowAssetPreview] public Sprite ballSprite;
+        [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
         
         
         [Header("Stats")]
@@ -39,4 +40,9 @@ namespace Balltallion
         
         private bool VelocityScaling() => velocityScaledContactDamage;
     }
+    
+    // Marks a Sprite field to be used as the icon for this ScriptableObject in the Project view.
+    // Only one field per ScriptableObject should have this attribute.
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false)]
+    public class ScriptableObjectIconAttribute : PropertyAttribute {}
 }
