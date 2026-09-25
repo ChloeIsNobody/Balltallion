@@ -49,14 +49,13 @@ namespace Balltallion
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
-        public void TakeDamage(int damage)
+        public void TakeDamage(int damage, BattleBall source)
         {
             if (damage <= 0) return;
             
             health -= damage;
             
-            string damageText = damage.ToString();
-            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damageText, Color.white);
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damage, source.GetColor());
             
             if (health <= 0) Die();
         }
@@ -84,11 +83,12 @@ namespace Balltallion
             if (ballStats.velocityScaledContactDamage) damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
             else damage = ballStats.contactDamage;
             
-            if (damage >= 0) otherBall.TakeDamage(damage);
+            if (damage >= 0) otherBall.TakeDamage(damage, this);
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
         }
         
         public Sprite GetSprite() => ballSpriteRenderer.sprite;
+        public Color GetColor() => ballStats.debugColor;
     }
 }

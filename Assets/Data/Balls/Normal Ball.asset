@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Normal Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: Normal Ball
+  debugColor: {r: 0.92549026, g: 0.30588236, b: 0.34509805, a: 1}
   ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   maxHealth: 100
   contactDamage: 5

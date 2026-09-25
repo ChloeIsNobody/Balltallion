@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 
@@ -8,6 +9,10 @@ namespace Balltallion
         public static ScoreFloaterSpawner Instance {get; private set;}
         
         [SerializeField] private Transform scoreFloaterPrefab;
+
+        [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 damageScaling;
+        [SerializeField, MinMaxSlider(0.0f, 5.0f)] private Vector2 sizeScaling;
+        [SerializeField, Range(0.1f, 5.0f)] private float sizeScalingExponent = 1.0f;
 
         private void Awake()
         {
@@ -22,13 +27,21 @@ namespace Balltallion
             }
         }
 
-        public void SpawnScoreFloater(Vector3 spawnPosition, string text, Color color)
+        public void SpawnScoreFloater(Vector3 spawnPosition, int value, Color color)
         {
             Transform scoreFloater = Instantiate(scoreFloaterPrefab, spawnPosition, Quaternion.identity, transform);
             TextMeshPro textMesh = scoreFloater.GetComponentInChildren<TextMeshPro>();
-            textMesh.text = text;
+            textMesh.text = value.ToString();
             textMesh.color = color;
+            scoreFloater.localScale = Vector3.one * CalculateSize(value);
             Destroy(scoreFloater.gameObject, 0.833f);
+        }
+
+        public float CalculateSize(int value)
+        {
+            float t = Mathf.InverseLerp(damageScaling.x, damageScaling.y, value);
+            t = Mathf.Pow(t, sizeScalingExponent);
+            return Mathf.Lerp(sizeScaling.x, sizeScaling.y, t);
         }
     }
 }

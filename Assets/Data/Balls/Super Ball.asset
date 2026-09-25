@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Super Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: Super Ball
+  debugColor: {r: 0.882353, g: 0.7960785, b: 0.2901961, a: 1}
   ballSprite: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
   maxHealth: 150
   contactDamage: 10

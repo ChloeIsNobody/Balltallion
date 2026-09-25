@@ -10,6 +10,7 @@ namespace Balltallion
         [Header("Display Info")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public string displayName = "Ball";
+        [SerializeField] public Color debugColor = Color.white;
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
         
         
@@ -30,7 +31,7 @@ namespace Balltallion
 
         public int GetVelocityScaledDamage(float velocity)
         {
-            if (velocity < velocityScalingRange.x) return 0;
+            if (velocity < velocityScalingRange.x) return contactDamage;
             float t = Mathf.InverseLerp(velocityScalingRange.x, velocityScalingRange.y, velocity);
             t = Mathf.Clamp01(t);
             float damage = Mathf.Lerp(contactDamageRange.x, contactDamageRange.y, t);

@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Big Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: Big Ball
+  debugColor: {r: 0.30980393, g: 0.6, b: 0.9215687, a: 1}
   ballSprite: {fileID: 21300000, guid: 437b22599aceb294da5be721ddafc647, type: 3}
-  maxHealth: 150
+  maxHealth: 125
   contactDamage: 3
-  velocityScaledContactDamage: 0
+  velocityScaledContactDamage: 1
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
   size: 1.33

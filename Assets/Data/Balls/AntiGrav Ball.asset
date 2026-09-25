@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: AntiGrav Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: AntiGrav Ball
+  debugColor: {r: 0.5921569, g: 0.25882354, b: 0.91372555, a: 1}
   ballSprite: {fileID: 21300000, guid: 4e463df4b48066049964fff12c18dcbe, type: 3}
   maxHealth: 100
   contactDamage: 3
   velocityScaledContactDamage: 1
   velocityScalingRange: {x: 3, y: 15}
-  contactDamageRange: {x: 2, y: 10}
+  contactDamageRange: {x: 5, y: 10}
   size: 1
-  mass: 1
+  mass: 0.7
   gravityScale: 0
