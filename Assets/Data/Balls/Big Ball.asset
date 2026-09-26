@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
+  m_Name: Big Ball
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
+  displayName: Big Ball
+  ballSprite: {fileID: 21300000, guid: 437b22599aceb294da5be721ddafc647, type: 3}
+  maxHealth: 150
+  contactDamage: 3
+  velocityScaledContactDamage: 0
+  velocityScalingRange: {x: 1, y: 15}
+  contactDamageRange: {x: 1, y: 15}
+  size: 1.33
+  mass: 1.5
+  gravityScale: 1.4
