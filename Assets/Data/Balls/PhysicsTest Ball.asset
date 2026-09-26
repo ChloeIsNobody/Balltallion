@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
-  m_Name: Big Ball
+  m_Name: PhysicsTest Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
-  displayName: Big Ball
-  debugColor: {r: 0.30980393, g: 0.6, b: 0.9215687, a: 1}
-  ballSprite: {fileID: 21300000, guid: 437b22599aceb294da5be721ddafc647, type: 3}
-  maxHealth: 125
-  contactDamage: 3
-  velocityScaledContactDamage: 1
-  velocityScalingRange: {x: 8, y: 20}
-  contactDamageRange: {x: 5, y: 20}
-  size: 1.33
-  mass: 1.5
-  gravityScale: 1.4
+  displayName: Ball?
+  debugColor: {r: 0.92549026, g: 0.30588236, b: 0.34509805, a: 1}
+  ballSprite: {fileID: 21300000, guid: 6c69cdb0543642941ac0ed15a5726a0a, type: 3}
+  maxHealth: 100
+  contactDamage: 0
+  velocityScaledContactDamage: 0
+  velocityScalingRange: {x: 1, y: 15}
+  contactDamageRange: {x: 1, y: 15}
+  size: 1
+  mass: 1
+  gravityScale: 1
