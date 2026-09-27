@@ -49,14 +49,22 @@ namespace Balltallion
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
-        public void TakeDamage(int damage, BattleBall source)
+        public void Attack(AttackData attackData)
+        {
+            TakeDamage(attackData.damage);
+            ballBody.ApplyKnockback(attackData.knockback);
+            
+            if (attackData.damage > 0 )
+            {
+                Color color = attackData.source ? attackData.source.GetColor() : Color.white;
+                ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, attackData.damage, color);
+            }
+        }
+
+        private void TakeDamage(int damage)
         {
             if (damage <= 0) return;
-            
             health -= damage;
-            
-            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damage, source.GetColor());
-            
             if (health <= 0) Die();
         }
 
@@ -78,14 +86,19 @@ namespace Balltallion
         {
             BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
             if (!otherBall) return;
-
-            int damage;
-            if (ballStats.velocityScaledContactDamage) damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
-            else damage = ballStats.contactDamage;
             
-            if (damage >= 0) otherBall.TakeDamage(damage, this);
+            AttackData attackData = new AttackData();
+            attackData.source = otherBall;
             
-            if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
+            if (ballStats.velocityScaledContactDamage)
+            {
+                attackData.damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
+            }
+            else attackData.damage = ballStats.contactDamage;
+            
+            otherBall.Attack(attackData);
+            
+            if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
         public Sprite GetSprite() => ballSpriteRenderer.sprite;

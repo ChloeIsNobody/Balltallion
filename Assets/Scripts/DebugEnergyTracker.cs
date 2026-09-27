@@ -43,7 +43,7 @@ namespace Balltallion
         
         private float GetTotalEnergy(BallBody ball)
         {
-            if (!ball) return 0.0f;
+            if (!ball || !ball.isActiveAndEnabled) return 0.0f;
             return ball.GetKineticEnergy() + GetPotentialEnergy(ball);
         } 
         

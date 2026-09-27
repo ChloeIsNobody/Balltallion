@@ -102,6 +102,8 @@ namespace Balltallion
                     
             if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f);
         }
+        
+        public void ApplyKnockback(Vector2 knockback) => rb.AddForce(knockback, ForceMode2D.Impulse);
 
         private void DebugDrawCollision(Vector2 point, Vector2 normal, float size = 1.0f)
         {
