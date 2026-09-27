@@ -30,5 +30,14 @@ namespace Balltallion
             debugTexts[index].text = $"{title}: {value}";
             debugTexts[index].gameObject.SetActive(true);
         }
+
+        public void ResetDebugLabels()
+        {
+            foreach (TextMeshProUGUI text in debugTexts)
+            {
+                text.gameObject.SetActive(false);
+                text.text = "";
+            }
+        }
     }
 }

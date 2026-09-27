@@ -5,10 +5,17 @@ namespace Balltallion
 {
     public class DebugEnergyTracker : MonoBehaviour
     {
+        [SerializeField] private TrackingModes trackingMode;
         [SerializeField] private List<BallBody> trackedBalls;
         [SerializeField] private float groundHeight;
 
         private float initialSystemEnergy;
+
+        private enum TrackingModes
+        {
+            Energy,
+            Velocity,
+        }
 
         private void Awake()
         {
@@ -16,6 +23,12 @@ namespace Balltallion
         }
 
         private void FixedUpdate()
+        {
+            if (trackingMode == TrackingModes.Energy) TrackEnergy();
+            if (trackingMode == TrackingModes.Velocity) TrackVelocity();
+        }
+
+        private void TrackEnergy()
         {
             DebugPanel.Instance.SetDebugLabel(0, "Initial Energy", initialSystemEnergy.ToString("F2"));
             DebugPanel.Instance.SetDebugLabel(1, "System Energy", GetSystemEnergy().ToString("F2"));
@@ -27,6 +40,16 @@ namespace Balltallion
             {
                 BallBody ball = trackedBalls[i];
                 DebugPanel.Instance.SetDebugLabel(i+3, $"Ball {i}", GetTotalEnergy(ball).ToString("F2"));
+            }
+        }
+
+        private void TrackVelocity()
+        {
+            for (int i = 0; i < trackedBalls.Count; i++)
+            {
+                BallBody ball = trackedBalls[i];
+                if (!ball || !ball.isActiveAndEnabled) continue;
+                DebugPanel.Instance.SetDebugLabel(i+3, $"Ball {i}", ball.GetVelocity().magnitude.ToString("F2"));
             }
         }
 

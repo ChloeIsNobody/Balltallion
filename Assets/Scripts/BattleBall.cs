@@ -88,7 +88,7 @@ namespace Balltallion
             if (!otherBall) return;
             
             AttackData attackData = new AttackData();
-            attackData.source = otherBall;
+            attackData.source = this;
             
             if (ballStats.velocityScaledContactDamage)
             {

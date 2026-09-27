@@ -187,11 +187,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
+  linearDamping: 1
+  targetVelocity: 10
+  minVelocityPostCollision: 5.5
+  maxVelocity: 50
+  minCollisionAngleX: 10
+  minCollisionAngleY: 17
   debugDraw: 0
   debugDrawColor: {r: 0.30980393, g: 0.6, b: 0.92549026, a: 1}
-  groundHeight: -3.5
-  debugTotalEnergy: 0
-  debugIdx: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1
