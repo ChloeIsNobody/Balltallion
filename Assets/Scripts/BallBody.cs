@@ -14,7 +14,6 @@ namespace Balltallion
         
         [Header("Debug")]
         [SerializeField] private bool debugDraw;
-        [SerializeField] private Color debugDrawColor;
         
         [Header("LayerMasks")]
         [SerializeField] private LayerMask wallLayerMask;
@@ -24,6 +23,7 @@ namespace Balltallion
         [SerializeField] private float startAngleVariation;
 
         private Rigidbody2D rb;
+        private BallDataSO ballData;
         private Vector2 velocityLastFixedUpdate;
 
         private float speed = 10.0f;
@@ -41,6 +41,7 @@ namespace Balltallion
 
         public void LoadBallStats(BallDataSO ballData)
         {
+            this.ballData = ballData;
             transform.localScale = Vector3.one * ballData.size;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
@@ -104,7 +105,8 @@ namespace Balltallion
             float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
             if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
             {
-                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce;
+                float gravityMult = Mathf.Sqrt(Mathf.Max(0.5f, rb.gravityScale));
+                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce * gravityMult;
             }
         }
 
@@ -130,8 +132,8 @@ namespace Balltallion
             });
             
             AdjustVelocityPostCollision();
-                    
-            if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f, debugDrawColor);
+            
+            if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f);
         }
 
         public void ApplyKnockback(Vector2 knockback)
@@ -140,9 +142,9 @@ namespace Balltallion
             AdjustVelocityPostCollision();
         }
         
-        private void DebugDrawCollision(Vector2 point, Vector2 normal, float size, Color color)
+        private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)
         {
-            Debug.DrawLine(point, point + normal*size, color, 2, false);
+            Debug.DrawLine(point, point + normal*size, ballData.debugColor, 2, false);
         }
 
         public Vector2 GetVelocity() => rb.linearVelocity;
@@ -156,6 +158,11 @@ namespace Balltallion
             if (Mathf.Abs(rb.linearVelocityX) < globalPhysicsData.minVelocityXAfterCollision)
             {
                 rb.linearVelocityX = globalPhysicsData.minVelocityXAfterCollision * Mathf.Sign(rb.linearVelocityX);
+            }
+            
+            if (Mathf.Abs(rb.linearVelocityY) < globalPhysicsData.minVelocityYAfterCollision)
+            {
+                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterCollision * Mathf.Sign(rb.linearVelocityY);
             }
         }
         private float GetAngleFromHorizontal(Vector2 dir)

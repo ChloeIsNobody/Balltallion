@@ -1574,7 +1574,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+      objectReference: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -1633,15 +1633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Normal Ball
+      value: Super Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Layer
@@ -1654,7 +1654,7 @@ PrefabInstance:
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballData
       value: 
-      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 
@@ -1825,7 +1825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1736475383
 Transform:
   m_ObjectHideFlags: 0
@@ -1855,7 +1855,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.DebugBallAttacker
   targetBall: {fileID: 41043300}
   damage: 0
-  knockbackStrength: 25
+  knockbackStrength: 10
   knockbackDirection: {x: 0, y: 1}
   knockbackMode: 3
 --- !u!1 &1790926424
@@ -2267,7 +2267,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+      objectReference: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -2318,15 +2318,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Normal Ball
+      value: Super Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_IsActive
@@ -2335,7 +2335,7 @@ PrefabInstance:
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballData
       value: 
-      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+      objectReference: {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 

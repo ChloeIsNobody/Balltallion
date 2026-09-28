@@ -18,11 +18,11 @@ MonoBehaviour:
   maxHealth: 125
   contactDamage: 3
   velocityScaledContactDamage: 1
-  velocityScalingRange: {x: 4, y: 20}
+  velocityScalingRange: {x: 9, y: 30}
   contactDamageRange: {x: 5, y: 20}
   size: 1.33
   mass: 1.5
-  gravityScale: 1.4
-  speed: 10
+  gravityScale: 1.25
+  speed: 8
   bounciness: 1.05
   linearDamping: 0.5
