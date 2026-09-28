@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using Balltallion.BallSimulation;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.DebugTools
 {
     public class DebugEnergyTracker : MonoBehaviour
     {

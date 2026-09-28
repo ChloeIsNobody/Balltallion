@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Battle
 {
     public struct AttackData
     {

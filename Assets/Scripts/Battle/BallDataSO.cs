@@ -2,7 +2,7 @@ using System;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Battle
 {
     [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallData")]
     public class BallDataSO : ScriptableObject

@@ -1,7 +1,8 @@
+using Balltallion.BallSimulation;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Battle
 {
     public class BattleBall : MonoBehaviour
     {

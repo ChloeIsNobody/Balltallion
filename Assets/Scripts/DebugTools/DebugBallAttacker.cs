@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using Balltallion.Battle;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Balltallion
+namespace Balltallion.DebugTools
 {
     public class DebugBallAttacker : MonoBehaviour
     {

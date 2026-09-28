@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.DebugTools
 {
     public class DebugPanel : MonoBehaviour
     {

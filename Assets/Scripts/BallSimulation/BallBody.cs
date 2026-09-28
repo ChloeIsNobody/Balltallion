@@ -1,9 +1,9 @@
 using System;
-using NaughtyAttributes;
+using Balltallion.Battle;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Balltallion
+namespace Balltallion.BallSimulation
 {
     public class BallBody : MonoBehaviour
     {
