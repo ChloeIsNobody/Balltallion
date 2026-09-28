@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ball
-  m_Shader: {fileID: -6465566751694194690, guid: 2e67a832d53a3a04fb5f928d4e837b4e, type: 3}
+  m_Name: CheckerBackground
+  m_Shader: {fileID: -6465566751694194690, guid: beb15cda00259334fac9f78a37c1a0d0, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -39,10 +39,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _OutlineTex:
-        m_Texture: {fileID: 2800000, guid: f994d6cd121a3014ca72cd3822e7a1fa, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -57,34 +53,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BlendValue: 0
-    - _Brightness: 1
-    - _Contrast: 1
+    - _Angle: 266
     - _EnableExternalAlpha: 0
-    - _FillValue: 0
-    - _HueShift: 0
-    - _OutlineAlpha: 1
-    - _Saturation: 1
-    - _Stretch1Angle: 0
-    - _Stretch1X: 1
-    - _Stretch1Y: 1
-    - _Stretch2Angle: 0
-    - _Stretch2X: 1
-    - _Stretch2Y: 1
-    - _Stretch3X: 1
-    - _Stretch3Y: 1
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}
-    - _BlendColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FillColor: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ColorA: {r: 0.61743754, g: 0.6675, b: 0.801, a: 1}
+    - _ColorB: {r: 0.6970909, g: 0.72807276, b: 0.852, a: 1}
+    - _Frequency: {r: 5, g: 5, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Stretch1: {r: 1, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1173447920004997793
+--- !u!114 &3980463966414617752
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
