@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f2d8a9947c4b107488baf1b341398b34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -188,11 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
   globalPhysicsData: {fileID: 11400000, guid: b2cdf9ac4d377134eac99ee5c05dff60, type: 2}
-  targetVelocity: 12.5
-  linearDamping: 0.5
-  bounciness: 1.05
   debugDraw: 0
-  debugDrawColor: {r: 0.30980393, g: 0.6, b: 0.92549026, a: 1}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1
