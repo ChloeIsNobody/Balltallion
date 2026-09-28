@@ -23,3 +23,6 @@ MonoBehaviour:
   size: 1
   mass: 0.05
   gravityScale: 2
+  speed: 10
+  bounciness: 1.05
+  linearDamping: 0.5

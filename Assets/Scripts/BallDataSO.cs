@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Balltallion
 {
-    [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallStats")]
-    public class BallStatsSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallData")]
+    public class BallDataSO : ScriptableObject
     {
         [Header("Display Info")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -28,6 +28,11 @@ namespace Balltallion
         [SerializeField, Range(0.05f, 5.0f)] public float size = 1.0f;
         [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
+        
+        [Space]
+        [SerializeField, Range(0.0f, 100.0f)] public float speed;
+        [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.0f;
+        [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
         public int GetVelocityScaledDamage(float velocity)
         {

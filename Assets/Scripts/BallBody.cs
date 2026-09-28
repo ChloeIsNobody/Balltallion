@@ -10,14 +10,8 @@ namespace Balltallion
         public event Action<BallCollisionData> OnBounce;
         public event Action<BallCollisionData> OnBallCollision;
 
-        [Header("Physics Settings")]
-        [SerializeField, Range(0.0f, 100.0f)] private float targetVelocity;
-        [SerializeField, Range(0.0f, 100.0f)] private float maxVelocity;
-        [SerializeField, Range(0.0f, 1.0f)] private float linearDamping;
-        [SerializeField, Range(0.8f, 2.0f)] private float bounciness = 1.0f;
-        [SerializeField, Range(0.0f, 25.0f)] private float minCollisionAngleX;
-        [SerializeField, Range(0.0f, 25.0f)] private float minCollisionAngleY;
-
+        [SerializeField] private GlobalPhysicsDataSO globalPhysicsData;
+        
         [Header("Debug")]
         [SerializeField] private bool debugDraw;
         [SerializeField] private Color debugDrawColor;
@@ -31,23 +25,31 @@ namespace Balltallion
 
         private Rigidbody2D rb;
         private Vector2 velocityLastFixedUpdate;
+
+        private float speed = 10.0f;
+        private float bounciness = 1.0f;
+        private float linearDamping;
         
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
 
             float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
-            Vector2 startVelocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * targetVelocity;
+            Vector2 startVelocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * speed;
             rb.linearVelocity = startVelocity;
         }
 
-        public void LoadBallStats(BallStatsSO ballStats)
+        public void LoadBallStats(BallDataSO ballData)
         {
-            transform.localScale = Vector3.one * ballStats.size;
+            transform.localScale = Vector3.one * ballData.size;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            rb.mass = ballStats.mass;
-            rb.gravityScale = ballStats.gravityScale;
+            rb.mass = ballData.mass;
+            rb.gravityScale = ballData.gravityScale;
+
+            speed = ballData.speed;
+            bounciness = ballData.bounciness;
+            linearDamping = ballData.linearDamping;
         }
 
         private void FixedUpdate()
@@ -55,15 +57,15 @@ namespace Balltallion
             velocityLastFixedUpdate = rb.linearVelocity;
             
             // Velocity Hard Limit
-            if (rb.linearVelocity.magnitude > maxVelocity)
+            if (rb.linearVelocity.magnitude > globalPhysicsData.maxVelocity)
             {
-                rb.linearVelocity = rb.linearVelocity.normalized * maxVelocity;
+                rb.linearVelocity = rb.linearVelocity.normalized * globalPhysicsData.maxVelocity;
             }
             
             // Linear Damping down to target velocity
-            if (rb.linearVelocity.magnitude > targetVelocity)
+            if (rb.linearVelocity.magnitude > speed)
             {
-                float velocityDiff = rb.linearVelocity.magnitude - targetVelocity;
+                float velocityDiff = rb.linearVelocity.magnitude - speed;
                 rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
         }
@@ -99,6 +101,11 @@ namespace Balltallion
             });
             
             rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionPower / velocityLastFixedUpdate.magnitude;
+            float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
+            if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
+            {
+                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce;
+            }
         }
 
         private void ProcessBallCollision(Collision2D collision, BallBody otherBall)
@@ -145,21 +152,11 @@ namespace Balltallion
 
         private void AdjustVelocityPostCollision()
         {
-            float angleX = GetAngleFromHorizontal(rb.linearVelocity);
-            float angleY = GetAngleFromVertical(rb.linearVelocity);
-            
-            float adjustAmount = 0.0f;
-            if (angleX < minCollisionAngleX) adjustAmount = minCollisionAngleX - angleX;
-            else if (angleY < minCollisionAngleY) adjustAmount = minCollisionAngleY - angleY;
-            
-            bool xPositive = rb.linearVelocity.x > 0.0f;
-            bool yPositive = rb.linearVelocity.y > 0.0f;
-            bool yGreater = rb.linearVelocity.y > rb.linearVelocity.x;
-            bool adjustClockwise = xPositive ^ yPositive ^ yGreater; // This symbol is XOR
-            if (adjustClockwise) adjustAmount *= -1.0f;
-            
-            rb.linearVelocity = Quaternion.Euler(0.0f, 0.0f, adjustAmount) * rb.linearVelocity;
-            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, maxVelocity);
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, globalPhysicsData.maxVelocity);
+            if (Mathf.Abs(rb.linearVelocityX) < globalPhysicsData.minVelocityXAfterCollision)
+            {
+                rb.linearVelocityX = globalPhysicsData.minVelocityXAfterCollision * Mathf.Sign(rb.linearVelocityX);
+            }
         }
         private float GetAngleFromHorizontal(Vector2 dir)
         {

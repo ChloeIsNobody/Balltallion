@@ -1521,15 +1521,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.7
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1574,7 +1574,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: e6f4c3d34b99f9d449e9ccf32407a4fe, type: 3}
+      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -1633,15 +1633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Mass
-      value: 0.16
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
-      value: 1.3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Small Ball
+      value: Normal Ball
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Layer
@@ -1651,6 +1651,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: ballData
+      value: 
+      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 
@@ -1821,7 +1825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1736475383
 Transform:
   m_ObjectHideFlags: 0
@@ -2210,15 +2214,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.33
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.33
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.33
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 244566083526506897, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2263,7 +2267,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 437b22599aceb294da5be721ddafc647, type: 3}
+      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -2314,16 +2318,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Mass
-      value: 1.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4984856718394615251, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_GravityScale
-      value: 1.4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Big Ball
+      value: Normal Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: ballData
+      value: 
+      objectReference: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 

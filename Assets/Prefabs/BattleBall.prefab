@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859e44b0c1ef36743a3fdf07a5fa90a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
-  ballStats: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+  ballData: {fileID: 0}
   ballSpriteRenderer: {fileID: 1239046737287715538}
   debugLogToConsole: 0
 --- !u!114 &1537891911829373851
@@ -187,12 +187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
+  globalPhysicsData: {fileID: 11400000, guid: b2cdf9ac4d377134eac99ee5c05dff60, type: 2}
   targetVelocity: 12.5
-  maxVelocity: 50
   linearDamping: 0.5
   bounciness: 1.05
-  minCollisionAngleX: 10
-  minCollisionAngleY: 17
   debugDraw: 0
   debugDrawColor: {r: 0.30980393, g: 0.6, b: 0.92549026, a: 1}
   wallLayerMask:

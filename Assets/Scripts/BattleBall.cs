@@ -5,7 +5,7 @@ namespace Balltallion
 {
     public class BattleBall : MonoBehaviour
     {
-        [SerializeField, Expandable] private BallStatsSO ballStats;
+        [SerializeField, Expandable] private BallDataSO ballData;
         [SerializeField] private SpriteRenderer ballSpriteRenderer;
         [SerializeField] private bool debugLogToConsole = false;
         
@@ -16,25 +16,25 @@ namespace Balltallion
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
-            if (ballStats) LoadBallStats(ballStats);
+            if (ballData) LoadBallStats(ballData);
         }
 
         [Button("Editor Refresh Stats")]
         private void EditorLoadStats()
         {
-            if (ballStats != null) LoadBallStats(ballStats);
+            if (ballData != null) LoadBallStats(ballData);
         }
 
-        private void LoadBallStats(BallStatsSO ballStats)
+        private void LoadBallStats(BallDataSO ballData)
         {
-            this.ballStats = ballStats;
-            health = ballStats.maxHealth;
+            this.ballData = ballData;
+            health = ballData.maxHealth;
             
-            name = ballStats.displayName;
-            ballSpriteRenderer.sprite = ballStats.ballSprite;
+            name = ballData.displayName;
+            ballSpriteRenderer.sprite = ballData.ballSprite;
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallStats(ballStats);
+            ballBody.LoadBallStats(ballData);
         }
         
         private void OnEnable()
@@ -75,7 +75,7 @@ namespace Balltallion
         }
         
         public float GetHealth() => health;
-        public float GetMaxHealth() => ballStats.maxHealth;
+        public float GetMaxHealth() => ballData.maxHealth;
 
         private void OnBounce(BallCollisionData data)
         {
@@ -90,11 +90,11 @@ namespace Balltallion
             AttackData attackData = new AttackData();
             attackData.source = this;
             
-            if (ballStats.velocityScaledContactDamage)
+            if (ballData.velocityScaledContactDamage)
             {
-                attackData.damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
+                attackData.damage = ballData.GetVelocityScaledDamage(data.collisionPower);
             }
-            else attackData.damage = ballStats.contactDamage;
+            else attackData.damage = ballData.contactDamage;
             
             otherBall.Attack(attackData);
             
@@ -102,6 +102,6 @@ namespace Balltallion
         }
         
         public Sprite GetSprite() => ballSpriteRenderer.sprite;
-        public Color GetColor() => ballStats.debugColor;
+        public Color GetColor() => ballData.debugColor;
     }
 }
