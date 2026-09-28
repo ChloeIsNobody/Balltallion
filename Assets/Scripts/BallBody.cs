@@ -11,9 +11,10 @@ namespace Balltallion
         public event Action<BallCollisionData> OnBallCollision;
 
         [Header("Physics Settings")]
-        [SerializeField, Range(0.0f, 1.0f)] private float linearDamping;
         [SerializeField, Range(0.0f, 100.0f)] private float targetVelocity;
         [SerializeField, Range(0.0f, 100.0f)] private float maxVelocity;
+        [SerializeField, Range(0.0f, 1.0f)] private float linearDamping;
+        [SerializeField, Range(0.8f, 2.0f)] private float bounciness = 1.0f;
         [SerializeField, Range(0.0f, 25.0f)] private float minCollisionAngleX;
         [SerializeField, Range(0.0f, 25.0f)] private float minCollisionAngleY;
 
@@ -59,7 +60,7 @@ namespace Balltallion
                 rb.linearVelocity = rb.linearVelocity.normalized * maxVelocity;
             }
             
-            // Linear Damping
+            // Linear Damping down to target velocity
             if (rb.linearVelocity.magnitude > targetVelocity)
             {
                 float velocityDiff = rb.linearVelocity.magnitude - targetVelocity;
@@ -87,15 +88,17 @@ namespace Balltallion
         private void ProcessWallCollision(Collision2D collision)
         {
             ContactPoint2D contact = collision.GetContact(0);
-            float collisionPowerA = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
+            float collisionPower = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
             
             OnBounce?.Invoke(new BallCollisionData
             {
                 otherBall = null,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
-                collisionPower = collisionPowerA
+                collisionPower = collisionPower
             });
+            
+            rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionPower / velocityLastFixedUpdate.magnitude;
         }
 
         private void ProcessBallCollision(Collision2D collision, BallBody otherBall)
@@ -120,8 +123,6 @@ namespace Balltallion
             });
             
             AdjustVelocityPostCollision();
-            
-            
                     
             if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f, debugDrawColor);
         }

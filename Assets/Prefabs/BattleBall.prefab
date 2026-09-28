@@ -187,10 +187,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a2d3945ce2e22248b20823251ff41bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
-  linearDamping: 1
-  targetVelocity: 10
-  minVelocityPostCollision: 5.5
+  targetVelocity: 12.5
   maxVelocity: 50
+  linearDamping: 0.5
+  bounciness: 1.05
   minCollisionAngleX: 10
   minCollisionAngleY: 17
   debugDraw: 0
@@ -203,7 +203,6 @@ MonoBehaviour:
     m_Bits: 384
   startAngleBase: 0
   startAngleVariation: 0
-  startForce: 0
 --- !u!50 &4984856718394615251
 Rigidbody2D:
   serializedVersion: 5
