@@ -71,7 +71,8 @@ namespace Balltallion.BallSimulation
         private void OnCollision(BallCollisionData collisionData)
         {
             collisionSpring.Reset();
-            collisionSpring.NudgeVelocity(collisionData.collisionPower * springPowerAdjustment);
+            //collisionSpring.NudgeVelocity(collisionData.collisionPower * springPowerAdjustment);
+            collisionSpring.SetPosition(1.0f + springPowerAdjustment* collisionData.relativeCollisionPower);
             
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
             material.SetFloat("_Stretch2Angle", stretchAngle);

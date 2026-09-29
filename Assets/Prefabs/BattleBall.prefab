@@ -142,9 +142,9 @@ MonoBehaviour:
   velocityRange: {x: 3, y: 25}
   velocityStretchRange: {x: 1, y: 1.235}
   velocityStretchExponent: 1
-  springPowerAdjustment: 0.08
-  springStiffness: 0.597
-  springDamping: 0.294
+  springPowerAdjustment: 0.68
+  springStiffness: 0.697
+  springDamping: 0.231
 --- !u!1 &6194298661798478868
 GameObject:
   m_ObjectHideFlags: 0
