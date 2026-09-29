@@ -20,8 +20,8 @@ MonoBehaviour:
   velocityScaledContactDamage: 1
   velocityScalingRange: {x: 4, y: 32}
   contactDamageRange: {x: 2, y: 15}
-  size: 0.7
-  mass: 0.16
+  size: 0.75
+  mass: 0.22
   gravityScale: 1.3
   speed: 11
   bounciness: 1.06
