@@ -55,6 +55,8 @@ Material:
     m_Floats:
     - _Angle: 266
     - _EnableExternalAlpha: 0
+    - _ScrollAngle: 212
+    - _ScrollSpeed: 0.015
     - _ZWrite: 0
     m_Colors:
     - White: {r: 1, g: 1, b: 1, a: 1}

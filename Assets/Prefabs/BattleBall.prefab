@@ -101,6 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561035228263194426}
+  - component: {fileID: 7655324653996296180}
   m_Layer: 0
   m_Name: BallVisual
   m_TagString: Untagged
@@ -124,6 +125,26 @@ Transform:
   - {fileID: 5321748417258131891}
   m_Father: {fileID: 244566083526506897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7655324653996296180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424001685075068813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7205c4bc726a41a680c3530cbe8f0265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallSimulation.BallAnimator
+  ballBody: {fileID: 1537891911829373851}
+  spriteRenderer: {fileID: 1239046737287715538}
+  velocityRange: {x: 3, y: 25}
+  velocityStretchRange: {x: 1, y: 1.235}
+  velocityStretchExponent: 1
+  springPowerAdjustment: 0.08
+  springStiffness: 0.597
+  springDamping: 0.294
 --- !u!1 &6194298661798478868
 GameObject:
   m_ObjectHideFlags: 0
