@@ -24,8 +24,7 @@ namespace Balltallion.BallSimulation
         private void Awake()
         {
             material = spriteRenderer.material;
-            collisionSpring = new Spring(springStiffness, springDamping);
-            collisionSpring.SetGoalPosition(1.0f);
+            collisionSpring = new Spring(springStiffness, springDamping, 1.0f);
             collisionSpring.Reset();
         }
 

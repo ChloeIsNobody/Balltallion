@@ -3,18 +3,24 @@ namespace Balltallion.BallSimulation
 {
     public class Spring
     {
-        private float stiffness = 0.2f;
-        private float damping = 0.2f;
-        private float dampingCoefficient = 0.2f;
+        private float stiffness;
+        private float damping;
+        private float dampingCoefficient;
 
-        private float position = 0.0f;
-        private float goalPosition = 0.0f;
-        private float velocity = 0.0f;
-        private float acceleration = 0.0f;
+        private float position;
+        private float goalPosition;
+        private float velocity;
+        private float acceleration;
+        
+        private float lowerLimit;
+        private float upperLimit;
 
-        public Spring(float stiffness=0.2f, float damping=0.2f) {
+        public Spring(float stiffness=0.2f, float damping=0.2f, float goalPosition=0.0f, float lowerLimit=-1.0f, float upperLimit=1.0f) {
             this.stiffness = stiffness;
             this.damping = damping;
+            this.goalPosition = goalPosition;
+            this.upperLimit = upperLimit;
+            this.lowerLimit = lowerLimit;
             RecalulateDampingCoefficient();
         }
 
@@ -24,6 +30,19 @@ namespace Balltallion.BallSimulation
 
             velocity += 30.0f*acceleration*delta;
             position += 30.0f*velocity*delta;
+            
+            if (position < lowerLimit && velocity < 0.0f)
+            {
+                position = lowerLimit;
+                velocity *= -1.0f;
+            }
+
+            if (position > upperLimit && velocity > 0.0f)
+            {
+                position = upperLimit;
+                velocity *= -1.0f;
+            }
+            
             acceleration = 0.0f;
         }
 
