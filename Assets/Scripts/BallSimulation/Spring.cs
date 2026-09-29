@@ -31,16 +31,16 @@ namespace Balltallion.BallSimulation
             velocity += 30.0f*acceleration*delta;
             position += 30.0f*velocity*delta;
             
-            if (position < lowerLimit && velocity < 0.0f)
+            if (position < lowerLimit)
             {
                 position = lowerLimit;
-                velocity *= -1.0f;
+                if (velocity < 0.0f) velocity *= -1.0f;
             }
 
-            if (position > upperLimit && velocity > 0.0f)
+            if (position > upperLimit)
             {
                 position = upperLimit;
-                velocity *= -1.0f;
+                if (velocity > 0.0f) velocity *= -1.0f;
             }
             
             acceleration = 0.0f;

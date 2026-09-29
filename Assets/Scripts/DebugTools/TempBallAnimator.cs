@@ -12,38 +12,51 @@ namespace Balltallion.DebugTools
 
         [SerializeField, Range(-10.0f, 10.0f)] private float nudgeValue = 1.0f;
         
-        private Spring animSpring;
+        private Spring animSpringX;
+        private Spring animSpringY;
         private Material material;
 
         private void OnValidate()
         {
-            if (animSpring != null)
+            if (animSpringX != null)
             {
-                animSpring.SetStiffness(springStiffness);
-                animSpring.SetDamping(springDamping);
+                animSpringX.SetStiffness(springStiffness);
+                animSpringX.SetDamping(springDamping);
+            }
+            
+            if (animSpringY != null)
+            {
+                animSpringY.SetStiffness(springStiffness);
+                animSpringY.SetDamping(springDamping);
             }
         }
         
         private void Awake()
         {
             material = spriteRenderer.material;
-            animSpring = new Spring(springStiffness, springDamping, 1.0f, 0.5f, 2.0f);
-            animSpring.Reset();
+            
+            animSpringX = new Spring(springStiffness, springDamping, 1.0f, 0.5f, 2.0f);
+            animSpringX.Reset();
+            
+            animSpringY = new Spring(springStiffness, springDamping, 1.0f, 0.5f, 2.0f);
+            animSpringY.Reset();
         }
 
         private void Update()
         {
             if (Keyboard.current.spaceKey.wasPressedThisFrame)
             {
-                animSpring.NudgeVelocity(nudgeValue);
+                animSpringX.NudgeVelocity(-nudgeValue);
+                animSpringY.NudgeVelocity(nudgeValue);
             }
         }
 
         private void FixedUpdate()
         {
-            animSpring.Update(Time.fixedDeltaTime);
-            material.SetFloat("_Stretch3X", 1.0f/animSpring.GetPosition());
-            material.SetFloat("_Stretch3Y", animSpring.GetPosition());
+            animSpringX.Update(Time.fixedDeltaTime);
+            animSpringY.Update(Time.fixedDeltaTime);
+            material.SetFloat("_Stretch3X", animSpringX.GetPosition());
+            material.SetFloat("_Stretch3Y", animSpringY.GetPosition());
         }
     }
 }

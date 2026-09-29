@@ -14,18 +14,23 @@ namespace Balltallion.BallSimulation
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
 
         [Header("Collision Squash & Stretch")]
-        [SerializeField, Range(0.0f, 10.0f)] private float springPowerAdjustment = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerX = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerY = 1.0f;
         [SerializeField, Range(0.0f, 1.0f)] private float springStiffness = 0.2f;
         [SerializeField, Range(0.0f, 1.0f)] private float springDamping = 0.2f;
         
         private Material material;
-        private Spring collisionSpring;
+        private Spring springX;
+        private Spring springY;
 
         private void Awake()
         {
             material = spriteRenderer.material;
-            collisionSpring = new Spring(springStiffness, springDamping, 1.0f);
-            collisionSpring.Reset();
+            springX = new Spring(springStiffness, springDamping, 1.0f, 0.25f, 2.0f);
+            springX.Reset();
+            
+            springY = new Spring(springStiffness, springDamping, 1.0f, 0.25f, 2.0f);
+            springY.Reset();
         }
 
         private void OnEnable()
@@ -48,9 +53,10 @@ namespace Balltallion.BallSimulation
 
         private void FixedUpdate()
         {
-            collisionSpring.Update(Time.fixedDeltaTime);
-            material.SetFloat("_Stretch2X", 1.0f/collisionSpring.GetPosition());
-            material.SetFloat("_Stretch2Y", collisionSpring.GetPosition());
+            springX.Update(Time.fixedDeltaTime);
+            springY.Update(Time.fixedDeltaTime);
+            material.SetFloat("_Stretch2X", springX.GetPosition());
+            material.SetFloat("_Stretch2Y", springY.GetPosition());
         }
         
         private void VelocityStretching()
@@ -69,9 +75,10 @@ namespace Balltallion.BallSimulation
 
         private void OnCollision(BallCollisionData collisionData)
         {
-            collisionSpring.Reset();
-            //collisionSpring.NudgeVelocity(collisionData.collisionPower * springPowerAdjustment);
-            collisionSpring.SetPosition(1.0f + springPowerAdjustment* collisionData.relativeCollisionPower);
+            springX.Reset();
+            springY.Reset();
+            springX.SetPosition(1.0f - collisionPowerX * collisionData.relativeCollisionPower);
+            springY.NudgeVelocity(collisionPowerY * collisionData.relativeCollisionPower);
             
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
             material.SetFloat("_Stretch2Angle", stretchAngle);
