@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3a16413c8807d3e4fbc0efc2050c157b
+guid: 6ced025257b21ba439a0555f64f64b0e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6083499493952701699
-    second: IMG_0248_0
+      213: 7190065512900407654
+    second: KnightBall_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -48,7 +48,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 256
@@ -115,11 +115,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IMG_0248_0
+      name: KnightBall_0
       rect:
         serializedVersion: 2
-        x: 21
-        y: 2
+        x: 70
+        y: 71
         width: 259
         height: 313
       alignment: 0
@@ -130,8 +130,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 305c158de8eec6450800000000000000
-      internalID: 6083499493952701699
+      spriteID: 66137384d7e38c360800000000000000
+      internalID: 7190065512900407654
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      IMG_0248_0: 6083499493952701699
+      KnightBall_0: 7190065512900407654
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
