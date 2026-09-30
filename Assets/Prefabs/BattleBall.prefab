@@ -139,12 +139,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallSimulation.BallAnimator
   ballBody: {fileID: 1537891911829373851}
   spriteRenderer: {fileID: 1239046737287715538}
-  velocityRange: {x: 3, y: 25}
+  enableVelocityStretching: 1
+  velocityRange: {x: 3, y: 22.5}
   velocityStretchRange: {x: 1, y: 1.235}
   velocityStretchExponent: 1
-  collisionPowerX: 0.69
+  enableCollisionStretching: 1
+  collisionPowerX: 0.39
   collisionPowerY: 0.17
-  springStiffness: 0.111
+  springStiffness: 0.284
   springDamping: 0.404
 --- !u!1 &6194298661798478868
 GameObject:

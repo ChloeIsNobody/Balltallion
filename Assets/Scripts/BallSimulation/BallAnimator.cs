@@ -7,13 +7,15 @@ namespace Balltallion.BallSimulation
     {
         [SerializeField] private BallBody ballBody;
         [SerializeField] private SpriteRenderer spriteRenderer;
-        
-        [Header("Velocity Squash & Stretch")]
+
+        [Header("Velocity Squash & Stretch")] 
+        [SerializeField] private bool enableVelocityStretching;
         [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 velocityRange;
         [SerializeField, MinMaxSlider(0.0f, 3.0f)] private Vector2 velocityStretchRange;
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
 
         [Header("Collision Squash & Stretch")]
+        [SerializeField] private bool enableCollisionStretching;
         [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerX = 1.0f;
         [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerY = 1.0f;
         [SerializeField, Range(0.0f, 1.0f)] private float springStiffness = 0.2f;
@@ -47,14 +49,10 @@ namespace Balltallion.BallSimulation
 
         private void Update()
         {
-            VelocityStretching();
-            
-        }
+            if (enableVelocityStretching) VelocityStretching();
 
-        private void FixedUpdate()
-        {
-            springX.Update(Time.fixedDeltaTime);
-            springY.Update(Time.fixedDeltaTime);
+            springX.Update(Time.deltaTime);
+            springY.Update(Time.deltaTime);
             material.SetFloat("_Stretch2X", springX.GetPosition());
             material.SetFloat("_Stretch2Y", springY.GetPosition());
         }
@@ -75,9 +73,11 @@ namespace Balltallion.BallSimulation
 
         private void OnCollision(BallCollisionData collisionData)
         {
+            if (!enableCollisionStretching) return;
+            
             springX.Reset();
             springY.Reset();
-            springX.SetPosition(1.0f - collisionPowerX * collisionData.relativeCollisionPower);
+            springX.NudgeVelocity(-collisionPowerX * collisionData.relativeCollisionPower);
             springY.NudgeVelocity(collisionPowerY * collisionData.relativeCollisionPower);
             
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
