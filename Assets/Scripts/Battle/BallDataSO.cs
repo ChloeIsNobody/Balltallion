@@ -2,14 +2,15 @@ using System;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Battle
 {
-    [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallStats")]
-    public class BallStatsSO : ScriptableObject
+    [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallData")]
+    public class BallDataSO : ScriptableObject
     {
         [Header("Display Info")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public string displayName = "Ball";
+        [SerializeField] public Color debugColor = Color.white;
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
         
         
@@ -27,10 +28,15 @@ namespace Balltallion
         [SerializeField, Range(0.05f, 5.0f)] public float size = 1.0f;
         [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
+        
+        [Space]
+        [SerializeField, Range(0.0f, 100.0f)] public float speed;
+        [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.0f;
+        [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
         public int GetVelocityScaledDamage(float velocity)
         {
-            if (velocity < velocityScalingRange.x) return 0;
+            if (velocity < velocityScalingRange.x) return contactDamage;
             float t = Mathf.InverseLerp(velocityScalingRange.x, velocityScalingRange.y, velocity);
             t = Mathf.Clamp01(t);
             float damage = Mathf.Lerp(contactDamageRange.x, contactDamageRange.y, t);

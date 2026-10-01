@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using Balltallion.Battle;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -10,10 +11,10 @@ using Object = UnityEngine.Object;
  */
 namespace Balltallion.Editor
 {
-    [CustomEditor(typeof(BallStatsSO))]
+    [CustomEditor(typeof(BallDataSO))]
     public class BallStatsSOEditor : UnityEditor.Editor
     {
-        private BallStatsSO item { get { return target as BallStatsSO; } }
+        private BallDataSO item { get { return target as BallDataSO; } }
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {

@@ -1,11 +1,12 @@
+using Balltallion.BallSimulation;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Battle
 {
     public class BattleBall : MonoBehaviour
     {
-        [SerializeField, Expandable] private BallStatsSO ballStats;
+        [SerializeField, Expandable] private BallDataSO ballData;
         [SerializeField] private SpriteRenderer ballSpriteRenderer;
         [SerializeField] private bool debugLogToConsole = false;
         
@@ -16,25 +17,25 @@ namespace Balltallion
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
-            if (ballStats) LoadBallStats(ballStats);
+            if (ballData) LoadBallStats(ballData);
         }
 
         [Button("Editor Refresh Stats")]
         private void EditorLoadStats()
         {
-            if (ballStats != null) LoadBallStats(ballStats);
+            if (ballData != null) LoadBallStats(ballData);
         }
 
-        private void LoadBallStats(BallStatsSO ballStats)
+        private void LoadBallStats(BallDataSO ballData)
         {
-            this.ballStats = ballStats;
-            health = ballStats.maxHealth;
+            this.ballData = ballData;
+            health = ballData.maxHealth;
             
-            name = ballStats.displayName;
-            ballSpriteRenderer.sprite = ballStats.ballSprite;
+            name = ballData.displayName;
+            ballSpriteRenderer.sprite = ballData.ballSprite;
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallStats(ballStats);
+            ballBody.LoadBallStats(ballData);
         }
         
         private void OnEnable()
@@ -49,15 +50,22 @@ namespace Balltallion
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
-        public void TakeDamage(int damage)
+        public void Attack(AttackData attackData)
+        {
+            TakeDamage(attackData.damage);
+            ballBody.ApplyKnockback(attackData.knockback);
+            
+            if (attackData.damage > 0 )
+            {
+                Color color = attackData.source ? attackData.source.GetColor() : Color.white;
+                ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, attackData.damage, color);
+            }
+        }
+
+        private void TakeDamage(int damage)
         {
             if (damage <= 0) return;
-            
             health -= damage;
-            
-            string damageText = damage.ToString();
-            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damageText, Color.white);
-            
             if (health <= 0) Die();
         }
 
@@ -68,7 +76,7 @@ namespace Balltallion
         }
         
         public float GetHealth() => health;
-        public float GetMaxHealth() => ballStats.maxHealth;
+        public float GetMaxHealth() => ballData.maxHealth;
 
         private void OnBounce(BallCollisionData data)
         {
@@ -79,16 +87,22 @@ namespace Balltallion
         {
             BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
             if (!otherBall) return;
-
-            int damage;
-            if (ballStats.velocityScaledContactDamage) damage = ballStats.GetVelocityScaledDamage(data.collisionPower);
-            else damage = ballStats.contactDamage;
             
-            if (damage >= 0) otherBall.TakeDamage(damage);
+            AttackData attackData = new AttackData();
+            attackData.source = this;
             
-            if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {damage} damage!");
+            if (ballData.velocityScaledContactDamage)
+            {
+                attackData.damage = ballData.GetVelocityScaledDamage(data.collisionPower);
+            }
+            else attackData.damage = ballData.contactDamage;
+            
+            otherBall.Attack(attackData);
+            
+            if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
         public Sprite GetSprite() => ballSpriteRenderer.sprite;
+        public Color GetColor() => ballData.debugColor;
     }
 }

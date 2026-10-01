@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.DebugTools
 {
     public class DebugPanel : MonoBehaviour
     {
@@ -29,6 +29,15 @@ namespace Balltallion
         {
             debugTexts[index].text = $"{title}: {value}";
             debugTexts[index].gameObject.SetActive(true);
+        }
+
+        public void ResetDebugLabels()
+        {
+            foreach (TextMeshProUGUI text in debugTexts)
+            {
+                text.gameObject.SetActive(false);
+                text.text = "";
+            }
         }
     }
 }
