@@ -100,13 +100,11 @@ namespace Balltallion.BallSimulation
             if (!enableCollisionStretching) return;
             
             float animationPower = GetAnimationPower(collisionData);
-            Debug.Log(animationPower);
-            if (animationPower > 0.0f)
-            {
-                springX.Reset();
-                springY.Reset();
-            }
+            Debug.Log($"{animationPower:F2}");
+            if (animationPower <= 0.0f) return;
             
+            springX.Reset();
+            springY.Reset();
             springX.SetPosition(1.0f - animationPower);
             springY.NudgeVelocity(animationPower);
             
@@ -119,6 +117,7 @@ namespace Balltallion.BallSimulation
         private float GetAnimationPower(BallCollisionData collisionData)
         {
             float t = Mathf.InverseLerp(animationPowerMappingIn.x, animationPowerMappingIn.y, collisionData.collisionPower);
+            t /= springX.GetMass();
             if (t <= 0.0f) return 0.0f;
             return Mathf.Lerp(animationPowerMappingOut.x, animationPowerMappingOut.y, t);
         }

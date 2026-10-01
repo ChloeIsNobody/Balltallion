@@ -90,7 +90,7 @@ namespace Balltallion.Battle
 
         private void OnBallCollision(BallCollisionData data)
         {
-            BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
+            BattleBall otherBall = data.otherBall?.GetComponent<BattleBall>();
             if (!otherBall) return;
             
             AttackData attackData = new AttackData();

@@ -141,12 +141,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1239046737287715538}
   enableVelocityStretching: 1
   velocityRange: {x: 3, y: 22.5}
-  velocityStretchRange: {x: 1, y: 1.235}
-  velocityStretchExponent: 1
+  velocityStretchRange: {x: 1, y: 1.25}
+  velocityStretchExponent: 0.8
   collisionFactorRestoreRate: 0.38
   enableCollisionStretching: 1
   animationPowerMappingIn: {x: 3, y: 18}
-  animationPowerMappingOut: {x: 0.09, y: 0.35}
+  animationPowerMappingOut: {x: 0.09, y: 0.3}
   springStiffness: 0.34
   springDamping: 0.309
 --- !u!1 &6194298661798478868

@@ -141,6 +141,14 @@ namespace Balltallion.BallSimulation
         {
             rb.AddForce(knockback, ForceMode2D.Impulse);
             AdjustVelocityPostCollision();
+            
+            OnBounce?.Invoke(new BallCollisionData
+            {
+                otherBall = null,
+                contactPoint = rb.position,
+                contactNormal = knockback.normalized,
+                collisionPower = knockback.magnitude,
+            });
         }
         
         private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)
