@@ -143,9 +143,10 @@ MonoBehaviour:
   velocityRange: {x: 3, y: 22.5}
   velocityStretchRange: {x: 1, y: 1.235}
   velocityStretchExponent: 1
+  velocityRestoreRate: 3.8
   enableCollisionStretching: 1
-  collisionPowerX: 0.39
-  collisionPowerY: 0.17
+  collisionPowerX: 0.25
+  collisionPowerY: 0.25
   springStiffness: 0.284
   springDamping: 0.404
 --- !u!1 &6194298661798478868

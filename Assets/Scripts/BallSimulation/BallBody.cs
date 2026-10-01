@@ -69,6 +69,8 @@ namespace Balltallion.BallSimulation
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
                 rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
+            
+            
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

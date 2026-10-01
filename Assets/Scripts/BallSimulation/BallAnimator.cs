@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using Balltallion.DebugTools;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Balltallion.BallSimulation
@@ -13,6 +14,7 @@ namespace Balltallion.BallSimulation
         [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 velocityRange;
         [SerializeField, MinMaxSlider(0.0f, 3.0f)] private Vector2 velocityStretchRange;
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
+        [SerializeField, Range(0.0f, 30.0f)] private float velocityRestoreRate = 0.05f;
 
         [Header("Collision Squash & Stretch")]
         [SerializeField] private bool enableCollisionStretching;
@@ -25,6 +27,8 @@ namespace Balltallion.BallSimulation
         private Spring springX;
         private Spring springY;
 
+        private float velocityStretchFactor;
+
         private void Awake()
         {
             material = spriteRenderer.material;
@@ -33,6 +37,8 @@ namespace Balltallion.BallSimulation
             
             springY = new Spring(springStiffness, springDamping, 1.0f, 0.25f, 2.0f);
             springY.Reset();
+            
+            velocityStretchFactor = 1.0f;
         }
 
         private void OnEnable()
@@ -49,7 +55,11 @@ namespace Balltallion.BallSimulation
 
         private void Update()
         {
-            if (enableVelocityStretching) VelocityStretching();
+            if (enableVelocityStretching)
+            {
+                VelocityStretching();
+                velocityStretchFactor = Mathf.Clamp01(velocityStretchFactor + Time.deltaTime * velocityRestoreRate);
+            }
 
             springX.Update(Time.deltaTime);
             springY.Update(Time.deltaTime);
@@ -62,7 +72,7 @@ namespace Balltallion.BallSimulation
             Vector2 velocity = ballBody.GetVelocity();
             float t = Mathf.InverseLerp(velocityRange.x, velocityRange.y, velocity.magnitude);
             t = Mathf.Pow(t, velocityStretchExponent);
-            float stretch = Mathf.Lerp(velocityStretchRange.x, velocityStretchRange.y, t);
+            float stretch = Mathf.Lerp(velocityStretchRange.x, velocityStretchRange.y, t * velocityStretchFactor);
             
             float stretchAngle = -Vector2.SignedAngle(velocity, Vector2.right);
             
@@ -77,11 +87,13 @@ namespace Balltallion.BallSimulation
             
             springX.Reset();
             springY.Reset();
-            springX.NudgeVelocity(-collisionPowerX * collisionData.relativeCollisionPower);
+            springX.SetPosition(1.0f - collisionPowerX * collisionData.relativeCollisionPower);
             springY.NudgeVelocity(collisionPowerY * collisionData.relativeCollisionPower);
             
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
             material.SetFloat("_Stretch2Angle", stretchAngle);
+            
+            velocityStretchFactor = 0.0f;
         }
     }
 }
