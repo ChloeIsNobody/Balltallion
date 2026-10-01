@@ -14,20 +14,20 @@ namespace Balltallion.BallSimulation
         [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 velocityRange;
         [SerializeField, MinMaxSlider(0.0f, 3.0f)] private Vector2 velocityStretchRange;
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
-        [SerializeField, Range(0.0f, 30.0f)] private float velocityRestoreRate = 0.05f;
+        [SerializeField, Range(0.0f, 30.0f)] private float collisionFactorRestoreRate = 0.05f;
 
         [Header("Collision Squash & Stretch")]
         [SerializeField] private bool enableCollisionStretching;
         [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerX = 1.0f;
         [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerY = 1.0f;
-        [SerializeField, Range(0.0f, 1.0f)] private float springStiffness = 0.2f;
+        [SerializeField, Range(0.0f, 3.0f)] private float springStiffness = 0.2f;
         [SerializeField, Range(0.0f, 1.0f)] private float springDamping = 0.2f;
         
         private Material material;
         private Spring springX;
         private Spring springY;
 
-        private float velocityStretchFactor;
+        private float collisionFactor;
 
         private void Awake()
         {
@@ -38,7 +38,7 @@ namespace Balltallion.BallSimulation
             springY = new Spring(springStiffness, springDamping, 1.0f, 0.25f, 2.0f);
             springY.Reset();
             
-            velocityStretchFactor = 1.0f;
+            collisionFactor = 1.0f;
         }
 
         private void OnEnable()
@@ -58,13 +58,14 @@ namespace Balltallion.BallSimulation
             if (enableVelocityStretching)
             {
                 VelocityStretching();
-                velocityStretchFactor = Mathf.Clamp01(velocityStretchFactor + Time.deltaTime * velocityRestoreRate);
+                collisionFactor = Mathf.Clamp01(collisionFactor + Time.deltaTime * collisionFactorRestoreRate);
             }
 
             springX.Update(Time.deltaTime);
             springY.Update(Time.deltaTime);
             material.SetFloat("_Stretch2X", springX.GetPosition());
             material.SetFloat("_Stretch2Y", springY.GetPosition());
+            material.SetFloat("_Stretch2Displacement", collisionFactor);
         }
         
         private void VelocityStretching()
@@ -72,7 +73,7 @@ namespace Balltallion.BallSimulation
             Vector2 velocity = ballBody.GetVelocity();
             float t = Mathf.InverseLerp(velocityRange.x, velocityRange.y, velocity.magnitude);
             t = Mathf.Pow(t, velocityStretchExponent);
-            float stretch = Mathf.Lerp(velocityStretchRange.x, velocityStretchRange.y, t * velocityStretchFactor);
+            float stretch = Mathf.Lerp(velocityStretchRange.x, velocityStretchRange.y, t * collisionFactor);
             
             float stretchAngle = -Vector2.SignedAngle(velocity, Vector2.right);
             
@@ -93,7 +94,7 @@ namespace Balltallion.BallSimulation
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
             material.SetFloat("_Stretch2Angle", stretchAngle);
             
-            velocityStretchFactor = 0.0f;
+            collisionFactor = 0.0f;
         }
     }
 }
