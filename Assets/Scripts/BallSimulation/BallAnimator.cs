@@ -18,8 +18,8 @@ namespace Balltallion.BallSimulation
 
         [Header("Collision Squash & Stretch")]
         [SerializeField] private bool enableCollisionStretching;
-        [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerX = 1.0f;
-        [SerializeField, Range(0.0f, 2.0f)] private float collisionPowerY = 1.0f;
+        [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 animationPowerMappingIn;
+        [SerializeField, MinMaxSlider(0.0f, 1.0f)] private Vector2 animationPowerMappingOut;
         [SerializeField, Range(0.0f, 3.0f)] private float springStiffness = 0.2f;
         [SerializeField, Range(0.0f, 1.0f)] private float springDamping = 0.2f;
         
@@ -40,6 +40,19 @@ namespace Balltallion.BallSimulation
             
             collisionFactor = 1.0f;
         }
+
+        public void SetSpringData(float mass)
+        {
+            if (springX == null || springY == null) return;
+            // springX.SetStiffness(stiffness);
+            // springY.SetStiffness(stiffness);
+            // springX.SetDamping(damping);
+            // springY.SetDamping(damping);
+            springX.SetMass(mass);
+            springY.SetMass(mass);
+        }
+        
+        public void SetSprite(Sprite sprite) => spriteRenderer.sprite = sprite;
 
         private void OnEnable()
         {
@@ -86,15 +99,28 @@ namespace Balltallion.BallSimulation
         {
             if (!enableCollisionStretching) return;
             
-            springX.Reset();
-            springY.Reset();
-            springX.SetPosition(1.0f - collisionPowerX * collisionData.relativeCollisionPower);
-            springY.NudgeVelocity(collisionPowerY * collisionData.relativeCollisionPower);
+            float animationPower = GetAnimationPower(collisionData);
+            Debug.Log(animationPower);
+            if (animationPower > 0.0f)
+            {
+                springX.Reset();
+                springY.Reset();
+            }
+            
+            springX.SetPosition(1.0f - animationPower);
+            springY.NudgeVelocity(animationPower);
             
             float stretchAngle = -Vector2.SignedAngle(collisionData.contactNormal, Vector2.right);
             material.SetFloat("_Stretch2Angle", stretchAngle);
             
             collisionFactor = 0.0f;
+        }
+
+        private float GetAnimationPower(BallCollisionData collisionData)
+        {
+            float t = Mathf.InverseLerp(animationPowerMappingIn.x, animationPowerMappingIn.y, collisionData.collisionPower);
+            if (t <= 0.0f) return 0.0f;
+            return Mathf.Lerp(animationPowerMappingOut.x, animationPowerMappingOut.y, t);
         }
     }
 }

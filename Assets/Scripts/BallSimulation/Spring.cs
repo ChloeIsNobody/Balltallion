@@ -14,6 +14,7 @@ namespace Balltallion.BallSimulation
         
         private float lowerLimit;
         private float upperLimit;
+        private float mass = 1.0f;
 
         public Spring(float stiffness=0.2f, float damping=0.2f, float goalPosition=0.0f, float lowerLimit=-1.0f, float upperLimit=1.0f) {
             this.stiffness = stiffness;
@@ -47,7 +48,7 @@ namespace Balltallion.BallSimulation
         }
 
         public void ApplyForce(float force) {
-            acceleration += force;
+            acceleration += force/mass;
         }
 
         public void NudgeVelocity(float amount) {
@@ -80,5 +81,8 @@ namespace Balltallion.BallSimulation
         public void SetVelocity(float newVelocity) => velocity = newVelocity;
 
         public float GetAcceleration() => acceleration;
+        
+        public float GetMass() => mass;
+        public void SetMass(float newMass) => mass = newMass;
     }
 }

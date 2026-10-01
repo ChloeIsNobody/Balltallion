@@ -94,6 +94,7 @@ namespace Balltallion.BallSimulation
         {
             ContactPoint2D contact = collision.GetContact(0);
             float collisionPower = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
+            float collisionDot = collisionPower / velocityLastFixedUpdate.magnitude;
             
             OnBounce?.Invoke(new BallCollisionData
             {
@@ -101,10 +102,9 @@ namespace Balltallion.BallSimulation
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
                 collisionPower = collisionPower,
-                relativeCollisionPower = collisionPower / velocityLastFixedUpdate.magnitude
             });
             
-            rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionPower / velocityLastFixedUpdate.magnitude;
+            rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionDot;
             float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
             if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
             {
@@ -124,15 +124,12 @@ namespace Balltallion.BallSimulation
             if (collisionPowerA < 0.0f) collisionPowerA = 0.0f;
             else if (collisionPowerB < 0.0f) collisionPowerA += collisionPowerB;
                     
-            //collisionPowerA *= rb.mass;
-                    
             OnBallCollision?.Invoke(new BallCollisionData
             {
                 otherBall = otherBall,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
                 collisionPower = collisionPowerA,
-                relativeCollisionPower = collisionPowerA / velocityLastFixedUpdate.magnitude
             });
             
             AdjustVelocityPostCollision();

@@ -1605,7 +1605,7 @@ PrefabInstance:
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 6ced025257b21ba439a0555f64f64b0e, type: 3}
+      objectReference: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
     - target: {fileID: 1239046737287715538, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
@@ -1672,7 +1672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Name
-      value: Knight Ball
+      value: Gumball Machine
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_Layer
@@ -1680,12 +1680,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6194298661798478868, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballData
       value: 
-      objectReference: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
+      objectReference: {fileID: 11400000, guid: b9c6fff3eb4775644975237ca651a575, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: ballStats
       value: 
@@ -1856,7 +1856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1736475383
 Transform:
   m_ObjectHideFlags: 0

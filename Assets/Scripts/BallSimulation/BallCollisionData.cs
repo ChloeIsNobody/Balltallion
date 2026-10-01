@@ -8,6 +8,5 @@ namespace Balltallion.BallSimulation
         public Vector3 contactPoint;
         public Vector3 contactNormal;
         public float collisionPower;
-        public float relativeCollisionPower;
     }
 }

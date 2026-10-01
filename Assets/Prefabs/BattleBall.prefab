@@ -145,8 +145,8 @@ MonoBehaviour:
   velocityStretchExponent: 1
   collisionFactorRestoreRate: 0.38
   enableCollisionStretching: 1
-  collisionPowerX: 0.25
-  collisionPowerY: 0.31
+  animationPowerMappingIn: {x: 3, y: 18}
+  animationPowerMappingOut: {x: 0.09, y: 0.35}
   springStiffness: 0.34
   springDamping: 0.309
 --- !u!1 &6194298661798478868
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
   ballData: {fileID: 0}
-  ballSpriteRenderer: {fileID: 1239046737287715538}
+  ballAnimator: {fileID: 7655324653996296180}
   debugLogToConsole: 0
 --- !u!114 &1537891911829373851
 MonoBehaviour:
