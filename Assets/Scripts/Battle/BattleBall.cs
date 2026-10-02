@@ -40,7 +40,7 @@ namespace Balltallion.Battle
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallStats(ballData);
-            ballAnimator.SetSpringData(ballData.mass);
+            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass);
         }
         
         private void OnEnable()

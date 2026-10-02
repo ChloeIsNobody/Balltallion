@@ -34,6 +34,10 @@ namespace Balltallion.Battle
         [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.0f;
         [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
+        [Header("Animation Properties")]
+        [SerializeField, Range(0.0f, 3.0f)] public float animStiffness = 0.35f;
+        [SerializeField, Range(0.0f, 1.0f)] public float animDamping = 0.3f;
+
         public int GetVelocityScaledDamage(float velocity)
         {
             if (velocity < velocityScalingRange.x) return contactDamage;

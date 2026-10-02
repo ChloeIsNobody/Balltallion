@@ -41,13 +41,13 @@ namespace Balltallion.BallSimulation
             collisionFactor = 1.0f;
         }
 
-        public void SetSpringData(float mass)
+        public void SetSpringData(float stiffness, float damping, float mass)
         {
             if (springX == null || springY == null) return;
-            // springX.SetStiffness(stiffness);
-            // springY.SetStiffness(stiffness);
-            // springX.SetDamping(damping);
-            // springY.SetDamping(damping);
+            springX.SetStiffness(stiffness);
+            springY.SetStiffness(stiffness);
+            springX.SetDamping(damping);
+            springY.SetDamping(damping);
             springX.SetMass(mass);
             springY.SetMass(mass);
         }
@@ -100,7 +100,6 @@ namespace Balltallion.BallSimulation
             if (!enableCollisionStretching) return;
             
             float animationPower = GetAnimationPower(collisionData);
-            Debug.Log($"{animationPower:F2}");
             if (animationPower <= 0.0f) return;
             
             springX.Reset();

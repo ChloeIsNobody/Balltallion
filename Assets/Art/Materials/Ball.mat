@@ -62,10 +62,10 @@ Material:
     - _Contrast: 1
     - _EnableExternalAlpha: 0
     - _FillValue: 0
-    - _HueShift: 360
+    - _HueShift: 0
     - _OutlineAlpha: 1
     - _Saturation: 1
-    - _Stretch1Angle: 0
+    - _Stretch1Angle: 1
     - _Stretch1X: 1
     - _Stretch1Y: 1
     - _Stretch2Angle: 0
