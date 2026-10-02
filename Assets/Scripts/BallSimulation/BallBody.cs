@@ -69,6 +69,8 @@ namespace Balltallion.BallSimulation
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
                 rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
+            
+            
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -92,16 +94,18 @@ namespace Balltallion.BallSimulation
         {
             ContactPoint2D contact = collision.GetContact(0);
             float collisionPower = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
+            float collisionDot = collisionPower / velocityLastFixedUpdate.magnitude;
             
             OnBounce?.Invoke(new BallCollisionData
             {
                 otherBall = null,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
-                collisionPower = collisionPower
+                myCollisionPower = collisionPower,
+                totalCollisionPower = collisionPower,
             });
             
-            rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionPower / velocityLastFixedUpdate.magnitude;
+            rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionDot;
             float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
             if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
             {
@@ -121,14 +125,14 @@ namespace Balltallion.BallSimulation
             if (collisionPowerA < 0.0f) collisionPowerA = 0.0f;
             else if (collisionPowerB < 0.0f) collisionPowerA += collisionPowerB;
                     
-            //collisionPowerA *= rb.mass;
-                    
             OnBallCollision?.Invoke(new BallCollisionData
             {
                 otherBall = otherBall,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
-                collisionPower = collisionPowerA
+                myCollisionPower = collisionPowerA,
+                totalCollisionPower = Mathf.Max(collisionPowerA, collisionPowerB),
+                
             });
             
             AdjustVelocityPostCollision();
@@ -140,6 +144,15 @@ namespace Balltallion.BallSimulation
         {
             rb.AddForce(knockback, ForceMode2D.Impulse);
             AdjustVelocityPostCollision();
+            
+            OnBounce?.Invoke(new BallCollisionData
+            {
+                otherBall = null,
+                contactPoint = rb.position,
+                contactNormal = knockback.normalized,
+                myCollisionPower = knockback.magnitude,
+                totalCollisionPower = knockback.magnitude,
+            });
         }
         
         private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)

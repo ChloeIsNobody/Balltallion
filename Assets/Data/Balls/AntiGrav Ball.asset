@@ -21,8 +21,8 @@ MonoBehaviour:
   velocityScalingRange: {x: 3, y: 15}
   contactDamageRange: {x: 5, y: 10}
   size: 1
-  mass: 0.7
+  mass: 0.6
   gravityScale: 0
   speed: 3.75
-  bounciness: 1
-  linearDamping: 0.05
+  bounciness: 1.02
+  linearDamping: 0.075

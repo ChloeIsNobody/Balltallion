@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: f2d8a9947c4b107488baf1b341398b34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,6 +101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 561035228263194426}
+  - component: {fileID: 7655324653996296180}
   m_Layer: 0
   m_Name: BallVisual
   m_TagString: Untagged
@@ -124,6 +125,29 @@ Transform:
   - {fileID: 5321748417258131891}
   m_Father: {fileID: 244566083526506897}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7655324653996296180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424001685075068813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7205c4bc726a41a680c3530cbe8f0265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallSimulation.BallAnimator
+  ballBody: {fileID: 1537891911829373851}
+  spriteRenderer: {fileID: 1239046737287715538}
+  enableVelocityStretching: 1
+  velocityRange: {x: 3.5, y: 17.5}
+  velocityStretchExponent: 0.8
+  collisionFactorRestoreRate: 2
+  enableCollisionStretching: 1
+  animationPowerMappingIn: {x: 2.5, y: 18}
+  animationPowerMappingOut: {x: 0.09, y: 0.3}
+  springStiffness: 0.34
+  springDamping: 0.309
 --- !u!1 &6194298661798478868
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
   ballData: {fileID: 0}
-  ballSpriteRenderer: {fileID: 1239046737287715538}
+  ballAnimator: {fileID: 7655324653996296180}
   debugLogToConsole: 0
 --- !u!114 &1537891911829373851
 MonoBehaviour:
@@ -188,11 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
   globalPhysicsData: {fileID: 11400000, guid: b2cdf9ac4d377134eac99ee5c05dff60, type: 2}
-  targetVelocity: 12.5
-  linearDamping: 0.5
-  bounciness: 1.05
   debugDraw: 0
-  debugDrawColor: {r: 0.30980393, g: 0.6, b: 0.92549026, a: 1}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1

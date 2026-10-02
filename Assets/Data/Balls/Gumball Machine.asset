@@ -10,19 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
-  m_Name: Super Ball
+  m_Name: Gumball Machine
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
-  displayName: Super Ball
-  debugColor: {r: 0.882353, g: 0.7960785, b: 0.2901961, a: 1}
-  ballSprite: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
-  maxHealth: 150
-  contactDamage: 0
-  velocityScaledContactDamage: 1
+  displayName: Gumball Machine
+  debugColor: {r: 0.83921576, g: 0.21568629, b: 0.21568629, a: 1}
+  ballSprite: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
+  maxHealth: 100
+  contactDamage: 5
+  velocityScaledContactDamage: 0
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
   size: 1
-  mass: 0.25
-  gravityScale: 2
-  speed: 13
-  bounciness: 1.125
-  linearDamping: 0.65
+  mass: 1
+  gravityScale: 1
+  speed: 7.3
+  bounciness: 1.05
+  linearDamping: 0.5
+  animStiffness: 0.35
+  animDamping: 0.3
+  animVelocityStretching: 0.338

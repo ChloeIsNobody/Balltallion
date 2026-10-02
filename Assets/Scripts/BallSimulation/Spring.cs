@@ -1,0 +1,88 @@
+﻿using UnityEngine;
+namespace Balltallion.BallSimulation
+{
+    public class Spring
+    {
+        private float stiffness;
+        private float damping;
+        private float dampingCoefficient;
+
+        private float position;
+        private float goalPosition;
+        private float velocity;
+        private float acceleration;
+        
+        private float lowerLimit;
+        private float upperLimit;
+        private float mass = 1.0f;
+
+        public Spring(float stiffness=0.2f, float damping=0.2f, float goalPosition=0.0f, float lowerLimit=-1.0f, float upperLimit=1.0f) {
+            this.stiffness = stiffness;
+            this.damping = damping;
+            this.goalPosition = goalPosition;
+            this.upperLimit = upperLimit;
+            this.lowerLimit = lowerLimit;
+            RecalulateDampingCoefficient();
+        }
+
+        public void Update(float delta) {
+            ApplyForce(-(position-goalPosition)*stiffness);
+            ApplyForce(-velocity*damping*dampingCoefficient);
+
+            velocity += 30.0f*acceleration*delta;
+            position += 30.0f*velocity*delta;
+            
+            if (position < lowerLimit)
+            {
+                position = lowerLimit;
+                if (velocity < 0.0f) velocity *= -1.0f;
+            }
+
+            if (position > upperLimit)
+            {
+                position = upperLimit;
+                if (velocity > 0.0f) velocity *= -1.0f;
+            }
+            
+            acceleration = 0.0f;
+        }
+
+        public void ApplyForce(float force) {
+            acceleration += force/mass;
+        }
+
+        public void NudgeVelocity(float amount) {
+            velocity += amount;
+        }
+
+        public void Reset() {
+            position = goalPosition;
+            velocity = 0.0f;
+            acceleration = 0.0f;
+        }
+
+        private void RecalulateDampingCoefficient() {
+            dampingCoefficient = 2.0f * Mathf.Sqrt(stiffness);
+        }
+
+        public float GetStiffness() => stiffness;
+        public void SetStiffness(float newStiffness) {stiffness = newStiffness; RecalulateDampingCoefficient();}
+
+        public float GetDamping() => damping;
+        public void SetDamping(float newDamping) {damping = newDamping; RecalulateDampingCoefficient();}
+
+        public float GetPosition() => position;
+        public void SetPosition(float newPosition) => position = newPosition;
+
+        public float GetGoalPosition() => goalPosition;
+        public void SetGoalPosition(float newGoalPosition) => goalPosition = newGoalPosition;
+
+        public float GetVelocity() => velocity;
+        public void SetVelocity(float newVelocity) => velocity = newVelocity;
+
+        public float GetAcceleration() => acceleration;
+        
+        public float GetMass() => mass;
+        public void SetMass(float newMass) => mass = newMass;
+    }
+}

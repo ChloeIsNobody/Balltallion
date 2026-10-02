@@ -7,7 +7,7 @@ namespace Balltallion.Battle
     public class BattleBall : MonoBehaviour
     {
         [SerializeField, Expandable] private BallDataSO ballData;
-        [SerializeField] private SpriteRenderer ballSpriteRenderer;
+        [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private bool debugLogToConsole = false;
         
         private int health;
@@ -17,6 +17,10 @@ namespace Balltallion.Battle
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
+        }
+
+        private void Start()
+        {
             if (ballData) LoadBallStats(ballData);
         }
 
@@ -32,10 +36,11 @@ namespace Balltallion.Battle
             health = ballData.maxHealth;
             
             name = ballData.displayName;
-            ballSpriteRenderer.sprite = ballData.ballSprite;
+            ballAnimator.SetSprite(ballData.ballSprite);
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallStats(ballData);
+            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass, ballData.animVelocityStretching);
         }
         
         private void OnEnable()
@@ -85,7 +90,7 @@ namespace Balltallion.Battle
 
         private void OnBallCollision(BallCollisionData data)
         {
-            BattleBall otherBall = data.otherBall.GetComponent<BattleBall>();
+            BattleBall otherBall = data.otherBall?.GetComponent<BattleBall>();
             if (!otherBall) return;
             
             AttackData attackData = new AttackData();
@@ -93,7 +98,7 @@ namespace Balltallion.Battle
             
             if (ballData.velocityScaledContactDamage)
             {
-                attackData.damage = ballData.GetVelocityScaledDamage(data.collisionPower);
+                attackData.damage = ballData.GetVelocityScaledDamage(data.myCollisionPower);
             }
             else attackData.damage = ballData.contactDamage;
             
@@ -102,7 +107,7 @@ namespace Balltallion.Battle
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
-        public Sprite GetSprite() => ballSpriteRenderer.sprite;
+        public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
     }
 }
