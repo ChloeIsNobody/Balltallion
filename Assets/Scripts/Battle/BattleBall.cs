@@ -40,7 +40,7 @@ namespace Balltallion.Battle
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallStats(ballData);
-            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass);
+            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass, ballData.animVelocityStretching);
         }
         
         private void OnEnable()
@@ -98,7 +98,7 @@ namespace Balltallion.Battle
             
             if (ballData.velocityScaledContactDamage)
             {
-                attackData.damage = ballData.GetVelocityScaledDamage(data.collisionPower);
+                attackData.damage = ballData.GetVelocityScaledDamage(data.myCollisionPower);
             }
             else attackData.damage = ballData.contactDamage;
             

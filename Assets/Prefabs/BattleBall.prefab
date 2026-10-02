@@ -140,12 +140,11 @@ MonoBehaviour:
   ballBody: {fileID: 1537891911829373851}
   spriteRenderer: {fileID: 1239046737287715538}
   enableVelocityStretching: 1
-  velocityRange: {x: 3, y: 22.5}
-  velocityStretchRange: {x: 1, y: 1.25}
+  velocityRange: {x: 3.5, y: 17.5}
   velocityStretchExponent: 0.8
-  collisionFactorRestoreRate: 0.38
+  collisionFactorRestoreRate: 2
   enableCollisionStretching: 1
-  animationPowerMappingIn: {x: 3, y: 18}
+  animationPowerMappingIn: {x: 2.5, y: 18}
   animationPowerMappingOut: {x: 0.09, y: 0.3}
   springStiffness: 0.34
   springDamping: 0.309

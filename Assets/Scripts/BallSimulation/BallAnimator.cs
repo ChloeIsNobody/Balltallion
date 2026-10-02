@@ -12,7 +12,6 @@ namespace Balltallion.BallSimulation
         [Header("Velocity Squash & Stretch")] 
         [SerializeField] private bool enableVelocityStretching;
         [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 velocityRange;
-        [SerializeField, MinMaxSlider(0.0f, 3.0f)] private Vector2 velocityStretchRange;
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
         [SerializeField, Range(0.0f, 30.0f)] private float collisionFactorRestoreRate = 0.05f;
 
@@ -28,7 +27,8 @@ namespace Balltallion.BallSimulation
         private Spring springY;
 
         private float collisionFactor;
-
+        private float velocityStretchingFactor;
+        
         private void Awake()
         {
             material = spriteRenderer.material;
@@ -41,7 +41,7 @@ namespace Balltallion.BallSimulation
             collisionFactor = 1.0f;
         }
 
-        public void SetSpringData(float stiffness, float damping, float mass)
+        public void SetSpringData(float stiffness, float damping, float mass, float velocityStretchingFactor)
         {
             if (springX == null || springY == null) return;
             springX.SetStiffness(stiffness);
@@ -50,6 +50,7 @@ namespace Balltallion.BallSimulation
             springY.SetDamping(damping);
             springX.SetMass(mass);
             springY.SetMass(mass);
+            this.velocityStretchingFactor = velocityStretchingFactor;
         }
         
         public void SetSprite(Sprite sprite) => spriteRenderer.sprite = sprite;
@@ -86,7 +87,7 @@ namespace Balltallion.BallSimulation
             Vector2 velocity = ballBody.GetVelocity();
             float t = Mathf.InverseLerp(velocityRange.x, velocityRange.y, velocity.magnitude);
             t = Mathf.Pow(t, velocityStretchExponent);
-            float stretch = Mathf.Lerp(velocityStretchRange.x, velocityStretchRange.y, t * collisionFactor);
+            float stretch = Mathf.Lerp(1.0f, 1.0f + velocityStretchingFactor, t * collisionFactor);
             
             float stretchAngle = -Vector2.SignedAngle(velocity, Vector2.right);
             
@@ -115,7 +116,7 @@ namespace Balltallion.BallSimulation
 
         private float GetAnimationPower(BallCollisionData collisionData)
         {
-            float t = Mathf.InverseLerp(animationPowerMappingIn.x, animationPowerMappingIn.y, collisionData.collisionPower);
+            float t = Mathf.InverseLerp(animationPowerMappingIn.x, animationPowerMappingIn.y, collisionData.totalCollisionPower);
             t /= springX.GetMass();
             if (t <= 0.0f) return 0.0f;
             return Mathf.Lerp(animationPowerMappingOut.x, animationPowerMappingOut.y, t);

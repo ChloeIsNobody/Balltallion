@@ -101,7 +101,8 @@ namespace Balltallion.BallSimulation
                 otherBall = null,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
-                collisionPower = collisionPower,
+                myCollisionPower = collisionPower,
+                totalCollisionPower = collisionPower,
             });
             
             rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionDot;
@@ -129,7 +130,9 @@ namespace Balltallion.BallSimulation
                 otherBall = otherBall,
                 contactPoint = contact.point,
                 contactNormal = -contact.normal,
-                collisionPower = collisionPowerA,
+                myCollisionPower = collisionPowerA,
+                totalCollisionPower = Mathf.Max(collisionPowerA, collisionPowerB),
+                
             });
             
             AdjustVelocityPostCollision();
@@ -147,7 +150,8 @@ namespace Balltallion.BallSimulation
                 otherBall = null,
                 contactPoint = rb.position,
                 contactNormal = knockback.normalized,
-                collisionPower = knockback.magnitude,
+                myCollisionPower = knockback.magnitude,
+                totalCollisionPower = knockback.magnitude,
             });
         }
         

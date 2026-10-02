@@ -26,3 +26,6 @@ MonoBehaviour:
   speed: 7.3
   bounciness: 1.05
   linearDamping: 0.5
+  animStiffness: 0.35
+  animDamping: 0.3
+  animVelocityStretching: 0.338
