@@ -14,7 +14,7 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField] public int damage;
         [SerializeField] public float knockback;
         [SerializeField, Range(0.5f, 2.0f)] public float size = 1.0f;
-        [SerializeField, Range(0.0f, 50.0f)] public float spinSpeed;
+        [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField] public int weaponCount;
     }
 }

@@ -24,7 +24,7 @@ namespace Balltallion.Battle
         [SerializeField, EnableIf("VelocityScaling")] private Vector2 contactDamageRange;
 
         [Space]
-        [SerializeField] public WeaponDataSO weapon;
+        [SerializeField, Expandable] public WeaponDataSO weapon;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]

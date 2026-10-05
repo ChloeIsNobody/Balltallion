@@ -16,5 +16,5 @@ MonoBehaviour:
   damage: 8
   knockback: 20
   size: 1
-  spinSpeed: 5
+  spinSpeed: 1
   weaponCount: 1

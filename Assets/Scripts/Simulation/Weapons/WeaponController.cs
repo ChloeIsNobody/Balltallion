@@ -10,6 +10,7 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField] private Weapon weaponPrefab;
         
         private int weaponCount;
+        private float currentAngle = 0.0f;
 
         public void LoadWeaponStats(WeaponDataSO weaponData)
         {
@@ -44,6 +45,14 @@ namespace Balltallion.Simulation.Weapons
                 weapon.transform.localRotation = Quaternion.identity;
                 rotator.transform.localScale = Vector3.one;
             }
+        }
+
+        private void Update()
+        {
+            currentAngle += 90.0f * weaponData.spinSpeed * Time.deltaTime;
+            if (currentAngle >= 360.0f) currentAngle -= 360.0f;
+            if (currentAngle < 0.0f) currentAngle += 360.0f;
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
         }
     }
 }
