@@ -1,0 +1,20 @@
+﻿using Balltallion.Battle;
+using NaughtyAttributes;
+using UnityEngine;
+
+namespace Balltallion.Simulation.Weapons
+{
+    [CreateAssetMenu(menuName = "Balltallion/WeaponData", fileName = "WeaponData")]
+    public class WeaponDataSO : ScriptableObject
+    {
+        [Header("Display Info")]
+        [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite weaponSprite;
+
+        [Header("Stats")]
+        [SerializeField] public int damage;
+        [SerializeField] public float knockback;
+        [SerializeField, Range(0.5f, 2.0f)] public float size = 1.0f;
+        [SerializeField, Range(0.0f, 50.0f)] public float spinSpeed;
+        [SerializeField] public int weaponCount;
+    }
+}

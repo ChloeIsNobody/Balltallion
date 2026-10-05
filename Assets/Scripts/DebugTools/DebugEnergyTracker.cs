@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Balltallion.BallSimulation;
+using Balltallion.Simulation;
 using UnityEngine;
 
 namespace Balltallion.DebugTools

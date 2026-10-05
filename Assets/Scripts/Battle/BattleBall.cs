@@ -1,4 +1,5 @@
-using Balltallion.BallSimulation;
+using Balltallion.Simulation;
+using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Balltallion.Battle
     public class BattleBall : MonoBehaviour
     {
         [SerializeField, Expandable] private BallDataSO ballData;
+        [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private bool debugLogToConsole = false;
         
@@ -41,6 +43,9 @@ namespace Balltallion.Battle
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallStats(ballData);
             ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass, ballData.animVelocityStretching);
+            
+            weaponController.gameObject.SetActive(ballData.weapon != null);
+            weaponController.LoadWeaponStats(ballData.weapon);
         }
         
         private void OnEnable()

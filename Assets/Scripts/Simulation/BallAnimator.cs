@@ -1,8 +1,7 @@
-﻿using Balltallion.DebugTools;
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion.BallSimulation
+namespace Balltallion.Simulation
 {
     public class BallAnimator : MonoBehaviour
     {

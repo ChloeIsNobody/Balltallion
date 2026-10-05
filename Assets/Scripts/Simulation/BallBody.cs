@@ -3,7 +3,7 @@ using Balltallion.Battle;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Balltallion.BallSimulation
+namespace Balltallion.Simulation
 {
     public class BallBody : MonoBehaviour
     {
