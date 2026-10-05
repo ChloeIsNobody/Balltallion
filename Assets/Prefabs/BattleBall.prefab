@@ -102,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5480823858752059223}
   - component: {fileID: 8344423986202762628}
+  - component: {fileID: 8577997918715434885}
   m_Layer: 7
   m_Name: WeaponController
   m_TagString: Untagged
@@ -138,6 +139,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponController
   weaponData: {fileID: 0}
   weaponPrefab: {fileID: 1948495729207387009, guid: 7cfdaea4bb469224b829e9dc930482ff, type: 3}
+--- !u!210 &8577997918715434885
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4404791165498245571}
+  m_Enabled: 1
+  m_SortingLayerID: -1534364475
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &5424001685075068813
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 561035228263194426}
   - component: {fileID: 7655324653996296180}
+  - component: {fileID: 3088566656143327973}
   m_Layer: 0
   m_Name: BallVisual
   m_TagString: Untagged
@@ -194,6 +209,19 @@ MonoBehaviour:
   animationPowerMappingOut: {x: 0.09, y: 0.3}
   springStiffness: 0.34
   springDamping: 0.309
+--- !u!210 &3088566656143327973
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424001685075068813}
+  m_Enabled: 1
+  m_SortingLayerID: 1273950095
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &6194298661798478868
 GameObject:
   m_ObjectHideFlags: 0

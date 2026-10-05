@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b8c0f699d642459016167e4d76c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Weapon
+  boxCollider: {fileID: 8026465580388508574}
 --- !u!61 &8026465580388508574
 BoxCollider2D:
   m_ObjectHideFlags: 0

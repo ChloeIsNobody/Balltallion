@@ -13,8 +13,12 @@ namespace Balltallion.Simulation.Weapons
         [Header("Stats")]
         [SerializeField] public int damage;
         [SerializeField] public float knockback;
-        [SerializeField, Range(0.5f, 2.0f)] public float size = 1.0f;
         [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField] public int weaponCount;
+
+        [Header("Position/Size")]
+        [SerializeField] public Vector2 relativeColliderSize = Vector2.one;
+        [SerializeField, Range(0.0f, 3.0f)] public float radialOffset = 1.0f;
+        [SerializeField, Range(0.5f, 2.0f)] public float size = 1.0f;
     }
 }

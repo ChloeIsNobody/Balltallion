@@ -41,9 +41,10 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
-                weapon.transform.localPosition = Vector3.right;
+                weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;
                 weapon.transform.localRotation = Quaternion.identity;
-                rotator.transform.localScale = Vector3.one;
+                weapon.transform.localScale = Vector3.one * weaponData.size;
+                weapon.LoadWeaponStats(weaponData);
             }
         }
 
