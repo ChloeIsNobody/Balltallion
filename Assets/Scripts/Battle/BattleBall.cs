@@ -5,16 +5,25 @@ using UnityEngine;
 
 namespace Balltallion.Battle
 {
+    public enum TeamNames
+    {
+        Player,
+        Enemy,
+    }
+    
     public class BattleBall : MonoBehaviour
     {
         [SerializeField, Expandable] private BallDataSO ballData;
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
+        [SerializeField] private TeamNames team;
         [SerializeField] private bool debugLogToConsole = false;
         
         private int health;
-        
         private BallBody ballBody;
+
+        private const string playerTeamLayer = "PlayerBall";
+        private const string enemyTeamLayer = "EnemyBall";
 
         private void Awake()
         {
@@ -23,29 +32,36 @@ namespace Balltallion.Battle
 
         private void Start()
         {
-            if (ballData) LoadBallStats(ballData);
+            if (ballData) LoadBallData(ballData, team);
         }
 
         [Button("Editor Refresh Stats")]
         private void EditorLoadStats()
         {
-            if (ballData != null) LoadBallStats(ballData);
+            if (ballData != null) LoadBallData(ballData, team);
         }
 
-        private void LoadBallStats(BallDataSO ballData)
+        private void LoadBallData(BallDataSO data, TeamNames team)
         {
-            this.ballData = ballData;
-            health = ballData.maxHealth;
+            ballData = data;
+            health = data.maxHealth;
             
-            name = ballData.displayName;
-            ballAnimator.SetSprite(ballData.ballSprite);
+            SetTeam(team);
+            name = data.displayName;
+            ballAnimator.SetSprite(data.ballSprite);
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallStats(ballData);
-            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass, ballData.animVelocityStretching);
+            ballBody.LoadBallStats(data);
+            ballAnimator.SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
             
-            weaponController.gameObject.SetActive(ballData.weapon != null);
-            weaponController.LoadWeaponStats(ballData.weapon);
+            weaponController.gameObject.SetActive(data.weapon != null);
+            weaponController.LoadWeaponData(data.weapon, gameObject.layer);
+        }
+
+        private void SetTeam(TeamNames newTeam)
+        {
+            team = newTeam;
+            gameObject.layer = LayerMask.NameToLayer(team == TeamNames.Player ? playerTeamLayer : enemyTeamLayer);
         }
         
         private void OnEnable()
@@ -114,5 +130,6 @@ namespace Balltallion.Battle
         
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
+        public TeamNames GetTeam() => team;
     }
 }

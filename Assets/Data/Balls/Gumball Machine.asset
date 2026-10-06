@@ -29,4 +29,4 @@ MonoBehaviour:
   linearDamping: 0.5
   animStiffness: 0.35
   animDamping: 0.3
-  animVelocityStretching: 0.338
+  animVelocityStretching: 0.1

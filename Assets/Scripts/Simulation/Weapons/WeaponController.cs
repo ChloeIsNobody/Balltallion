@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Balltallion.Battle;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -11,10 +12,12 @@ namespace Balltallion.Simulation.Weapons
         
         private int weaponCount;
         private float currentAngle = 0.0f;
+        private int physicsLayer;
 
-        public void LoadWeaponStats(WeaponDataSO weaponData)
+        public void LoadWeaponData(WeaponDataSO weaponData, int physicsLayer)
         {
             this.weaponData = weaponData;
+            this.physicsLayer = physicsLayer;
             ClearChildTransforms();
             if (weaponData == null) return;
             InstantiateWeapons();
@@ -41,10 +44,11 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
+                weapon.gameObject.layer = physicsLayer;
                 weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;
                 weapon.transform.localRotation = Quaternion.identity;
                 weapon.transform.localScale = Vector3.one * weaponData.size;
-                weapon.LoadWeaponStats(weaponData);
+                weapon.LoadWeaponData(weaponData);
             }
         }
 

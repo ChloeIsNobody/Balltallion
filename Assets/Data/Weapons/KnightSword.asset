@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 8
   knockback: 20
   spinSpeed: 1.5
-  weaponCount: 1
+  weaponCount: 2
   relativeColliderSize: {x: 0.9, y: 0.4}
-  radialOffset: 1.1
+  radialOffset: 1.15
   size: 1.1
