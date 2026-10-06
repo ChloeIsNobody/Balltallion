@@ -1,4 +1,5 @@
-﻿using Balltallion.Battle;
+﻿using System.Collections.Generic;
+using Balltallion.Battle;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
@@ -6,10 +7,15 @@ namespace Balltallion.Simulation.Weapons
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D boxCollider;
+        [SerializeField] private float hitDebounce = 0.45f;
         private BattleBall parentBall;
         private WeaponController weaponController;
         
+        
         private WeaponDataSO weaponData;
+
+        // Tracks the last time a ball was hit 
+        private Dictionary<BattleBall, float> hitLog = new();
         
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
@@ -32,12 +38,22 @@ namespace Balltallion.Simulation.Weapons
         {
             if (other.TryGetComponent(out BattleBall otherBall))
             {
-                BallHit(otherBall);
+                if (CanHitBall(otherBall)) BallHit(otherBall);
             }
             else if (other.TryGetComponent(out Weapon otherWeapon))
             {
                 WeaponHit(otherWeapon);
             }
+        }
+
+        private bool CanHitBall(BattleBall otherBall)
+        {
+            if (hitLog.TryGetValue(otherBall, out float lastHitTime))
+            {
+                float timeSinceLastHit = Time.time - lastHitTime;
+                return timeSinceLastHit > hitDebounce;
+            }
+            return true;
         }
 
         private void BallHit(BattleBall hitBall)
@@ -49,6 +65,13 @@ namespace Balltallion.Simulation.Weapons
                 knockback = CalculateKnockback(hitBall)
             };
             hitBall.Attack(attackData);
+
+            // Recoil
+            attackData.damage = 0;
+            attackData.knockback *= -0.5f;
+            parentBall.Attack(attackData);
+            
+            hitLog[hitBall] = Time.time;
         }
 
         private void WeaponHit(Weapon hitWeapon)
