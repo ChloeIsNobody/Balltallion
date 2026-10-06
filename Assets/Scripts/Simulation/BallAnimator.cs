@@ -27,6 +27,9 @@ namespace Balltallion.Simulation
 
         private float collisionFactor;
         private float velocityStretchingFactor;
+
+        private float hitFlashTimer = 0.0f;
+        private float hitFlashDuration = 0.05f;
         
         private void Awake()
         {
@@ -79,6 +82,15 @@ namespace Balltallion.Simulation
             material.SetFloat("_Stretch2X", springX.GetPosition());
             material.SetFloat("_Stretch2Y", springY.GetPosition());
             material.SetFloat("_Stretch2Displacement", collisionFactor);
+
+            if (hitFlashTimer > 0.0f)
+            {
+                hitFlashTimer = Mathf.Max(hitFlashTimer - Time.deltaTime, 0.0f);
+                float animValue = 1.0f - hitFlashTimer / hitFlashDuration;
+                animValue = 1.0f - Mathf.Pow(1.0f - animValue, 3.0f); // cubic ease out
+                float blendValue = Mathf.Lerp(1.0f, 0.0f, animValue);
+                material.SetFloat("_BlendValue", blendValue);
+            }
         }
         
         private void VelocityStretching()
@@ -111,6 +123,14 @@ namespace Balltallion.Simulation
             material.SetFloat("_Stretch2Angle", stretchAngle);
             
             collisionFactor = 0.0f;
+        }
+
+        public void HitFlash(Color color, float duration)
+        {
+            hitFlashDuration = duration;
+            hitFlashTimer = hitFlashDuration;
+            material.SetColor("_BlendColor", color);
+            material.SetFloat("_BlendValue", 1.0f);
         }
 
         private float GetAnimationPower(BallCollisionData collisionData)

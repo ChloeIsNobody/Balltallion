@@ -93,6 +93,7 @@ namespace Balltallion.Battle
         {
             if (damage <= 0) return;
             health -= damage;
+            ballAnimator.HitFlash(Color.white, 0.35f);
             if (health <= 0) Die();
         }
 

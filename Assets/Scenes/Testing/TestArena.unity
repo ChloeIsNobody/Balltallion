@@ -1844,6 +1844,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Weapon
   boxCollider: {fileID: 1332877296}
+  hitDebounce: 1
 --- !u!1 &1421905192
 GameObject:
   m_ObjectHideFlags: 0
