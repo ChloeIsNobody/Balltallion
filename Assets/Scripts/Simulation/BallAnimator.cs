@@ -20,6 +20,11 @@ namespace Balltallion.Simulation
         [SerializeField, MinMaxSlider(0.0f, 1.0f)] private Vector2 animationPowerMappingOut;
         [SerializeField, Range(0.0f, 3.0f)] private float springStiffness = 0.2f;
         [SerializeField, Range(0.0f, 1.0f)] private float springDamping = 0.2f;
+
+        [Header("Hitflash")]
+        [SerializeField] private Color hitFlashColor = Color.white;
+        [SerializeField, Range(0.0f, 1.0f)] private float hitFlashDuration = 0.15f;
+        [SerializeField, Range(0.0f, 1.0f)] private float hitFlashStrength = 1.0f;
         
         private Material material;
         private Spring springX;
@@ -29,7 +34,6 @@ namespace Balltallion.Simulation
         private float velocityStretchingFactor;
 
         private float hitFlashTimer = 0.0f;
-        private float hitFlashDuration = 0.05f;
         
         private void Awake()
         {
@@ -88,7 +92,7 @@ namespace Balltallion.Simulation
                 hitFlashTimer = Mathf.Max(hitFlashTimer - Time.deltaTime, 0.0f);
                 float animValue = 1.0f - hitFlashTimer / hitFlashDuration;
                 animValue = 1.0f - Mathf.Pow(1.0f - animValue, 3.0f); // cubic ease out
-                float blendValue = Mathf.Lerp(1.0f, 0.0f, animValue);
+                float blendValue = Mathf.Lerp(hitFlashStrength, 0.0f, animValue);
                 material.SetFloat("_BlendValue", blendValue);
             }
         }
@@ -125,11 +129,10 @@ namespace Balltallion.Simulation
             collisionFactor = 0.0f;
         }
 
-        public void HitFlash(Color color, float duration)
+        public void HitFlash()
         {
-            hitFlashDuration = duration;
             hitFlashTimer = hitFlashDuration;
-            material.SetColor("_BlendColor", color);
+            material.SetColor("_BlendColor", hitFlashColor);
             material.SetFloat("_BlendValue", 1.0f);
         }
 

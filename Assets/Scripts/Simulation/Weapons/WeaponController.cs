@@ -11,9 +11,15 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField] private WeaponDataSO weaponData;
         [SerializeField] private Weapon weaponPrefab;
         
+        [Header("Animation")]
+        [SerializeField, Range(1.0f, 5.0f)] private float hitSpinBoostMult = 1.0f;
+        [SerializeField, Range(0.0f, 3.0f)] private float hitSpinBoostDuration = 0.5f;
+        
         private int weaponCount;
         private float currentAngle = 0.0f;
         private float spinDirection = 1.0f;
+
+        private float hitSpinBoostTimer = 0.0f;
 
         private void Start()
         {
@@ -61,13 +67,27 @@ namespace Balltallion.Simulation.Weapons
 
         private void Update()
         {
-            currentAngle += 90.0f * weaponData.spinSpeed * spinDirection * Time.deltaTime;
+            float spinBoost = 1.0f;
+            if (hitSpinBoostTimer > 0.0f)
+            {
+                hitSpinBoostTimer = Mathf.Max(hitSpinBoostTimer - Time.deltaTime, 0.0f);
+                float animValue = 1.0f - hitSpinBoostTimer / hitSpinBoostDuration;
+                animValue = 1.0f - Mathf.Pow(1.0f - animValue, 3.0f); // cubic ease out
+                spinBoost = Mathf.Lerp(hitSpinBoostMult, 1.0f, animValue);
+            }
+            
+            currentAngle += 90.0f * spinBoost * weaponData.spinSpeed * spinDirection * Time.deltaTime;
             if (currentAngle >= 360.0f) currentAngle -= 360.0f;
             if (currentAngle < 0.0f) currentAngle += 360.0f;
             transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
         }
         
         public float GetSpinDirection() => spinDirection;
-        public void ReverseSpinDirection() => spinDirection *= -1.0f;
+
+        public void ReverseSpinDirection()
+        {
+            spinDirection *= -1.0f;
+            hitSpinBoostTimer = hitSpinBoostDuration;
+        } 
     }
 }

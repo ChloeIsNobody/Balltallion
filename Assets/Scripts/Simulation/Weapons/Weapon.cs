@@ -65,6 +65,7 @@ namespace Balltallion.Simulation.Weapons
                 knockback = CalculateKnockback(hitBall)
             };
             hitBall.Attack(attackData);
+            weaponController.ReverseSpinDirection();
 
             // Recoil
             attackData.damage = 0;
