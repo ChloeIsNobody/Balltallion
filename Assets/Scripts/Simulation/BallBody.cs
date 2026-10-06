@@ -69,8 +69,6 @@ namespace Balltallion.Simulation
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
                 rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
-            
-            
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -153,6 +151,8 @@ namespace Balltallion.Simulation
                 myCollisionPower = knockback.magnitude,
                 totalCollisionPower = knockback.magnitude,
             });
+            
+            if (debugDraw) DebugDrawCollision(transform.position, knockback.normalized, knockback.magnitude/5.0f);
         }
         
         private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)

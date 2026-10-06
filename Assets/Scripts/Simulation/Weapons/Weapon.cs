@@ -7,6 +7,7 @@ namespace Balltallion.Simulation.Weapons
     {
         [SerializeField] private BoxCollider2D boxCollider;
         private BattleBall parentBall;
+        private WeaponController weaponController;
         
         private WeaponDataSO weaponData;
         
@@ -18,6 +19,7 @@ namespace Balltallion.Simulation.Weapons
         }
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
+        public void SetWeaponController(WeaponController weaponController) => this.weaponController = weaponController;
 
         private void ResizeWeapon()
         {
@@ -28,20 +30,38 @@ namespace Balltallion.Simulation.Weapons
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent(out BattleBall ball))
+            if (other.TryGetComponent(out BattleBall otherBall))
             {
-                if (parentBall.GetTeam() == TeamNames.Player)
-                {
-                    Debug.Log($"Sword hit {ball.name}");
-                }
+                BallHit(otherBall);
             }
-            else if (other.TryGetComponent(out Weapon weapon))
+            else if (other.TryGetComponent(out Weapon otherWeapon))
             {
-                if (parentBall.GetTeam() == TeamNames.Player)
-                {
-                    Debug.Log($"Sword hit {weapon.name}");
-                }
+                WeaponHit(otherWeapon);
             }
+        }
+
+        private void BallHit(BattleBall hitBall)
+        {
+            AttackData attackData = new AttackData
+            {
+                source = parentBall,
+                damage = weaponData.damage,
+                knockback = CalculateKnockback(hitBall)
+            };
+            hitBall.Attack(attackData);
+        }
+
+        private void WeaponHit(Weapon hitWeapon)
+        {
+            
+        }
+
+        private Vector2 CalculateKnockback(BattleBall hitBall)
+        {
+            Vector2 weaponContactPoint = boxCollider.ClosestPoint(hitBall.transform.position);
+            Vector2 dirAwayFromWeapon = ((Vector2)hitBall.transform.position - weaponContactPoint).normalized;
+            
+            return dirAwayFromWeapon * weaponData.knockback;
         }
     }
 }

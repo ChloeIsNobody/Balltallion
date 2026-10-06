@@ -13,6 +13,12 @@ namespace Balltallion.Simulation.Weapons
         
         private int weaponCount;
         private float currentAngle = 0.0f;
+        private float spinDirection = 1.0f;
+
+        private void Start()
+        {
+            spinDirection = Random.Range(0, 2) == 0 ? 1.0f : -1.0f;
+        }
 
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
@@ -43,8 +49,9 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
-                weapon.SetParentBall(parentBall);
                 weapon.gameObject.layer = parentBall.gameObject.layer;
+                weapon.SetParentBall(parentBall);
+                weapon.SetWeaponController(this);
                 weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;
                 weapon.transform.localRotation = Quaternion.identity;
                 weapon.transform.localScale = Vector3.one * weaponData.size;
@@ -54,10 +61,13 @@ namespace Balltallion.Simulation.Weapons
 
         private void Update()
         {
-            currentAngle += 90.0f * weaponData.spinSpeed * Time.deltaTime;
+            currentAngle += 90.0f * weaponData.spinSpeed * spinDirection * Time.deltaTime;
             if (currentAngle >= 360.0f) currentAngle -= 360.0f;
             if (currentAngle < 0.0f) currentAngle += 360.0f;
             transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
         }
+        
+        public float GetSpinDirection() => spinDirection;
+        public void ReverseSpinDirection() => spinDirection *= -1.0f;
     }
 }
