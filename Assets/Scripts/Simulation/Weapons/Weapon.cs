@@ -6,29 +6,48 @@ namespace Balltallion.Simulation.Weapons
 {
     public class Weapon : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private BoxCollider2D boxCollider;
         [SerializeField] private float hitDebounce = 0.45f;
+
+        private Material material;
+        
         private BattleBall parentBall;
         private WeaponController weaponController;
-        
         
         private WeaponDataSO weaponData;
 
         // Tracks the last time a ball was hit 
         private Dictionary<BattleBall, float> hitLog = new();
+
+        private void Awake()
+        {
+            if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            material = spriteRenderer.material;
+        }
         
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
             this.weaponData = weaponData;
             if (weaponData == null) return;
-            ResizeWeapon();
+            SetSpriteAndCollider();
+
+            BallDataSO ballData = parentBall.GetBallData();
+            if (material != null)
+            {
+                material.SetFloat("_HueShift", ballData.animHueShift);
+                material.SetFloat("_Saturation", ballData.animSaturation);
+                material.SetFloat("_Brightness", ballData.animBrightness);
+                material.SetFloat("_Contrast", ballData.animContrast);
+            }
         }
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
         public void SetWeaponController(WeaponController weaponController) => this.weaponController = weaponController;
 
-        private void ResizeWeapon()
+        private void SetSpriteAndCollider()
         {
+            spriteRenderer.sprite = weaponData.weaponSprite;
             float colliderX = weaponData.relativeColliderSize.x * weaponData.weaponSprite.texture.width / 256.0f;
             float colliderY = weaponData.relativeColliderSize.y * weaponData.weaponSprite.texture.height / 256.0f;
             boxCollider.size = new Vector2(colliderX, colliderY);
@@ -65,7 +84,12 @@ namespace Balltallion.Simulation.Weapons
                 knockback = CalculateKnockback(hitBall)
             };
             hitBall.Attack(attackData);
-            weaponController.ReverseSpinDirection();
+
+            weaponController.SpinBoost();
+            if (Vector2.Dot(GetWeaponRotationVector(), attackData.knockback) > 0)
+            {
+                weaponController.ReverseSpinDirection();
+            }
 
             // Recoil
             attackData.damage = 0;
@@ -84,8 +108,10 @@ namespace Balltallion.Simulation.Weapons
         {
             Vector2 weaponContactPoint = boxCollider.ClosestPoint(hitBall.transform.position);
             Vector2 dirAwayFromWeapon = ((Vector2)hitBall.transform.position - weaponContactPoint).normalized;
-            
             return dirAwayFromWeapon * weaponData.knockback;
         }
+
+        private Vector2 GetWeaponRotationVector() => weaponController.GetSpinDirection() * transform.up;
+        
     }
 }

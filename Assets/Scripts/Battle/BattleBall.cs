@@ -45,8 +45,8 @@ namespace Balltallion.Battle
             ballAnimator.SetSprite(data.ballSprite);
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallStats(data);
-            ballAnimator.SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
+            ballBody.LoadBallData(data);
+            ballAnimator.LoadBallData(data);
             
             weaponController.gameObject.SetActive(data.weapon != null);
             weaponController.LoadWeaponData(data.weapon);
@@ -130,6 +130,7 @@ namespace Balltallion.Battle
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
+        public BallDataSO GetBallData() => ballData;
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;

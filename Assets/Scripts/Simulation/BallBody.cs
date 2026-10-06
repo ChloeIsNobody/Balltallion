@@ -39,7 +39,7 @@ namespace Balltallion.Simulation
             rb.linearVelocity = startVelocity;
         }
 
-        public void LoadBallStats(BallDataSO ballData)
+        public void LoadBallData(BallDataSO ballData)
         {
             this.ballData = ballData;
             transform.localScale = Vector3.one * ballData.size;

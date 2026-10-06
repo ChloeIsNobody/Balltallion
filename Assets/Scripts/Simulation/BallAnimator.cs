@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using Balltallion.Battle;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Balltallion.Simulation
@@ -34,6 +35,10 @@ namespace Balltallion.Simulation
         private float velocityStretchingFactor;
 
         private float hitFlashTimer = 0.0f;
+
+        private float hue;
+        private float saturation;
+        private float brightness;
         
         private void Awake()
         {
@@ -45,6 +50,18 @@ namespace Balltallion.Simulation
             springY.Reset();
             
             collisionFactor = 1.0f;
+        }
+
+        public void LoadBallData(BallDataSO data)
+        {
+            SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
+            if (material)
+            {
+                material.SetFloat("_HueShift", data.animHueShift);
+                material.SetFloat("_Saturation", data.animSaturation);
+                material.SetFloat("_Brightness", data.animBrightness);
+                material.SetFloat("_Contrast", data.animContrast);
+            }
         }
 
         public void SetSpringData(float stiffness, float damping, float mass, float velocityStretchingFactor)

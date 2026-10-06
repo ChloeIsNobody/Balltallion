@@ -41,6 +41,10 @@ namespace Balltallion.Battle
         [SerializeField, Range(0.0f, 3.0f)] public float animStiffness = 0.35f;
         [SerializeField, Range(0.0f, 1.0f)] public float animDamping = 0.3f;
         [SerializeField, Range(0.0f, 1.0f)] public float animVelocityStretching = 0.1f;
+        [SerializeField, Range(0.0f, 360.0f)] public float animHueShift = 0.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animSaturation = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animBrightness = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animContrast = 1.0f;
 
         public int GetVelocityScaledDamage(float velocity)
         {

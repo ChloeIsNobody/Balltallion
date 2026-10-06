@@ -84,10 +84,8 @@ namespace Balltallion.Simulation.Weapons
         
         public float GetSpinDirection() => spinDirection;
 
-        public void ReverseSpinDirection()
-        {
-            spinDirection *= -1.0f;
-            hitSpinBoostTimer = hitSpinBoostDuration;
-        } 
+        public void ReverseSpinDirection() => spinDirection *= -1.0f;
+        public void SpinBoost() => hitSpinBoostTimer = hitSpinBoostDuration;
+        
     }
 }
