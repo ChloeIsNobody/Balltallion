@@ -16,7 +16,7 @@ MonoBehaviour:
   debugColor: {r: 0.83921576, g: 0.21568629, b: 0.21568629, a: 1}
   ballSprite: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
   maxHealth: 100
-  contactDamage: 5
+  contactDamage: 0
   velocityScaledContactDamage: 0
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}

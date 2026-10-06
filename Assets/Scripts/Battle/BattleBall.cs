@@ -11,7 +11,10 @@ namespace Balltallion.Battle
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private TeamNames team;
+        
+        [Header("Debug Draw")]
         [SerializeField] private bool debugLogToConsole = false;
+        [SerializeField] private bool debugAttacks;
         
         private int health;
         private BallBody ballBody;
@@ -71,12 +74,19 @@ namespace Balltallion.Battle
         {
             TakeDamage(attackData.damage);
             ballBody.ApplyKnockback(attackData.knockback);
+            if (debugAttacks) DebugAttack(attackData);
             
             if (attackData.damage > 0 )
             {
                 Color color = attackData.source ? attackData.source.GetColor() : Color.white;
                 ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, attackData.damage, color);
             }
+        }
+
+        private void DebugAttack(AttackData attackData)
+        {
+            Vector2 end = (Vector2)transform.position + attackData.knockback/5.0f;
+            Debug.DrawLine(transform.position, end, attackData.source.GetColor(), 2);
         }
 
         private void TakeDamage(int damage)

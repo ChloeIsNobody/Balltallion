@@ -1647,10 +1647,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
-      propertyPath: debugDraw
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForce
       value: 7.5
       objectReference: {fileID: 0}
@@ -1735,8 +1731,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: afbf1dba99313a5479b8487d4bf772d3, type: 2}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugAttacks
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: contactDamage
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugLogToConsole
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: velocityScaledContactDamage
@@ -2554,10 +2558,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
-      propertyPath: debugDraw
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1537891911829373851, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: startForce
       value: 7.5
       objectReference: {fileID: 0}
@@ -2629,6 +2629,10 @@ PrefabInstance:
       propertyPath: ballStats
       value: 
       objectReference: {fileID: 11400000, guid: 9eb3af9b270cc4849866f19586a9562e, type: 2}
+    - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+      propertyPath: debugAttacks
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
       propertyPath: contactDamage
       value: 5

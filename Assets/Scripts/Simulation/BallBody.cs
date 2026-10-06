@@ -135,7 +135,7 @@ namespace Balltallion.Simulation
             
             AdjustVelocityPostCollision();
             
-            if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f);
+            if (debugDraw) DebugDrawLine(contact.point, -contact.normal, collisionPowerA/5.0f);
         }
 
         public void ApplyKnockback(Vector2 knockback)
@@ -152,10 +152,10 @@ namespace Balltallion.Simulation
                 totalCollisionPower = knockback.magnitude,
             });
             
-            if (debugDraw) DebugDrawCollision(transform.position, knockback.normalized, knockback.magnitude/5.0f);
+            if (debugDraw) DebugDrawLine(transform.position, knockback.normalized, knockback.magnitude/5.0f);
         }
         
-        private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)
+        private void DebugDrawLine(Vector2 point, Vector2 normal, float size)
         {
             Debug.DrawLine(point, point + normal*size, ballData.debugColor, 2, false);
         }
