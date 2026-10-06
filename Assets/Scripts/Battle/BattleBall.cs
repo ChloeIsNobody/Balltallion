@@ -5,12 +5,6 @@ using UnityEngine;
 
 namespace Balltallion.Battle
 {
-    public enum TeamNames
-    {
-        Player,
-        Enemy,
-    }
-    
     public class BattleBall : MonoBehaviour
     {
         [SerializeField, Expandable] private BallDataSO ballData;
@@ -21,9 +15,6 @@ namespace Balltallion.Battle
         
         private int health;
         private BallBody ballBody;
-
-        private const string playerTeamLayer = "PlayerBall";
-        private const string enemyTeamLayer = "EnemyBall";
 
         private void Awake()
         {
@@ -55,13 +46,13 @@ namespace Balltallion.Battle
             ballAnimator.SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
             
             weaponController.gameObject.SetActive(data.weapon != null);
-            weaponController.LoadWeaponData(data.weapon, gameObject.layer);
+            weaponController.LoadWeaponData(data.weapon);
         }
 
         private void SetTeam(TeamNames newTeam)
         {
             team = newTeam;
-            gameObject.layer = LayerMask.NameToLayer(team == TeamNames.Player ? playerTeamLayer : enemyTeamLayer);
+            gameObject.layer = TeamUtilities.GetTeamLayer(newTeam);
         }
         
         private void OnEnable()

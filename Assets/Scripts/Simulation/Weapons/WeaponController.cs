@@ -7,17 +7,16 @@ namespace Balltallion.Simulation.Weapons
 {
     public class WeaponController : MonoBehaviour
     {
+        [SerializeField] private BattleBall parentBall;
         [SerializeField] private WeaponDataSO weaponData;
         [SerializeField] private Weapon weaponPrefab;
         
         private int weaponCount;
         private float currentAngle = 0.0f;
-        private int physicsLayer;
 
-        public void LoadWeaponData(WeaponDataSO weaponData, int physicsLayer)
+        public void LoadWeaponData(WeaponDataSO weaponData)
         {
             this.weaponData = weaponData;
-            this.physicsLayer = physicsLayer;
             ClearChildTransforms();
             if (weaponData == null) return;
             InstantiateWeapons();
@@ -44,7 +43,8 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
-                weapon.gameObject.layer = physicsLayer;
+                weapon.SetParentBall(parentBall);
+                weapon.gameObject.layer = parentBall.gameObject.layer;
                 weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;
                 weapon.transform.localRotation = Quaternion.identity;
                 weapon.transform.localScale = Vector3.one * weaponData.size;

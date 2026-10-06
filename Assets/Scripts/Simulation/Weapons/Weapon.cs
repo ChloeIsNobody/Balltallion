@@ -1,5 +1,4 @@
-﻿using System;
-using Balltallion.Battle;
+﻿using Balltallion.Battle;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
@@ -7,6 +6,7 @@ namespace Balltallion.Simulation.Weapons
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private BoxCollider2D boxCollider;
+        private BattleBall parentBall;
         
         private WeaponDataSO weaponData;
         
@@ -16,6 +16,8 @@ namespace Balltallion.Simulation.Weapons
             if (weaponData == null) return;
             ResizeWeapon();
         }
+        
+        public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
 
         private void ResizeWeapon()
         {
@@ -28,11 +30,17 @@ namespace Balltallion.Simulation.Weapons
         {
             if (other.TryGetComponent(out BattleBall ball))
             {
-                Debug.Log($"Sword hit {ball.name}");
+                if (parentBall.GetTeam() == TeamNames.Player)
+                {
+                    Debug.Log($"Sword hit {ball.name}");
+                }
             }
             else if (other.TryGetComponent(out Weapon weapon))
             {
-                Debug.Log($"Sword hit {weapon.name}");
+                if (parentBall.GetTeam() == TeamNames.Player)
+                {
+                    Debug.Log($"Sword hit {weapon.name}");
+                }
             }
         }
     }

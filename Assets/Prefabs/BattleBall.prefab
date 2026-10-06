@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79de33fdc70b0a4ba93a5717ab78f34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponController
+  parentBall: {fileID: 9031067662783963187}
   weaponData: {fileID: 0}
   weaponPrefab: {fileID: 1948495729207387009, guid: 7cfdaea4bb469224b829e9dc930482ff, type: 3}
 --- !u!210 &8577997918715434885
@@ -274,6 +275,7 @@ MonoBehaviour:
   ballData: {fileID: 0}
   weaponController: {fileID: 8344423986202762628}
   ballAnimator: {fileID: 7655324653996296180}
+  team: 0
   debugLogToConsole: 0
 --- !u!114 &1537891911829373851
 MonoBehaviour:
