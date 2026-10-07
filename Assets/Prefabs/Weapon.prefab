@@ -49,6 +49,11 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4381418634506620539}
   boxCollider: {fileID: 8026465580388508574}
   hitDebounce: 0.22
+  parryDebounce: 0.6
+  hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
+  parryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  hitFlashDuration: 0.5
+  hitFlashStrength: 0.7
 --- !u!61 &8026465580388508574
 BoxCollider2D:
   m_ObjectHideFlags: 0

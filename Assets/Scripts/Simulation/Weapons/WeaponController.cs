@@ -23,6 +23,7 @@ namespace Balltallion.Simulation.Weapons
 
         private void Start()
         {
+            currentAngle = Random.Range(0, 360);
             spinDirection = Random.Range(0, 2) == 0 ? 1.0f : -1.0f;
         }
 
