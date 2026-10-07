@@ -5,6 +5,7 @@ using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Balltallion.TeamPicker
@@ -12,6 +13,7 @@ namespace Balltallion.TeamPicker
     public class TeamPickerUI : MonoBehaviour
     {
         [SerializeField] private List<BallDataSO> selectableBalls;
+        [SerializeField] private int teamLimit = 2;
         
         [Header("Ball Selection")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -35,7 +37,6 @@ namespace Balltallion.TeamPicker
         private BallDataSO selectedBallData;
         private List<BallDataSO> playerTeam = new();
         private List<BallDataSO> enemyTeam = new();
-        private int maxPerTeam = 6;
 
         private void Start()
         {
@@ -106,14 +107,14 @@ namespace Balltallion.TeamPicker
 
         private void AddSelectedToPlayerTeam()
         {
-            if (playerTeam.Count >= maxPerTeam) return;
+            if (playerTeam.Count >= teamLimit) return;
             playerTeam.Add(selectedBallData);
             playerTeamDisplay.UpdateDisplay(playerTeam);
         }
 
         private void AddSelectedToEnemyTeam()
         {
-            if (enemyTeam.Count >= maxPerTeam) return;
+            if (enemyTeam.Count >= teamLimit) return;
             enemyTeam.Add(selectedBallData);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
         }
@@ -132,7 +133,9 @@ namespace Balltallion.TeamPicker
         
         private void StartBattle()
         {
-            Debug.Log("Starting battle!");
+            BattleManager.playerTeamLoadout = new List<BallDataSO>(playerTeam);
+            BattleManager.enemyTeamLoadout = new List<BallDataSO>(enemyTeam);
+            SceneManager.LoadScene("Arena");
         }
 
         private void SetSelectedBall(int newIdx)

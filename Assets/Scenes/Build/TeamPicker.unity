@@ -1104,6 +1104,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6d9ac2af9611da5409e6f26c69c42334, type: 2}
   - {fileID: 11400000, guid: c24136d39fa754f4d83e1a8ead415250, type: 2}
   - {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
+  teamLimit: 3
   leftSelectButton: {fileID: 1237545439}
   rightSelectButton: {fileID: 479456934}
   addToPlayerTeamButton: {fileID: 2043534698}
