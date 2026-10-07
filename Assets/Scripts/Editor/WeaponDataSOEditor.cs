@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using Balltallion.Battle;
+using Balltallion.Simulation.Weapons;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -11,14 +12,14 @@ using Object = UnityEngine.Object;
  */
 namespace Balltallion.Editor
 {
-    [CustomEditor(typeof(BallDataSO))]
-    public class BallStatsSOEditor : UnityEditor.Editor
+    [CustomEditor(typeof(WeaponDataSO))]
+    public class WeaponDataSOEditor : UnityEditor.Editor
     {
-        private BallDataSO item { get { return target as BallDataSO; } }
+        private WeaponDataSO item { get { return target as WeaponDataSO; } }
 
         public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {
-            if (item.ballSprite != null)
+            if (item.weaponSprite != null)
             {
                 Type t = GetType("UnityEditor.SpriteUtility");
                 if (t != null)
@@ -26,7 +27,7 @@ namespace Balltallion.Editor
                     MethodInfo method = t.GetMethod("RenderStaticPreview", new[] { typeof(Sprite), typeof(Color), typeof(int), typeof(int) });
                     if (method != null)
                     {
-                        object ret = method.Invoke("RenderStaticPreview", new object[] { item.ballSprite, Color.white, width, height });
+                        object ret = method.Invoke("RenderStaticPreview", new object[] { item.weaponSprite, Color.white, width, height });
                         if (ret is Texture2D)
                             return ret as Texture2D;
                     }

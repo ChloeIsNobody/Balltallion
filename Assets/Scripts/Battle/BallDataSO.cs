@@ -1,10 +1,11 @@
 using System;
+using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Balltallion.Battle
 {
-    [CreateAssetMenu(menuName = "Balltallion/Balls", fileName = "BallData")]
+    [CreateAssetMenu(menuName = "Balltallion/BallData", fileName = "BallData")]
     public class BallDataSO : ScriptableObject
     {
         [Header("Display Info")]
@@ -12,7 +13,6 @@ namespace Balltallion.Battle
         [SerializeField] public string displayName = "Ball";
         [SerializeField] public Color debugColor = Color.white;
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
-        
         
         [Header("Stats")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -22,6 +22,9 @@ namespace Balltallion.Battle
         [SerializeField, Space] public bool velocityScaledContactDamage;
         [SerializeField, EnableIf("VelocityScaling")] private Vector2 velocityScalingRange;
         [SerializeField, EnableIf("VelocityScaling")] private Vector2 contactDamageRange;
+
+        [Space]
+        [SerializeField, Expandable] public WeaponDataSO weapon;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -38,6 +41,10 @@ namespace Balltallion.Battle
         [SerializeField, Range(0.0f, 3.0f)] public float animStiffness = 0.35f;
         [SerializeField, Range(0.0f, 1.0f)] public float animDamping = 0.3f;
         [SerializeField, Range(0.0f, 1.0f)] public float animVelocityStretching = 0.1f;
+        [SerializeField, Range(0.0f, 360.0f)] public float animHueShift = 0.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animSaturation = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animBrightness = 1.0f;
+        [SerializeField, Range(0.0f, 2.0f)] public float animContrast = 1.0f;
 
         public int GetVelocityScaledDamage(float velocity)
         {

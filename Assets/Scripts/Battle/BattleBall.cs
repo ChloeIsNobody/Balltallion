@@ -1,4 +1,5 @@
-using Balltallion.BallSimulation;
+using Balltallion.Simulation;
+using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -7,11 +8,15 @@ namespace Balltallion.Battle
     public class BattleBall : MonoBehaviour
     {
         [SerializeField, Expandable] private BallDataSO ballData;
+        [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
+        [SerializeField] private TeamNames team;
+        
+        [Header("Debug Draw")]
         [SerializeField] private bool debugLogToConsole = false;
+        [SerializeField] private bool debugAttacks;
         
         private int health;
-        
         private BallBody ballBody;
 
         private void Awake()
@@ -21,26 +26,36 @@ namespace Balltallion.Battle
 
         private void Start()
         {
-            if (ballData) LoadBallStats(ballData);
+            if (ballData) LoadBallData(ballData, team);
         }
 
         [Button("Editor Refresh Stats")]
         private void EditorLoadStats()
         {
-            if (ballData != null) LoadBallStats(ballData);
+            if (ballData != null) LoadBallData(ballData, team);
         }
 
-        private void LoadBallStats(BallDataSO ballData)
+        private void LoadBallData(BallDataSO data, TeamNames team)
         {
-            this.ballData = ballData;
-            health = ballData.maxHealth;
+            ballData = data;
+            health = data.maxHealth;
             
-            name = ballData.displayName;
-            ballAnimator.SetSprite(ballData.ballSprite);
+            SetTeam(team);
+            name = data.displayName;
+            ballAnimator.SetSprite(data.ballSprite);
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallStats(ballData);
-            ballAnimator.SetSpringData(ballData.animStiffness, ballData.animDamping, ballData.mass, ballData.animVelocityStretching);
+            ballBody.LoadBallData(data);
+            ballAnimator.LoadBallData(data);
+            
+            weaponController.gameObject.SetActive(data.weapon != null);
+            weaponController.LoadWeaponData(data.weapon);
+        }
+
+        private void SetTeam(TeamNames newTeam)
+        {
+            team = newTeam;
+            gameObject.layer = TeamUtilities.GetTeamLayer(newTeam);
         }
         
         private void OnEnable()
@@ -59,6 +74,7 @@ namespace Balltallion.Battle
         {
             TakeDamage(attackData.damage);
             ballBody.ApplyKnockback(attackData.knockback);
+            if (debugAttacks) DebugAttack(attackData);
             
             if (attackData.damage > 0 )
             {
@@ -67,10 +83,17 @@ namespace Balltallion.Battle
             }
         }
 
+        private void DebugAttack(AttackData attackData)
+        {
+            Vector2 end = (Vector2)transform.position + attackData.knockback/5.0f;
+            Debug.DrawLine(transform.position, end, attackData.source.GetColor(), 2);
+        }
+
         private void TakeDamage(int damage)
         {
             if (damage <= 0) return;
             health -= damage;
+            ballAnimator.HitFlash();
             if (health <= 0) Die();
         }
 
@@ -107,7 +130,9 @@ namespace Balltallion.Battle
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
+        public BallDataSO GetBallData() => ballData;
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
+        public TeamNames GetTeam() => team;
     }
 }

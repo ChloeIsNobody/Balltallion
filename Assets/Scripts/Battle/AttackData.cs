@@ -6,6 +6,6 @@ namespace Balltallion.Battle
     {
         public BattleBall source;
         public int damage;
-        public Vector3 knockback;
+        public Vector2 knockback;
     }
 }

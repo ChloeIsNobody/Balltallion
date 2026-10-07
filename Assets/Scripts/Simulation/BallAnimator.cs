@@ -1,8 +1,8 @@
-﻿using Balltallion.DebugTools;
+﻿using Balltallion.Battle;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion.BallSimulation
+namespace Balltallion.Simulation
 {
     public class BallAnimator : MonoBehaviour
     {
@@ -21,6 +21,11 @@ namespace Balltallion.BallSimulation
         [SerializeField, MinMaxSlider(0.0f, 1.0f)] private Vector2 animationPowerMappingOut;
         [SerializeField, Range(0.0f, 3.0f)] private float springStiffness = 0.2f;
         [SerializeField, Range(0.0f, 1.0f)] private float springDamping = 0.2f;
+
+        [Header("Hitflash")]
+        [SerializeField] private Color hitFlashColor = Color.white;
+        [SerializeField, Range(0.0f, 1.0f)] private float hitFlashDuration = 0.15f;
+        [SerializeField, Range(0.0f, 1.0f)] private float hitFlashStrength = 1.0f;
         
         private Material material;
         private Spring springX;
@@ -28,6 +33,12 @@ namespace Balltallion.BallSimulation
 
         private float collisionFactor;
         private float velocityStretchingFactor;
+
+        private float hitFlashTimer = 0.0f;
+
+        private float hue;
+        private float saturation;
+        private float brightness;
         
         private void Awake()
         {
@@ -39,6 +50,18 @@ namespace Balltallion.BallSimulation
             springY.Reset();
             
             collisionFactor = 1.0f;
+        }
+
+        public void LoadBallData(BallDataSO data)
+        {
+            SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
+            if (material)
+            {
+                material.SetFloat("_HueShift", data.animHueShift);
+                material.SetFloat("_Saturation", data.animSaturation);
+                material.SetFloat("_Brightness", data.animBrightness);
+                material.SetFloat("_Contrast", data.animContrast);
+            }
         }
 
         public void SetSpringData(float stiffness, float damping, float mass, float velocityStretchingFactor)
@@ -80,6 +103,15 @@ namespace Balltallion.BallSimulation
             material.SetFloat("_Stretch2X", springX.GetPosition());
             material.SetFloat("_Stretch2Y", springY.GetPosition());
             material.SetFloat("_Stretch2Displacement", collisionFactor);
+
+            if (hitFlashTimer > 0.0f)
+            {
+                hitFlashTimer = Mathf.Max(hitFlashTimer - Time.deltaTime, 0.0f);
+                float animValue = 1.0f - hitFlashTimer / hitFlashDuration;
+                animValue = 1.0f - Mathf.Pow(1.0f - animValue, 3.0f); // cubic ease out
+                float blendValue = Mathf.Lerp(hitFlashStrength, 0.0f, animValue);
+                material.SetFloat("_BlendValue", blendValue);
+            }
         }
         
         private void VelocityStretching()
@@ -112,6 +144,13 @@ namespace Balltallion.BallSimulation
             material.SetFloat("_Stretch2Angle", stretchAngle);
             
             collisionFactor = 0.0f;
+        }
+
+        public void HitFlash()
+        {
+            hitFlashTimer = hitFlashDuration;
+            material.SetColor("_BlendColor", hitFlashColor);
+            material.SetFloat("_BlendValue", 1.0f);
         }
 
         private float GetAnimationPower(BallCollisionData collisionData)
