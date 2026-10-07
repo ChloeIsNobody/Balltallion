@@ -120,20 +120,20 @@ Packages/packages-lock.json linguist-generated
 *.wmv                   lfs
 
 # Images
-*.bmp                   lfs
-*.exr                   lfs
-*.gif                   lfs
-*.hdr                   lfs
-*.iff                   lfs
-*.jpeg                  lfs
-*.jpg                   lfs
-*.pict                  lfs
-*.png                   lfs
-*.psd                   lfs
-*.tga                   lfs
-*.tif                   lfs
-*.tiff                  lfs
-*.webp                  lfs
+*.bmp                   binary
+*.exr                   binary
+*.gif                   binary
+*.hdr                   binary
+*.iff                   binary
+*.jpeg                  binary
+*.jpg                   binary
+*.pict                  binary
+*.png                   binary
+*.psd                   binary
+*.tga                   binary
+*.tif                   binary
+*.tiff                  binary
+*.webp                  binary
 
 # Compressed Archive
 *.7z                    lfs
