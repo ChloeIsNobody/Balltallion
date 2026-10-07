@@ -913,6 +913,67 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &466851826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 466851827}
+  - component: {fileID: 466851828}
+  m_Layer: 0
+  m_Name: TeamPicker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &466851827
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466851826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4028.4055, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &466851828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 466851826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a575d269ffcb42649779d6e7567d5b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamPickerUI
+  selectableBalls:
+  - {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
+  - {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
+  - {fileID: 11400000, guid: adbc418d7fc77bb418ec977e61db84ab, type: 2}
+  - {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+  - {fileID: 11400000, guid: afbf1dba99313a5479b8487d4bf772d3, type: 2}
+  - {fileID: 11400000, guid: 9eb3af9b270cc4849866f19586a9562e, type: 2}
+  - {fileID: 11400000, guid: 6d9ac2af9611da5409e6f26c69c42334, type: 2}
+  - {fileID: 11400000, guid: c24136d39fa754f4d83e1a8ead415250, type: 2}
+  - {fileID: 11400000, guid: 1c997c75db004d24e9e726c5a868fb66, type: 2}
+  leftSelectButton: {fileID: 1237545439}
+  rightSelectButton: {fileID: 479456934}
+  addToPlayerTeamButton: {fileID: 2043534698}
+  addToEnemyTeamButton: {fileID: 136272368}
+  ballNameText: {fileID: 1364346865}
+  ballIcon: {fileID: 26401464}
+  playButton: {fileID: 1644623161}
 --- !u!1 &470050632
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,9 +1058,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 479456933}
+  - component: {fileID: 479456934}
   - component: {fileID: 479456936}
   - component: {fileID: 479456935}
-  - component: {fileID: 479456934}
   m_Layer: 5
   m_Name: RightButton
   m_TagString: Untagged
@@ -1636,9 +1697,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1237545438}
+  - component: {fileID: 1237545439}
   - component: {fileID: 1237545441}
   - component: {fileID: 1237545440}
-  - component: {fileID: 1237545439}
   m_Layer: 5
   m_Name: LeftButton
   m_TagString: Untagged
@@ -3088,5 +3149,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 2136378343}
   - {fileID: 2090789167}
+  - {fileID: 466851827}
   - {fileID: 459910364}
   - {fileID: 907040093}
