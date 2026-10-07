@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
-  m_Name: Gumball Machine
+  m_Name: Samurai Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
-  displayName: Gumball Machine
-  debugColor: {r: 0.83921576, g: 0.21568629, b: 0.21568629, a: 1}
-  ballSprite: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
+  displayName: Samurai Ball
+  debugColor: {r: 0.92549026, g: 0.30588236, b: 0.34509805, a: 1}
+  ballSprite: {fileID: 21300000, guid: 6ced025257b21ba439a0555f64f64b0e, type: 3}
   maxHealth: 100
   contactDamage: 0
   velocityScaledContactDamage: 0
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 92a0826bf65bcfa4a9129a25ebc6c2e6, type: 2}
   size: 1
   mass: 1
   gravityScale: 1
@@ -30,3 +30,7 @@ MonoBehaviour:
   animStiffness: 0.35
   animDamping: 0.3
   animVelocityStretching: 0.1
+  animHueShift: 111
+  animSaturation: 1
+  animBrightness: 0.85
+  animContrast: 1.14

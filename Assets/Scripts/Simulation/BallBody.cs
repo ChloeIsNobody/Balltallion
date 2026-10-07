@@ -3,7 +3,7 @@ using Balltallion.Battle;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Balltallion.BallSimulation
+namespace Balltallion.Simulation
 {
     public class BallBody : MonoBehaviour
     {
@@ -39,7 +39,7 @@ namespace Balltallion.BallSimulation
             rb.linearVelocity = startVelocity;
         }
 
-        public void LoadBallStats(BallDataSO ballData)
+        public void LoadBallData(BallDataSO ballData)
         {
             this.ballData = ballData;
             transform.localScale = Vector3.one * ballData.size;
@@ -69,8 +69,6 @@ namespace Balltallion.BallSimulation
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
                 rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
-            
-            
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -137,7 +135,7 @@ namespace Balltallion.BallSimulation
             
             AdjustVelocityPostCollision();
             
-            if (debugDraw) DebugDrawCollision(contact.point, -contact.normal, collisionPowerA/5.0f);
+            if (debugDraw) DebugDrawLine(contact.point, -contact.normal, collisionPowerA/5.0f);
         }
 
         public void ApplyKnockback(Vector2 knockback)
@@ -153,9 +151,11 @@ namespace Balltallion.BallSimulation
                 myCollisionPower = knockback.magnitude,
                 totalCollisionPower = knockback.magnitude,
             });
+            
+            if (debugDraw) DebugDrawLine(transform.position, knockback.normalized, knockback.magnitude/5.0f);
         }
         
-        private void DebugDrawCollision(Vector2 point, Vector2 normal, float size)
+        private void DebugDrawLine(Vector2 point, Vector2 normal, float size)
         {
             Debug.DrawLine(point, point + normal*size, ballData.debugColor, 2, false);
         }

@@ -1,4 +1,4 @@
-﻿using Balltallion.BallSimulation;
+﻿using Balltallion.Simulation;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
