@@ -1,3 +1,4 @@
+using System;
 using Balltallion.Simulation;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
@@ -7,6 +8,8 @@ namespace Balltallion.Battle
 {
     public class BattleBall : MonoBehaviour
     {
+        public event Action OnDeath;
+        
         [SerializeField, Expandable] private BallDataSO ballData;
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
@@ -35,7 +38,7 @@ namespace Balltallion.Battle
             if (ballData != null) LoadBallData(ballData, team);
         }
 
-        private void LoadBallData(BallDataSO data, TeamNames team)
+        public void LoadBallData(BallDataSO data, TeamNames team)
         {
             ballData = data;
             health = data.maxHealth;
@@ -100,6 +103,7 @@ namespace Balltallion.Battle
         public void Die()
         {
             if (debugLogToConsole) Debug.Log($"{name} died! :(");
+            OnDeath?.Invoke();
             Destroy(gameObject, 0f);
         }
         
