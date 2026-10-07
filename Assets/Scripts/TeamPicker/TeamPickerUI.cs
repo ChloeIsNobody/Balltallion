@@ -88,8 +88,9 @@ namespace Balltallion.TeamPicker
             {
                 AddSelectedToEnemyTeam();
             }
-
-            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            
+            playButton.interactable = CanStartBattle();
+            if (Keyboard.current.enterKey.wasPressedThisFrame && CanStartBattle())
             {
                 StartBattle();
             }
@@ -129,6 +130,11 @@ namespace Balltallion.TeamPicker
         {
             enemyTeam.Clear();
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
+        }
+
+        private bool CanStartBattle()
+        {
+            return playerTeam.Count > 0 && enemyTeam.Count > 0;
         }
         
         private void StartBattle()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponDataSO
   weaponSprite: {fileID: 21300000, guid: 397560a93989ae64d87419f2b78d7f37, type: 3}
   damage: 12
-  knockback: 17
+  knockback: 12
   spinSpeed: 3
   weaponCount: 1
   relativeColliderSize: {x: 0.9, y: 0.4}

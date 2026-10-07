@@ -36,6 +36,7 @@ namespace Balltallion.Battle
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] private BallHealthDisplayUI playerHealthDisplay;
         [SerializeField] private BallHealthDisplayUI enemyHealthDisplay;
+        [SerializeField] private Button replayButton;
         [SerializeField] private Button backButton;
 
         public static List<BallDataSO> playerTeamLoadout = new();
@@ -61,11 +62,13 @@ namespace Balltallion.Battle
 
         private void OnEnable()
         {
+            replayButton.onClick.AddListener(ReplayBattle);
             backButton.onClick.AddListener(ReturnToTeamPickerScene);
         }
 
         private void OnDisable()
         {
+            replayButton.onClick.RemoveAllListeners();
             backButton.onClick.RemoveAllListeners();
         }
 
@@ -102,6 +105,11 @@ namespace Balltallion.Battle
 
             List<BattleBall> teamList = team == TeamNames.Player ? playerBalls : enemyBalls;
             teamList.Add(ball);
+        }
+
+        private void ReplayBattle()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
         private void ReturnToTeamPickerScene()
