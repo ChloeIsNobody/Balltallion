@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Balltallion.Simulation;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -70,6 +71,19 @@ namespace Balltallion.Battle
         {
             replayButton.onClick.RemoveAllListeners();
             backButton.onClick.RemoveAllListeners();
+        }
+
+        private void Update()
+        {
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                ReturnToTeamPickerScene();
+            }
+
+            if (Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                ReplayBattle();
+            }
         }
 
         private void InstantiateBalls()

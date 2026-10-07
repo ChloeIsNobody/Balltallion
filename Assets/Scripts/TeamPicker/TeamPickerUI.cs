@@ -88,6 +88,11 @@ namespace Balltallion.TeamPicker
             {
                 AddSelectedToEnemyTeam();
             }
+
+            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            {
+                Application.Quit();
+            }
             
             playButton.interactable = CanStartBattle();
             if (Keyboard.current.enterKey.wasPressedThisFrame && CanStartBattle())
