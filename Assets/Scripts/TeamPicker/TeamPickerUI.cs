@@ -19,30 +19,51 @@ namespace Balltallion.TeamPicker
         [SerializeField] private Button rightSelectButton;
         [SerializeField] private Button addToPlayerTeamButton;
         [SerializeField] private Button addToEnemyTeamButton;
+        [SerializeField] private Button clearPlayerTeamButton;
+        [SerializeField] private Button clearEnemyTeamButton;
         [SerializeField] private TextMeshProUGUI ballNameText;
         [SerializeField] private Image ballIcon;
+        
+        [Header("Team Displays")]
+        [SerializeField] private TeamDisplayUI playerTeamDisplay;
+        [SerializeField] private TeamDisplayUI enemyTeamDisplay;
 
         [Header("Other Stuff")]
         [SerializeField] private Button playButton;
 
         private int selectedBallIdx = 0;
         private BallDataSO selectedBallData;
+        private List<BallDataSO> playerTeam = new();
+        private List<BallDataSO> enemyTeam = new();
+        private int maxPerTeam = 6;
 
         private void Start()
         {
             SetSelectedBall(0);
+            playerTeamDisplay.UpdateDisplay(playerTeam);
+            enemyTeamDisplay.UpdateDisplay(enemyTeam);
         }
 
         private void OnEnable()
         {
             leftSelectButton.onClick.AddListener(RotateSelectionLeft);
             rightSelectButton.onClick.AddListener(RotateSelectionRight);
+            addToPlayerTeamButton.onClick.AddListener(AddSelectedToPlayerTeam);
+            addToEnemyTeamButton.onClick.AddListener(AddSelectedToEnemyTeam);
+            clearPlayerTeamButton.onClick.AddListener(ClearPlayerTeam);
+            clearEnemyTeamButton.onClick.AddListener(ClearEnemyTeam);
+            playButton.onClick.AddListener(StartBattle);
         }
 
         private void OnDisable()
         {
-            leftSelectButton.onClick.RemoveListener(RotateSelectionLeft);
-            rightSelectButton.onClick.RemoveListener(RotateSelectionRight);
+            leftSelectButton.onClick.RemoveAllListeners();
+            rightSelectButton.onClick.RemoveAllListeners();
+            addToPlayerTeamButton.onClick.RemoveAllListeners();
+            addToEnemyTeamButton.onClick.RemoveAllListeners();
+            clearPlayerTeamButton.onClick.RemoveAllListeners();
+            clearEnemyTeamButton.onClick.RemoveAllListeners();
+            playButton.onClick.RemoveAllListeners();
         }
 
         private void Update()
@@ -56,6 +77,21 @@ namespace Balltallion.TeamPicker
             {
                 RotateSelectionRight();
             }
+
+            if (Keyboard.current.digit1Key.wasPressedThisFrame)
+            {
+                AddSelectedToPlayerTeam();
+            }
+
+            if (Keyboard.current.digit2Key.wasPressedThisFrame)
+            {
+                AddSelectedToEnemyTeam();
+            }
+
+            if (Keyboard.current.enterKey.wasPressedThisFrame)
+            {
+                StartBattle();
+            }
         }
 
         private void RotateSelectionLeft()
@@ -68,6 +104,37 @@ namespace Balltallion.TeamPicker
             SetSelectedBall(selectedBallIdx + 1);
         }
 
+        private void AddSelectedToPlayerTeam()
+        {
+            if (playerTeam.Count >= maxPerTeam) return;
+            playerTeam.Add(selectedBallData);
+            playerTeamDisplay.UpdateDisplay(playerTeam);
+        }
+
+        private void AddSelectedToEnemyTeam()
+        {
+            if (enemyTeam.Count >= maxPerTeam) return;
+            enemyTeam.Add(selectedBallData);
+            enemyTeamDisplay.UpdateDisplay(enemyTeam);
+        }
+
+        private void ClearPlayerTeam()
+        {
+            playerTeam.Clear();
+            playerTeamDisplay.UpdateDisplay(playerTeam);
+        }
+
+        private void ClearEnemyTeam()
+        {
+            enemyTeam.Clear();
+            enemyTeamDisplay.UpdateDisplay(enemyTeam);
+        }
+        
+        private void StartBattle()
+        {
+            Debug.Log("Starting battle!");
+        }
+
         private void SetSelectedBall(int newIdx)
         {
             selectedBallIdx = newIdx;
@@ -75,7 +142,7 @@ namespace Balltallion.TeamPicker
             if (selectedBallIdx >= selectableBalls.Count) selectedBallIdx = 0;
             
             selectedBallData = selectableBalls[selectedBallIdx];
-            ballNameText.text = selectedBallData.name;
+            ballNameText.text = selectedBallData.displayName;
             ballIcon.sprite = selectedBallData.ballSprite;
         }
     }

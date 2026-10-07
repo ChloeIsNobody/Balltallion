@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 487799968759353005}
+  - component: {fileID: 3643863261010560283}
   - component: {fileID: 2358067295572213386}
   - component: {fileID: 1980464210549365776}
   m_Layer: 5
@@ -39,6 +40,25 @@ RectTransform:
   m_AnchoredPosition: {x: 75, y: 75}
   m_SizeDelta: {x: 700, y: 499.7}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &3643863261010560283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892823312340468648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b034f2f6f4f74a828fd88c4b088d9b35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayUI
+  teamDisplayIcons:
+  - {fileID: 7686351086989918452}
+  - {fileID: 6735149737232309993}
+  - {fileID: 278548483896019116}
+  - {fileID: 6187659113410749806}
+  - {fileID: 5205709680956519934}
+  - {fileID: 7963132286942713163}
 --- !u!222 &2358067295572213386
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -390,6 +410,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
   m_PrefabInstance: {fileID: 1326014779895070079}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7686351086989918452 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 1326014779895070079}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!1001 &1607554596925008064
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -500,6 +531,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
   m_PrefabInstance: {fileID: 1607554596925008064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7963132286942713163 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 1607554596925008064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!1001 &2717249457638138722
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -610,6 +652,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
   m_PrefabInstance: {fileID: 2717249457638138722}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6735149737232309993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 2717249457638138722}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!1001 &3248062705246312677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -720,6 +773,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
   m_PrefabInstance: {fileID: 3248062705246312677}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6187659113410749806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 3248062705246312677}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!1001 &3527428619524720757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -830,6 +894,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
   m_PrefabInstance: {fileID: 3527428619524720757}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5205709680956519934 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 3527428619524720757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!1001 &8867603757776532775
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -935,6 +1010,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+--- !u!114 &278548483896019116 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8704777466380090763, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
+  m_PrefabInstance: {fileID: 8867603757776532775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b893f815f92f443c846ddc353eef7f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.TeamPicker.TeamDisplayIconUI
 --- !u!224 &8892764422249056478 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 34195373666041337, guid: 0b0fa3607ba5c8449a8093607da6c46f, type: 3}
