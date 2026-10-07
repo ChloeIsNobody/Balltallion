@@ -134,6 +134,7 @@ Packages/packages-lock.json linguist-generated
 *.tif                   lfs
 *.tiff                  lfs
 *.webp                  lfs
+*.PNG                   lfs
 
 # Compressed Archive
 *.7z                    lfs
