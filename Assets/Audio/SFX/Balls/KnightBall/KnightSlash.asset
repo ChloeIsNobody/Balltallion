@@ -17,7 +17,7 @@ AudioRandomContainer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: KnightSlash
-  m_Volume: -8.1
+  m_Volume: -4.1
   m_Pitch: 193
   m_AutomaticTriggerTime: 0
   m_LoopCount: 1
