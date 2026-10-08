@@ -64,13 +64,13 @@ namespace Balltallion.Battle
         
         private void OnEnable()
         {
-            ballBody.OnBounce += OnBounce;
+            ballBody.OnWallBounce += OnWallBounce;
             ballBody.OnBallCollision += OnBallCollision;
         }
 
         private void OnDisable()
         {
-            ballBody.OnBounce -= OnBounce;
+            ballBody.OnWallBounce -= OnWallBounce;
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
@@ -111,7 +111,7 @@ namespace Balltallion.Battle
         public float GetHealth() => health;
         public float GetMaxHealth() => ballData.maxHealth;
 
-        private void OnBounce(BallCollisionData data)
+        private void OnWallBounce(BallCollisionData data)
         {
             audioHandler.PlayBounceSound();
             if (debugLogToConsole) Debug.Log($"{name} bounced!");

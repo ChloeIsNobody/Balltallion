@@ -2,6 +2,7 @@ using System;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Battle
 {
@@ -49,8 +50,8 @@ namespace Balltallion.Battle
         [Space]
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] public AudioClip bounceSound;
-        [SerializeField] public AudioClip damageSound;
+        [SerializeField] public AudioResource bounceSound;
+        [SerializeField] public AudioResource damageSound;
 
         public int GetVelocityScaledDamage(float velocity)
         {

@@ -7,6 +7,7 @@ namespace Balltallion.Simulation
 {
     public class BallBody : MonoBehaviour
     {
+        public event Action<BallCollisionData> OnWallBounce;
         public event Action<BallCollisionData> OnBounce;
         public event Action<BallCollisionData> OnBallCollision;
 
@@ -94,7 +95,7 @@ namespace Balltallion.Simulation
             float collisionPower = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
             float collisionDot = collisionPower / velocityLastFixedUpdate.magnitude;
             
-            OnBounce?.Invoke(new BallCollisionData
+            OnWallBounce?.Invoke(new BallCollisionData
             {
                 otherBall = null,
                 contactPoint = contact.point,

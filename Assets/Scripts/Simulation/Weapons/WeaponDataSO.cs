@@ -1,6 +1,7 @@
 ﻿using Balltallion.Battle;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Simulation.Weapons
 {
@@ -26,6 +27,6 @@ namespace Balltallion.Simulation.Weapons
         
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] public AudioClip attackSound;
+        [SerializeField] public AudioResource attackSound;
     }
 }
