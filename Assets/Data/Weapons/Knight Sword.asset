@@ -20,3 +20,4 @@ MonoBehaviour:
   relativeColliderSize: {x: 0.9, y: 0.4}
   radialOffset: 1.2
   size: 1.22
+  attackSound: {fileID: 6418180475301049370, guid: 0bd8727887d673b49b0db7bec166d09c, type: 2}

@@ -1,4 +1,5 @@
 using System;
+using Balltallion.Audio;
 using Balltallion.Simulation;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
@@ -14,6 +15,7 @@ namespace Balltallion.Battle
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private TeamNames team;
+        [SerializeField] private BallAudioHandler audioHandler;
         
         [Header("Debug Draw")]
         [SerializeField] private bool debugLogToConsole = false;
@@ -53,6 +55,8 @@ namespace Balltallion.Battle
             
             weaponController.gameObject.SetActive(data.weapon != null);
             weaponController.LoadWeaponData(data.weapon);
+
+            audioHandler.LoadBallData(data);
         }
 
         private void SetTeam(TeamNames newTeam)
@@ -63,13 +67,13 @@ namespace Balltallion.Battle
         
         private void OnEnable()
         {
-            ballBody.OnBounce += OnBounce;
+            ballBody.OnWallBounce += OnWallBounce;
             ballBody.OnBallCollision += OnBallCollision;
         }
 
         private void OnDisable()
         {
-            ballBody.OnBounce -= OnBounce;
+            ballBody.OnWallBounce -= OnWallBounce;
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
@@ -97,6 +101,7 @@ namespace Balltallion.Battle
             if (damage <= 0) return;
             health -= damage;
             ballAnimator.HitFlash();
+            audioHandler.PlayDamageSound();
             if (health <= 0) Die();
         }
 
@@ -110,8 +115,9 @@ namespace Balltallion.Battle
         public float GetHealth() => health;
         public float GetMaxHealth() => ballData.maxHealth;
 
-        private void OnBounce(BallCollisionData data)
+        private void OnWallBounce(BallCollisionData data)
         {
+            audioHandler.PlayBounceSound();
             if (debugLogToConsole) Debug.Log($"{name} bounced!");
         }
 
