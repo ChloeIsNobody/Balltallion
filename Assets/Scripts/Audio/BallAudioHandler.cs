@@ -1,7 +1,7 @@
 using Balltallion.Battle;
 using UnityEngine;
 
-namespace Balltallion
+namespace Balltallion.Audio
 {
     public class BallAudioHandler : MonoBehaviour
     {
