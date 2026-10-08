@@ -20,9 +20,6 @@ namespace Balltallion.Simulation
         [SerializeField] private LayerMask wallLayerMask;
         [SerializeField] private LayerMask ballLayerMask;
 
-        [SerializeField] private float startAngleBase;
-        [SerializeField] private float startAngleVariation;
-
         private Rigidbody2D rb;
         private BallDataSO ballData;
         private Vector2 velocityLastFixedUpdate;
@@ -34,10 +31,6 @@ namespace Balltallion.Simulation
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-
-            float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
-            Vector2 startVelocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * speed;
-            rb.linearVelocity = startVelocity;
         }
 
         public void LoadBallData(BallDataSO ballData)
@@ -155,6 +148,8 @@ namespace Balltallion.Simulation
             
             if (debugDraw) DebugDrawLine(transform.position, knockback.normalized, knockback.magnitude/5.0f);
         }
+        
+        public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
         
         private void DebugDrawLine(Vector2 point, Vector2 normal, float size)
         {
