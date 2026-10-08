@@ -132,7 +132,6 @@ namespace Balltallion.Battle
             else attackData.damage = ballData.contactDamage;
             
             otherBall.Attack(attackData);
-            audioHandler.PlayAttackSound();
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }

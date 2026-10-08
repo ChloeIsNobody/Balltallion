@@ -1578,6 +1578,7 @@ MonoBehaviour:
   boxCollider: {fileID: 1118650974}
   hitDebounce: 0.22
   parryDebounce: 0.6
+  audioHandler: {fileID: 0}
   hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
   parryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   hitFlashDuration: 0.5

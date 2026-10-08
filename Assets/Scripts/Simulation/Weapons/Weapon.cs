@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Balltallion.Audio;
 using Balltallion.Battle;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField] private BoxCollider2D boxCollider;
         [SerializeField] private float hitDebounce = 0.45f;
         [SerializeField] private float parryDebounce = 0.5f;
+        [SerializeField] private WeaponAudioHandler audioHandler;
         
         [Header("Hitflash")]
         [SerializeField] private Color hitFlashColor = Color.white;
@@ -126,6 +128,7 @@ namespace Balltallion.Simulation.Weapons
                 knockback = CalculateKnockback(hitBall)
             };
             hitBall.Attack(attackData);
+            audioHandler.PlayAttackSound();
 
             // Recoil self
             attackData.damage = 0;

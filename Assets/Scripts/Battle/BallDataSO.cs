@@ -50,7 +50,6 @@ namespace Balltallion.Battle
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public AudioClip bounceSound;
-        [SerializeField] public AudioClip attackSound;
         [SerializeField] public AudioClip damageSound;
 
         public int GetVelocityScaledDamage(float velocity)
