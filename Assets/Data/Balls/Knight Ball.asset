@@ -30,3 +30,9 @@ MonoBehaviour:
   animStiffness: 0.35
   animDamping: 0.3
   animVelocityStretching: 0.1
+  animHueShift: 0
+  animSaturation: 1
+  animBrightness: 1
+  animContrast: 1
+  bounceSound: {fileID: 6418180475301049370, guid: b5fc5ef753b71714699079edfb164634, type: 2}
+  damageSound: {fileID: 6418180475301049370, guid: 49dce07e04587184da17177de3a81217, type: 2}
