@@ -11,6 +11,7 @@ namespace Balltallion.Battle
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private TeamNames team;
+        [SerializeField] private BallAudioHandler audioHandler;
         
         [Header("Debug Draw")]
         [SerializeField] private bool debugLogToConsole = false;
@@ -50,6 +51,8 @@ namespace Balltallion.Battle
             
             weaponController.gameObject.SetActive(data.weapon != null);
             weaponController.LoadWeaponData(data.weapon);
+
+            audioHandler.LoadBallData(data);
         }
 
         private void SetTeam(TeamNames newTeam)
@@ -94,6 +97,7 @@ namespace Balltallion.Battle
             if (damage <= 0) return;
             health -= damage;
             ballAnimator.HitFlash();
+            audioHandler.PlayDamageSound();
             if (health <= 0) Die();
         }
 
@@ -108,6 +112,7 @@ namespace Balltallion.Battle
 
         private void OnBounce(BallCollisionData data)
         {
+            audioHandler.PlayBounceSound();
             if (debugLogToConsole) Debug.Log($"{name} bounced!");
         }
 
@@ -126,6 +131,7 @@ namespace Balltallion.Battle
             else attackData.damage = ballData.contactDamage;
             
             otherBall.Attack(attackData);
+            audioHandler.PlayAttackSound();
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }

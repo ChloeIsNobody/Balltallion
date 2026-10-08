@@ -45,6 +45,13 @@ namespace Balltallion.Battle
         [SerializeField, Range(0.0f, 2.0f)] public float animSaturation = 1.0f;
         [SerializeField, Range(0.0f, 2.0f)] public float animBrightness = 1.0f;
         [SerializeField, Range(0.0f, 2.0f)] public float animContrast = 1.0f;
+        
+        [Space]
+        [Header("Audio Properties")]
+        [HorizontalLine(color: EColor.Gray, height:1.5f)]
+        [SerializeField] public AudioClip bounceSound;
+        [SerializeField] public AudioClip attackSound;
+        [SerializeField] public AudioClip damageSound;
 
         public int GetVelocityScaledDamage(float velocity)
         {
