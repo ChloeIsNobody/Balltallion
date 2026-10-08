@@ -51,6 +51,8 @@ namespace Balltallion.Simulation.Weapons
                 material.SetFloat("_Brightness", ballData.animBrightness);
                 material.SetFloat("_Contrast", ballData.animContrast);
             }
+            
+            audioHandler.LoadWeaponData(weaponData);
         }
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
