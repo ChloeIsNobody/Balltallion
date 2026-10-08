@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
   battleBallPrefab: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
-  loadMode: 1
+  loadMode: 0
   playerBallData: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
   enemyBallData: {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
   playerSpawnRect:
