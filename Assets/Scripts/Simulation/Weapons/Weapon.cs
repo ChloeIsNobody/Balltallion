@@ -167,6 +167,7 @@ namespace Balltallion.Simulation.Weapons
             parentBall.Attack(attackData);
             
             // Effects
+            audioHandler.PlayParrySound();
             HitFlash(parryColor);
             weaponController.SpinBoost();
             weaponController.ReverseSpinDirection();

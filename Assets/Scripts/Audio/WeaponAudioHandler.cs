@@ -6,6 +6,7 @@ namespace Balltallion.Audio
     public class WeaponAudioHandler : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip parrySound;
 
         private AudioClip attackSound;
         
@@ -18,6 +19,12 @@ namespace Balltallion.Audio
         {
             if (attackSound != null)
                 audioSource.PlayOneShot(attackSound);
+        }
+        
+        public void PlayParrySound()
+        {
+            if (parrySound != null)
+                audioSource.PlayOneShot(parrySound);
         }
     }
 }

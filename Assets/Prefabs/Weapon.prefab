@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Audio.WeaponAudioHandler
   audioSource: {fileID: 4095143594256171584}
+  parrySound: {fileID: 8300000, guid: 9e71477f33dba40e0a4b41973d276de7, type: 3}
 --- !u!82 &4095143594256171584
 AudioSource:
   m_ObjectHideFlags: 0
