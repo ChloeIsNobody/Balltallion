@@ -81,12 +81,14 @@ namespace Balltallion.Simulation
         private void OnEnable()
         {
             ballBody.OnBounce += OnCollision;
+            ballBody.OnWallBounce += OnCollision;
             ballBody.OnBallCollision += OnCollision;
         }
 
         private void OnDisable()
         {
             ballBody.OnBounce -= OnCollision;
+            ballBody.OnWallBounce -= OnCollision;
             ballBody.OnBallCollision -= OnCollision;
         }
 
