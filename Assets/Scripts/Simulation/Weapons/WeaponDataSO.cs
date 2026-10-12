@@ -25,12 +25,10 @@ namespace Balltallion.Simulation.Weapons
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] public bool shootsProjectiles;
         [SerializeField, ShowIf("ShootsProjectiles")] public Projectile projectilePrefab;
-        [SerializeField, ShowIf("ShootsProjectiles")] public int projectileDamage;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(1, 50)] public int ammo = 1;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 1.0f)] public float delayBetweenShots;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 10.0f)] public float reloadDuration = 2.0f;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 360.0f)] public float shotSpread = 0.0f;
-        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float projectileSpeed = 5.0f;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float shotRecoil = 0.0f;
 
         [Header("Position/Size")]

@@ -19,13 +19,13 @@ MonoBehaviour:
   damage: 0
   knockback: 0
   shootsProjectiles: 1
-  projectilePrefab: {fileID: 0}
-  projectileDamage: 0
+  projectilePrefab: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+  projectileDamage: 2
   ammo: 6
   delayBetweenShots: 0.1
   reloadDuration: 2
   shotSpread: 0
-  projectileSpeed: 0
+  projectileSpeed: 8.5
   shotRecoil: 0
   relativeColliderSize: {x: 0.65, y: 0.28}
   radialOffset: 0.78

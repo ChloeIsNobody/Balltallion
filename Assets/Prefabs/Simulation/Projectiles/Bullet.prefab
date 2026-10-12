@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1534364475
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: fd90ccad3302eb340b9e9939347636b3, type: 3}
@@ -102,6 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4261223293234693834}
   - component: {fileID: 7747066795157372299}
+  - component: {fileID: -2944184843425016585}
   - component: {fileID: 8420231997071351204}
   m_Layer: 0
   m_Name: Bullet
@@ -138,6 +139,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2033419b27431aaa72aeb89a24b2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Projectile
+  damage: 2
+  speed: 8
+  knockback: 0
+  maxBounces: 1
+--- !u!50 &-2944184843425016585
+Rigidbody2D:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544588439663288407}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 41573ff600a4c8f438b809101e92fe64, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  m_Interpolate: 1
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
 --- !u!58 &8420231997071351204
 CircleCollider2D:
   m_ObjectHideFlags: 0

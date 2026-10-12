@@ -62,7 +62,7 @@ namespace Balltallion.Battle
         private void SetTeam(TeamNames newTeam)
         {
             team = newTeam;
-            gameObject.layer = TeamUtilities.GetTeamLayer(newTeam);
+            gameObject.layer = TeamUtilities.GetTeamLayerID(newTeam);
         }
         
         private void OnEnable()

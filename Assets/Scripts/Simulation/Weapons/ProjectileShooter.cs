@@ -46,7 +46,14 @@ namespace Balltallion.Simulation.Weapons
 
         private void Shoot()
         {
-            Debug.Log("BANG");
+            Projectile newProjectile = Instantiate(weaponData.projectilePrefab);
+            newProjectile.transform.position = transform.position;
+            newProjectile.Initialize(parentBall, CalculateShootDirection(), parentBall.GetTeam());
+        }
+
+        private Vector2 CalculateShootDirection()
+        {
+            return transform.right;
         }
     }
 }

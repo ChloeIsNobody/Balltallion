@@ -1,49 +1,76 @@
-﻿using Balltallion.Battle;
+﻿using System;
+using System.Collections.Generic;
+using Balltallion.Battle;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
 {
     public class Projectile : MonoBehaviour
     {
-        private BattleBall shooter;
-        private Vector2 moveDirection;
-        private int damage;
-        private float speed;
+        [Header("Stats")] [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] private int damage;
+        [SerializeField, Range(0.0f, 25.0f)] private float speed = 5.0f;
+        [SerializeField] private float knockback;
+        [SerializeField, Range(0, 5)] private int maxBounces;
 
-        private bool initialized;
+        private BattleBall shooter;
+        private Rigidbody2D rb;
+        private ContactFilter2D targetContactFilter; 
         
-        public void Initialize(BattleBall shooter, Vector2 shootDirection, int damage, float speed, TeamNames team)
+        private Vector2 moveDirection;
+        private bool initialized;
+
+        private int currentBounces = 0;
+        
+        private void Awake()
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
+        
+        public void Initialize(BattleBall shooter, Vector2 shootDirection, TeamNames team)
         {
             this.shooter = shooter;
-            moveDirection = shootDirection;
-            this.damage = damage;
-            this.speed = speed;
-            gameObject.layer = TeamUtilities.GetProjectileTeamLayer(team);
+            rb.linearVelocity = shootDirection * speed;
             
+            gameObject.layer = TeamUtilities.GetProjectileTeamLayerID(team);
+            
+            targetContactFilter = new ContactFilter2D
+            {
+                useLayerMask = true,
+                layerMask = TeamUtilities.GetTeamLayerMask(TeamUtilities.GetOpposingTeam(shooter.GetTeam()))
+            };
+
             initialized = true;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            transform.position += (Vector3)moveDirection * (speed * Time.deltaTime);
+            List<Collider2D> hits = new();
+            Physics2D.OverlapCircle(transform.position, transform.localScale.x, targetContactFilter, hits);
+            foreach (Collider2D hit in hits)
+            {
+                BattleBall ball = hit.GetComponent<BattleBall>();
+                if (ball) HitBall(ball);
+            }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void HitBall(BattleBall ball)
         {
-            if (!initialized) return;
-            
-            if (other.TryGetComponent(out BattleBall otherBall))
+            AttackData attackData = new AttackData()
             {
-                AttackData attackData = new AttackData()
-                {
-                    source = shooter,
-                    damage = damage,
-                    knockback = Vector2.zero
-                };
-                otherBall.Attack(attackData);
-            }
-            
+                source = shooter,
+                damage = damage,
+                knockback = Vector2.zero
+            };
+            ball.Attack(attackData);
             Destroy(gameObject);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (currentBounces >= maxBounces) Destroy(gameObject);
+            currentBounces++;
         }
     }
 }
