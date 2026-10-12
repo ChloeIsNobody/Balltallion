@@ -92,6 +92,8 @@ namespace Balltallion.Simulation.Weapons
 
         private bool CanHitBall(BattleBall otherBall)
         {
+            if (weaponData.ignoresCollisions) return false;
+            
             if (hitLog.TryGetValue(otherBall, out float lastHitTime))
             {
                 float timeSinceLastHit = Time.time - lastHitTime;
@@ -102,6 +104,8 @@ namespace Balltallion.Simulation.Weapons
 
         private bool CanParry(Weapon otherWeapon)
         {
+            if (weaponData.ignoresCollisions) return false;
+            
             BattleBall otherBall = otherWeapon.parentBall;
             bool parentBallCanParry = true;
             bool otherBallCanParry = true;

@@ -12,8 +12,9 @@ namespace Balltallion.Simulation.Weapons
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite weaponSprite;
 
-        [Header("Stats")]
-        [HorizontalLine(color: EColor.Gray, height:1.5f)]
+        [Header("Stats")] 
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] public bool ignoresCollisions;
         [SerializeField] public int damage;
         [SerializeField] public float knockback;
         [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;

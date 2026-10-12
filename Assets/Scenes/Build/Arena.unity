@@ -165,8 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
   battleBallPrefab: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
   loadMode: 0
-  playerBallData: {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
-  enemyBallData: {fileID: 11400000, guid: 7add25fc1726dd140a31850e574c4c6d, type: 2}
+  playerBallData: {fileID: 11400000, guid: 7add25fc1726dd140a31850e574c4c6d, type: 2}
+  enemyBallData: {fileID: 11400000, guid: 5dd5daafb23e0d745b94c77d1bac1d09, type: 2}
   playerSpawnRect:
     serializedVersion: 2
     x: -2.5
