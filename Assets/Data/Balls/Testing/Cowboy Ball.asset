@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cowboy Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
   displayName: Cowboy Ball
-  debugColor: {r: 0.24705884, g: 0.30588236, b: 0.9058824, a: 1}
+  debugColor: {r: 0.5058824, g: 0.3803922, b: 0.34901962, a: 1}
   ballSprite: {fileID: 21300000, guid: 450dadf6de815214ca9a82b8ecae3586, type: 3}
   maxHealth: 100
   contactDamage: 0

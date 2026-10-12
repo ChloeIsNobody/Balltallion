@@ -12,13 +12,26 @@ namespace Balltallion.Simulation.Weapons
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite weaponSprite;
 
-        [Header("Stats")] 
-        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
-        [SerializeField] public bool ignoresCollisions;
-        [SerializeField] public int damage;
-        [SerializeField] public float knockback;
         [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField] public int weaponCount;
+        
+        [Header("Melee Stats")] 
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] public bool ignoresCollisions;
+        [SerializeField, HideIf("IgnoresCollisions")] public int damage;
+        [SerializeField, HideIf("IgnoresCollisions")] public float knockback;
+
+        [Header("Ranged Stats")]
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] public bool shootsProjectiles;
+        [SerializeField, ShowIf("ShootsProjectiles")] public GameObject projectilePrefab;
+        [SerializeField, ShowIf("ShootsProjectiles")] public int projectileDamage;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0, 50)] public int ammo = 1;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 1.0f)] public float delayBetweenShots;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 10.0f)] public float reloadDuration = 2.0f;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 360.0f)] public float shotSpread = 0.0f;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float projectileSpeed = 5.0f;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float shotRecoil = 0.0f;
 
         [Header("Position/Size")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -29,5 +42,8 @@ namespace Balltallion.Simulation.Weapons
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public AudioResource attackSound;
+        
+        private bool IgnoresCollisions() => ignoresCollisions;
+        private bool ShootsProjectiles() => shootsProjectiles;
     }
 }
