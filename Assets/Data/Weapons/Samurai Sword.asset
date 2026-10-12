@@ -18,6 +18,6 @@ MonoBehaviour:
   spinSpeed: 2.7
   weaponCount: 2
   relativeColliderSize: {x: 0.9, y: 0.4}
-  radialOffset: 1.1
-  size: 1.05
+  radialOffset: 1.07
+  size: 1
   attackSound: {fileID: 6418180475301049370, guid: 0bd8727887d673b49b0db7bec166d09c, type: 2}

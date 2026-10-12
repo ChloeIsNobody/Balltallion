@@ -17,7 +17,7 @@ MonoBehaviour:
   knockback: 6.5
   spinSpeed: 2.12
   weaponCount: 1
-  relativeColliderSize: {x: 0.9, y: 0.4}
-  radialOffset: 1.2
-  size: 1.22
+  relativeColliderSize: {x: 0.85, y: 0.28}
+  radialOffset: 1.25
+  size: 1.28
   attackSound: {fileID: 6418180475301049370, guid: 0bd8727887d673b49b0db7bec166d09c, type: 2}
