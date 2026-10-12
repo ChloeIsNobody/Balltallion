@@ -285,7 +285,7 @@ MonoBehaviour:
   team: 0
   audioHandler: {fileID: -8306006221826088016}
   debugLogToConsole: 0
-  debugAttacks: 0
+  debugAttacks: 1
 --- !u!114 &1537891911829373851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,8 +306,6 @@ MonoBehaviour:
   ballLayerMask:
     serializedVersion: 2
     m_Bits: 384
-  startAngleBase: 0
-  startAngleVariation: 0
 --- !u!50 &4984856718394615251
 Rigidbody2D:
   serializedVersion: 5

@@ -166,7 +166,7 @@ MonoBehaviour:
   battleBallPrefab: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
   loadMode: 0
   playerBallData: {fileID: 11400000, guid: 7add25fc1726dd140a31850e574c4c6d, type: 2}
-  enemyBallData: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
+  enemyBallData: {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
   playerSpawnRect:
     serializedVersion: 2
     x: -2.5
@@ -2822,11 +2822,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3164350631594082115, guid: a85dfe2e4209dbc46a52e179273c5110, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.76
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3164350631594082115, guid: a85dfe2e4209dbc46a52e179273c5110, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3751643422330908656, guid: a85dfe2e4209dbc46a52e179273c5110, type: 3}
       propertyPath: m_Name
@@ -2834,7 +2834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751643422330908656, guid: a85dfe2e4209dbc46a52e179273c5110, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6725201766334352995, guid: a85dfe2e4209dbc46a52e179273c5110, type: 3}
       propertyPath: m_Pivot.x

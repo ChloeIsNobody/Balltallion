@@ -48,20 +48,22 @@ namespace Balltallion.Simulation.Weapons
         {
             Projectile newProjectile = Instantiate(weaponData.projectilePrefab);
             newProjectile.transform.position = transform.position;
-            newProjectile.Initialize(parentBall, CalculateShootDirection(), parentBall.GetTeam());
+            Vector2 shootDirection = CalculateShootDirection();
+            newProjectile.Initialize(parentBall, shootDirection, parentBall.GetTeam());
 
             AttackData recoilKnockback = new AttackData()
             {
                 source = parentBall,
                 damage = 0,
-                knockback = -CalculateShootDirection() * weaponData.shotRecoil
+                knockback = -shootDirection * weaponData.shotRecoil
             };
             parentBall.Attack(recoilKnockback);
         }
 
         private Vector2 CalculateShootDirection()
         {
-            return transform.right;
+            float angleVariation = Random.Range(-weaponData.shotSpread/2.0f, weaponData.shotSpread/2.0f);
+            return Quaternion.Euler(0.0f, 0.0f, angleVariation) * transform.right;
         }
     }
 }

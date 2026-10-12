@@ -124,7 +124,6 @@ namespace Balltallion.Simulation
                 contactNormal = -contact.normal,
                 myCollisionPower = collisionPowerA,
                 totalCollisionPower = Mathf.Max(collisionPowerA, collisionPowerB),
-                
             });
             
             AdjustVelocityPostCollision();
