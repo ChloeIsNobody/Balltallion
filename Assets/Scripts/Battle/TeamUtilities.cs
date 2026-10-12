@@ -14,6 +14,8 @@ namespace Balltallion.Battle
         private const string enemyLayer = "EnemyBall";
         private const string playerProjectileLayer = "PlayerProjectile";
         private const string enemyProjectileLayer = "EnemyProjectile";
+        private const string playerWeaponLayer = "PlayerWeapon";
+        private const string enemyWeaponLayer = "EnemyWeapon";
 
         public static TeamNames GetOpposingTeam(TeamNames team)
         {
@@ -30,6 +32,11 @@ namespace Balltallion.Battle
             return LayerMask.NameToLayer(team == TeamNames.Player ? playerProjectileLayer : enemyProjectileLayer);
         }
 
+        public static int GetWeaponTeamLayerID(TeamNames team)
+        {
+            return LayerMask.NameToLayer(team == TeamNames.Player ? playerWeaponLayer : enemyWeaponLayer);
+        }
+
         public static LayerMask GetTeamLayerMask(TeamNames team)
         {
             return 1 << GetTeamLayerID(team);
@@ -38,6 +45,11 @@ namespace Balltallion.Battle
         public static LayerMask GetProjectileTeamLayerMask(TeamNames team)
         {
             return 1 << GetProjectileTeamLayerID(team);
+        }
+
+        public static LayerMask GetWeaponTeamLayerMask(TeamNames team)
+        {
+            return 1 << GetWeaponTeamLayerID(team);
         }
     }
 }

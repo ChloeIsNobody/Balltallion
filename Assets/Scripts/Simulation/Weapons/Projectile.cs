@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Balltallion.Battle;
 using NaughtyAttributes;
 using UnityEngine;
@@ -19,9 +18,10 @@ namespace Balltallion.Simulation.Weapons
         private ContactFilter2D targetContactFilter; 
         
         private Vector2 moveDirection;
-        private bool initialized;
 
         private int currentBounces = 0;
+        private float deflectCooldown = 0.5f;
+        private float deflectTimer = 0.0f;
         
         private void Awake()
         {
@@ -40,8 +40,6 @@ namespace Balltallion.Simulation.Weapons
                 useLayerMask = true,
                 layerMask = TeamUtilities.GetTeamLayerMask(TeamUtilities.GetOpposingTeam(shooter.GetTeam()))
             };
-
-            initialized = true;
         }
 
         private void FixedUpdate()
@@ -53,6 +51,8 @@ namespace Balltallion.Simulation.Weapons
                 BattleBall ball = hit.GetComponent<BattleBall>();
                 if (ball) HitBall(ball);
             }
+            
+            if (deflectTimer > 0.0f) deflectTimer -= Time.fixedDeltaTime;
         }
 
         private void HitBall(BattleBall ball)
@@ -72,5 +72,20 @@ namespace Balltallion.Simulation.Weapons
             if (currentBounces >= maxBounces) Destroy(gameObject);
             currentBounces++;
         }
+
+        public void Deflect(Vector2 newDirection)
+        {
+            rb.linearVelocity = newDirection.normalized * rb.linearVelocity.magnitude;
+            if (currentBounces >= maxBounces) Destroy(gameObject);
+            currentBounces++;
+            deflectTimer = deflectCooldown;
+        } 
+        
+        public bool CanBeDeflected() => deflectTimer <= 0.0f;
+        
+        public BattleBall GetShooter() => shooter;
+        public float GetDamage() => damage;
+        public float GetKnockback() => knockback;
+        public Vector2 GetMoveDirection() => rb.linearVelocity.normalized;
     }
 }

@@ -56,7 +56,7 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
-                weapon.gameObject.layer = parentBall.gameObject.layer;
+                weapon.gameObject.layer = TeamUtilities.GetWeaponTeamLayerID(parentBall.GetTeam());
                 weapon.SetParentBall(parentBall);
                 weapon.SetWeaponController(this);
                 weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;

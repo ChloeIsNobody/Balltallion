@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Projectile
   damage: 3
-  speed: 13
-  knockback: 3.5
+  speed: 10
+  knockback: 1.5
   maxBounces: 1
 --- !u!50 &-2944184843425016585
 Rigidbody2D:
@@ -155,7 +155,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0
   m_GravityScale: 0
