@@ -57,8 +57,11 @@ namespace Balltallion.Simulation.Weapons
             }
             
             projectileShooter.gameObject.SetActive(weaponData.shootsProjectiles);
-            projectileShooter.LoadWeaponData(weaponData);
-            projectileShooter.SetParentBall(parentBall);
+            if (weaponData.shootsProjectiles)
+            {
+                projectileShooter.LoadWeaponData(weaponData);
+                projectileShooter.SetParentBall(parentBall);
+            }
             
             audioHandler.LoadWeaponData(weaponData);
         }
@@ -113,6 +116,7 @@ namespace Balltallion.Simulation.Weapons
         private bool CanParry(Weapon otherWeapon)
         {
             if (weaponData.ignoresCollisions) return false;
+            if (otherWeapon.weaponData.ignoresCollisions) return false;
             
             BattleBall otherBall = otherWeapon.parentBall;
             bool parentBallCanParry = true;

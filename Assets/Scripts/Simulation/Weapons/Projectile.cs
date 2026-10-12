@@ -61,7 +61,7 @@ namespace Balltallion.Simulation.Weapons
             {
                 source = shooter,
                 damage = damage,
-                knockback = Vector2.zero
+                knockback = rb.linearVelocity.normalized * knockback
             };
             ball.Attack(attackData);
             Destroy(gameObject);

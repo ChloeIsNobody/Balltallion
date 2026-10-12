@@ -49,6 +49,14 @@ namespace Balltallion.Simulation.Weapons
             Projectile newProjectile = Instantiate(weaponData.projectilePrefab);
             newProjectile.transform.position = transform.position;
             newProjectile.Initialize(parentBall, CalculateShootDirection(), parentBall.GetTeam());
+
+            AttackData recoilKnockback = new AttackData()
+            {
+                source = parentBall,
+                damage = 0,
+                knockback = -CalculateShootDirection() * weaponData.shotRecoil
+            };
+            parentBall.Attack(recoilKnockback);
         }
 
         private Vector2 CalculateShootDirection()

@@ -139,9 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d2033419b27431aaa72aeb89a24b2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Projectile
-  damage: 2
-  speed: 8
-  knockback: 0
+  damage: 3
+  speed: 13
+  knockback: 3.5
   maxBounces: 1
 --- !u!50 &-2944184843425016585
 Rigidbody2D:
