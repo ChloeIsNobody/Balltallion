@@ -12,6 +12,7 @@ namespace Balltallion.Simulation.Projectiles
         [SerializeField] private int damage;
         [SerializeField] private float knockback;
         [SerializeField, Range(0, 5)] private int maxBounces;
+        [SerializeField] private bool destroyOnDeflect;
 
         private BattleBall shooter;
         private BallBody ballBody;
@@ -73,19 +74,20 @@ namespace Balltallion.Simulation.Projectiles
             currentBounces++;
         }
 
-        public void Deflect(Vector2 newDirection)
+        public void Deflect(Vector2 deflectDir)
         {
-            ballBody.SetVelocity(newDirection.normalized * ballBody.GetVelocity().magnitude);
-            if (currentBounces >= maxBounces) Destroy(gameObject);
-            currentBounces++;
+            ballBody.SetVelocity(deflectDir * ballBody.GetSpeed());
             deflectTimer = deflectCooldown;
+            if (destroyOnDeflect) Destroy(gameObject);
         } 
         
         public bool CanBeDeflected() => deflectTimer <= 0.0f;
         
         public BattleBall GetShooter() => shooter;
+        public float GetVelocityMag() => ballBody.GetVelocity().magnitude;
         public float GetDamage() => damage;
         public float GetKnockback() => knockback;
+        public bool DestroyOnDeflect() => destroyOnDeflect;
         public Vector2 GetMoveDirection() => ballBody.GetVelocity().normalized;
     }
 }

@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2944184843425016585, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: m_Mass
+      value: 0.55
+      objectReference: {fileID: 0}
+    - target: {fileID: -2944184843425016585, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: m_GravityScale
       value: 1
       objectReference: {fileID: 0}
@@ -22,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: springDamping
-      value: 0.109
+      value: 0.08
       objectReference: {fileID: 0}
     - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: springStiffness
-      value: 1.23
+      value: 1.27
       objectReference: {fileID: 0}
     - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: velocityRange.x
@@ -41,8 +45,20 @@ PrefabInstance:
       value: 0.18
       objectReference: {fileID: 0}
     - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: animationPowerMappingIn.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: animationPowerMappingIn.y
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: animationPowerMappingOut.x
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: animationPowerMappingOut.y
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 4261223293234693834, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: m_LocalPosition.x
@@ -95,6 +111,10 @@ PrefabInstance:
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: maxBounces
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: destroyOnDeflect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

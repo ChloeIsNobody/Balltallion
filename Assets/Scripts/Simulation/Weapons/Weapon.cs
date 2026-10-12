@@ -172,7 +172,7 @@ namespace Balltallion.Simulation.Weapons
             {
                 source = parentBall,
                 damage = weaponData.damage,
-                knockback = CalulateKnockbackDir(hitBall.transform) * weaponData.knockback
+                knockback = CalculateKnockbackDir(hitBall.transform) * weaponData.knockback
             };
             hitBall.Attack(attackData);
             audioHandler.PlayAttackSound();
@@ -229,9 +229,8 @@ namespace Balltallion.Simulation.Weapons
 
         public void Deflect(Projectile projectile)
         {
-            Vector2 deflectDirection = CalulateKnockbackDir(projectile.transform);
-            if (deflectDirection == Vector2.zero) deflectDirection = -projectile.GetMoveDirection();
-            projectile.Deflect(deflectDirection);
+            Vector2 dirAwayFromBall = (projectile.transform.position - parentBall.transform.position).normalized;
+            projectile.Deflect(dirAwayFromBall);
             
             // Knockback self
             AttackData attackData = new AttackData
@@ -243,12 +242,20 @@ namespace Balltallion.Simulation.Weapons
             parentBall.Attack(attackData);
             
             // Effects
-            audioHandler.PlayParrySound();
-            HitFlash(parryColor);
+            if (projectile.DestroyOnDeflect())
+            {
+                HitFlash(hitFlashColor);
+                audioHandler.PlayAttackSound();
+            }
+            else
+            {
+                HitFlash(parryColor);
+                audioHandler.PlayParrySound();
+            }
             bool canReverseSpinDirection = projectile.GetDamage() >= weaponData.damage;
             if (canReverseSpinDirection)
             {
-                float dotProd = Vector2.Dot(GetWeaponRotationVector(), deflectDirection);
+                float dotProd = Vector2.Dot(GetWeaponRotationVector(), CalculateKnockbackDir(projectile.transform));
                 if (dotProd > 0) weaponController.ReverseSpinDirection();
                 if (Mathf.Abs(dotProd) > 0.5f) weaponController.SpinBoost();
             }
@@ -266,7 +273,7 @@ namespace Balltallion.Simulation.Weapons
             material.SetFloat("_BlendValue", 1.0f);
         }
 
-        private Vector2 CalulateKnockbackDir(Transform otherTransform)
+        private Vector2 CalculateKnockbackDir(Transform otherTransform)
         {
             Vector2 weaponContactPoint = boxCollider.ClosestPoint(otherTransform.position);
             Vector2 dirAwayFromWeapon = ((Vector2)otherTransform.position - weaponContactPoint).normalized;
