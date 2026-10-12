@@ -24,7 +24,7 @@ namespace Balltallion.Simulation.Weapons
         [Header("Ranged Stats")]
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] public bool shootsProjectiles;
-        [SerializeField, ShowIf("ShootsProjectiles")] public GameObject projectilePrefab;
+        [SerializeField, ShowIf("ShootsProjectiles")] public Projectile projectilePrefab;
         [SerializeField, ShowIf("ShootsProjectiles")] public int projectileDamage;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(1, 50)] public int ammo = 1;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 1.0f)] public float delayBetweenShots;

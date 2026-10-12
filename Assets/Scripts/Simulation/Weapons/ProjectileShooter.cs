@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Balltallion.Battle;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
@@ -7,6 +8,8 @@ namespace Balltallion.Simulation.Weapons
     {
         private WeaponDataSO weaponData;
         private Coroutine stateCoroutine;
+        
+        private BattleBall parentBall;
         
         public void LoadWeaponData(WeaponDataSO newData)
         {
@@ -19,6 +22,8 @@ namespace Balltallion.Simulation.Weapons
             if (stateCoroutine != null) StopCoroutine(stateCoroutine);
             stateCoroutine = StartCoroutine(ReloadState());
         }
+        
+        public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
 
         private IEnumerator ShootState()
         {

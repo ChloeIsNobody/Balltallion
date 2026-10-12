@@ -21,9 +21,9 @@ MonoBehaviour:
   shootsProjectiles: 1
   projectilePrefab: {fileID: 0}
   projectileDamage: 0
-  ammo: 0
-  delayBetweenShots: 0
-  reloadDuration: 0
+  ammo: 6
+  delayBetweenShots: 0.1
+  reloadDuration: 2
   shotSpread: 0
   projectileSpeed: 0
   shotRecoil: 0

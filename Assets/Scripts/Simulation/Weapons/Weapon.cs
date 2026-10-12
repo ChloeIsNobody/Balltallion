@@ -58,6 +58,7 @@ namespace Balltallion.Simulation.Weapons
             
             projectileShooter.gameObject.SetActive(weaponData.shootsProjectiles);
             projectileShooter.LoadWeaponData(weaponData);
+            projectileShooter.SetParentBall(parentBall);
             
             audioHandler.LoadWeaponData(weaponData);
         }
