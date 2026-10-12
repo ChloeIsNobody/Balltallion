@@ -12,8 +12,10 @@ namespace Balltallion.Simulation.Weapons
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite weaponSprite;
 
-        [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField] public int weaponCount;
+        [SerializeField] public WeaponAimModes weaponAimMode = WeaponAimModes.Spinning;
+        [SerializeField, ShowIf("SpinMode"), Range(0.0f, 10.0f)] public float spinSpeed;
+        [SerializeField, ShowIf("StaticMode"), Range(0.0f, 360.0f)] public float staticAimAngle;
         
         [Header("Melee Stats")] 
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
@@ -43,5 +45,14 @@ namespace Balltallion.Simulation.Weapons
         
         private bool IgnoresCollisions() => ignoresCollisions;
         private bool ShootsProjectiles() => shootsProjectiles;
+        private bool SpinMode() => weaponAimMode == WeaponAimModes.Spinning;
+        private bool StaticMode() => weaponAimMode == WeaponAimModes.Static;
+    }
+    
+    public enum WeaponAimModes
+    {
+        Spinning,
+        Static,
+        Following
     }
 }

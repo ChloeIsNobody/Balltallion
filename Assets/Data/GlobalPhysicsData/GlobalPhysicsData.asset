@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: GlobalPhysicsData
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.GlobalPhysicsDataSO
   maxVelocity: 50
-  minVelocityXAfterCollision: 3
-  minVelocityYAfterCollision: 3
+  minVelocityXAfterCollision: 1.8
+  minVelocityYAfterCollision: 1.8
   minVelocityYAfterFloorBounce: 7.5
