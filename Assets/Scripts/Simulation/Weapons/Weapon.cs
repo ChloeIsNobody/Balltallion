@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Battle;
 using Balltallion.Simulation.Projectiles;
@@ -41,7 +42,17 @@ namespace Balltallion.Simulation.Weapons
             if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             material = spriteRenderer.material;
         }
-        
+
+        private void OnEnable()
+        {
+            projectileShooter.OnShot += OnWeaponShot;
+        }
+
+        private void OnDisable()
+        {
+            projectileShooter.OnShot -= OnWeaponShot;
+        }
+
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
             this.weaponData = weaponData;
@@ -241,6 +252,11 @@ namespace Balltallion.Simulation.Weapons
                 if (dotProd > 0) weaponController.ReverseSpinDirection();
                 if (Mathf.Abs(dotProd) > 0.5f) weaponController.SpinBoost();
             }
+        }
+
+        private void OnWeaponShot()
+        {
+            audioHandler.PlayAttackSound();
         }
         
         public void HitFlash(Color color)

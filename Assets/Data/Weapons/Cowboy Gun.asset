@@ -21,7 +21,7 @@ MonoBehaviour:
   damage: 0
   knockback: 0
   shootsProjectiles: 1
-  projectilePrefab: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+  projectilePrefab: {fileID: 4463779284276625627, guid: bd56390491419ec418e04676fcca727e, type: 3}
   ammo: 6
   delayBetweenShots: 0.07
   reloadDuration: 1.85

@@ -1,12 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Balltallion.Battle;
 using Balltallion.Simulation.Weapons;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Projectiles
 {
     public class ProjectileShooter : MonoBehaviour
     {
+        public event Action OnShot;
+        
         private WeaponDataSO weaponData;
         private Coroutine stateCoroutine;
         
@@ -60,6 +64,8 @@ namespace Balltallion.Simulation.Projectiles
                 knockback = -shootDirection * weaponData.shotRecoil
             };
             parentBall.Attack(recoilKnockback);
+            
+            OnShot?.Invoke();
         }
 
         private Vector2 CalculateShootDirection()

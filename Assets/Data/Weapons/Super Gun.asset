@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d956a61c484d45969dc9812431ef96c3, type: 3}
-  m_Name: One Bullet Gun
+  m_Name: Super Gun
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponDataSO
   weaponSprite: {fileID: 21300000, guid: 16b642cf0b264794d9007a73f4ac3e16, type: 3}
   weaponCount: 1
@@ -21,7 +21,7 @@ MonoBehaviour:
   damage: 0
   knockback: 0
   shootsProjectiles: 1
-  projectilePrefab: {fileID: 7747066795157372299, guid: 49606d79a3b5f5142ac8a9e10ea69651, type: 3}
+  projectilePrefab: {fileID: 539088308485288845, guid: 504bc64e5565715419ea3d06e301f0a4, type: 3}
   ammo: 1
   delayBetweenShots: 0.05
   reloadDuration: 2.15

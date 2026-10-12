@@ -1118,9 +1118,8 @@ MonoBehaviour:
   selectableBalls:
   - {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
   - {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
-  - {fileID: 11400000, guid: adbc418d7fc77bb418ec977e61db84ab, type: 2}
   - {fileID: 11400000, guid: b9c6fff3eb4775644975237ca651a575, type: 2}
-  - {fileID: 11400000, guid: aab027beaa5b1b34983511637e9339d9, type: 2}
+  - {fileID: 11400000, guid: 7add25fc1726dd140a31850e574c4c6d, type: 2}
   teamLimit: 3
   leftSelectButton: {fileID: 1237545439}
   rightSelectButton: {fileID: 479456934}

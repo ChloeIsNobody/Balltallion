@@ -13,17 +13,6 @@ namespace Balltallion.Battle
     public class BattleManager : MonoBehaviour
     {
         [SerializeField] private BattleBall battleBallPrefab;
-
-        [Header("Team Data")]
-        [SerializeField] private loadModes loadMode;
-        [SerializeField] private BallDataSO playerBallData;
-        [SerializeField] private BallDataSO enemyBallData;
-
-        private enum loadModes
-        {
-            Editor,
-            TeamPicker
-        }
         
         [Header("Battle Setup")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -48,17 +37,9 @@ namespace Balltallion.Battle
         
         private void Awake()
         {
-            if (loadMode == loadModes.Editor)
-            {
-                playerTeamLoadout.Clear();
-                playerTeamLoadout.Add(playerBallData);
-                enemyTeamLoadout.Clear();
-                enemyTeamLoadout.Add(enemyBallData);
-            }
-            
             InstantiateBalls();
-            playerHealthDisplay.SetTrackedBall(playerBalls[0]);
-            enemyHealthDisplay.SetTrackedBall(enemyBalls[0]);
+            if (playerBalls.Count > 0) playerHealthDisplay.SetTrackedBall(playerBalls[0]);
+            if (enemyBalls.Count > 0) enemyHealthDisplay.SetTrackedBall(enemyBalls[0]);
         }
 
         private void OnEnable()
@@ -92,7 +73,7 @@ namespace Balltallion.Battle
             {
                 InstantiateBall(ballData, TeamNames.Player);
             }
-
+            
             foreach (BallDataSO ballData in enemyTeamLoadout)
             {
                 InstantiateBall(ballData, TeamNames.Enemy);

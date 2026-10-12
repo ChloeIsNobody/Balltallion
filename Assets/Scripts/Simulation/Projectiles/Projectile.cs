@@ -7,15 +7,14 @@ namespace Balltallion.Simulation.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
-        [Header("Stats")] [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [Header("Stats")]
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] private int damage;
-        [SerializeField, Range(0.0f, 25.0f)] private float speed = 5.0f;
         [SerializeField] private float knockback;
         [SerializeField, Range(0, 5)] private int maxBounces;
-        [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 0.0f;
 
         private BattleBall shooter;
-        private Rigidbody2D rb;
+        private BallBody ballBody;
         private ContactFilter2D targetContactFilter; 
         
         private Vector2 moveDirection;
@@ -26,14 +25,13 @@ namespace Balltallion.Simulation.Projectiles
         
         private void Awake()
         {
-            rb = GetComponent<Rigidbody2D>();
+            ballBody = GetComponent<BallBody>();
         }
         
         public void Initialize(BattleBall shooter, Vector2 shootDirection, TeamNames team)
         {
             this.shooter = shooter;
-            rb.linearVelocity = shootDirection * speed;
-            rb.gravityScale = gravityScale;
+            ballBody.SetVelocity(shootDirection * ballBody.GetSpeed());
             
             gameObject.layer = TeamUtilities.GetProjectileTeamLayerID(team);
             
@@ -63,7 +61,7 @@ namespace Balltallion.Simulation.Projectiles
             {
                 source = shooter,
                 damage = damage,
-                knockback = rb.linearVelocity.normalized * knockback
+                knockback = GetMoveDirection() * knockback
             };
             ball.Attack(attackData);
             Destroy(gameObject);
@@ -77,7 +75,7 @@ namespace Balltallion.Simulation.Projectiles
 
         public void Deflect(Vector2 newDirection)
         {
-            rb.linearVelocity = newDirection.normalized * rb.linearVelocity.magnitude;
+            ballBody.SetVelocity(newDirection.normalized * ballBody.GetVelocity().magnitude);
             if (currentBounces >= maxBounces) Destroy(gameObject);
             currentBounces++;
             deflectTimer = deflectCooldown;
@@ -88,6 +86,6 @@ namespace Balltallion.Simulation.Projectiles
         public BattleBall GetShooter() => shooter;
         public float GetDamage() => damage;
         public float GetKnockback() => knockback;
-        public Vector2 GetMoveDirection() => rb.linearVelocity.normalized;
+        public Vector2 GetMoveDirection() => ballBody.GetVelocity().normalized;
     }
 }
