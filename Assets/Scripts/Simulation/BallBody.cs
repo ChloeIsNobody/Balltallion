@@ -12,6 +12,7 @@ namespace Balltallion.Simulation
         public event Action<BallCollisionData> OnBallCollision;
 
         [SerializeField] private GlobalPhysicsDataSO globalPhysicsData;
+        [SerializeField] private bool adjustVelocityPostCollision = true; 
         
         [Header("Debug")]
         [SerializeField] private bool debugDraw;
@@ -52,10 +53,7 @@ namespace Balltallion.Simulation
             velocityLastFixedUpdate = rb.linearVelocity;
             
             // Velocity Hard Limit
-            if (rb.linearVelocity.magnitude > globalPhysicsData.maxVelocity)
-            {
-                rb.linearVelocity = rb.linearVelocity.normalized * globalPhysicsData.maxVelocity;
-            }
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, globalPhysicsData.maxVelocity);
             
             // Linear Damping down to target velocity
             if (rb.linearVelocity.magnitude > speed)
@@ -134,7 +132,7 @@ namespace Balltallion.Simulation
         public void ApplyKnockback(Vector2 knockback)
         {
             rb.AddForce(knockback, ForceMode2D.Impulse);
-            AdjustVelocityPostCollision();
+            if (adjustVelocityPostCollision) AdjustVelocityPostCollision();
             
             OnBounce?.Invoke(new BallCollisionData
             {
@@ -162,7 +160,6 @@ namespace Balltallion.Simulation
 
         private void AdjustVelocityPostCollision()
         {
-            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, globalPhysicsData.maxVelocity);
             if (Mathf.Abs(rb.linearVelocityX) < globalPhysicsData.minVelocityXAfterCollision)
             {
                 rb.linearVelocityX = globalPhysicsData.minVelocityXAfterCollision * Mathf.Sign(rb.linearVelocityX);

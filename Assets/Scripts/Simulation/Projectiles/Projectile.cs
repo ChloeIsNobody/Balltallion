@@ -3,7 +3,7 @@ using Balltallion.Battle;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion.Simulation.Weapons
+namespace Balltallion.Simulation.Projectiles
 {
     public class Projectile : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField, Range(0.0f, 25.0f)] private float speed = 5.0f;
         [SerializeField] private float knockback;
         [SerializeField, Range(0, 5)] private int maxBounces;
+        [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 0.0f;
 
         private BattleBall shooter;
         private Rigidbody2D rb;
@@ -32,6 +33,7 @@ namespace Balltallion.Simulation.Weapons
         {
             this.shooter = shooter;
             rb.linearVelocity = shootDirection * speed;
+            rb.gravityScale = gravityScale;
             
             gameObject.layer = TeamUtilities.GetProjectileTeamLayerID(team);
             

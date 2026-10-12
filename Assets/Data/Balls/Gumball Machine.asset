@@ -20,7 +20,7 @@ MonoBehaviour:
   velocityScaledContactDamage: 0
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 98075e61b37b5564ea228046c3226615, type: 2}
   size: 1
   mass: 1
   gravityScale: 1

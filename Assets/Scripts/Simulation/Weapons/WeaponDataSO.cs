@@ -1,4 +1,5 @@
 ﻿using Balltallion.Battle;
+using Balltallion.Simulation.Projectiles;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Audio;

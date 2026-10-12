@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using Balltallion.Battle;
+using Balltallion.Simulation.Weapons;
 using UnityEngine;
 
-namespace Balltallion.Simulation.Weapons
+namespace Balltallion.Simulation.Projectiles
 {
     public class ProjectileShooter : MonoBehaviour
     {
@@ -14,8 +15,9 @@ namespace Balltallion.Simulation.Weapons
         public void LoadWeaponData(WeaponDataSO newData)
         {
             weaponData = newData;
-            ResetState();
         }
+        
+        private void Start() => ResetState();
 
         private void ResetState()
         {
