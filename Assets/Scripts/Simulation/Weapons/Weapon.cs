@@ -7,11 +7,15 @@ namespace Balltallion.Simulation.Weapons
 {
     public class Weapon : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private BoxCollider2D boxCollider;
+        [SerializeField] private WeaponAudioHandler audioHandler;
+        [SerializeField] private ProjectileShooter projectileShooter;
+        
+        [Header("Debouncing")]
         [SerializeField] private float hitDebounce = 0.45f;
         [SerializeField] private float parryDebounce = 0.5f;
-        [SerializeField] private WeaponAudioHandler audioHandler;
         
         [Header("Hitflash")]
         [SerializeField] private Color hitFlashColor = Color.white;
@@ -51,6 +55,9 @@ namespace Balltallion.Simulation.Weapons
                 material.SetFloat("_Brightness", ballData.animBrightness);
                 material.SetFloat("_Contrast", ballData.animContrast);
             }
+            
+            projectileShooter.gameObject.SetActive(weaponData.shootsProjectiles);
+            projectileShooter.LoadWeaponData(weaponData);
             
             audioHandler.LoadWeaponData(weaponData);
         }
