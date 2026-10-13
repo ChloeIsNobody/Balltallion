@@ -18,6 +18,7 @@ namespace Balltallion.Simulation.Weapons
         private int weaponCount;
         private float currentAngle = 0.0f;
         private float spinDirection = 1.0f;
+        private BattleBall followModeTarget;
 
         private float hitSpinBoostTimer = 0.0f;
 
@@ -56,7 +57,7 @@ namespace Balltallion.Simulation.Weapons
 
                 Weapon weapon = Instantiate(weaponPrefab, rotator.transform);
                 weapon.gameObject.name = $"Weapon{i}";
-                weapon.gameObject.layer = parentBall.gameObject.layer;
+                weapon.gameObject.layer = TeamUtilities.GetWeaponTeamLayerID(parentBall.GetTeam());
                 weapon.SetParentBall(parentBall);
                 weapon.SetWeaponController(this);
                 weapon.transform.localPosition = Vector3.right * weaponData.radialOffset;
@@ -67,6 +68,16 @@ namespace Balltallion.Simulation.Weapons
         }
 
         private void Update()
+        {
+            switch (weaponData.weaponAimMode)
+            {
+                case WeaponAimModes.Spinning: SpinMode(); break;
+                case WeaponAimModes.Static: StaticMode(); break;
+                case WeaponAimModes.Following: FollowingMode(); break;
+            }
+        }
+
+        private void SpinMode()
         {
             float spinBoost = 1.0f;
             if (hitSpinBoostTimer > 0.0f)
@@ -81,6 +92,43 @@ namespace Balltallion.Simulation.Weapons
             if (currentAngle >= 360.0f) currentAngle -= 360.0f;
             if (currentAngle < 0.0f) currentAngle += 360.0f;
             transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
+        }
+
+        private void StaticMode()
+        {
+            currentAngle = weaponData.staticAimAngle;
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
+        }
+
+        private void FollowingMode()
+        {
+            if (!followModeTarget) followModeTarget = SearchForClosestTarget();
+            if (!followModeTarget) return;
+            Vector3 dirToTarget = (followModeTarget.transform.position - transform.position).normalized;
+            currentAngle = Vector2.SignedAngle(Vector2.right, dirToTarget);
+            transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
+        }
+
+        private BattleBall SearchForClosestTarget()
+        {
+            BattleBall[] battleBalls = FindObjectsByType<BattleBall>();
+            TeamNames opposingTeam = TeamUtilities.GetOpposingTeam(parentBall.GetTeam());
+            
+            BattleBall closestTarget = null;
+            float closestDistance = float.MaxValue;
+            
+            foreach (BattleBall battleBall in battleBalls)
+            {
+                if (battleBall.GetTeam() != opposingTeam) continue;
+                float distance = Vector3.Distance(battleBall.transform.position, parentBall.transform.position);
+                if (distance < closestDistance || !closestTarget)
+                {
+                    closestTarget = battleBall;
+                    closestDistance = distance;
+                }
+            }
+            
+            return closestTarget;
         }
         
         public float GetSpinDirection() => spinDirection;

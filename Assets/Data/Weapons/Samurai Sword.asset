@@ -13,11 +13,25 @@ MonoBehaviour:
   m_Name: Samurai Sword
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponDataSO
   weaponSprite: {fileID: 21300000, guid: 397560a93989ae64d87419f2b78d7f37, type: 3}
-  damage: 3
-  knockback: 3
-  spinSpeed: 2.7
   weaponCount: 2
-  relativeColliderSize: {x: 0.9, y: 0.4}
-  radialOffset: 1.1
-  size: 1.05
+  weaponAimMode: 0
+  spinSpeed: 2.9
+  staticAimAngle: 0
+  ignoresCollisions: 0
+  canParry: 1
+  canDeflect: 1
+  damage: 3
+  directionalKnockback: 3
+  awayKnockback: 0
+  parryKnockback: 3
+  shootsProjectiles: 0
+  projectilePrefab: {fileID: 0}
+  ammo: 1
+  delayBetweenShots: 0
+  reloadDuration: 2
+  shotSpread: 0
+  shotRecoil: 0
+  relativeColliderSize: {x: 0.7, y: 0.25}
+  radialOffset: 1
+  size: 1
   attackSound: {fileID: 6418180475301049370, guid: 0bd8727887d673b49b0db7bec166d09c, type: 2}

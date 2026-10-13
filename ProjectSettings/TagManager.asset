@@ -16,8 +16,8 @@ TagManager:
   - EnemyBall
   - PlayerProjectile
   - EnemyProjectile
-  - 
-  - 
+  - PlayerWeapon
+  - EnemyWeapon
   - 
   - 
   - 

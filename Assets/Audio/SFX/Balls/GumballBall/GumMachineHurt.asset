@@ -18,7 +18,7 @@ AudioRandomContainer:
   m_PrefabAsset: {fileID: 0}
   m_Name: GumMachineHurt
   m_Volume: 0
-  m_Pitch: -256
+  m_Pitch: -375
   m_AutomaticTriggerTime: 0
   m_LoopCount: 1
   m_VolumeRandomizationRange: {x: 0, y: 0}
