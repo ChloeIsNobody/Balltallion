@@ -148,10 +148,11 @@ namespace Balltallion.Simulation
             collisionFactor = 0.0f;
         }
 
-        public void HitFlash()
+        public void HitFlash(Color color = default)
         {
+            if (color == default) color = hitFlashColor;
             hitFlashTimer = hitFlashDuration;
-            material.SetColor("_BlendColor", hitFlashColor);
+            material.SetColor("_BlendColor", color);
             material.SetFloat("_BlendValue", 1.0f);
         }
 

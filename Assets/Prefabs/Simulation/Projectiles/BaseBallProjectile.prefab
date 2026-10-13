@@ -109,6 +109,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4708428562733989838}
   enableVelocityStretching: 1
   velocityRange: {x: 3.5, y: 17.5}
+  velocityStretchingFactor: 0.25
   velocityStretchExponent: 0.8
   collisionFactorRestoreRate: 2
   enableCollisionStretching: 1
@@ -170,6 +171,15 @@ MonoBehaviour:
   damage: 3
   knockback: 2.2
   maxBounces: 1
+  destroyOnDeflect: 0
+  ballAnimator: {fileID: 3589134206315714520}
+  spriteRenderer: {fileID: 4708428562733989838}
+  deathLaunchForce: 4
+  deathLaunchSpread: 35
+  deathDuration: 0.7
+  deathSaturation: 0.7
+  deathBrightness: 0.65
+  deathContrast: 0.65
 --- !u!114 &2611832728281770231
 MonoBehaviour:
   m_ObjectHideFlags: 0

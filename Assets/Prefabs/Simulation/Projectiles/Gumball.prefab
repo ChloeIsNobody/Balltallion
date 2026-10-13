@@ -22,7 +22,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2611832728281770231, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: bounciness
-      value: 1.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3589134206315714520, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: springDamping
@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: maxBounces
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: destroyOnDeflect

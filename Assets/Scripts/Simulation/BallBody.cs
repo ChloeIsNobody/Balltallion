@@ -23,6 +23,7 @@ namespace Balltallion.Simulation
         [SerializeField] private LayerMask ballLayerMask;
 
         private Rigidbody2D rb;
+        private CircleCollider2D collider;
         private BallDataSO ballData;
         private Vector2 velocityLastFixedUpdate;
 
@@ -33,6 +34,7 @@ namespace Balltallion.Simulation
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
+            collider = GetComponent<CircleCollider2D>();
         }
 
         public void LoadBallData(BallDataSO ballData)
@@ -172,6 +174,8 @@ namespace Balltallion.Simulation
         public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
         public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
         public float GetSpeed() => speed;
+        public void SetColliderEnabled(bool enabled) => collider.enabled = enabled;
+        public void SetGravityScale(float newGravityScale) => rb.gravityScale = newGravityScale;
         private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
     }
 }
