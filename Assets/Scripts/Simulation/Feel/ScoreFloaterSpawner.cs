@@ -2,7 +2,7 @@ using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 
-namespace Balltallion.Battle
+namespace Balltallion.Simulation.Feel
 {
     public class ScoreFloaterSpawner : MonoBehaviour
     {

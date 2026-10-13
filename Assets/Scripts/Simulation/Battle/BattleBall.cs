@@ -1,21 +1,27 @@
 using System;
+using System.Collections.Generic;
 using Balltallion.Audio;
-using Balltallion.Simulation;
+using Balltallion.Simulation.Feel;
+using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Balltallion.Battle
+namespace Balltallion.Simulation.Battle
 {
     public class BattleBall : MonoBehaviour
     {
         public event Action OnDeath;
         
+        [Header("Loaded Data")]
         [SerializeField, Expandable] private BallDataSO ballData;
+        [SerializeField] private TeamNames team;
+        
+        [Header("References")]
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
-        [SerializeField] private TeamNames team;
         [SerializeField] private BallAudioHandler audioHandler;
+        [SerializeField] private Transform abilitiesParent;
         
         [Header("Debug Draw")]
         [SerializeField] private bool debugLogToConsole = false;
@@ -56,7 +62,21 @@ namespace Balltallion.Battle
             weaponController.gameObject.SetActive(data.weapon != null);
             weaponController.LoadWeaponData(data.weapon);
 
+            ClearChildAbilities();
+            if (data.abilityPrefab)
+            {
+                GameObject ability = Instantiate(data.abilityPrefab, abilitiesParent.transform);
+                ability.transform.localPosition = Vector3.zero;
+            }
+
             audioHandler.LoadBallData(data);
+        }
+        
+        private void ClearChildAbilities()
+        {
+            List<Transform> abilityTransforms = new();
+            foreach (Transform child in abilitiesParent) abilityTransforms.Add(child);
+            foreach (Transform child in abilityTransforms) DestroyImmediate(child.gameObject);
         }
 
         private void SetTeam(TeamNames newTeam)

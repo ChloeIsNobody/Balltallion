@@ -205,6 +205,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1239046737287715538}
   enableVelocityStretching: 1
   velocityRange: {x: 3.5, y: 17.5}
+  velocityStretchingFactor: 0.25
   velocityStretchExponent: 0.8
   collisionFactorRestoreRate: 2
   enableCollisionStretching: 1
@@ -228,6 +229,37 @@ SortingGroup:
   m_SortingOrder: 0
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!1 &5758974844770787804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3384682050448350468}
+  m_Layer: 7
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3384682050448350468
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5758974844770787804}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 244566083526506897}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6194298661798478868
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +297,7 @@ Transform:
   m_Children:
   - {fileID: 561035228263194426}
   - {fileID: 5480823858752059223}
+  - {fileID: 3384682050448350468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9031067662783963187
@@ -280,10 +313,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BattleBall
   ballData: {fileID: 0}
+  team: 0
   weaponController: {fileID: 8344423986202762628}
   ballAnimator: {fileID: 7655324653996296180}
-  team: 0
   audioHandler: {fileID: -8306006221826088016}
+  abilitiesParent: {fileID: 3384682050448350468}
   debugLogToConsole: 0
   debugAttacks: 1
 --- !u!114 &1537891911829373851
@@ -299,13 +333,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
   globalPhysicsData: {fileID: 11400000, guid: b2cdf9ac4d377134eac99ee5c05dff60, type: 2}
+  adjustVelocityPostCollision: 1
   debugDraw: 0
+  debugColor: {r: 1, g: 0, b: 0, a: 1}
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 1
   ballLayerMask:
     serializedVersion: 2
     m_Bits: 384
+  speed: 10
+  bounciness: 1
+  linearDamping: 0
 --- !u!50 &4984856718394615251
 Rigidbody2D:
   serializedVersion: 5

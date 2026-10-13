@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using Balltallion.Simulation;
+﻿using System.Collections.Generic;
+using Balltallion.Simulation.Physics;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-namespace Balltallion.Battle
+namespace Balltallion.Simulation.Battle
 {
     public class BattleManager : MonoBehaviour
     {

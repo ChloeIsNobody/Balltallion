@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Balltallion.Battle
+namespace Balltallion.Simulation.Battle
 {
     [CreateAssetMenu(menuName = "Balltallion/BallData", fileName = "BallData")]
     public class BallDataSO : ScriptableObject
@@ -26,6 +26,7 @@ namespace Balltallion.Battle
 
         [Space]
         [SerializeField, Expandable] public WeaponDataSO weapon;
+        [SerializeField] public GameObject abilityPrefab;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]

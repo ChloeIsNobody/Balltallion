@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
 using Object = UnityEngine.Object;
 
 /*

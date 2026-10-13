@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Balltallion.Simulation
+namespace Balltallion.Simulation.Physics
 {
     [CreateAssetMenu(fileName = "GlobalPhysicsDataSO", menuName = "Balltallion/GlobalPhysicsDataSO")]
     public class GlobalPhysicsDataSO : ScriptableObject

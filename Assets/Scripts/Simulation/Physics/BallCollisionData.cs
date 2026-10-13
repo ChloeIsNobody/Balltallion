@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Balltallion.Simulation
+namespace Balltallion.Simulation.Physics
 {
     public struct BallCollisionData
     {

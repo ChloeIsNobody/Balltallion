@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.Battle
+namespace Balltallion.Simulation.Battle
 {
     public class BallHealthDisplayUI : MonoBehaviour
     {

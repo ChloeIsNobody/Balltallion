@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Weapons;
 using UnityEngine;
 using Random = UnityEngine.Random;

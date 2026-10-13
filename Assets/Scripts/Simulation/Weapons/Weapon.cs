@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
 using UnityEngine;
 
