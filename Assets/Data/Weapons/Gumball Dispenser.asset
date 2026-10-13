@@ -28,6 +28,6 @@ MonoBehaviour:
   shotSpread: 80
   shotRecoil: 1.5
   relativeColliderSize: {x: 0.65, y: 0.28}
-  radialOffset: 0.78
+  radialOffset: 0.35
   size: 1.25
   attackSound: {fileID: 6418180475301049370, guid: d16c5e134a13ca545a8d385aee8849e6, type: 2}
