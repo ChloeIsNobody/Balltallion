@@ -138,8 +138,8 @@ namespace Balltallion.Simulation.Weapons
 
         private bool CanParry(Weapon otherWeapon)
         {
-            if (weaponData.ignoresCollisions) return false;
-            if (otherWeapon.weaponData.ignoresCollisions) return false;
+            if (weaponData.ignoresCollisions || !weaponData.canParry) return false;
+            if (otherWeapon.weaponData.ignoresCollisions || !otherWeapon.weaponData.canParry) return false;
             
             BattleBall otherBall = otherWeapon.parentBall;
             bool parentBallCanParry = true;
@@ -161,18 +161,21 @@ namespace Balltallion.Simulation.Weapons
 
         private bool CanDeflect(Projectile otherProjectile)
         {
-            if (weaponData.ignoresCollisions) return false;
+            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
             return otherProjectile.CanBeDeflected();
         }
 
         private void BallHit(BattleBall hitBall)
         {
             // Attack enemy
+            Vector2 directionalKnockback = CalculateKnockbackDir(hitBall.transform) * weaponData.directionalKnockback;
+            Vector2 dirAwayFromSelf = (hitBall.transform.position - parentBall.transform.position).normalized;
+            Vector2 awayKnockback = dirAwayFromSelf * weaponData.awayKnockback;
             AttackData attackData = new AttackData
             {
                 source = parentBall,
                 damage = weaponData.damage,
-                knockback = CalculateKnockbackDir(hitBall.transform) * weaponData.knockback
+                knockback = directionalKnockback + awayKnockback
             };
             hitBall.Attack(attackData);
             audioHandler.PlayAttackSound();
@@ -196,8 +199,8 @@ namespace Balltallion.Simulation.Weapons
         {
             BattleBall otherBall = hitWeapon.parentBall;
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
-
-            float parryForce = (weaponData.knockback + hitWeapon.weaponData.knockback) / 2.0f;
+            
+            float parryForce = (weaponData.parryKnockback + hitWeapon.weaponData.parryKnockback) / 2.0f;
             
             // Knockback the other ball
             AttackData attackData = new AttackData

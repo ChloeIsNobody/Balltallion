@@ -17,14 +17,18 @@ MonoBehaviour:
   weaponAimMode: 0
   spinSpeed: 1.05
   staticAimAngle: 0
-  ignoresCollisions: 1
-  damage: 0
-  knockback: 0
+  ignoresCollisions: 0
+  canParry: 1
+  canDeflect: 0
+  damage: 3
+  directionalKnockback: 0
+  awayKnockback: 10
+  parryKnockback: 2
   shootsProjectiles: 1
   projectilePrefab: {fileID: 4463779284276625627, guid: bd56390491419ec418e04676fcca727e, type: 3}
   ammo: 6
-  delayBetweenShots: 0.07
-  reloadDuration: 1.85
+  delayBetweenShots: 0.08
+  reloadDuration: 2.27
   shotSpread: 30
   shotRecoil: 1
   relativeColliderSize: {x: 0.65, y: 0.28}

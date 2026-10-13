@@ -109,6 +109,10 @@ PrefabInstance:
       value: Gumball
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: knockback
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: maxBounces
       value: 4
       objectReference: {fileID: 0}
