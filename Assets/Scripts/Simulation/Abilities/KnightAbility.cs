@@ -35,8 +35,8 @@ namespace Balltallion.Simulation.Abilities
         
         private KeyControl abilityKey;
         
-        // Tracks the last time a ball was hit 
-        private Dictionary<BattleBall, float> hitLog = new();
+        // Tracks the last time a ball, projectile, or weapon, or whatever was hit 
+        private List<GameObject> hitLog = new();
 
         private void Awake()
         {
@@ -71,6 +71,7 @@ namespace Balltallion.Simulation.Abilities
         private void Activate()
         {
             cooldownText.text = "";
+            hitLog.Clear();
             if (abilityCoroutine != null) StopCoroutine(abilityCoroutine);
             abilityCoroutine = StartCoroutine(AbilityCoroutine());
         }
@@ -99,12 +100,7 @@ namespace Balltallion.Simulation.Abilities
         
         private bool CanHitBall(BattleBall otherBall)
         {
-            if (hitLog.TryGetValue(otherBall, out float lastHitTime))
-            {
-                float timeSinceLastHit = Time.time - lastHitTime;
-                return timeSinceLastHit > hitDebounce;
-            }
-            return true;
+            return !hitLog.Contains(otherBall.gameObject);
         }
 
         private void HitBall(BattleBall otherBall)
@@ -117,12 +113,14 @@ namespace Balltallion.Simulation.Abilities
                 knockback = knockbackDir * knockback
             };
             otherBall.Attack(attack);
+            hitLog.Add(otherBall.gameObject);
         }
 
         private void DeflectProjectile(Projectile projectile)
         {
             Vector2 deflectDir = (projectile.transform.position - parentBall.transform.position).normalized;
             projectile.Deflect(deflectDir);
+            hitLog.Add(projectile.gameObject);
         }
 
         private void SetHitboxEnabled(bool val)
