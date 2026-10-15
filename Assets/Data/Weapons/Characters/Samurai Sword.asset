@@ -31,7 +31,7 @@ MonoBehaviour:
   reloadDuration: 2
   shotSpread: 0
   shotRecoil: 0
-  relativeColliderSize: {x: 0.7, y: 0.25}
-  radialOffset: 1
+  relativeColliderSize: {x: 0.77, y: 0.25}
+  radialOffset: 1.05
   size: 1
   attackSound: {fileID: 6418180475301049370, guid: 0bd8727887d673b49b0db7bec166d09c, type: 2}

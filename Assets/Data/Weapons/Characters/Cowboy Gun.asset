@@ -28,7 +28,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 4463779284276625627, guid: bd56390491419ec418e04676fcca727e, type: 3}
   ammo: 6
   delayBetweenShots: 0.08
-  reloadDuration: 2.27
+  reloadDuration: 2.37
   shotSpread: 30
   shotRecoil: 1
   relativeColliderSize: {x: 0.65, y: 0.28}
