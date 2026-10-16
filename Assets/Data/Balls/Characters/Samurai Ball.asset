@@ -21,7 +21,7 @@ MonoBehaviour:
   velocityScalingRange: {x: 1, y: 15}
   contactDamageRange: {x: 1, y: 15}
   weapon: {fileID: 11400000, guid: 92a0826bf65bcfa4a9129a25ebc6c2e6, type: 2}
-  abilityPrefab: {fileID: 8433846991380028007, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+  abilityPrefab: {fileID: 0}
   size: 1
   mass: 1
   gravityScale: 1

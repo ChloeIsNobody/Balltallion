@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
+  m_Name: BallData
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Battle.BallDataSO
+  displayName: Ball
+  debugColor: {r: 1, g: 1, b: 1, a: 1}
+  ballSprite: {fileID: 0}
+  maxHealth: 100
+  contactDamage: 3
+  velocityScaledContactDamage: 0
+  velocityScalingRange: {x: 0, y: 0}
+  contactDamageRange: {x: 0, y: 0}
+  weapon: {fileID: 0}
+  abilityPrefab: {fileID: 0}
+  size: 1
+  mass: 1
+  gravityScale: 1
+  speed: 0
+  bounciness: 1
+  linearDamping: 0
+  animStiffness: 0.35
+  animDamping: 0.3
+  animVelocityStretching: 0.1
+  animHueShift: 0
+  animSaturation: 1
+  animBrightness: 1
+  animContrast: 1
+  bounceSound: {fileID: 0}
+  damageSound: {fileID: 0}

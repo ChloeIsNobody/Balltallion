@@ -136,35 +136,6 @@ namespace Balltallion.Simulation.Weapons
             return true;
         }
 
-        private bool CanParry(Weapon otherWeapon)
-        {
-            if (weaponData.ignoresCollisions || !weaponData.canParry) return false;
-            if (otherWeapon.weaponData.ignoresCollisions || !otherWeapon.weaponData.canParry) return false;
-            
-            BattleBall otherBall = otherWeapon.parentBall;
-            bool parentBallCanParry = true;
-            bool otherBallCanParry = true;
-
-            if (hitLog.TryGetValue(otherBall, out var lastHitTime))
-            {
-                float timeSinceLastHit = Time.time - lastHitTime;
-                parentBallCanParry = timeSinceLastHit > parryDebounce;
-            }
-            if (otherWeapon.hitLog.TryGetValue(parentBall, out lastHitTime))
-            {
-                float timeSinceLastHit = Time.time - lastHitTime;
-                otherBallCanParry = timeSinceLastHit > parryDebounce;
-            }
-            
-            return parentBallCanParry && otherBallCanParry;
-        }
-
-        private bool CanDeflect(Projectile otherProjectile)
-        {
-            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
-            return otherProjectile.CanBeDeflected();
-        }
-
         private void BallHit(BattleBall hitBall)
         {
             // Attack enemy
@@ -194,6 +165,29 @@ namespace Balltallion.Simulation.Weapons
             
             hitLog[hitBall] = Time.time;
         }
+        
+        private bool CanParry(Weapon otherWeapon)
+        {
+            if (weaponData.ignoresCollisions || !weaponData.canParry) return false;
+            if (otherWeapon.weaponData.ignoresCollisions || !otherWeapon.weaponData.canParry) return false;
+            
+            BattleBall otherBall = otherWeapon.parentBall;
+            bool parentBallCanParry = true;
+            bool otherBallCanParry = true;
+
+            if (hitLog.TryGetValue(otherBall, out var lastHitTime))
+            {
+                float timeSinceLastHit = Time.time - lastHitTime;
+                parentBallCanParry = timeSinceLastHit > parryDebounce;
+            }
+            if (otherWeapon.hitLog.TryGetValue(parentBall, out lastHitTime))
+            {
+                float timeSinceLastHit = Time.time - lastHitTime;
+                otherBallCanParry = timeSinceLastHit > parryDebounce;
+            }
+            
+            return parentBallCanParry && otherBallCanParry;
+        }
 
         private void Parry(Weapon hitWeapon)
         {
@@ -218,16 +212,25 @@ namespace Balltallion.Simulation.Weapons
             
             // Effects
             audioHandler.PlayParrySound();
-            HitFlash(parryColor);
-            weaponController.SpinBoost();
-            weaponController.ReverseSpinDirection();
-            hitWeapon.HitFlash(parryColor);
-            hitWeapon.weaponController.SpinBoost();
-            hitWeapon.weaponController.ReverseSpinDirection();
+            ParryRecoil();
+            hitWeapon.ParryRecoil();
             
             // Make sure to count this as a hit for both balls, to trigger a debounce for both
             hitLog[hitWeapon.parentBall] = Time.time;
             hitWeapon.hitLog[parentBall] = Time.time;
+        }
+
+        public void ParryRecoil()
+        {
+            HitFlash(parryColor);
+            weaponController.SpinBoost();
+            weaponController.ReverseSpinDirection();
+        }
+        
+        private bool CanDeflect(Projectile otherProjectile)
+        {
+            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
+            return otherProjectile.CanBeDeflected();
         }
 
         public void Deflect(Projectile projectile)
@@ -284,5 +287,7 @@ namespace Balltallion.Simulation.Weapons
         }
 
         private Vector2 GetWeaponRotationVector() => weaponController.GetSpinDirection() * transform.up;
+        public BattleBall GetParentBall() => parentBall;
+        public WeaponDataSO GetData() => weaponData;
     }
 }
