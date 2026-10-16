@@ -21,6 +21,7 @@ namespace Balltallion.Simulation.Abilities
         
         [Header("References")]
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private CircleCollider2D circleCollider;
         [SerializeField] private TextMeshPro cooldownText;
         
         [Header("Stats")]
@@ -30,7 +31,6 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
         [SerializeField] private float hitboxDuration = 0.2f;
-        [SerializeField] private float hitDebounce = 0.45f;
         
         private BattleBall parentBall;
         private Coroutine runnerCoroutine;
@@ -55,10 +55,12 @@ namespace Balltallion.Simulation.Abilities
         private void OnValidate()
         {
             spriteRenderer.transform.localScale = new Vector3(radius*2.0f, radius*2.0f, 1.0f);
+            circleCollider.radius = radius;
         }
 
         private void Awake()
         {
+            OnValidate();
             parentBall = GetComponentInParent<BattleBall>();
             hitDetectionMode = HitDetectionModes.None;
             spriteRenderer.enabled = false;
@@ -191,6 +193,13 @@ namespace Balltallion.Simulation.Abilities
 
             if (hitDetectionMode == HitDetectionModes.Slash)
             {
+                List<Projectile> projectiles = hits.FindAll(c =>
+                    c.TryGetComponent(out Projectile projectile)
+                    && !hitLog.Contains(projectile.gameObject)
+                    && projectile.CanBeDeflected()
+                    ).ConvertAll(c => c.GetComponent<Projectile>());
+                foreach (Projectile projectile in projectiles) DeflectProjectile(projectile);
+                
                 BattleBall otherBall = hits.Find(c => 
                     c.TryGetComponent(out BattleBall otherBall)
                     && !hitLog.Contains(otherBall.gameObject)

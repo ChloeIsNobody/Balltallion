@@ -208,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 4.5, y: 4.5, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 784620813853593604}
@@ -414,14 +414,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.KnightAbility
   spriteRenderer: {fileID: 2536433682704325890}
+  circleCollider: {fileID: 708721133452045923}
   cooldownText: {fileID: 8966020285454648236}
   damage: 12
   knockback: 13
-  cooldown: 5
-  radius: 2
-  chargeUpDuration: 0.2
-  hitboxDuration: 0.2
-  hitDebounce: 0.45
+  cooldown: 8
+  radius: 2.25
+  chargeUpDuration: 0.3
+  hitboxDuration: 0.22
 --- !u!58 &708721133452045923
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -457,4 +457,4 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 2
+  m_Radius: 2.25
