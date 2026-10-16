@@ -6,12 +6,13 @@ using Balltallion.Simulation.Projectiles;
 using Balltallion.Simulation.Weapons;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 
 namespace Balltallion.Simulation.Abilities
 {
-    public class KnightAbility : MonoBehaviour
+    public class SuperSlash : MonoBehaviour
     {
         public event Action OnCooldownStarted;
         public event Action OnCooldownComplete;
@@ -19,7 +20,6 @@ namespace Balltallion.Simulation.Abilities
         public event Action OnAbilityActivationBlocked;
         
         [Header("References")]
-        [SerializeField] private Collider2D triggerCollider;
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private TextMeshPro cooldownText;
         
@@ -27,6 +27,7 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private int damage = 10;
         [SerializeField] private float knockback;
         [SerializeField] private float cooldown = 1.0f;
+        [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
         [SerializeField] private float hitboxDuration = 0.2f;
         [SerializeField] private float hitDebounce = 0.45f;
@@ -35,25 +36,50 @@ namespace Balltallion.Simulation.Abilities
         private Coroutine runnerCoroutine;
         private KeyControl abilityKey;
         
-        private float cooldownTimer;
-        private bool onCooldown;
-        private bool isChargingUp;
-        private bool activationTrigger;
-        
         // Tracks the last time a ball, projectile, or weapon, or whatever was hit 
         private List<GameObject> hitLog = new();
+        
+        private ContactFilter2D targetContactFilter; 
+        private HitDetectionModes hitDetectionMode = HitDetectionModes.None;
+        private enum HitDetectionModes {None, ChargeUp, Slash}
+        
+        private float cooldownTimer;
+        private bool onCooldown;
+        private bool activationTrigger;
+        private bool chargeUpSkipTrigger;
         
         /*
          * Cooldown -> wait for input -> charge up -> slash -> Cooldown
          */
 
+        private void OnValidate()
+        {
+            spriteRenderer.transform.localScale = new Vector3(radius*2.0f, radius*2.0f, 1.0f);
+        }
+
         private void Awake()
         {
             parentBall = GetComponentInParent<BattleBall>();
+            hitDetectionMode = HitDetectionModes.None;
+            spriteRenderer.enabled = false;
+            SetupTeam();
+        }
+
+        private void SetupTeam()
+        {
             gameObject.layer = TeamUtilities.GetWeaponTeamLayerID(parentBall.GetTeam());
             abilityKey = parentBall.GetTeam() == TeamNames.Player ? Keyboard.current.dKey : Keyboard.current.jKey;
-            triggerCollider.enabled = false;
-            spriteRenderer.enabled = false;
+            
+            TeamNames opposingTeam = TeamUtilities.GetOpposingTeam(parentBall.GetTeam());
+            LayerMask layerMask = TeamUtilities.GetTeamLayerMask(opposingTeam);
+            layerMask |= TeamUtilities.GetWeaponTeamLayerMask(opposingTeam);
+            layerMask |= TeamUtilities.GetProjectileTeamLayerMask(opposingTeam);
+            targetContactFilter = new ContactFilter2D
+            {
+                useLayerMask = true,
+                layerMask = layerMask,
+                useTriggers = true
+            };
         }
 
         private void Start()
@@ -64,6 +90,11 @@ namespace Balltallion.Simulation.Abilities
         private void Update()
         {
             ReadInput();
+        }
+
+        private void FixedUpdate()
+        {
+            HitDetection();
         }
 
         private void ReadInput()
@@ -120,58 +151,90 @@ namespace Balltallion.Simulation.Abilities
         private IEnumerator AbilityCoroutine()
         {
             hitLog.Clear();
-            triggerCollider.enabled = true;
-            isChargingUp = true;
+            hitDetectionMode = HitDetectionModes.ChargeUp;
             
-            yield return new WaitForSeconds(chargeUpDuration);
+            float chargeUpTimer = chargeUpDuration;
+            while (chargeUpTimer > 0.0f)
+            {
+                chargeUpTimer -= Time.deltaTime;
+                if (chargeUpSkipTrigger)
+                {
+                    chargeUpSkipTrigger = false;
+                    break;
+                }
+                yield return null;
+            }
             spriteRenderer.enabled = true;
-            isChargingUp = false;
+            hitDetectionMode = HitDetectionModes.Slash;
             
             yield return new WaitForSeconds(hitboxDuration);
-            triggerCollider.enabled = false;
+            hitDetectionMode = HitDetectionModes.None;
             spriteRenderer.enabled = false;
         }
         
-        private void OnTriggerStay2D(Collider2D other)
+        private void HitDetection()
         {
-            if (other.TryGetComponent(out KnightAbility knightAbility))
-            {
-                Debug.Log("SUPER PARRY?!?!?");
-            }
+            if (hitDetectionMode == HitDetectionModes.None) return;
             
-            if (isChargingUp) return;
-            
-            if (other.TryGetComponent(out BattleBall otherBall))
+            List<Collider2D> hits = new();
+            Physics2D.OverlapCircle(transform.position, radius, targetContactFilter, hits);
+
+            if (hitDetectionMode == HitDetectionModes.ChargeUp)
             {
-                if (CanHitObject(otherBall.gameObject)) HitBall(otherBall);
+                SuperSlash otherSlash = hits.Find(c => 
+                    c.TryGetComponent(out SuperSlash otherSlash)
+                    && !hitLog.Contains(otherSlash.gameObject)
+                    && otherSlash.hitDetectionMode == HitDetectionModes.ChargeUp
+                    )?.GetComponent<SuperSlash>();
+                if (otherSlash) SuperParry(otherSlash);
             }
 
-            if (other.TryGetComponent(out Weapon weapon))
+            if (hitDetectionMode == HitDetectionModes.Slash)
             {
-                if (CanHitObject(weapon.gameObject)) ParryWeapon(weapon);
-            }
+                BattleBall otherBall = hits.Find(c => 
+                    c.TryGetComponent(out BattleBall otherBall)
+                    && !hitLog.Contains(otherBall.gameObject)
+                    )?.GetComponent<BattleBall>();
+                
+                if (otherBall) { HitBall(otherBall); return; }
 
-            if (other.TryGetComponent(out Projectile projectile))
-            {
-                if (CanHitObject(projectile.gameObject) && projectile.CanBeDeflected()) DeflectProjectile(projectile);
+                Weapon otherWeapon = hits.Find(c => 
+                    c.TryGetComponent(out Weapon otherWeapon)
+                    && !hitLog.Contains(otherWeapon.GetParentBall().gameObject)
+                    )?.GetComponent<Weapon>();
+                if (otherWeapon) ParryWeapon(otherWeapon);
             }
         }
 
-        private bool CanSuperParry(KnightAbility otherAbility)
+        private void SuperParry(SuperSlash otherAbility)
         {
-            return !hitLog.Contains(otherAbility.gameObject) && otherAbility.isChargingUp;
-        }
+            Debug.Log("SUPER PARRY?!?!?");
+            
+            // Play slash animation immediately by skipping charge up
+            chargeUpSkipTrigger = true;
+            otherAbility.chargeUpSkipTrigger = true;
 
-        private void SuperParry(KnightAbility otherAbility)
-        {
+            BattleBall otherBall = otherAbility.parentBall;
+            Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
+            float parryForce = (knockback + otherAbility.knockback) / 4.0f;
+            
+            // Knockback the other ball
+            AttackData attackData = new AttackData
+            {
+                source = parentBall,
+                damage = 0,
+                knockback = awayVector * parryForce
+            };
+            otherBall.Attack(attackData);
+
+            // Knockback self
+            attackData.source = otherBall;
+            attackData.knockback *= -1.0f;
+            parentBall.Attack(attackData);
+            
             // Prevent any more interactions
-            hitLog.Add(otherAbility.gameObject);
-            otherAbility.hitLog.Add(gameObject);
-        }
-        
-        private bool CanHitObject(GameObject otherObject)
-        {
-            return !hitLog.Contains(otherObject);
+            hitLog.Add(otherAbility.parentBall.gameObject);
+            otherAbility.hitLog.Add(parentBall.gameObject);
         }
 
         private void HitBall(BattleBall otherBall)
@@ -209,7 +272,7 @@ namespace Balltallion.Simulation.Abilities
             parentBall.Attack(attackData);
             
             hitWeapon.ParryRecoil();
-            hitLog.Add(hitWeapon.gameObject);
+            hitLog.Add(hitWeapon.GetParentBall().gameObject);
         }
 
         private void DeflectProjectile(Projectile projectile)

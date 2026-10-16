@@ -208,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 784620813853593604}
@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 4091020676520982202}
   - component: {fileID: 708721133452045923}
   m_Layer: 0
-  m_Name: KnightAbility
+  m_Name: KnightSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -413,12 +413,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2c4bf69ec04bbb89295dd0da18309d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.KnightAbility
-  triggerCollider: {fileID: 708721133452045923}
   spriteRenderer: {fileID: 2536433682704325890}
   cooldownText: {fileID: 8966020285454648236}
   damage: 12
   knockback: 13
   cooldown: 5
+  radius: 2
+  chargeUpDuration: 0.2
   hitboxDuration: 0.2
   hitDebounce: 0.45
 --- !u!58 &708721133452045923
