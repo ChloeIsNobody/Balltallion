@@ -211,20 +211,20 @@ namespace Balltallion.Simulation.Weapons
             parentBall.Attack(attackData);
             
             // Effects
-            audioHandler.PlayParrySound();
             ParryRecoil();
-            hitWeapon.ParryRecoil();
+            hitWeapon.ParryRecoil(true);
             
             // Make sure to count this as a hit for both balls, to trigger a debounce for both
             hitLog[hitWeapon.parentBall] = Time.time;
             hitWeapon.hitLog[parentBall] = Time.time;
         }
 
-        public void ParryRecoil()
+        public void ParryRecoil(bool silent = false)
         {
             HitFlash(parryColor);
             weaponController.SpinBoost();
             weaponController.ReverseSpinDirection();
+            if (!silent) audioHandler.PlayParrySound();
         }
         
         private bool CanDeflect(Projectile otherProjectile)
@@ -289,5 +289,6 @@ namespace Balltallion.Simulation.Weapons
         private Vector2 GetWeaponRotationVector() => weaponController.GetSpinDirection() * transform.up;
         public BattleBall GetParentBall() => parentBall;
         public WeaponDataSO GetData() => weaponData;
+        public void SetColliderEnabled(bool enabled) => boxCollider.enabled = enabled;
     }
 }

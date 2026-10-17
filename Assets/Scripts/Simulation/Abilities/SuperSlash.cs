@@ -20,9 +20,11 @@ namespace Balltallion.Simulation.Abilities
         public event Action OnAbilityActivationBlocked;
         
         [Header("References")]
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Transform visualTransform;
+        [SerializeField] private Animator animator;
         [SerializeField] private CircleCollider2D circleCollider;
         [SerializeField] private TextMeshPro cooldownText;
+        [SerializeField] private AudioSource audioSource;
         
         [Header("Stats")]
         [SerializeField] private int damage = 10;
@@ -31,8 +33,17 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
         [SerializeField] private float hitboxDuration = 0.2f;
+
+        [Header("Animation")]
+        [SerializeField] private float spinBoostMult = 1.0f;
+        [SerializeField] private float spinBoostDuration = 1.0f;
+
+        [Header("Audio")]
+        [SerializeField] private AudioResource slashSound;
+        [SerializeField] private AudioResource superParrySound;
         
         private BattleBall parentBall;
+        private WeaponController weaponController;
         private Coroutine runnerCoroutine;
         private KeyControl abilityKey;
         
@@ -47,6 +58,7 @@ namespace Balltallion.Simulation.Abilities
         private bool onCooldown;
         private bool activationTrigger;
         private bool chargeUpSkipTrigger;
+        private bool isParry;
         
         /*
          * Cooldown -> wait for input -> charge up -> slash -> Cooldown
@@ -54,7 +66,7 @@ namespace Balltallion.Simulation.Abilities
 
         private void OnValidate()
         {
-            spriteRenderer.transform.localScale = new Vector3(radius*2.0f, radius*2.0f, 1.0f);
+            visualTransform.transform.localScale = new Vector3(radius*2.0f, radius*2.0f, 1.0f);
             circleCollider.radius = radius;
         }
 
@@ -62,8 +74,9 @@ namespace Balltallion.Simulation.Abilities
         {
             OnValidate();
             parentBall = GetComponentInParent<BattleBall>();
+            weaponController = parentBall.GetComponentInChildren<WeaponController>();
             hitDetectionMode = HitDetectionModes.None;
-            spriteRenderer.enabled = false;
+            animator.Play("Idle");
             SetupTeam();
         }
 
@@ -141,6 +154,7 @@ namespace Balltallion.Simulation.Abilities
             onCooldown = false;
             cooldownText.text = abilityKey.name;
             Debug.Log($"{parentBall.name}'s ability is now ready!");
+            animator.Play("AbilityReady");
             OnCooldownComplete?.Invoke();
             
             yield return new WaitUntil(() => activationTrigger);
@@ -153,7 +167,8 @@ namespace Balltallion.Simulation.Abilities
         private IEnumerator AbilityCoroutine()
         {
             hitLog.Clear();
-            hitDetectionMode = HitDetectionModes.ChargeUp;
+            isParry = false;
+            ChargeUp();
             
             float chargeUpTimer = chargeUpDuration;
             while (chargeUpTimer > 0.0f)
@@ -166,12 +181,44 @@ namespace Balltallion.Simulation.Abilities
                 }
                 yield return null;
             }
-            spriteRenderer.enabled = true;
-            hitDetectionMode = HitDetectionModes.Slash;
+            
+            Slash();
             
             yield return new WaitForSeconds(hitboxDuration);
             hitDetectionMode = HitDetectionModes.None;
-            spriteRenderer.enabled = false;
+            animator.Play("Idle");
+            
+            yield return new WaitForSeconds(0.25f);
+            weaponController.SetWeaponsEnabled(true);
+        }
+
+        private void ChargeUp()
+        {
+            hitDetectionMode = HitDetectionModes.ChargeUp;
+            weaponController.ReverseSpinDirection();
+            weaponController.SetWeaponsEnabled(false);
+            animator.speed = 1.0f/chargeUpDuration;
+            animator.Play("ChargeUp");
+        }
+
+        private void Slash()
+        {
+            hitDetectionMode = HitDetectionModes.Slash;
+            weaponController.ReverseSpinDirection();
+            weaponController.SpinBoost(spinBoostMult, spinBoostDuration);
+            animator.speed = 1.0f/hitboxDuration;
+            if (isParry)
+            {
+                animator.Play("ParrySlash");
+                audioSource.resource = superParrySound;
+                audioSource.Play();
+            }
+            else
+            {
+                animator.Play("Slash");
+                audioSource.resource = slashSound;
+                audioSource.Play();
+            }
         }
         
         private void HitDetection()
@@ -222,6 +269,8 @@ namespace Balltallion.Simulation.Abilities
             // Play slash animation immediately by skipping charge up
             chargeUpSkipTrigger = true;
             otherAbility.chargeUpSkipTrigger = true;
+            isParry = true;
+            otherAbility.isParry = true;
 
             BattleBall otherBall = otherAbility.parentBall;
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;

@@ -19,8 +19,10 @@ namespace Balltallion.Simulation.Weapons
         private float currentAngle = 0.0f;
         private float spinDirection = 1.0f;
         private BattleBall followModeTarget;
+        private List<Weapon> weapons = new();
 
         private float hitSpinBoostTimer = 0.0f;
+        private float currentSpinBoostMult = 1.0f;
 
         private void Start()
         {
@@ -31,16 +33,17 @@ namespace Balltallion.Simulation.Weapons
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
             this.weaponData = weaponData;
-            ClearChildTransforms();
+            ClearWeapons();
             if (weaponData == null) return;
             InstantiateWeapons();
         }
 
-        private void ClearChildTransforms()
+        private void ClearWeapons()
         {
             List<Transform> children = new();
             foreach (Transform child in transform) children.Add(child);
             foreach (Transform child in children) DestroyImmediate(child.gameObject);
+            weapons.Clear();
         }
 
         private void InstantiateWeapons()
@@ -64,6 +67,8 @@ namespace Balltallion.Simulation.Weapons
                 weapon.transform.localRotation = Quaternion.identity;
                 weapon.transform.localScale = Vector3.one * weaponData.size;
                 weapon.LoadWeaponData(weaponData);
+                
+                weapons.Add(weapon);
             }
         }
 
@@ -85,7 +90,7 @@ namespace Balltallion.Simulation.Weapons
                 hitSpinBoostTimer = Mathf.Max(hitSpinBoostTimer - Time.deltaTime, 0.0f);
                 float animValue = 1.0f - hitSpinBoostTimer / hitSpinBoostDuration;
                 animValue = 1.0f - Mathf.Pow(1.0f - animValue, 3.0f); // cubic ease out
-                spinBoost = Mathf.Lerp(hitSpinBoostMult, 1.0f, animValue);
+                spinBoost = Mathf.Lerp(currentSpinBoostMult, 1.0f, animValue);
             }
             
             currentAngle += 90.0f * spinBoost * weaponData.spinSpeed * spinDirection * Time.deltaTime;
@@ -132,9 +137,26 @@ namespace Balltallion.Simulation.Weapons
         }
         
         public float GetSpinDirection() => spinDirection;
-
         public void ReverseSpinDirection() => spinDirection *= -1.0f;
-        public void SpinBoost() => hitSpinBoostTimer = hitSpinBoostDuration;
-        
+
+        public void SpinBoost()
+        {
+            hitSpinBoostTimer = hitSpinBoostDuration;
+            currentSpinBoostMult = hitSpinBoostMult;
+        }
+
+        public void SpinBoost(float speedMult, float duration)
+        {
+            hitSpinBoostTimer = duration;
+            currentSpinBoostMult = speedMult;
+        }
+
+        public void SetWeaponsEnabled(bool val)
+        {
+            foreach (Weapon weapon in weapons)
+            {
+                weapon.SetColliderEnabled(val);
+            }
+        } 
     }
 }
