@@ -53,6 +53,7 @@ namespace Balltallion.Simulation.Abilities
         private IEnumerator CooldownState()
         {
             cooldownTimer = cooldown;
+            CooldownEntered();
             OnCooldownEntered?.Invoke();
 
             while (cooldownTimer > 0.0f)
@@ -63,6 +64,7 @@ namespace Balltallion.Simulation.Abilities
             }
             
             cooldownTimer = 0.0f;
+            AbilityReady();
             OnAbilityReady?.Invoke();
             
             TransitionToState(ReadyState(), nameof(ReadyState));
@@ -75,6 +77,9 @@ namespace Balltallion.Simulation.Abilities
             
             TransitionToState(abilityStartState.Invoke(), abilityStartStateName);
         }
+
+        protected abstract void CooldownEntered();
+        protected abstract void AbilityReady();
 
         protected void TransitionToCooldown() => TransitionToState(CooldownState(), nameof(CooldownState));
 

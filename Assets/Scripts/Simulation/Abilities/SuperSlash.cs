@@ -12,13 +12,8 @@ using UnityEngine.InputSystem.Controls;
 
 namespace Balltallion.Simulation.Abilities
 {
-    public class SuperSlash : MonoBehaviour
+    public class SuperSlash : ActiveAbility
     {
-        public event Action OnCooldownStarted;
-        public event Action OnCooldownComplete;
-        public event Action OnAbilityActivated;
-        public event Action OnAbilityActivationBlocked;
-        
         [Header("References")]
         [SerializeField] private Transform visualTransform;
         [SerializeField] private Animator animator;
@@ -26,10 +21,9 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private TextMeshPro cooldownText;
         [SerializeField] private AudioSource audioSource;
         
-        [Header("Stats")]
+        [Header("Slash Stats")]
         [SerializeField] private int damage = 10;
         [SerializeField] private float knockback;
-        [SerializeField] private float cooldown = 1.0f;
         [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
         [SerializeField] private float hitboxDuration = 0.2f;
@@ -42,10 +36,7 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private AudioResource slashSound;
         [SerializeField] private AudioResource superParrySound;
         
-        private BattleBall parentBall;
         private WeaponController weaponController;
-        private Coroutine runnerCoroutine;
-        private KeyControl abilityKey;
         
         // Tracks the last time a ball, projectile, or weapon, or whatever was hit 
         private List<GameObject> hitLog = new();
@@ -54,37 +45,26 @@ namespace Balltallion.Simulation.Abilities
         private HitDetectionModes hitDetectionMode = HitDetectionModes.None;
         private enum HitDetectionModes {None, ChargeUp, Slash}
         
-        private float cooldownTimer;
-        private bool onCooldown;
-        private bool activationTrigger;
-        private bool chargeUpSkipTrigger;
-        private bool isParry;
+        private bool parryTriggered;
         
-        /*
-         * Cooldown -> wait for input -> charge up -> slash -> Cooldown
-         */
-
         private void OnValidate()
         {
             visualTransform.transform.localScale = new Vector3(radius*2.0f, radius*2.0f, 1.0f);
             circleCollider.radius = radius;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
             OnValidate();
-            parentBall = GetComponentInParent<BattleBall>();
+            base.Awake();
             weaponController = parentBall.GetComponentInChildren<WeaponController>();
             hitDetectionMode = HitDetectionModes.None;
             animator.Play("Idle");
-            SetupTeam();
+            SetupContactFilter();
         }
 
-        private void SetupTeam()
+        private void SetupContactFilter()
         {
-            gameObject.layer = TeamUtilities.GetWeaponTeamLayerID(parentBall.GetTeam());
-            abilityKey = parentBall.GetTeam() == TeamNames.Player ? Keyboard.current.dKey : Keyboard.current.jKey;
-            
             TeamNames opposingTeam = TeamUtilities.GetOpposingTeam(parentBall.GetTeam());
             LayerMask layerMask = TeamUtilities.GetTeamLayerMask(opposingTeam);
             layerMask |= TeamUtilities.GetWeaponTeamLayerMask(opposingTeam);
@@ -99,112 +79,48 @@ namespace Balltallion.Simulation.Abilities
 
         private void Start()
         {
-            runnerCoroutine = StartCoroutine(RunnerCoroutine());
+            InitializeStateMachine(ChargingState, nameof(ChargingState));
         }
         
-        private void Update()
+        protected override void CooldownEntered()
         {
-            ReadInput();
+            animator.Play("Idle");
         }
 
-        private void FixedUpdate()
+        protected override void AbilityReady()
         {
-            HitDetection();
-        }
-
-        private void ReadInput()
-        {
-            if (abilityKey.wasPressedThisFrame)
-            {
-                if (onCooldown)
-                {
-                    OnAbilityActivationBlocked?.Invoke();
-                }
-                else
-                {
-                    activationTrigger = true;
-                }
-            }
-        }
-
-        private IEnumerator RunnerCoroutine()
-        {
-            while (true)
-            {
-                yield return StartCoroutine(CooldownCoroutine());
-                yield return StartCoroutine(AbilityCoroutine());
-            }
-        }
-        
-        private IEnumerator CooldownCoroutine()
-        {
-            onCooldown = true;
-            cooldownTimer = cooldown;
-            OnCooldownStarted?.Invoke();
-
-            while (cooldownTimer > 0.0f)
-            {
-                cooldownTimer -= Time.deltaTime;
-                cooldownText.text = $"{cooldownTimer:F1}s";
-                yield return null;
-            }
-            
-            cooldownTimer = 0.0f;
-            onCooldown = false;
-            cooldownText.text = abilityKey.name;
             animator.Play("AbilityReady");
-            OnCooldownComplete?.Invoke();
-            
-            yield return new WaitUntil(() => activationTrigger);
-            activationTrigger = false;
-            cooldownText.text = "";
-            OnAbilityActivated?.Invoke();
         }
 
-        private IEnumerator AbilityCoroutine()
+        private IEnumerator ChargingState()
         {
             hitLog.Clear();
-            isParry = false;
-            ChargeUp();
+            parryTriggered = false;
             
-            float chargeUpTimer = chargeUpDuration;
-            while (chargeUpTimer > 0.0f)
-            {
-                chargeUpTimer -= Time.deltaTime;
-                if (chargeUpSkipTrigger)
-                {
-                    chargeUpSkipTrigger = false;
-                    break;
-                }
-                yield return null;
-            }
-            
-            Slash();
-            
-            yield return new WaitForSeconds(hitboxDuration);
-            hitDetectionMode = HitDetectionModes.None;
-            animator.Play("Idle");
-            
-            yield return new WaitForSeconds(0.25f);
-            weaponController.SetWeaponsEnabled(true);
-        }
-
-        private void ChargeUp()
-        {
             hitDetectionMode = HitDetectionModes.ChargeUp;
             weaponController.ReverseSpinDirection();
             weaponController.SetWeaponsEnabled(false);
             animator.speed = 1.0f/chargeUpDuration;
             animator.Play("ChargeUp");
+            
+            float chargeUpTimer = chargeUpDuration;
+            while (chargeUpTimer > 0.0f)
+            {
+                chargeUpTimer -= Time.deltaTime;
+                if (parryTriggered) break;
+                yield return null;
+            }
+            
+            TransitionToState(SlashState(), nameof(SlashState));
         }
 
-        private void Slash()
+        private IEnumerator SlashState()
         {
             hitDetectionMode = HitDetectionModes.Slash;
             weaponController.ReverseSpinDirection();
             weaponController.SpinBoost(spinBoostMult, spinBoostDuration);
             animator.speed = 1.0f/hitboxDuration;
-            if (isParry)
+            if (parryTriggered)
             {
                 animator.Play("ParrySlash");
                 audioSource.resource = superParrySound;
@@ -216,6 +132,20 @@ namespace Balltallion.Simulation.Abilities
                 audioSource.resource = slashSound;
                 audioSource.Play();
             }
+            
+            yield return new WaitForSeconds(hitboxDuration);
+            hitDetectionMode = HitDetectionModes.None;
+            animator.Play("Idle");
+            
+            yield return new WaitForSeconds(0.25f);
+            weaponController.SetWeaponsEnabled(true);
+            
+            TransitionToCooldown();
+        }
+        
+        private void FixedUpdate()
+        {
+            HitDetection();
         }
         
         private void HitDetection()
@@ -261,11 +191,9 @@ namespace Balltallion.Simulation.Abilities
 
         private void SuperParry(SuperSlash otherAbility)
         {
-            // Play slash animation immediately by skipping charge up
-            chargeUpSkipTrigger = true;
-            otherAbility.chargeUpSkipTrigger = true;
-            isParry = true;
-            otherAbility.isParry = true;
+            // Setting the parry flag to true skips the charging state
+            parryTriggered = true;
+            otherAbility.parryTriggered = true;
 
             BattleBall otherBall = otherAbility.parentBall;
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
