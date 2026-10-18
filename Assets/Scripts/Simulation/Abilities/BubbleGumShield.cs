@@ -6,6 +6,7 @@ namespace Balltallion.Simulation.Abilities
     public class BubbleGumShield : ActiveAbility
     {
         [Header("References")]
+        [SerializeField] private CircleCollider2D shieldCollider;
         [SerializeField] private Transform visualTransform;
         [SerializeField] private Animator animator;
         
@@ -28,6 +29,7 @@ namespace Balltallion.Simulation.Abilities
         
         protected override void CooldownEntered()
         {
+            shieldCollider.enabled = false;
             animator.Play("Idle");
         }
 
@@ -38,6 +40,7 @@ namespace Balltallion.Simulation.Abilities
 
         private IEnumerator ShieldState()
         {
+            shieldCollider.enabled = true;
             animator.Play("Active");
             yield return new WaitForSeconds(duration);
             TransitionToCooldown();

@@ -218,6 +218,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1084474927290466806}
   - component: {fileID: 4952178596234025007}
+  - component: {fileID: 8723203123726240927}
   m_Layer: 0
   m_Name: BubbleGumShield
   m_TagString: Untagged
@@ -257,10 +258,47 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.BubbleGumShield
   cooldown: 3
   debugStatesInConsole: 0
+  shieldCollider: {fileID: 8723203123726240927}
   visualTransform: {fileID: 2206838373608933581}
   animator: {fileID: 996656869394211909}
   radius: 1
   duration: 3
+--- !u!58 &8723203123726240927
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5383679034311467814}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1
 --- !u!1 &7858551326445468899
 GameObject:
   m_ObjectHideFlags: 0
