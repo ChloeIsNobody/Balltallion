@@ -43,7 +43,7 @@ namespace Balltallion.Simulation.Battle
         [Button("Editor Refresh Stats")]
         private void EditorLoadStats()
         {
-            if (ballData != null) LoadBallData(ballData, team);
+            if (ballData) LoadBallData(ballData, team);
         }
 
         public void LoadBallData(BallDataSO data, TeamNames team)
