@@ -118,7 +118,6 @@ namespace Balltallion.Simulation.Abilities
             {
                 if (onCooldown)
                 {
-                    Debug.Log($"{parentBall.name}'s ability is on cooldown! ({cooldownTimer:F1}s left...)");
                     OnAbilityActivationBlocked?.Invoke();
                 }
                 else
@@ -153,14 +152,12 @@ namespace Balltallion.Simulation.Abilities
             cooldownTimer = 0.0f;
             onCooldown = false;
             cooldownText.text = abilityKey.name;
-            Debug.Log($"{parentBall.name}'s ability is now ready!");
             animator.Play("AbilityReady");
             OnCooldownComplete?.Invoke();
             
             yield return new WaitUntil(() => activationTrigger);
             activationTrigger = false;
             cooldownText.text = "";
-            Debug.Log($"{parentBall.name}'s ability activated!");
             OnAbilityActivated?.Invoke();
         }
 
@@ -264,8 +261,6 @@ namespace Balltallion.Simulation.Abilities
 
         private void SuperParry(SuperSlash otherAbility)
         {
-            Debug.Log("SUPER PARRY?!?!?");
-            
             // Play slash animation immediately by skipping charge up
             chargeUpSkipTrigger = true;
             otherAbility.chargeUpSkipTrigger = true;
