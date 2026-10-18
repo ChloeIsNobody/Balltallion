@@ -18,7 +18,6 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private Transform visualTransform;
         [SerializeField] private Animator animator;
         [SerializeField] private CircleCollider2D circleCollider;
-        [SerializeField] private TextMeshPro cooldownText;
         [SerializeField] private AudioSource audioSource;
         
         [Header("Slash Stats")]

@@ -16,6 +16,7 @@ namespace Balltallion.Simulation.Abilities
         
         [Header("Base Ability Data")]
         [SerializeField] private float cooldown = 1.0f;
+        [SerializeField] private bool debugStatesInConsole = false;
         
         protected BattleBall parentBall;
         private KeyControl abilityKey;
@@ -87,11 +88,12 @@ namespace Balltallion.Simulation.Abilities
         {
             if (currentState != null) StopCoroutine(currentState);
             currentState = StartCoroutine(newStateCoroutine);
-            Debug.Log($"Transitioning from {currentStateName} to {newStateName}");
+            if (debugStatesInConsole) Debug.Log($"Transitioning from {currentStateName} to {newStateName}");
             currentStateName = newStateName;
         }
         
         public bool IsOnCooldown() => currentStateName == nameof(CooldownState);
         public float GetCooldownTimer() => cooldownTimer;
+        public string GetInputName() => abilityKey.name; 
     }
 }
