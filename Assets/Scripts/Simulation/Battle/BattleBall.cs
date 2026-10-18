@@ -28,6 +28,7 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private bool debugAttacks;
         
         private int health;
+        private bool isInvulnerable;
         private BallBody ballBody;
 
         private void Awake()
@@ -97,32 +98,30 @@ namespace Balltallion.Simulation.Battle
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
-        public void Attack(AttackData attackData)
+        public void ReceiveAttack(AttackData attackData)
         {
-            TakeDamage(attackData.damage);
+            Color damageColor = attackData.source?.GetColor() ?? Color.white; 
+            TakeDamage(attackData.damage, damageColor);
             ballBody.ApplyKnockback(attackData.knockback);
             if (debugAttacks) DebugAttack(attackData);
+        }
+        private void TakeDamage(int damage, Color damageColor)
+        {
+            if (isInvulnerable) damage = 0;
+            if (damage <= 0) return;
             
-            if (attackData.damage > 0 )
-            {
-                Color color = attackData.source ? attackData.source.GetColor() : Color.white;
-                ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, attackData.damage, color);
-            }
+            health -= damage;
+            ballAnimator.HitFlash();
+            audioHandler.PlayDamageSound();
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damage, damageColor);
+            
+            if (health <= 0) Die();
         }
 
         private void DebugAttack(AttackData attackData)
         {
             Vector2 end = (Vector2)transform.position + attackData.knockback/5.0f;
             Debug.DrawLine(transform.position, end, attackData.source.GetColor(), 2);
-        }
-
-        private void TakeDamage(int damage)
-        {
-            if (damage <= 0) return;
-            health -= damage;
-            ballAnimator.HitFlash();
-            audioHandler.PlayDamageSound();
-            if (health <= 0) Die();
         }
 
         public void Die()
@@ -155,7 +154,7 @@ namespace Balltallion.Simulation.Battle
             }
             else attackData.damage = ballData.contactDamage;
             
-            otherBall.Attack(attackData);
+            otherBall.ReceiveAttack(attackData);
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
@@ -164,5 +163,6 @@ namespace Balltallion.Simulation.Battle
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
+        public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }
 }

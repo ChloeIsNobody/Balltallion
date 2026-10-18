@@ -6,13 +6,14 @@ namespace Balltallion.Simulation.Abilities
     public class BubbleGumShield : ActiveAbility
     {
         [Header("References")]
-        [SerializeField] private CircleCollider2D shieldCollider;
         [SerializeField] private Transform visualTransform;
         [SerializeField] private Animator animator;
         
         [Header("Shield Stats")]
         [SerializeField] private float radius;
         [SerializeField] private float duration;
+        
+        private CircleCollider2D ballCollider;
         
         private void OnValidate()
         {
@@ -24,12 +25,14 @@ namespace Balltallion.Simulation.Abilities
         {
             OnValidate();
             base.Awake();
+            ballCollider = parentBall.GetComponent<CircleCollider2D>();
             InitializeStateMachine(ShieldState, nameof(ShieldState));
         }
         
         protected override void CooldownEntered()
         {
-            shieldCollider.enabled = false;
+            parentBall.SetInvulnerable(false);
+            ballCollider.radius = 0.5f;
             animator.Play("Idle");
         }
 
@@ -40,8 +43,10 @@ namespace Balltallion.Simulation.Abilities
 
         private IEnumerator ShieldState()
         {
-            shieldCollider.enabled = true;
+            parentBall.SetInvulnerable(true);
+            ballCollider.radius = radius;
             animator.Play("Active");
+            
             yield return new WaitForSeconds(duration);
             TransitionToCooldown();
         }

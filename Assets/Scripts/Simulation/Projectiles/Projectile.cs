@@ -92,7 +92,7 @@ namespace Balltallion.Simulation.Projectiles
                 damage = damage,
                 knockback = GetMoveDirection() * knockback
             };
-            ball.Attack(attackData);
+            ball.ReceiveAttack(attackData);
             Destroy(gameObject);
         }
 

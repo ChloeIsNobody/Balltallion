@@ -63,7 +63,7 @@ namespace Balltallion.Simulation.Projectiles
                 damage = 0,
                 knockback = -shootDirection * weaponData.shotRecoil
             };
-            parentBall.Attack(recoilKnockback);
+            parentBall.ReceiveAttack(recoilKnockback);
             
             OnShot?.Invoke();
         }

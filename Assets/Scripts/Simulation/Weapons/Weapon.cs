@@ -148,13 +148,13 @@ namespace Balltallion.Simulation.Weapons
                 damage = weaponData.damage,
                 knockback = directionalKnockback + awayKnockback
             };
-            hitBall.Attack(attackData);
+            hitBall.ReceiveAttack(attackData);
             audioHandler.PlayAttackSound();
 
             // Recoil self
             attackData.damage = 0;
             attackData.knockback *= -0.5f;
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Effects
             weaponController.SpinBoost();
@@ -203,12 +203,12 @@ namespace Balltallion.Simulation.Weapons
                 damage = 0,
                 knockback = awayVector * parryForce
             };
-            otherBall.Attack(attackData);
+            otherBall.ReceiveAttack(attackData);
 
             // Knockback self
             attackData.source = otherBall;
             attackData.knockback *= -1.0f;
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Effects
             ParryRecoil();
@@ -245,7 +245,7 @@ namespace Balltallion.Simulation.Weapons
                 damage = 0,
                 knockback = projectile.GetMoveDirection() * projectile.GetKnockback() * 0.65f
             };
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Effects
             if (projectile.DestroyOnDeflect())

@@ -205,12 +205,12 @@ namespace Balltallion.Simulation.Abilities
                 damage = 0,
                 knockback = awayVector * parryForce
             };
-            otherBall.Attack(attackData);
+            otherBall.ReceiveAttack(attackData);
 
             // Knockback self
             attackData.source = otherBall;
             attackData.knockback *= -1.0f;
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Prevent any more interactions
             hitLog.Add(otherAbility.parentBall.gameObject);
@@ -226,7 +226,7 @@ namespace Balltallion.Simulation.Abilities
                 damage = damage,
                 knockback = knockbackDir * knockback
             };
-            otherBall.Attack(attack);
+            otherBall.ReceiveAttack(attack);
             hitLog.Add(otherBall.gameObject);
         }
 
@@ -244,12 +244,12 @@ namespace Balltallion.Simulation.Abilities
                 damage = 0,
                 knockback = awayVector * parryForce
             };
-            otherBall.Attack(attackData);
+            otherBall.ReceiveAttack(attackData);
 
             // Knockback self
             attackData.source = otherBall;
             attackData.knockback *= -0.5f;
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             hitWeapon.ParryRecoil();
             hitLog.Add(hitWeapon.GetParentBall().gameObject);
