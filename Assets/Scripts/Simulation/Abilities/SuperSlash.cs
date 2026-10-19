@@ -161,7 +161,13 @@ namespace Balltallion.Simulation.Abilities
                     && !hitLog.Contains(otherSlash.gameObject)
                     && otherSlash.hitDetectionMode == HitDetectionModes.ChargeUp
                     )?.GetComponent<SuperSlash>();
-                if (otherSlash) SuperParry(otherSlash);
+                if (otherSlash) {SuperParry(otherSlash); return; }
+                
+                BubbleGumShield bubbleGumShield = hits.Find(c =>
+                    c.TryGetComponent(out BubbleGumShield bubbleGumShield)
+                    && !hitLog.Contains(bubbleGumShield.GetParentBall().gameObject)
+                    )?.GetComponent<BubbleGumShield>();
+                if (bubbleGumShield) PopShield(bubbleGumShield);
             }
 
             if (hitDetectionMode == HitDetectionModes.Slash)
@@ -188,15 +194,15 @@ namespace Balltallion.Simulation.Abilities
             }
         }
 
-        private void SuperParry(SuperSlash otherAbility)
+        private void SuperParry(SuperSlash otherSlash)
         {
             // Setting the parry flag to true skips the charging state
             parryTriggered = true;
-            otherAbility.parryTriggered = true;
+            otherSlash.parryTriggered = true;
 
-            BattleBall otherBall = otherAbility.parentBall;
+            BattleBall otherBall = otherSlash.GetParentBall();
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
-            float parryForce = (knockback + otherAbility.knockback) / 4.0f;
+            float parryForce = (knockback + otherSlash.knockback) / 4.0f;
             
             // Knockback the other ball
             AttackData attackData = new AttackData
@@ -213,8 +219,35 @@ namespace Balltallion.Simulation.Abilities
             parentBall.ReceiveAttack(attackData);
             
             // Prevent any more interactions
-            hitLog.Add(otherAbility.parentBall.gameObject);
-            otherAbility.hitLog.Add(parentBall.gameObject);
+            hitLog.Add(otherSlash.parentBall.gameObject);
+            otherSlash.hitLog.Add(parentBall.gameObject);
+        }
+        
+        // Refactor this later. Don't leave it hardcoded
+        private void PopShield(BubbleGumShield shield)
+        {
+            shield.Pop();
+            parryTriggered = true;
+            
+            BattleBall otherBall = shield.GetParentBall();
+            Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
+            float parryForce = shield.GetPopKnockback();
+            
+            // Knockback the other ball
+            AttackData attackData = new AttackData
+            {
+                source = parentBall,
+                damage = 0,
+                knockback = awayVector * (parryForce * 0.5f)
+            };
+            otherBall.ReceiveAttack(attackData);
+
+            // Knockback self
+            attackData.source = otherBall;
+            attackData.knockback *= -2.0f;
+            parentBall.ReceiveAttack(attackData);
+            
+            hitLog.Add(shield.GetParentBall().gameObject);
         }
 
         private void HitBall(BattleBall otherBall)

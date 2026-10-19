@@ -92,6 +92,7 @@ namespace Balltallion.Simulation.Abilities
             currentStateName = newStateName;
         }
         
+        public BattleBall GetParentBall() => parentBall;
         public bool IsOnCooldown() => currentStateName == nameof(CooldownState);
         public float GetCooldownTimer() => cooldownTimer;
         public string GetInputName() => abilityKey.name; 
