@@ -167,7 +167,7 @@ namespace Balltallion.Simulation.Abilities
                     c.TryGetComponent(out BubbleGumShield bubbleGumShield)
                     && !hitLog.Contains(bubbleGumShield.GetParentBall().gameObject)
                     )?.GetComponent<BubbleGumShield>();
-                if (bubbleGumShield) PopShield(bubbleGumShield);
+                if (bubbleGumShield && bubbleGumShield.IsShieldActive()) PopShield(bubbleGumShield);
             }
 
             if (hitDetectionMode == HitDetectionModes.Slash)
@@ -231,7 +231,7 @@ namespace Balltallion.Simulation.Abilities
             
             BattleBall otherBall = shield.GetParentBall();
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
-            float parryForce = shield.GetPopKnockback();
+            float parryForce = knockback;
             
             // Knockback the other ball
             AttackData attackData = new AttackData
@@ -241,7 +241,7 @@ namespace Balltallion.Simulation.Abilities
                 knockback = awayVector * (parryForce * 0.5f)
             };
             otherBall.ReceiveAttack(attackData);
-
+            
             // Knockback self
             attackData.source = otherBall;
             attackData.knockback *= -2.0f;

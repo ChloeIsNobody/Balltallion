@@ -1,5 +1,8 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Projectiles;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -98,6 +101,10 @@ namespace Balltallion.Simulation.Abilities
                 yield return null;
             }
 
+            isShieldActive = false;
+            parentBall.SetInvulnerable(false);
+            ballCollider.radius = 0.5f;
+            
             if (!popTriggered)
             {
                 PlaySound(deflateSound);
@@ -112,6 +119,7 @@ namespace Balltallion.Simulation.Abilities
         public void Pop()
         {
             popTriggered = true;
+            triggerCollider.enabled = false;
             PlaySound(popSound);
         }
 
@@ -133,5 +141,6 @@ namespace Balltallion.Simulation.Abilities
         }
         
         public float GetPopKnockback() => popKnockback;
+        public bool IsShieldActive() => isShieldActive;
     }
 }

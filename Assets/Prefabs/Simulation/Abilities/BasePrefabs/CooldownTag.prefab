@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0022fb655c70945a58faa7c24e002f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.AbilityCooldownTag
+  activeAbility: {fileID: 0}
+  cooldownText: {fileID: 1418422334354105469}
 --- !u!1 &6057059774974786574
 GameObject:
   m_ObjectHideFlags: 0

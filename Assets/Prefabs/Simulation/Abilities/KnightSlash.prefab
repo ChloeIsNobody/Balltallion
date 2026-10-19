@@ -49,8 +49,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: cooldown
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
       propertyPath: spinBoostMult
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: chargeUpDuration
+      value: 0.275
       objectReference: {fileID: 0}
     - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
       propertyPath: spinBoostDuration

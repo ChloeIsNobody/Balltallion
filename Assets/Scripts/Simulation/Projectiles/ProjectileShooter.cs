@@ -36,7 +36,7 @@ namespace Balltallion.Simulation.Projectiles
             int currentAmmo = weaponData.ammo;
             while (currentAmmo > 0)
             {
-                Shoot();
+                Shoot(weaponData.projectilePrefab, weaponData.shotRecoil);
                 currentAmmo--;
                 if (currentAmmo == 0) break;
                 yield return new WaitForSeconds(weaponData.delayBetweenShots);
@@ -50,9 +50,9 @@ namespace Balltallion.Simulation.Projectiles
             stateCoroutine = StartCoroutine(ShootState());
         }
 
-        private void Shoot()
+        public void Shoot(Projectile projectilePrefab, float knockback = 0.0f)
         {
-            Projectile newProjectile = Instantiate(weaponData.projectilePrefab);
+            Projectile newProjectile = Instantiate(projectilePrefab);
             newProjectile.transform.position = transform.position;
             Vector2 shootDirection = CalculateShootDirection();
             newProjectile.Initialize(parentBall, shootDirection, parentBall.GetTeam());
@@ -61,7 +61,7 @@ namespace Balltallion.Simulation.Projectiles
             {
                 source = parentBall,
                 damage = 0,
-                knockback = -shootDirection * weaponData.shotRecoil
+                knockback = -shootDirection * knockback
             };
             parentBall.ReceiveAttack(recoilKnockback);
             

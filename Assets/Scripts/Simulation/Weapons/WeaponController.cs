@@ -158,5 +158,6 @@ namespace Balltallion.Simulation.Weapons
                 weapon.SetColliderEnabled(val);
             }
         } 
+        public Weapon GetMainWeapon() => weapons[0];
     }
 }

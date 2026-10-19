@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91701300040645fe9ec2821c4ced1f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.BubbleGumShield
-  cooldown: 3
+  cooldown: 11.5
   debugStatesInConsole: 0
   triggerCollider: {fileID: 2528669422996289791}
   visualTransform: {fileID: 2206838373608933581}
@@ -234,7 +234,7 @@ MonoBehaviour:
   audioSource: {fileID: 3354675990423468331}
   bounceAudioSource: {fileID: 3165323522869600866}
   radius: 1
-  duration: 3
+  duration: 5.85
   popKnockback: 15
   inflateAnimTime: 0.35
   deflateAnimTime: 0.67

@@ -168,5 +168,6 @@ namespace Balltallion.Simulation.Projectiles
         public float GetKnockback() => knockback;
         public bool DestroyOnDeflect() => destroyOnDeflect;
         public Vector2 GetMoveDirection() => ballBody.GetVelocity().normalized;
+        public TeamNames GetTeam() => shooter.GetTeam();
     }
 }
