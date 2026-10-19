@@ -2,6 +2,7 @@ using System;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Battle
 {
@@ -38,6 +39,7 @@ namespace Balltallion.Battle
         [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
         [Header("Animation Properties")]
+        [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, Range(0.0f, 3.0f)] public float animStiffness = 0.35f;
         [SerializeField, Range(0.0f, 1.0f)] public float animDamping = 0.3f;
         [SerializeField, Range(0.0f, 1.0f)] public float animVelocityStretching = 0.1f;
@@ -49,8 +51,8 @@ namespace Balltallion.Battle
         [Space]
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] public AudioClip bounceSound;
-        [SerializeField] public AudioClip damageSound;
+        [SerializeField] public AudioResource bounceSound;
+        [SerializeField] public AudioResource damageSound;
 
         public int GetVelocityScaledDamage(float velocity)
         {

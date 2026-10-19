@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d956a61c484d45969dc9812431ef96c3, type: 3}
+  m_Name: Cowboy Gun
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.WeaponDataSO
+  weaponSprite: {fileID: 21300000, guid: 16b642cf0b264794d9007a73f4ac3e16, type: 3}
+  weaponCount: 1
+  weaponAimMode: 0
+  spinSpeed: 1.05
+  staticAimAngle: 0
+  ignoresCollisions: 0
+  canParry: 1
+  canDeflect: 0
+  damage: 3
+  directionalKnockback: 0
+  awayKnockback: 10
+  parryKnockback: 2
+  shootsProjectiles: 1
+  projectilePrefab: {fileID: 4463779284276625627, guid: bd56390491419ec418e04676fcca727e, type: 3}
+  ammo: 6
+  delayBetweenShots: 0.08
+  reloadDuration: 2.27
+  shotSpread: 30
+  shotRecoil: 1
+  relativeColliderSize: {x: 0.65, y: 0.28}
+  radialOffset: 0.78
+  size: 1.25
+  attackSound: {fileID: 6418180475301049370, guid: c6d49dac21a16f548a626ecb4ff045f7, type: 2}

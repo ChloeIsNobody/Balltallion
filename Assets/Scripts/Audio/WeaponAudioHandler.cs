@@ -1,14 +1,15 @@
 using Balltallion.Simulation.Weapons;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Audio
 {
     public class WeaponAudioHandler : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioClip parrySound;
+        [SerializeField] private AudioResource parrySound;
 
-        private AudioClip attackSound;
+        private AudioResource attackSound;
         
         public void LoadWeaponData(WeaponDataSO data)
         {
@@ -17,14 +18,18 @@ namespace Balltallion.Audio
         
         public void PlayAttackSound()
         {
-            if (attackSound != null)
-                audioSource.PlayOneShot(attackSound);
+            if (!attackSound) return;
+            audioSource.Stop();
+            audioSource.resource = attackSound;
+            audioSource.Play();
         }
         
         public void PlayParrySound()
         {
-            if (parrySound != null)
-                audioSource.PlayOneShot(parrySound);
+            if (!parrySound) return;
+            audioSource.Stop();
+            audioSource.resource = parrySound;
+            audioSource.Play();
         }
     }
 }

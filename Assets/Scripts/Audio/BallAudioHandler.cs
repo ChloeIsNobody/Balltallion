@@ -1,6 +1,7 @@
 using Balltallion.Battle;
 using Balltallion.Simulation.Weapons;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Audio
 {
@@ -8,8 +9,8 @@ namespace Balltallion.Audio
     {
         [SerializeField] private AudioSource audioSource;
 
-        private AudioClip damageSound;
-        private AudioClip bounceSound;
+        private AudioResource damageSound;
+        private AudioResource bounceSound;
 
         public void LoadBallData(BallDataSO data)
         {
@@ -19,14 +20,18 @@ namespace Balltallion.Audio
 
         public void PlayDamageSound()
         {
-            if (damageSound != null)
-                audioSource.PlayOneShot(damageSound);
+            if (!damageSound) return;
+            audioSource.Stop();
+            audioSource.resource = damageSound;
+            audioSource.Play();
         }
 
         public void PlayBounceSound()
         {
-            if (bounceSound != null)
-                audioSource.PlayOneShot(bounceSound);
+            if (!bounceSound) return;
+            audioSource.Stop();
+            audioSource.resource = bounceSound;
+            audioSource.Play();
         }
     }
 }

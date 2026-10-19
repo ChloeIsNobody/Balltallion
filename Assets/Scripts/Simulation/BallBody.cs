@@ -7,36 +7,34 @@ namespace Balltallion.Simulation
 {
     public class BallBody : MonoBehaviour
     {
+        public event Action<BallCollisionData> OnWallBounce;
         public event Action<BallCollisionData> OnBounce;
         public event Action<BallCollisionData> OnBallCollision;
 
         [SerializeField] private GlobalPhysicsDataSO globalPhysicsData;
+        [SerializeField] private bool adjustVelocityPostCollision = true; 
         
         [Header("Debug")]
         [SerializeField] private bool debugDraw;
+        [SerializeField] private Color debugColor = Color.red;
         
         [Header("LayerMasks")]
         [SerializeField] private LayerMask wallLayerMask;
         [SerializeField] private LayerMask ballLayerMask;
 
-        [SerializeField] private float startAngleBase;
-        [SerializeField] private float startAngleVariation;
-
         private Rigidbody2D rb;
+        private CircleCollider2D collider;
         private BallDataSO ballData;
         private Vector2 velocityLastFixedUpdate;
 
-        private float speed = 10.0f;
-        private float bounciness = 1.0f;
-        private float linearDamping;
+        [SerializeField] private float speed = 10.0f;
+        [SerializeField] private float bounciness = 1.0f;
+        [SerializeField] private float linearDamping;
         
         private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
-
-            float startAngle = startAngleBase + Random.Range(-startAngleVariation, startAngleVariation);
-            Vector2 startVelocity = new Vector2(Mathf.Cos(Mathf.Deg2Rad * startAngle), Mathf.Sin(Mathf.Deg2Rad * startAngle)) * speed;
-            rb.linearVelocity = startVelocity;
+            collider = GetComponent<CircleCollider2D>();
         }
 
         public void LoadBallData(BallDataSO ballData)
@@ -51,6 +49,7 @@ namespace Balltallion.Simulation
             speed = ballData.speed;
             bounciness = ballData.bounciness;
             linearDamping = ballData.linearDamping;
+            debugColor = ballData.debugColor;
         }
 
         private void FixedUpdate()
@@ -58,10 +57,7 @@ namespace Balltallion.Simulation
             velocityLastFixedUpdate = rb.linearVelocity;
             
             // Velocity Hard Limit
-            if (rb.linearVelocity.magnitude > globalPhysicsData.maxVelocity)
-            {
-                rb.linearVelocity = rb.linearVelocity.normalized * globalPhysicsData.maxVelocity;
-            }
+            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, globalPhysicsData.maxVelocity);
             
             // Linear Damping down to target velocity
             if (rb.linearVelocity.magnitude > speed)
@@ -94,7 +90,7 @@ namespace Balltallion.Simulation
             float collisionPower = Vector2.Dot(velocityLastFixedUpdate, -contact.normal);
             float collisionDot = collisionPower / velocityLastFixedUpdate.magnitude;
             
-            OnBounce?.Invoke(new BallCollisionData
+            OnWallBounce?.Invoke(new BallCollisionData
             {
                 otherBall = null,
                 contactPoint = contact.point,
@@ -130,7 +126,6 @@ namespace Balltallion.Simulation
                 contactNormal = -contact.normal,
                 myCollisionPower = collisionPowerA,
                 totalCollisionPower = Mathf.Max(collisionPowerA, collisionPowerB),
-                
             });
             
             AdjustVelocityPostCollision();
@@ -141,7 +136,7 @@ namespace Balltallion.Simulation
         public void ApplyKnockback(Vector2 knockback)
         {
             rb.AddForce(knockback, ForceMode2D.Impulse);
-            AdjustVelocityPostCollision();
+            if (adjustVelocityPostCollision) AdjustVelocityPostCollision();
             
             OnBounce?.Invoke(new BallCollisionData
             {
@@ -155,19 +150,14 @@ namespace Balltallion.Simulation
             if (debugDraw) DebugDrawLine(transform.position, knockback.normalized, knockback.magnitude/5.0f);
         }
         
+        
         private void DebugDrawLine(Vector2 point, Vector2 normal, float size)
         {
-            Debug.DrawLine(point, point + normal*size, ballData.debugColor, 2, false);
+            Debug.DrawLine(point, point + normal*size, debugColor, 2, false);
         }
-
-        public Vector2 GetVelocity() => rb.linearVelocity;
-        public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
-        
-        private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
 
         private void AdjustVelocityPostCollision()
         {
-            rb.linearVelocity = Vector2.ClampMagnitude(rb.linearVelocity, globalPhysicsData.maxVelocity);
             if (Mathf.Abs(rb.linearVelocityX) < globalPhysicsData.minVelocityXAfterCollision)
             {
                 rb.linearVelocityX = globalPhysicsData.minVelocityXAfterCollision * Mathf.Sign(rb.linearVelocityX);
@@ -178,19 +168,14 @@ namespace Balltallion.Simulation
                 rb.linearVelocityY = globalPhysicsData.minVelocityYAfterCollision * Mathf.Sign(rb.linearVelocityY);
             }
         }
-        private float GetAngleFromHorizontal(Vector2 dir)
-        {
-            float angle1 = Vector2.Angle(dir, Vector2.right);
-            float angle2 = Vector2.Angle(dir, Vector2.left);
-            return Mathf.Min(angle1, angle2);
-        }
-        private float GetAngleFromVertical(Vector2 dir)
-        {
-            float angle1 = Vector2.Angle(dir, Vector2.up);
-            float angle2 = Vector2.Angle(dir, Vector2.down);
-            return Mathf.Min(angle1, angle2);
-        }
-
         private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
+        
+        public Vector2 GetVelocity() => rb.linearVelocity;
+        public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
+        public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
+        public float GetSpeed() => speed;
+        public void SetColliderEnabled(bool enabled) => collider.enabled = enabled;
+        public void SetGravityScale(float newGravityScale) => rb.gravityScale = newGravityScale;
+        private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
     }
 }

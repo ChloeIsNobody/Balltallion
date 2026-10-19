@@ -1,3 +1,4 @@
+using System;
 using Balltallion.Audio;
 using Balltallion.Simulation;
 using Balltallion.Simulation.Weapons;
@@ -8,6 +9,8 @@ namespace Balltallion.Battle
 {
     public class BattleBall : MonoBehaviour
     {
+        public event Action OnDeath;
+        
         [SerializeField, Expandable] private BallDataSO ballData;
         [SerializeField] private WeaponController weaponController;
         [SerializeField] private BallAnimator ballAnimator;
@@ -37,7 +40,7 @@ namespace Balltallion.Battle
             if (ballData != null) LoadBallData(ballData, team);
         }
 
-        private void LoadBallData(BallDataSO data, TeamNames team)
+        public void LoadBallData(BallDataSO data, TeamNames team)
         {
             ballData = data;
             health = data.maxHealth;
@@ -59,18 +62,18 @@ namespace Balltallion.Battle
         private void SetTeam(TeamNames newTeam)
         {
             team = newTeam;
-            gameObject.layer = TeamUtilities.GetTeamLayer(newTeam);
+            gameObject.layer = TeamUtilities.GetTeamLayerID(newTeam);
         }
         
         private void OnEnable()
         {
-            ballBody.OnBounce += OnBounce;
+            ballBody.OnWallBounce += OnWallBounce;
             ballBody.OnBallCollision += OnBallCollision;
         }
 
         private void OnDisable()
         {
-            ballBody.OnBounce -= OnBounce;
+            ballBody.OnWallBounce -= OnWallBounce;
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
@@ -105,13 +108,14 @@ namespace Balltallion.Battle
         public void Die()
         {
             if (debugLogToConsole) Debug.Log($"{name} died! :(");
+            OnDeath?.Invoke();
             Destroy(gameObject, 0f);
         }
         
         public float GetHealth() => health;
         public float GetMaxHealth() => ballData.maxHealth;
 
-        private void OnBounce(BallCollisionData data)
+        private void OnWallBounce(BallCollisionData data)
         {
             audioHandler.PlayBounceSound();
             if (debugLogToConsole) Debug.Log($"{name} bounced!");

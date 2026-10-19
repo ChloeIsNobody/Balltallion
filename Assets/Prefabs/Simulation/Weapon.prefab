@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &49096171957403874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7457648284986774078}
+  - component: {fileID: 2686423021192089242}
+  m_Layer: 0
+  m_Name: ProjectileShooter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7457648284986774078
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49096171957403874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1915269677038753345}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2686423021192089242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49096171957403874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da1abdb4a2f8409ba1779552a54567b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.ProjectileShooter
 --- !u!1 &1688729833374883077
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +78,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4724756745738767833}
+  - {fileID: 7457648284986774078}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1948495729207387009
@@ -50,9 +95,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Weapon
   spriteRenderer: {fileID: 4381418634506620539}
   boxCollider: {fileID: 8026465580388508574}
+  audioHandler: {fileID: 2111201789498456215}
+  projectileShooter: {fileID: 2686423021192089242}
   hitDebounce: 0.22
   parryDebounce: 0.6
-  audioHandler: {fileID: 2111201789498456215}
   hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
   parryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   hitFlashDuration: 0.5
@@ -116,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Audio.WeaponAudioHandler
   audioSource: {fileID: 4095143594256171584}
-  parrySound: {fileID: 8300000, guid: 9e71477f33dba40e0a4b41973d276de7, type: 3}
+  parrySound: {fileID: 6418180475301049370, guid: 49c1292457bdd4d47b40976fd7ac71e3, type: 2}
 --- !u!82 &4095143594256171584
 AudioSource:
   m_ObjectHideFlags: 0

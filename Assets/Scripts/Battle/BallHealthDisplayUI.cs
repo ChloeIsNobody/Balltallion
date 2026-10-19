@@ -6,11 +6,13 @@ namespace Balltallion.Battle
 {
     public class BallHealthDisplayUI : MonoBehaviour
     {
-        [SerializeField] private BattleBall trackedBall;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image iconImage;
+        
+        private BattleBall trackedBall;
+        public void SetTrackedBall(BattleBall ball) => trackedBall = ball;
 
         private void Update()
         {

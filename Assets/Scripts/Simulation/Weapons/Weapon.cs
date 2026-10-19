@@ -1,17 +1,23 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Battle;
+using Balltallion.Simulation.Projectiles;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
 {
     public class Weapon : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private BoxCollider2D boxCollider;
+        [SerializeField] private WeaponAudioHandler audioHandler;
+        [SerializeField] private ProjectileShooter projectileShooter;
+        
+        [Header("Debouncing")]
         [SerializeField] private float hitDebounce = 0.45f;
         [SerializeField] private float parryDebounce = 0.5f;
-        [SerializeField] private WeaponAudioHandler audioHandler;
         
         [Header("Hitflash")]
         [SerializeField] private Color hitFlashColor = Color.white;
@@ -36,7 +42,17 @@ namespace Balltallion.Simulation.Weapons
             if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             material = spriteRenderer.material;
         }
-        
+
+        private void OnEnable()
+        {
+            projectileShooter.OnShot += OnWeaponShot;
+        }
+
+        private void OnDisable()
+        {
+            projectileShooter.OnShot -= OnWeaponShot;
+        }
+
         public void LoadWeaponData(WeaponDataSO weaponData)
         {
             this.weaponData = weaponData;
@@ -51,6 +67,15 @@ namespace Balltallion.Simulation.Weapons
                 material.SetFloat("_Brightness", ballData.animBrightness);
                 material.SetFloat("_Contrast", ballData.animContrast);
             }
+            
+            projectileShooter.gameObject.SetActive(weaponData.shootsProjectiles);
+            if (weaponData.shootsProjectiles)
+            {
+                projectileShooter.LoadWeaponData(weaponData);
+                projectileShooter.SetParentBall(parentBall);
+            }
+            
+            audioHandler.LoadWeaponData(weaponData);
         }
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
@@ -59,8 +84,15 @@ namespace Balltallion.Simulation.Weapons
         private void SetSpriteAndCollider()
         {
             spriteRenderer.sprite = weaponData.weaponSprite;
-            float colliderX = weaponData.relativeColliderSize.x * weaponData.weaponSprite.texture.width / 256.0f;
-            float colliderY = weaponData.relativeColliderSize.y * weaponData.weaponSprite.texture.height / 256.0f;
+            float spriteWidth = 0;
+            float spriteHeight = 0;
+            if (weaponData.weaponSprite != null)
+            {
+                spriteWidth = weaponData.weaponSprite.texture.width;
+                spriteHeight = weaponData.weaponSprite.texture.height;
+            }
+            float colliderX = weaponData.relativeColliderSize.x * spriteWidth / 256.0f;
+            float colliderY = weaponData.relativeColliderSize.y * spriteHeight / 256.0f;
             boxCollider.size = new Vector2(colliderX, colliderY);
         }
 
@@ -85,11 +117,17 @@ namespace Balltallion.Simulation.Weapons
             else if (other.TryGetComponent(out Weapon otherWeapon))
             {
                 if (CanParry(otherWeapon)) Parry(otherWeapon);
+            } 
+            else if (other.TryGetComponent(out Projectile projectile))
+            {
+                if (CanDeflect(projectile)) Deflect(projectile);
             }
         }
 
         private bool CanHitBall(BattleBall otherBall)
         {
+            if (weaponData.ignoresCollisions) return false;
+            
             if (hitLog.TryGetValue(otherBall, out float lastHitTime))
             {
                 float timeSinceLastHit = Time.time - lastHitTime;
@@ -100,6 +138,9 @@ namespace Balltallion.Simulation.Weapons
 
         private bool CanParry(Weapon otherWeapon)
         {
+            if (weaponData.ignoresCollisions || !weaponData.canParry) return false;
+            if (otherWeapon.weaponData.ignoresCollisions || !otherWeapon.weaponData.canParry) return false;
+            
             BattleBall otherBall = otherWeapon.parentBall;
             bool parentBallCanParry = true;
             bool otherBallCanParry = true;
@@ -118,14 +159,23 @@ namespace Balltallion.Simulation.Weapons
             return parentBallCanParry && otherBallCanParry;
         }
 
+        private bool CanDeflect(Projectile otherProjectile)
+        {
+            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
+            return otherProjectile.CanBeDeflected();
+        }
+
         private void BallHit(BattleBall hitBall)
         {
             // Attack enemy
+            Vector2 directionalKnockback = CalculateKnockbackDir(hitBall.transform) * weaponData.directionalKnockback;
+            Vector2 dirAwayFromSelf = (hitBall.transform.position - parentBall.transform.position).normalized;
+            Vector2 awayKnockback = dirAwayFromSelf * weaponData.awayKnockback;
             AttackData attackData = new AttackData
             {
                 source = parentBall,
                 damage = weaponData.damage,
-                knockback = CalculateKnockback(hitBall)
+                knockback = directionalKnockback + awayKnockback
             };
             hitBall.Attack(attackData);
             audioHandler.PlayAttackSound();
@@ -149,8 +199,8 @@ namespace Balltallion.Simulation.Weapons
         {
             BattleBall otherBall = hitWeapon.parentBall;
             Vector2 awayVector = (otherBall.transform.position - parentBall.transform.position).normalized;
-
-            float parryForce = (weaponData.knockback + hitWeapon.weaponData.knockback) / 2.0f;
+            
+            float parryForce = (weaponData.parryKnockback + hitWeapon.weaponData.parryKnockback) / 2.0f;
             
             // Knockback the other ball
             AttackData attackData = new AttackData
@@ -171,7 +221,6 @@ namespace Balltallion.Simulation.Weapons
             HitFlash(parryColor);
             weaponController.SpinBoost();
             weaponController.ReverseSpinDirection();
-            
             hitWeapon.HitFlash(parryColor);
             hitWeapon.weaponController.SpinBoost();
             hitWeapon.weaponController.ReverseSpinDirection();
@@ -179,6 +228,45 @@ namespace Balltallion.Simulation.Weapons
             // Make sure to count this as a hit for both balls, to trigger a debounce for both
             hitLog[hitWeapon.parentBall] = Time.time;
             hitWeapon.hitLog[parentBall] = Time.time;
+        }
+
+        public void Deflect(Projectile projectile)
+        {
+            Vector2 dirAwayFromBall = (projectile.transform.position - parentBall.transform.position).normalized;
+            projectile.Deflect(dirAwayFromBall);
+            
+            // Knockback self
+            AttackData attackData = new AttackData
+            {
+                source = projectile.GetShooter(),
+                damage = 0,
+                knockback = projectile.GetMoveDirection() * projectile.GetKnockback() * 0.65f
+            };
+            parentBall.Attack(attackData);
+            
+            // Effects
+            if (projectile.DestroyOnDeflect())
+            {
+                HitFlash(hitFlashColor);
+                audioHandler.PlayAttackSound();
+            }
+            else
+            {
+                HitFlash(parryColor);
+                audioHandler.PlayParrySound();
+            }
+            bool canReverseSpinDirection = projectile.GetDamage() >= weaponData.damage;
+            if (canReverseSpinDirection)
+            {
+                float dotProd = Vector2.Dot(GetWeaponRotationVector(), CalculateKnockbackDir(projectile.transform));
+                if (dotProd > 0) weaponController.ReverseSpinDirection();
+                if (Mathf.Abs(dotProd) > 0.5f) weaponController.SpinBoost();
+            }
+        }
+
+        private void OnWeaponShot()
+        {
+            audioHandler.PlayAttackSound();
         }
         
         public void HitFlash(Color color)
@@ -188,11 +276,11 @@ namespace Balltallion.Simulation.Weapons
             material.SetFloat("_BlendValue", 1.0f);
         }
 
-        private Vector2 CalculateKnockback(BattleBall hitBall)
+        private Vector2 CalculateKnockbackDir(Transform otherTransform)
         {
-            Vector2 weaponContactPoint = boxCollider.ClosestPoint(hitBall.transform.position);
-            Vector2 dirAwayFromWeapon = ((Vector2)hitBall.transform.position - weaponContactPoint).normalized;
-            return dirAwayFromWeapon * weaponData.knockback;
+            Vector2 weaponContactPoint = boxCollider.ClosestPoint(otherTransform.position);
+            Vector2 dirAwayFromWeapon = ((Vector2)otherTransform.position - weaponContactPoint).normalized;
+            return dirAwayFromWeapon;
         }
 
         private Vector2 GetWeaponRotationVector() => weaponController.GetSpinDirection() * transform.up;

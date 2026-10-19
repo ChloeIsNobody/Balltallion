@@ -1,6 +1,8 @@
 ﻿using Balltallion.Battle;
+using Balltallion.Simulation.Projectiles;
 using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Simulation.Weapons
 {
@@ -11,12 +13,30 @@ namespace Balltallion.Simulation.Weapons
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite weaponSprite;
 
-        [Header("Stats")]
-        [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] public int damage;
-        [SerializeField] public float knockback;
-        [SerializeField, Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField] public int weaponCount;
+        [SerializeField] public WeaponAimModes weaponAimMode = WeaponAimModes.Spinning;
+        [SerializeField, ShowIf("SpinMode"), Range(0.0f, 10.0f)] public float spinSpeed;
+        [SerializeField, ShowIf("StaticMode"), Range(0.0f, 360.0f)] public float staticAimAngle;
+        
+        [Header("Melee Stats")] 
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] public bool ignoresCollisions;
+        [SerializeField, HideIf("IgnoresCollisions")] public bool canParry = true;
+        [SerializeField, HideIf("IgnoresCollisions")] public bool canDeflect = true;
+        [SerializeField, HideIf("IgnoresCollisions")] public int damage;
+        [SerializeField, HideIf("IgnoresCollisions")] public float directionalKnockback;
+        [SerializeField, HideIf("IgnoresCollisions")] public float awayKnockback;
+        [SerializeField, HideIf("IgnoresCollisions")] public float parryKnockback;
+
+        [Header("Ranged Stats")]
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] public bool shootsProjectiles;
+        [SerializeField, ShowIf("ShootsProjectiles")] public Projectile projectilePrefab;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(1, 50)] public int ammo = 1;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 1.0f)] public float delayBetweenShots;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 10.0f)] public float reloadDuration = 2.0f;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 360.0f)] public float shotSpread = 0.0f;
+        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float shotRecoil = 0.0f;
 
         [Header("Position/Size")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -26,6 +46,18 @@ namespace Balltallion.Simulation.Weapons
         
         [Header("Audio Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] public AudioClip attackSound;
+        [SerializeField] public AudioResource attackSound;
+        
+        private bool IgnoresCollisions() => ignoresCollisions;
+        private bool ShootsProjectiles() => shootsProjectiles;
+        private bool SpinMode() => weaponAimMode == WeaponAimModes.Spinning;
+        private bool StaticMode() => weaponAimMode == WeaponAimModes.Static;
+    }
+    
+    public enum WeaponAimModes
+    {
+        Spinning,
+        Static,
+        Following
     }
 }

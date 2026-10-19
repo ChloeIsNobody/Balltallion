@@ -12,6 +12,7 @@ namespace Balltallion.Simulation
         [Header("Velocity Squash & Stretch")] 
         [SerializeField] private bool enableVelocityStretching;
         [SerializeField, MinMaxSlider(0.0f, 50.0f)] private Vector2 velocityRange;
+        [SerializeField] private float velocityStretchingFactor = 0.25f;
         [SerializeField, Range(0.1f, 5.0f)] private float velocityStretchExponent;
         [SerializeField, Range(0.0f, 30.0f)] private float collisionFactorRestoreRate = 0.05f;
 
@@ -32,7 +33,6 @@ namespace Balltallion.Simulation
         private Spring springY;
 
         private float collisionFactor;
-        private float velocityStretchingFactor;
 
         private float hitFlashTimer = 0.0f;
 
@@ -81,12 +81,14 @@ namespace Balltallion.Simulation
         private void OnEnable()
         {
             ballBody.OnBounce += OnCollision;
+            ballBody.OnWallBounce += OnCollision;
             ballBody.OnBallCollision += OnCollision;
         }
 
         private void OnDisable()
         {
             ballBody.OnBounce -= OnCollision;
+            ballBody.OnWallBounce -= OnCollision;
             ballBody.OnBallCollision -= OnCollision;
         }
 
@@ -146,10 +148,11 @@ namespace Balltallion.Simulation
             collisionFactor = 0.0f;
         }
 
-        public void HitFlash()
+        public void HitFlash(Color color = default)
         {
+            if (color == default) color = hitFlashColor;
             hitFlashTimer = hitFlashDuration;
-            material.SetColor("_BlendColor", hitFlashColor);
+            material.SetColor("_BlendColor", color);
             material.SetFloat("_BlendValue", 1.0f);
         }
 
