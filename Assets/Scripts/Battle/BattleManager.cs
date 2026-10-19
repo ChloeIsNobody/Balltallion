@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Simulation;
+using Balltallion.Audio;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -35,11 +36,18 @@ namespace Balltallion.Battle
         private List<BattleBall> playerBalls = new();
         private List<BattleBall> enemyBalls = new();
         
+        [Header("Audio")]
+        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
+        [SerializeField] private BattleAudioHandler battleAudioHandler;
+        
         private void Awake()
         {
             InstantiateBalls();
             if (playerBalls.Count > 0) playerHealthDisplay.SetTrackedBall(playerBalls[0]);
             if (enemyBalls.Count > 0) enemyHealthDisplay.SetTrackedBall(enemyBalls[0]);
+            
+            if (battleAudioHandler != null)
+                battleAudioHandler.PlayBattleMusic();
         }
 
         private void OnEnable()
@@ -109,6 +117,9 @@ namespace Balltallion.Battle
 
         private void ReturnToTeamPickerScene()
         {
+            if (battleAudioHandler != null)
+                battleAudioHandler.StopBattleMusic();
+            
             SceneManager.LoadScene("TeamPicker");
         }
 

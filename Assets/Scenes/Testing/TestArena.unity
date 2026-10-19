@@ -1468,9 +1468,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Weapon
   spriteRenderer: {fileID: 58486179}
   boxCollider: {fileID: 870437542}
+  audioHandler: {fileID: 870437541}
+  projectileShooter: {fileID: 0}
   hitDebounce: 0.22
   parryDebounce: 0.6
-  audioHandler: {fileID: 870437541}
   hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
   parryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   hitFlashDuration: 0.5
@@ -2444,9 +2445,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Weapons.Weapon
   spriteRenderer: {fileID: 1664770816}
   boxCollider: {fileID: 1496883799}
+  audioHandler: {fileID: 1496883798}
+  projectileShooter: {fileID: 0}
   hitDebounce: 0.22
   parryDebounce: 0.6
-  audioHandler: {fileID: 1496883798}
   hitFlashColor: {r: 1, g: 1, b: 1, a: 1}
   parryColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   hitFlashDuration: 0.5
