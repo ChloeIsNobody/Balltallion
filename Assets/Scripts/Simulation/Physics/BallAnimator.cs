@@ -50,6 +50,8 @@ namespace Balltallion.Simulation.Physics
             springY.Reset();
             
             collisionFactor = 1.0f;
+            
+            SetTrackedBody(ballBody);
         }
 
         public void LoadBallData(BallDataSO data)
@@ -62,6 +64,14 @@ namespace Balltallion.Simulation.Physics
                 material.SetFloat("_Brightness", data.animBrightness);
                 material.SetFloat("_Contrast", data.animContrast);
             }
+        }
+
+        public void SetTrackedBody(BallBody body)
+        {
+            ballBody = body;
+            ballBody.OnBounce += OnCollision;
+            ballBody.OnWallBounce += OnCollision;
+            ballBody.OnBallCollision += OnCollision;
         }
 
         public void SetSpringData(float stiffness, float damping, float mass, float velocityStretchingFactor)
@@ -78,23 +88,9 @@ namespace Balltallion.Simulation.Physics
         
         public void SetSprite(Sprite sprite) => spriteRenderer.sprite = sprite;
 
-        private void OnEnable()
-        {
-            ballBody.OnBounce += OnCollision;
-            ballBody.OnWallBounce += OnCollision;
-            ballBody.OnBallCollision += OnCollision;
-        }
-
-        private void OnDisable()
-        {
-            ballBody.OnBounce -= OnCollision;
-            ballBody.OnWallBounce -= OnCollision;
-            ballBody.OnBallCollision -= OnCollision;
-        }
-
         private void Update()
         {
-            if (enableVelocityStretching)
+            if (ballBody && enableVelocityStretching)
             {
                 VelocityStretching();
                 collisionFactor = Mathf.Clamp01(collisionFactor + Time.deltaTime * collisionFactorRestoreRate);

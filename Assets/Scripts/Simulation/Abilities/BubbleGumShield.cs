@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Balltallion.Simulation.Physics;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -10,21 +11,30 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private CircleCollider2D triggerCollider;
         [SerializeField] private Transform visualTransform;
         [SerializeField] private Animator animator;
+        [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioSource bounceAudioSource;
         
         [Header("Shield Stats")]
         [SerializeField] private float radius;
         [SerializeField] private float duration;
         [SerializeField] private float popKnockback;
 
+        [Header("Animation")]
+        [SerializeField] private float inflateAnimTime;
+        [SerializeField] private float deflateAnimTime;
+
         [Header("Audio")]
         [SerializeField] private AudioResource inflateSound;
         [SerializeField] private AudioResource deflateSound;
         [SerializeField] private AudioResource popSound;
+        [SerializeField] private AudioResource bounceSound;
         
         private CircleCollider2D ballCollider;
+        private BallBody ballBody;
 
         private bool popTriggered;
+        private bool isShieldActive;
         
         private void OnValidate()
         {
@@ -37,12 +47,27 @@ namespace Balltallion.Simulation.Abilities
         {
             OnValidate();
             base.Awake();
+            
             ballCollider = parentBall.GetComponent<CircleCollider2D>();
+            ballBody = parentBall.GetComponent<BallBody>();
+            ballAnimator.SetTrackedBody(ballBody);
+            
             InitializeStateMachine(ShieldState, nameof(ShieldState));
+        }
+
+        private void OnEnable()
+        {
+            ballBody.OnWallBounce += OnWallBounce;
+        }
+
+        private void OnDisable()
+        {
+            ballBody.OnWallBounce -= OnWallBounce;
         }
         
         protected override void CooldownEntered()
         {
+            isShieldActive = false;
             parentBall.SetInvulnerable(false);
             triggerCollider.enabled = false;
             ballCollider.radius = 0.5f;
@@ -57,10 +82,12 @@ namespace Balltallion.Simulation.Abilities
 
         private IEnumerator ShieldState()
         {
+            isShieldActive = true;
             parentBall.SetInvulnerable(true);
             triggerCollider.enabled = true;
             ballCollider.radius = radius;
-            animator.Play("Active");
+            animator.speed = 1.0f/inflateAnimTime;
+            animator.Play("Inflate");
             PlaySound(inflateSound);
 
             float shieldTimer = duration;
@@ -71,7 +98,13 @@ namespace Balltallion.Simulation.Abilities
                 yield return null;
             }
 
-            if (!popTriggered) PlaySound(deflateSound);
+            if (!popTriggered)
+            {
+                PlaySound(deflateSound);
+                animator.speed = 1.0f/deflateAnimTime;
+                animator.Play("Deflate");
+                yield return new WaitForSeconds(deflateAnimTime);
+            }
             
             TransitionToCooldown();
         }
@@ -80,6 +113,16 @@ namespace Balltallion.Simulation.Abilities
         {
             popTriggered = true;
             PlaySound(popSound);
+        }
+
+        private void OnWallBounce(BallCollisionData data)
+        {
+            if (isShieldActive)
+            {
+                bounceAudioSource.Stop();
+                bounceAudioSource.resource = bounceSound;
+                bounceAudioSource.Play();
+            }
         }
 
         private void PlaySound(AudioResource sound)
