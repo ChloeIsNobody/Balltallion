@@ -157,11 +157,8 @@ namespace Balltallion.Simulation.Weapons
             parentBall.ReceiveAttack(attackData);
             
             // Effects
-            weaponController.SpinBoost();
-            if (Vector2.Dot(GetWeaponRotationVector(), attackData.knockback) < 0)
-            {
-                weaponController.ReverseSpinDirection();
-            }
+            if (hitBall.IsInvulnerable()) ParryRecoil(false, attackData.knockback);
+            else Recoil(attackData.knockback);
             
             hitLog[hitBall] = Time.time;
         }
@@ -219,12 +216,20 @@ namespace Balltallion.Simulation.Weapons
             hitWeapon.hitLog[parentBall] = Time.time;
         }
 
-        public void ParryRecoil(bool silent = false)
+        public void ParryRecoil(bool silent = false, Vector2 forceDir = default)
         {
             HitFlash(parryColor);
-            weaponController.SpinBoost();
-            weaponController.ReverseSpinDirection();
+            Recoil(forceDir);
             if (!silent) audioHandler.PlayParrySound();
+        }
+
+        public void Recoil(Vector2 forceDir = default)
+        {
+            weaponController.SpinBoost();
+            if (Vector2.Dot(GetWeaponRotationVector(), forceDir) <= 0)
+            {
+                weaponController.ReverseSpinDirection();
+            }
         }
         
         private bool CanDeflect(Projectile otherProjectile)
