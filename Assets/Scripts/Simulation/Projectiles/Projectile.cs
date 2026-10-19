@@ -93,7 +93,17 @@ namespace Balltallion.Simulation.Projectiles
                 knockback = GetMoveDirection() * knockback
             };
             ball.ReceiveAttack(attackData);
-            Destroy(gameObject);
+            
+            if (ball.IsInvulnerable())
+            {
+                Vector2 dirAwayFromBall = (transform.position - ball.transform.position).normalized;
+                Deflect(dirAwayFromBall);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
         }
 
         private void OnCollisionEnter2D(Collision2D other)

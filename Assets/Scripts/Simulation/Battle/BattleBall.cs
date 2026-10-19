@@ -163,6 +163,7 @@ namespace Balltallion.Simulation.Battle
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
+        public bool IsInvulnerable() => isInvulnerable;
         public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }
 }
