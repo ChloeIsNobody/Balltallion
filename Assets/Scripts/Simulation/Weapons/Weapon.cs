@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
 using UnityEngine;
 
@@ -136,6 +136,33 @@ namespace Balltallion.Simulation.Weapons
             return true;
         }
 
+        private void BallHit(BattleBall hitBall)
+        {
+            // Attack enemy
+            Vector2 directionalKnockback = CalculateKnockbackDir(hitBall.transform) * weaponData.directionalKnockback;
+            Vector2 dirAwayFromSelf = (hitBall.transform.position - parentBall.transform.position).normalized;
+            Vector2 awayKnockback = dirAwayFromSelf * weaponData.awayKnockback;
+            AttackData attackData = new AttackData
+            {
+                source = parentBall,
+                damage = weaponData.damage,
+                knockback = directionalKnockback + awayKnockback
+            };
+            hitBall.ReceiveAttack(attackData);
+            audioHandler.PlayAttackSound();
+
+            // Recoil self
+            attackData.damage = 0;
+            attackData.knockback *= -0.5f;
+            parentBall.ReceiveAttack(attackData);
+            
+            // Effects
+            if (hitBall.IsInvulnerable()) ParryRecoil(false, attackData.knockback);
+            else Recoil(attackData.knockback);
+            
+            hitLog[hitBall] = Time.time;
+        }
+        
         private bool CanParry(Weapon otherWeapon)
         {
             if (weaponData.ignoresCollisions || !weaponData.canParry) return false;
@@ -159,42 +186,6 @@ namespace Balltallion.Simulation.Weapons
             return parentBallCanParry && otherBallCanParry;
         }
 
-        private bool CanDeflect(Projectile otherProjectile)
-        {
-            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
-            return otherProjectile.CanBeDeflected();
-        }
-
-        private void BallHit(BattleBall hitBall)
-        {
-            // Attack enemy
-            Vector2 directionalKnockback = CalculateKnockbackDir(hitBall.transform) * weaponData.directionalKnockback;
-            Vector2 dirAwayFromSelf = (hitBall.transform.position - parentBall.transform.position).normalized;
-            Vector2 awayKnockback = dirAwayFromSelf * weaponData.awayKnockback;
-            AttackData attackData = new AttackData
-            {
-                source = parentBall,
-                damage = weaponData.damage,
-                knockback = directionalKnockback + awayKnockback
-            };
-            hitBall.Attack(attackData);
-            audioHandler.PlayAttackSound();
-
-            // Recoil self
-            attackData.damage = 0;
-            attackData.knockback *= -0.5f;
-            parentBall.Attack(attackData);
-            
-            // Effects
-            weaponController.SpinBoost();
-            if (Vector2.Dot(GetWeaponRotationVector(), attackData.knockback) < 0)
-            {
-                weaponController.ReverseSpinDirection();
-            }
-            
-            hitLog[hitBall] = Time.time;
-        }
-
         private void Parry(Weapon hitWeapon)
         {
             BattleBall otherBall = hitWeapon.parentBall;
@@ -209,25 +200,42 @@ namespace Balltallion.Simulation.Weapons
                 damage = 0,
                 knockback = awayVector * parryForce
             };
-            otherBall.Attack(attackData);
+            otherBall.ReceiveAttack(attackData);
 
             // Knockback self
             attackData.source = otherBall;
             attackData.knockback *= -1.0f;
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Effects
-            audioHandler.PlayParrySound();
-            HitFlash(parryColor);
-            weaponController.SpinBoost();
-            weaponController.ReverseSpinDirection();
-            hitWeapon.HitFlash(parryColor);
-            hitWeapon.weaponController.SpinBoost();
-            hitWeapon.weaponController.ReverseSpinDirection();
+            ParryRecoil();
+            hitWeapon.ParryRecoil(true);
             
             // Make sure to count this as a hit for both balls, to trigger a debounce for both
             hitLog[hitWeapon.parentBall] = Time.time;
             hitWeapon.hitLog[parentBall] = Time.time;
+        }
+
+        public void ParryRecoil(bool silent = false, Vector2 forceDir = default)
+        {
+            HitFlash(parryColor);
+            Recoil(forceDir);
+            if (!silent) audioHandler.PlayParrySound();
+        }
+
+        public void Recoil(Vector2 forceDir = default)
+        {
+            weaponController.SpinBoost();
+            if (Vector2.Dot(GetWeaponRotationVector(), forceDir) <= 0)
+            {
+                weaponController.ReverseSpinDirection();
+            }
+        }
+        
+        private bool CanDeflect(Projectile otherProjectile)
+        {
+            if (weaponData.ignoresCollisions || !weaponData.canDeflect) return false;
+            return otherProjectile.CanBeDeflected();
         }
 
         public void Deflect(Projectile projectile)
@@ -242,7 +250,7 @@ namespace Balltallion.Simulation.Weapons
                 damage = 0,
                 knockback = projectile.GetMoveDirection() * projectile.GetKnockback() * 0.65f
             };
-            parentBall.Attack(attackData);
+            parentBall.ReceiveAttack(attackData);
             
             // Effects
             if (projectile.DestroyOnDeflect())
@@ -284,5 +292,8 @@ namespace Balltallion.Simulation.Weapons
         }
 
         private Vector2 GetWeaponRotationVector() => weaponController.GetSpinDirection() * transform.up;
+        public BattleBall GetParentBall() => parentBall;
+        public WeaponDataSO GetData() => weaponData;
+        public void SetColliderEnabled(bool enabled) => boxCollider.enabled = enabled;
     }
 }

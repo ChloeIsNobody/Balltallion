@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5920692311012119734
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 784620813853593604, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: cooldown
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: spinBoostMult
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: chargeUpDuration
+      value: 0.275
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091020676520982202, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: spinBoostDuration
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8433846991380028007, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}
+      propertyPath: m_Name
+      value: KnightSlash
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 26bc1526f7fd9d94391bed27558007c7, type: 3}

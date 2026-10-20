@@ -1,0 +1,13 @@
+﻿using UnityEngine;
+
+namespace Balltallion.Simulation.Physics
+{
+    public struct BallCollisionData
+    {
+        public BallBody otherBall;
+        public Vector3 contactPoint;
+        public Vector3 contactNormal;
+        public float myCollisionPower;
+        public float totalCollisionPower;
+    }
+}

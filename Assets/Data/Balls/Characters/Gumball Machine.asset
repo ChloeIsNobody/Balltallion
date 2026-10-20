@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
+  m_Name: Gumball Machine
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
+  displayName: Gumball Machine
+  debugColor: {r: 0.7803922, g: 0.97647065, b: 1, a: 1}
+  ballSprite: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
+  maxHealth: 100
+  contactDamage: 0
+  velocityScaledContactDamage: 0
+  velocityScalingRange: {x: 1, y: 15}
+  contactDamageRange: {x: 1, y: 15}
+  weapon: {fileID: 11400000, guid: 98075e61b37b5564ea228046c3226615, type: 2}
+  abilityPrefab: {fileID: 5383679034311467814, guid: 141f3124702b1fd4886bcb1488afd974, type: 3}
+  size: 1
+  mass: 1
+  gravityScale: 1
+  speed: 7.6
+  bounciness: 1.06
+  linearDamping: 0.615
+  animStiffness: 0.35
+  animDamping: 0.3
+  animVelocityStretching: 0.1
+  animHueShift: 0
+  animSaturation: 1
+  animBrightness: 1
+  animContrast: 1
+  bounceSound: {fileID: 6418180475301049370, guid: bc919c38d3fa7a54a8ab714b43ec9e7f, type: 2}
+  damageSound: {fileID: 6418180475301049370, guid: f91e47355c273c64ab0f19f64a7bb6fb, type: 2}
