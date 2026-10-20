@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91701300040645fe9ec2821c4ced1f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.BubbleGumShield
-  cooldown: 11.5
+  cooldown: 12
   debugStatesInConsole: 0
   triggerCollider: {fileID: 2528669422996289791}
   visualTransform: {fileID: 2206838373608933581}
@@ -287,7 +287,7 @@ AudioSource:
   m_GameObject: {fileID: 5383679034311467814}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3717680942527771372, guid: bbc6d40596521d1468eb0c664bc60bc6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -384,7 +384,7 @@ AudioSource:
   m_GameObject: {fileID: 5383679034311467814}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3717680942527771372, guid: bbc6d40596521d1468eb0c664bc60bc6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
