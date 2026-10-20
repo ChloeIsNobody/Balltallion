@@ -1,4 +1,4 @@
-﻿using Balltallion.Battle;
+﻿using Balltallion.Simulation.Battle;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,4 +1,4 @@
-﻿using Balltallion.Battle;
+﻿using Balltallion.Simulation.Battle;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,7 +29,7 @@ namespace Balltallion.DebugTools
                 attackData.source = null;
                 attackData.damage = damage;
                 attackData.knockback = knockbackStrength * GetKnockbackDirection();
-                targetBall?.Attack(attackData);
+                targetBall?.ReceiveAttack(attackData);
             }
         }
 

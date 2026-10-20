@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;

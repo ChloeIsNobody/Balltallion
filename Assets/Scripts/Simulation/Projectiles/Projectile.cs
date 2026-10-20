@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Balltallion.Battle;
+using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Physics;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -91,8 +92,18 @@ namespace Balltallion.Simulation.Projectiles
                 damage = damage,
                 knockback = GetMoveDirection() * knockback
             };
-            ball.Attack(attackData);
-            Destroy(gameObject);
+            ball.ReceiveAttack(attackData);
+            
+            if (ball.IsInvulnerable())
+            {
+                Vector2 dirAwayFromBall = (transform.position - ball.transform.position).normalized;
+                Deflect(dirAwayFromBall);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
         }
 
         private void OnCollisionEnter2D(Collision2D other)
@@ -157,5 +168,6 @@ namespace Balltallion.Simulation.Projectiles
         public float GetKnockback() => knockback;
         public bool DestroyOnDeflect() => destroyOnDeflect;
         public Vector2 GetMoveDirection() => ballBody.GetVelocity().normalized;
+        public TeamNames GetTeam() => shooter.GetTeam();
     }
 }
