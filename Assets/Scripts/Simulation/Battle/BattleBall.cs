@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Weapons;
@@ -30,6 +31,7 @@ namespace Balltallion.Simulation.Battle
         private int health;
         private bool isInvulnerable;
         private BallBody ballBody;
+        private AbilityBuilder abilityBuilder;
 
         private void Awake()
         {
@@ -63,21 +65,10 @@ namespace Balltallion.Simulation.Battle
             weaponController.gameObject.SetActive(data.weapon != null);
             weaponController.LoadWeaponData(data.weapon);
 
-            ClearChildAbilities();
-            if (data.abilityPrefab)
-            {
-                GameObject ability = Instantiate(data.abilityPrefab, abilitiesParent.transform);
-                ability.transform.localPosition = Vector3.zero;
-            }
+            if (!abilityBuilder) abilityBuilder = GetComponent<AbilityBuilder>();
+            if (abilityBuilder) abilityBuilder.BuildAbilities(this, data.abilities);
 
             audioHandler.LoadBallData(data);
-        }
-        
-        private void ClearChildAbilities()
-        {
-            List<Transform> abilityTransforms = new();
-            foreach (Transform child in abilitiesParent) abilityTransforms.Add(child);
-            foreach (Transform child in abilityTransforms) DestroyImmediate(child.gameObject);
         }
 
         private void SetTeam(TeamNames newTeam)

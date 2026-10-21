@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
@@ -26,7 +28,7 @@ namespace Balltallion.Simulation.Battle
 
         [Space]
         [SerializeField, Expandable] public WeaponDataSO weapon;
-        [SerializeField] public GameObject abilityPrefab;
+        [SerializeField] public List<AbilitySO> abilities = new();
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
