@@ -141,24 +141,12 @@ namespace Balltallion.TeamPicker
         
         private void StartBattle()
         {
-            // Fill out team lists with null to avoid list out of bounds
-            while (playerTeam.Count < 3) playerTeam.Add(null);
-            while (enemyTeam.Count < 3) enemyTeam.Add(null);
+            BattleManager.playerTeamLoadout = new List<BallLoadout>();
+            foreach (BallDataSO ball in playerTeam) BattleManager.playerTeamLoadout.Add(new BallLoadout(ball));
             
-            BattleManager.playerTeamLoadout = new List<BallLoadout>
-            {
-                new(playerTeam[0]),
-                new(playerTeam[1]),
-                new(playerTeam[2])
-            };
-
-            BattleManager.enemyTeamLoadout = new List<BallLoadout>
-            {
-                new(enemyTeam[0]),
-                new(enemyTeam[1]),
-                new(enemyTeam[2])
-            };
-
+            BattleManager.enemyTeamLoadout = new List<BallLoadout>();
+            foreach (BallDataSO ball in enemyTeam) BattleManager.enemyTeamLoadout.Add(new BallLoadout(ball));
+            
             SceneManager.LoadScene("Arena");
         }
 

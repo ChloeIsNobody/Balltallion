@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Simulation;
 using Balltallion.Audio;
@@ -31,16 +32,60 @@ namespace Balltallion.Simulation.Battle
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] private BattleAudioHandler battleAudioHandler;
         
+        private Coroutine currentState;
+        
         private void Awake()
         {
-            currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout[0], TeamNames.Player);
-            currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout[0], TeamNames.Enemy);
-            
             playerHealthDisplay.SetTrackedBall(currentPlayerBall);
             enemyHealthDisplay.SetTrackedBall(currentEnemyBall);
             
             if (battleAudioHandler != null)
                 battleAudioHandler.PlayBattleMusic();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(BattleState());
+        }
+
+        private IEnumerator BattleState()
+        {
+            int playerBallIdx = 0;
+            int enemyBallIdx = 0;
+            TeamNames winner;
+
+            while (true)
+            {
+                if (!currentPlayerBall)
+                {
+                    if (playerBallIdx < playerTeamLoadout.Count)
+                    {
+                        currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout[playerBallIdx++], TeamNames.Player);
+                    }
+                    else
+                    {
+                        winner = TeamNames.Enemy;
+                        break;
+                    }
+                }
+
+                if (!currentEnemyBall)
+                {
+                    if (enemyBallIdx < enemyTeamLoadout.Count)
+                    {
+                        currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout[enemyBallIdx++], TeamNames.Enemy);
+                    }
+                    else
+                    {
+                        winner = TeamNames.Player;
+                        break;
+                    }
+                }
+
+                yield return null;
+            }
+            
+            Debug.Log($"Battle over! {winner} won!");
         }
 
         public void RestartBattle()
