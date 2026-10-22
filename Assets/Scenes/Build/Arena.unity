@@ -183,6 +183,7 @@ MonoBehaviour:
   enemyHealthDisplay: {fileID: 251578854}
   replayButton: {fileID: 1789056751}
   backButton: {fileID: 1953046429}
+  battleAudioHandler: {fileID: 308023262}
 --- !u!1 &194660383
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,6 +476,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2db737031374e00ba25dc84980c76ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallHealthDisplayUI
+--- !u!114 &308023262 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3871928218488308034, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+  m_PrefabInstance: {fileID: 1963169053}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb4b5a4ba15c4e65bd8c20fcd40589f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Audio.BattleAudioHandler
 --- !u!1 &369757737
 GameObject:
   m_ObjectHideFlags: 0
@@ -2574,6 +2586,63 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 672354584043719493, guid: 4a6edd5ee9f793043b2663a9e9c8bb9c, type: 3}
   m_PrefabInstance: {fileID: 1958555456}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1963169053
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.86302
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.13745
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771786191958101761, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8722922588348880145, guid: fd67152069b3246a78a79e36987807e3, type: 3}
+      propertyPath: m_Name
+      value: BattleAudio
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd67152069b3246a78a79e36987807e3, type: 3}
 --- !u!1 &2097964617
 GameObject:
   m_ObjectHideFlags: 0
@@ -2931,6 +3000,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1034422284}
   - {fileID: 152826096}
+  - {fileID: 1963169053}
   - {fileID: 217823568}
   - {fileID: 2141643853}
   - {fileID: 1131507453}

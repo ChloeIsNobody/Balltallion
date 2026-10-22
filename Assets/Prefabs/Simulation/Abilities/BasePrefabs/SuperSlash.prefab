@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.KnightAbility
   cooldown: 8
+  debugStatesInConsole: 0
   visualTransform: {fileID: 7403230040884324488}
   animator: {fileID: 7616763232087025712}
   circleCollider: {fileID: 708721133452045923}
@@ -501,7 +502,7 @@ AudioSource:
   m_GameObject: {fileID: 8433846991380028007}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3717680942527771372, guid: bbc6d40596521d1468eb0c664bc60bc6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

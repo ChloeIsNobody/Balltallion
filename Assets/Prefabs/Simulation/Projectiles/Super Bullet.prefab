@@ -64,17 +64,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4708428562733989838, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
+    - target: {fileID: 4708428562733989838, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708428562733989838, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4708428562733989838, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7544588439663288407, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: m_Name
       value: Super Bullet
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: damage
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: knockback
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: maxBounces
