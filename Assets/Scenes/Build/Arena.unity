@@ -163,26 +163,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f0bfc04a7e404cbd6dbba3d02dee29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
-  battleBallPrefab: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
-  playerSpawnRect:
-    serializedVersion: 2
-    x: -2.5
-    y: 0
-    width: 2.5
-    height: 2.5
-  enemySpawnRect:
-    serializedVersion: 2
-    x: 2.5
-    y: 0
-    width: 2.5
-    height: 2.5
-  playerLaunchAngle: 45
-  enemyLaunchAngle: 135
-  launchAngleSpread: 30
+  ballSpawner: {fileID: 1070797788}
   playerHealthDisplay: {fileID: 5333425665619223208}
   enemyHealthDisplay: {fileID: 251578854}
-  replayButton: {fileID: 1789056751}
-  backButton: {fileID: 1953046429}
   battleAudioHandler: {fileID: 308023262}
 --- !u!1 &194660383
 GameObject:
@@ -249,7 +232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: REPLAY
+  m_text: RESTART
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f460cef4647932a43824b53ae221e105, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: f460cef4647932a43824b53ae221e105, type: 2}
@@ -276,8 +259,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 31.2
-  m_fontSizeBase: 31.2
+  m_fontSize: 28.7
+  m_fontSizeBase: 28.7
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1629,6 +1612,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1028283601
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028283602}
+  - component: {fileID: 1028283603}
+  m_Layer: 5
+  m_Name: BattleButtons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1028283602
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028283601}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1789056748}
+  - {fileID: 1953046426}
+  m_Father: {fileID: 1790926428}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1028283603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028283601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53f8cbe36bdd425c8b7b47073906b807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Battle.BattleButtons
+  battleManager: {fileID: 152826097}
+  restartButton: {fileID: 1789056751}
+  backButton: {fileID: 1953046429}
 --- !u!1 &1034422283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1660,6 +1696,66 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1070797786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1070797787}
+  - component: {fileID: 1070797788}
+  m_Layer: 0
+  m_Name: BallSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1070797787
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070797786}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1070797788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1070797786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89f96428e2764963aa5807dd82c4a4fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Battle.BallSpawner
+  battleBallPrefab: {fileID: 9031067662783963187, guid: 58343b2f13b27974fbfbd06459b760b1, type: 3}
+  playerSpawnRect:
+    serializedVersion: 2
+    x: -2.5
+    y: 0
+    width: 2.5
+    height: 2.5
+  enemySpawnRect:
+    serializedVersion: 2
+    x: 2.5
+    y: 0
+    width: 2.5
+    height: 2.5
+  playerLaunchAngle: 45
+  enemyLaunchAngle: 135
+  launchAngleSpread: 30
 --- !u!1 &1082711604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,7 +2191,7 @@ GameObject:
   - component: {fileID: 1789056750}
   - component: {fileID: 1789056749}
   m_Layer: 5
-  m_Name: Replay
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2108,13 +2204,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789056747}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 194660384}
-  m_Father: {fileID: 1790926428}
+  m_Father: {fileID: 1028283602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2302,8 +2398,7 @@ RectTransform:
   - {fileID: 7697252090596789256}
   - {fileID: 496725079}
   - {fileID: 1106853461}
-  - {fileID: 1789056748}
-  - {fileID: 1953046426}
+  - {fileID: 1028283602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2337,13 +2432,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1953046425}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 874457678}
-  m_Father: {fileID: 1790926428}
+  m_Father: {fileID: 1028283602}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3000,6 +3095,7 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1034422284}
   - {fileID: 152826096}
+  - {fileID: 1070797787}
   - {fileID: 1963169053}
   - {fileID: 217823568}
   - {fileID: 2141643853}
