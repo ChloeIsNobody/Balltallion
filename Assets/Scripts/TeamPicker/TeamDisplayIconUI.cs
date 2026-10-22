@@ -10,10 +10,16 @@ namespace Balltallion.TeamPicker
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private Image icon;
 
+        private void Awake()
+        {
+            LoadBallData(null);
+        }
+
         public void LoadBallData(BallDataSO ballData)
         {
-            nameText.text = ballData.displayName;
-            icon.sprite = ballData.ballSprite;
+            nameText.text = ballData ? ballData.displayName : "";
+            icon.sprite = ballData ? ballData.ballSprite : null;
+            icon.color = ballData ? Color.white : Color.clear;
         }
     }
 }
