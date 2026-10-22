@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Balltallion.Simulation;
 using Balltallion.Audio;
 using Balltallion.Simulation.Physics;
+using Balltallion.TeamPicker;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,11 +31,11 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private Button replayButton;
         [SerializeField] private Button backButton;
 
-        public static List<BallDataSO> playerTeamLoadout = new();
-        public static List<BallDataSO> enemyTeamLoadout = new();
+        public static List<BallLoadout> playerTeamLoadout;
+        public static List<BallLoadout> enemyTeamLoadout;
         
-        private List<BattleBall> playerBalls = new();
-        private List<BattleBall> enemyBalls = new();
+        private BattleBall currentPlayerBall;
+        private BattleBall currentEnemyBall;
         
         [Header("Audio")]
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
@@ -42,9 +43,11 @@ namespace Balltallion.Simulation.Battle
         
         private void Awake()
         {
-            InstantiateBalls();
-            if (playerBalls.Count > 0) playerHealthDisplay.SetTrackedBall(playerBalls[0]);
-            if (enemyBalls.Count > 0) enemyHealthDisplay.SetTrackedBall(enemyBalls[0]);
+            currentPlayerBall = InstantiateBall(playerTeamLoadout[0], TeamNames.Player);
+            currentEnemyBall = InstantiateBall(enemyTeamLoadout[0], TeamNames.Enemy);
+            
+            playerHealthDisplay.SetTrackedBall(currentPlayerBall);
+            enemyHealthDisplay.SetTrackedBall(currentEnemyBall);
             
             if (battleAudioHandler != null)
                 battleAudioHandler.PlayBattleMusic();
@@ -75,39 +78,18 @@ namespace Balltallion.Simulation.Battle
             }
         }
 
-        private void InstantiateBalls()
+        private BattleBall InstantiateBall(BallLoadout ballLoadout, TeamNames team)
         {
-            foreach (BallDataSO ballData in playerTeamLoadout)
-            {
-                InstantiateBall(ballData, TeamNames.Player);
-            }
-            
-            foreach (BallDataSO ballData in enemyTeamLoadout)
-            {
-                InstantiateBall(ballData, TeamNames.Enemy);
-            }
-        }
-
-        private void InstantiateBall(BallDataSO ballData, TeamNames team)
-        {
+            BallDataSO ballData = ballLoadout.GetBallData();
             BattleBall ball = Instantiate(battleBallPrefab);
             ball.LoadBallData(ballData, team);
 
             Rect spawnRect = team == TeamNames.Player ? playerSpawnRect : enemySpawnRect;
             ball.transform.position = GetRandomPositionInRect(spawnRect);
             
-            float launchAngle = team == TeamNames.Player ? playerLaunchAngle : enemyLaunchAngle;
-            launchAngle += Random.Range(-launchAngleSpread/2.0f, launchAngleSpread/2.0f);
-            Vector2 startVelocity = Vector2.zero;
-            startVelocity.x = Mathf.Cos(Mathf.Deg2Rad * launchAngle);
-            startVelocity.y = Mathf.Sin(Mathf.Deg2Rad * launchAngle);
-            startVelocity *= ballData.speed;
-            
-            BallBody body = ball.GetComponent<BallBody>();
-            body.SetVelocity(startVelocity);
+            LaunchBall(ball, team);
 
-            List<BattleBall> teamList = team == TeamNames.Player ? playerBalls : enemyBalls;
-            teamList.Add(ball);
+            return ball;
         }
 
         private void ReplayBattle()
@@ -117,10 +99,21 @@ namespace Balltallion.Simulation.Battle
 
         private void ReturnToTeamPickerScene()
         {
-            if (battleAudioHandler != null)
-                battleAudioHandler.StopBattleMusic();
-            
+            if (battleAudioHandler) battleAudioHandler.StopBattleMusic();
             SceneManager.LoadScene("TeamPicker");
+        }
+        
+        private void LaunchBall(BattleBall ball, TeamNames team)
+        {
+            float launchAngle = team == TeamNames.Player ? playerLaunchAngle : enemyLaunchAngle;
+            launchAngle += Random.Range(-launchAngleSpread/2.0f, launchAngleSpread/2.0f);
+            Vector2 startVelocity = Vector2.zero;
+            startVelocity.x = Mathf.Cos(Mathf.Deg2Rad * launchAngle);
+            startVelocity.y = Mathf.Sin(Mathf.Deg2Rad * launchAngle);
+            startVelocity *= ball.GetBallData().speed;
+            
+            BallBody body = ball.GetComponent<BallBody>();
+            body.SetVelocity(startVelocity);
         }
 
         private Vector2 GetRandomPositionInRect(Rect rect)

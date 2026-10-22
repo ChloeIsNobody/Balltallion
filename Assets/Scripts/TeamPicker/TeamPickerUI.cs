@@ -13,7 +13,6 @@ namespace Balltallion.TeamPicker
     public class TeamPickerUI : MonoBehaviour
     {
         [SerializeField] private List<BallDataSO> selectableBalls;
-        [SerializeField] private int teamLimit = 2;
         
         [Header("Ball Selection")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -113,14 +112,12 @@ namespace Balltallion.TeamPicker
 
         private void AddSelectedToPlayerTeam()
         {
-            if (playerTeam.Count >= teamLimit) return;
             playerTeam.Add(selectedBallData);
             playerTeamDisplay.UpdateDisplay(playerTeam);
         }
 
         private void AddSelectedToEnemyTeam()
         {
-            if (enemyTeam.Count >= teamLimit) return;
             enemyTeam.Add(selectedBallData);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
         }
@@ -144,8 +141,24 @@ namespace Balltallion.TeamPicker
         
         private void StartBattle()
         {
-            BattleManager.playerTeamLoadout = new List<BallDataSO>(playerTeam);
-            BattleManager.enemyTeamLoadout = new List<BallDataSO>(enemyTeam);
+            // Fill out team lists with null to avoid list out of bounds
+            while (playerTeam.Count < 3) playerTeam.Add(null);
+            while (enemyTeam.Count < 3) enemyTeam.Add(null);
+            
+            BattleManager.playerTeamLoadout = new List<BallLoadout>
+            {
+                new(playerTeam[0]),
+                new(playerTeam[1]),
+                new(playerTeam[2])
+            };
+
+            BattleManager.enemyTeamLoadout = new List<BallLoadout>
+            {
+                new(enemyTeam[0]),
+                new(enemyTeam[1]),
+                new(enemyTeam[2])
+            };
+
             SceneManager.LoadScene("Arena");
         }
 

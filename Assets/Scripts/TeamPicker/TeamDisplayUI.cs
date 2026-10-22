@@ -32,6 +32,9 @@ namespace Balltallion.TeamPicker
         public void UpdateDisplay(List<BallDataSO> team)
         {
             int iconIdx = 0;
+            
+            foreach (TeamDisplayIconUI icon in teamDisplayIcons) icon.LoadBallData(null);
+            
             foreach (BallDataSO ball in team)
             {
                 TeamDisplayIconUI icon = teamDisplayIcons[iconIdx];
