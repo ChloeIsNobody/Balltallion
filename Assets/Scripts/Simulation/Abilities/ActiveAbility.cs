@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;

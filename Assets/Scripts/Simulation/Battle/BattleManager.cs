@@ -1,15 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
-using Balltallion.Simulation;
 using Balltallion.Audio;
-using Balltallion.Simulation.Physics;
-using Balltallion.TeamPicker;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Battle
 {
@@ -22,8 +16,8 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private BallHealthDisplayUI playerHealthDisplay;
         [SerializeField] private BallHealthDisplayUI enemyHealthDisplay;
 
-        public static List<BallLoadout> playerTeamLoadout;
-        public static List<BallLoadout> enemyTeamLoadout;
+        public static TeamLoadout playerTeamLoadout;
+        public static TeamLoadout enemyTeamLoadout;
         
         private BattleBall currentPlayerBall;
         private BattleBall currentEnemyBall;
@@ -50,37 +44,24 @@ namespace Balltallion.Simulation.Battle
 
         private IEnumerator BattleState()
         {
-            int playerBallIdx = 0;
-            int enemyBallIdx = 0;
             TeamNames winner;
+            playerTeamLoadout.ResetIdx();
+            enemyTeamLoadout.ResetIdx();
 
             while (true)
             {
-                if (!currentPlayerBall)
+                if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
                 {
-                    if (playerBallIdx < playerTeamLoadout.Count)
-                    {
-                        currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout[playerBallIdx++], TeamNames.Player);
-                    }
-                    else
-                    {
-                        winner = TeamNames.Enemy;
-                        break;
-                    }
+                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), TeamNames.Player);
                 }
 
-                if (!currentEnemyBall)
+                if (!currentEnemyBall && enemyTeamLoadout.HasNextBall())
                 {
-                    if (enemyBallIdx < enemyTeamLoadout.Count)
-                    {
-                        currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout[enemyBallIdx++], TeamNames.Enemy);
-                    }
-                    else
-                    {
-                        winner = TeamNames.Player;
-                        break;
-                    }
+                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), TeamNames.Enemy);
                 }
+
+                if (!currentPlayerBall && !playerTeamLoadout.HasNextBall()) { winner = TeamNames.Enemy; break; }
+                if (!currentEnemyBall && !enemyTeamLoadout.HasNextBall()) { winner = TeamNames.Player; break; }
 
                 yield return null;
             }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Balltallion.Simulation.Battle;
-
-namespace Balltallion.TeamPicker
+﻿namespace Balltallion.Simulation.Teams
 {
     public class BallLoadout
     {

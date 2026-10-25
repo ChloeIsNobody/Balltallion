@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Balltallion.Simulation.Battle
+namespace Balltallion.Simulation.Teams
 {
     [CreateAssetMenu(menuName = "Balltallion/BallData", fileName = "BallData")]
     public class BallDataSO : ScriptableObject

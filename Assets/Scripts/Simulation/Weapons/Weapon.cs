@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons

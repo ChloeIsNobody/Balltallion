@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
@@ -141,12 +142,8 @@ namespace Balltallion.TeamPicker
         
         private void StartBattle()
         {
-            BattleManager.playerTeamLoadout = new List<BallLoadout>();
-            foreach (BallDataSO ball in playerTeam) BattleManager.playerTeamLoadout.Add(new BallLoadout(ball));
-            
-            BattleManager.enemyTeamLoadout = new List<BallLoadout>();
-            foreach (BallDataSO ball in enemyTeam) BattleManager.enemyTeamLoadout.Add(new BallLoadout(ball));
-            
+            BattleManager.playerTeamLoadout = new TeamLoadout(playerTeam);
+            BattleManager.enemyTeamLoadout = new TeamLoadout(enemyTeam);
             SceneManager.LoadScene("Arena");
         }
 
