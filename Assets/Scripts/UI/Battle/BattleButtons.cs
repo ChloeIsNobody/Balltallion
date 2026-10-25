@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Balltallion.Simulation.Battle;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Balltallion.Simulation.Battle
+namespace Balltallion.UI.Battle
 {
     public class BattleButtons : MonoBehaviour
     {

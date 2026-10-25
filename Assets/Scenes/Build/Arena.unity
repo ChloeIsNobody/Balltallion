@@ -164,8 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
   ballSpawner: {fileID: 1070797788}
-  playerHealthDisplay: {fileID: 5333425665619223208}
-  enemyHealthDisplay: {fileID: 251578854}
   battleAudioHandler: {fileID: 308023262}
 --- !u!1 &194660383
 GameObject:
@@ -427,6 +425,14 @@ PrefabInstance:
       propertyPath: trackedBall
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6651863893809135080, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
+      propertyPath: trackedTeam
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651863893809135080, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
+      propertyPath: battleManager
+      value: 
+      objectReference: {fileID: 152826097}
     - target: {fileID: 6657328311649224436, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
       propertyPath: m_Name
       value: EnemyHealthDisplay
@@ -448,17 +454,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
---- !u!114 &251578854 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6651863893809135080, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
-  m_PrefabInstance: {fileID: 251578853}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2db737031374e00ba25dc84980c76ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallHealthDisplayUI
 --- !u!114 &308023262 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3871928218488308034, guid: fd67152069b3246a78a79e36987807e3, type: 3}
@@ -2595,6 +2590,10 @@ PrefabInstance:
       propertyPath: trackedBall
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6651863893809135080, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
+      propertyPath: battleManager
+      value: 
+      objectReference: {fileID: 152826097}
     - target: {fileID: 6657328311649224436, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
       propertyPath: m_Name
       value: PlayerHealthDisplay
@@ -2612,17 +2611,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
---- !u!114 &5333425665619223208 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6651863893809135080, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
-  m_PrefabInstance: {fileID: 5333425665619223207}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2db737031374e00ba25dc84980c76ce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallHealthDisplayUI
 --- !u!1001 &6032906130155994792
 PrefabInstance:
   m_ObjectHideFlags: 0

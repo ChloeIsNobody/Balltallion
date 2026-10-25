@@ -10,11 +10,6 @@ namespace Balltallion.Simulation.Battle
     public class BattleManager : MonoBehaviour
     { 
         [SerializeField] private BallSpawner ballSpawner;
-        
-        [Header("UI")]
-        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
-        [SerializeField] private BallHealthDisplayUI playerHealthDisplay;
-        [SerializeField] private BallHealthDisplayUI enemyHealthDisplay;
 
         public static TeamLoadout playerTeamLoadout;
         public static TeamLoadout enemyTeamLoadout;
@@ -30,16 +25,18 @@ namespace Balltallion.Simulation.Battle
         
         private void Awake()
         {
-            playerHealthDisplay.SetTrackedBall(currentPlayerBall);
-            enemyHealthDisplay.SetTrackedBall(currentEnemyBall);
-            
             if (battleAudioHandler != null)
                 battleAudioHandler.PlayBattleMusic();
         }
 
         private void Start()
         {
-            StartCoroutine(BattleState());
+            if (playerTeamLoadout == null) Debug.LogWarning("Player team loadout not set!");
+            if (enemyTeamLoadout == null) Debug.LogWarning("Enemy team loadout not set!");
+            if (playerTeamLoadout != null && enemyTeamLoadout != null)
+            {
+                StartCoroutine(BattleState());
+            }
         }
 
         private IEnumerator BattleState()
@@ -79,5 +76,8 @@ namespace Balltallion.Simulation.Battle
             if (battleAudioHandler) battleAudioHandler.StopBattleMusic();
             SceneManager.LoadScene("TeamPicker");
         }
+        
+        public BattleBall GetCurrentPlayerBall() => currentPlayerBall;
+        public BattleBall GetCurrentEnemyBall() => currentEnemyBall;
     }
 }
