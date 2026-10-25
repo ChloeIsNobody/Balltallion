@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using Balltallion.Audio;
 using Balltallion.Simulation.Teams;
+using Balltallion.UI.Battle;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,8 +10,11 @@ using UnityEngine.SceneManagement;
 namespace Balltallion.Simulation.Battle
 {
     public class BattleManager : MonoBehaviour
-    { 
+    {
+        public event Action<TeamNames> OnBattleEnded; 
+        
         [SerializeField] private BallSpawner ballSpawner;
+        [SerializeField] private BattleCountdownUI countdownUI;
 
         public static TeamLoadout playerTeamLoadout;
         public static TeamLoadout enemyTeamLoadout;
@@ -45,6 +50,8 @@ namespace Balltallion.Simulation.Battle
             playerTeamLoadout.ResetIdx();
             enemyTeamLoadout.ResetIdx();
 
+            yield return countdownUI.CountdownCoroutine();
+
             while (true)
             {
                 if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
@@ -64,6 +71,7 @@ namespace Balltallion.Simulation.Battle
             }
             
             Debug.Log($"Battle over! {winner} won!");
+            OnBattleEnded?.Invoke(winner);
         }
 
         public void RestartBattle()
