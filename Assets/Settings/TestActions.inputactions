@@ -1,0 +1,47 @@
+{
+    "version": 1,
+    "name": "TestActions",
+    "maps": [
+        {
+            "name": "Battle",
+            "id": "5e148f3d-ef79-4b35-bfdb-bbcf330ffbcf",
+            "actions": [
+                {
+                    "name": "Ability",
+                    "type": "Button",
+                    "id": "61c662c2-267a-423f-987e-9654ca408801",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "acf1ba12-3560-4843-9854-f28cd1731f16",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b53df8b4-802a-4ee1-a1a0-a456f1a8b25c",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ability",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
