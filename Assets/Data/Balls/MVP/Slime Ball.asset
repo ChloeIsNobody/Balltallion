@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Battle.BallDataSO
   displayName: Slime Ball
   debugColor: {r: 0.6117647, g: 0.7372549, b: 0.59607846, a: 1}
-  ballSprite: {fileID: 21300000, guid: 57f44806ca5d159429cceee039acf668, type: 3}
+  ballSprite: {fileID: 21300000, guid: 9bc7b7e4398ce2c43a28419aca78c641, type: 3}
   maxHealth: 100
   contactDamage: 0
   velocityScaledContactDamage: 0

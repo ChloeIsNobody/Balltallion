@@ -7,7 +7,7 @@
             "id": "5e74867e-5405-4740-afdb-451351cfd8d4",
             "actions": [
                 {
-                    "name": "Disconnect",
+                    "name": "Leave",
                     "type": "Button",
                     "id": "6134a10f-18a6-4e91-ba0d-c263ff8f64c1",
                     "expectedControlType": "",
@@ -35,7 +35,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardLeft;KeyboardRight",
-                    "action": "Disconnect",
+                    "action": "Leave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -46,7 +46,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
-                    "action": "Disconnect",
+                    "action": "Leave",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

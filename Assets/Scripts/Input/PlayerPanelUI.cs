@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Balltallion.Input
@@ -11,7 +10,11 @@ namespace Balltallion.Input
         [Header("References")]
         [SerializeField] private TextMeshProUGUI controlsText;
         [SerializeField] private Image panelImage;
-        [SerializeField] private Image iconImage;
+        [SerializeField] private Image deviceIcon;
+        
+        [SerializeField] private GameObject buttonObjects;
+        [SerializeField] private Image readyIcon;
+        [SerializeField] private Image leaveIcon;
 
         [Header("Style")]
         [SerializeField] private Sprite activatedSprite;
@@ -28,21 +31,19 @@ namespace Balltallion.Input
         public void SetActive(bool active)
         {
             panelImage.color = active ? activatedColor : deactivatedColor;
-            iconImage.enabled = active;
+            deviceIcon.enabled = active;
             controlsText.enabled = active;
+            buttonObjects.SetActive(active);
         }
 
         public void LoadPlayerData(LocalPlayerSO playerData)
         {
             trackedPlayerData = playerData;
-            string readyControlName = playerData.GetControlForAction("Ready");
-            string disconnectControlName = playerData.GetControlForAction("Disconnect");
-
-            iconImage.sprite = playerData.GetDeviceIcon();
+            deviceIcon.sprite = playerData.GetDeviceIcon();
             
             controlsText.text = $"Controls: {playerData.GetControlScheme()}";
-            controlsText.text += $"\nReady: {readyControlName}";
-            controlsText.text += $"\nDisconnect: {disconnectControlName}";
+            readyIcon.sprite = playerData.GetIconForAction("Ready");
+            leaveIcon.sprite = playerData.GetIconForAction("Leave");
         }
     }
 }

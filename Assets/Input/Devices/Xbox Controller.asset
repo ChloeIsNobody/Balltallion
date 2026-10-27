@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.DeviceDataSO
   displayName: Xbox Controller
   icon: {fileID: 21300000, guid: 17769aa45d07bfe45bbb3f8fef98694b, type: 3}
-  iconMappingsList: []
+  iconMappingsList:
+  - actionName: Ready
+    icon: {fileID: 21300000, guid: 7e50745b469dfc740a03d418659507ed, type: 3}
+  - actionName: Leave
+    icon: {fileID: 21300000, guid: a6b69bc26004b37468ece54cb0e03a57, type: 3}
