@@ -18,15 +18,12 @@ namespace Balltallion.Input
         [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private List<PlayerPanelUI> playerPanels;
         
-        private List<PlayerInput> playerInputs;
-        private int numPlayersConnected = 0;
         private const int playerLimit = 2;
 
         private void Awake()
         {
-            playerInputs = new List<PlayerInput>(playerLimit);
-            for (int i = 0; i < playerLimit; ++i) playerInputs.Add(null);
-            if (playerPanels.Count != playerLimit) Debug.LogError("Player limit doesn't match player panel count!");
+            if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
+            if (playerPanels.Count != playerLimit) Debug.LogError("Player panel count doesn't match player limit");
         }
 
         private void OnEnable()
@@ -68,18 +65,38 @@ namespace Balltallion.Input
         
         private void JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
         {
-            if (numPlayersConnected >= playerLimit) return;
+            if (GetNumConnectedPlayers() >= playerLimit) return;
             
             PlayerInput newPlayer =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
                 controlScheme, -1, pairWithDevice);
             newPlayer.transform.SetParent(transform);
 
-            int openSlotIdx = numPlayersConnected;
-            localPlayers[openSlotIdx].ConnectPlayerInput(newPlayer);
-            playerInputs[openSlotIdx] = newPlayer;
+            int openSlotIdx = FindNextOpenPlayerSlot();
+            if (openSlotIdx < 0) return;
+            localPlayers[openSlotIdx].Connect(newPlayer);
             playerPanels[openSlotIdx].SetActive(true);
             playerPanels[openSlotIdx].SetPlayerInput(newPlayer);
-            numPlayersConnected++;
+        }
+
+        private int FindNextOpenPlayerSlot()
+        {
+            for (int i = 0; i < localPlayers.Count; i++)
+            {
+                LocalPlayerSO localPlayer = localPlayers[i];
+                if (!localPlayer.IsConnected()) return i;
+            }
+            return -1;
+        }
+
+        private int GetNumConnectedPlayers()
+        {
+            int connectedCount = 0;
+            for (int i = 0; i < localPlayers.Count; i++)
+            {
+                LocalPlayerSO localPlayer = localPlayers[i];
+                connectedCount += localPlayer.IsConnected() ? 1 : 0;
+            }
+            return connectedCount;
         }
     
         /*
