@@ -25,12 +25,12 @@ MonoBehaviour:
   size: 1
   mass: 1
   gravityScale: 1
-  speed: 0
-  bounciness: 1
-  linearDamping: 0
-  animStiffness: 0.45
-  animDamping: 0.2
-  animVelocityStretching: 0.135
+  speed: 7.3
+  bounciness: 1.06
+  linearDamping: 0.615
+  animStiffness: 0.28
+  animDamping: 0.175
+  animVelocityStretching: 0.25
   animHueShift: 0
   animSaturation: 1
   animBrightness: 1

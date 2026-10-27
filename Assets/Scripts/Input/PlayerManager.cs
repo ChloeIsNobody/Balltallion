@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using Balltallion.DebugTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -38,22 +39,28 @@ namespace Balltallion.Input
             
         }
 
-        private void JoinPlayer(int playerIndex = -1, string controlScheme = null, InputDevice pairWithDevice = null)
+        private PlayerInput JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
         {
-            
+            return PlayerInput.Instantiate(playerInputPrefab.gameObject, -1, controlScheme, -1, pairWithDevice);
         }
         
+        /*
+         * Taken from PlayerInputManager code
+         */
         private void OnUnpairedDeviceUsed(InputControl control, InputEventPtr eventPtr)
         {
             if (!(control is ButtonControl)) return;
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
-            //JoinPlayer(pairWithDevice: control.device);
             Debug.Log($"Unpaired device used: {control.device.displayName}");
             InputControlScheme? controlScheme =
                 InputControlScheme.FindControlSchemeForDevice(control.device, playerActionAsset.controlSchemes);
             Debug.Log($"Found control scheme: {controlScheme}");
+            //JoinPlayer(pairWithDevice: control.device);
         }
     
+        /*
+         * Taken from PlayerInputManager code
+         */
         private bool IsDeviceUsableWithPlayerActions(InputDevice device)
         {
             Debug.Assert(device != null);
