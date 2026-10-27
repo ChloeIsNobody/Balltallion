@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Balltallion.Input
@@ -10,18 +11,8 @@ namespace Balltallion.Input
         [SerializeField] private int playerNumber;
         
         private PlayerInput playerInput;
-        
-        private bool isConnected = false;
 
-        public void OnEnable()
-        {
-            Disconnect();
-        }
-
-        public void OnDisable()
-        {
-            Disconnect();
-        }
+        private bool isConnected;
 
         public void Connect(PlayerInput newPlayerInput)
         {
@@ -72,6 +63,7 @@ namespace Balltallion.Input
         public string GetDisplayName() => displayName;
         public int GetPlayerNumber() => playerNumber;
         public string GetControlScheme() => playerInput?.currentControlScheme ?? "None";
+        public string GetDevice() => playerInput?.devices[0].displayName ?? "None";
         public bool IsConnected() => isConnected;
     }
 }

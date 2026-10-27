@@ -24,6 +24,9 @@ namespace Balltallion.Input
         {
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
             if (playerPanels.Count != playerLimit) Debug.LogError("Player panel count doesn't match player limit");
+            
+            // Ensure local players start disconnected
+            foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
         }
 
         private void OnEnable()

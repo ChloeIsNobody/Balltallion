@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238dbef583284f0da01212ce64925dae, type: 3}
   m_Name: LocalPlayer2
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.LocalPlayerSO
+  displayName: Player 2
+  playerNumber: 2
