@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Balltallion.DebugTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,13 +14,19 @@ namespace Balltallion.Input
     {
         [SerializeField] private PlayerInput playerInputPrefab;
         [SerializeField] private InputActionAsset playerActionAsset;
-        
-        private PlayerInput playerInput1;
-        private PlayerInput playerInput2;
 
-        private void Start()
+        [SerializeField] private List<LocalPlayerSO> localPlayers;
+        [SerializeField] private List<PlayerPanelUI> playerPanels;
+        
+        private List<PlayerInput> playerInputs;
+        private int numPlayersConnected = 0;
+        private const int playerLimit = 2;
+
+        private void Awake()
         {
-            
+            playerInputs = new List<PlayerInput>(playerLimit);
+            for (int i = 0; i < playerLimit; ++i) playerInputs.Add(null);
+            if (playerPanels.Count != playerLimit) Debug.LogError("Player limit doesn't match player panel count!");
         }
 
         private void OnEnable()
@@ -38,11 +45,6 @@ namespace Balltallion.Input
         {
             
         }
-
-        private PlayerInput JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
-        {
-            return PlayerInput.Instantiate(playerInputPrefab.gameObject, -1, controlScheme, -1, pairWithDevice);
-        }
         
         /*
          * Taken from PlayerInputManager code
@@ -51,11 +53,33 @@ namespace Balltallion.Input
         {
             if (!(control is ButtonControl)) return;
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
+            
             Debug.Log($"Unpaired device used: {control.device.displayName}");
-            InputControlScheme? controlScheme =
+            InputControlScheme? potentialControlScheme =
                 InputControlScheme.FindControlSchemeForDevice(control.device, playerActionAsset.controlSchemes);
-            Debug.Log($"Found control scheme: {controlScheme}");
-            //JoinPlayer(pairWithDevice: control.device);
+
+            if (potentialControlScheme.HasValue)
+            {
+                InputControlScheme controlScheme = potentialControlScheme.Value;
+                Debug.Log($"Found control scheme: {controlScheme.name}");
+                JoinPlayer(controlScheme.name, control.device);
+            }
+        }
+        
+        private void JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
+        {
+            if (numPlayersConnected >= playerLimit) return;
+            
+            PlayerInput newPlayer =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
+                controlScheme, -1, pairWithDevice);
+            newPlayer.transform.SetParent(transform);
+
+            int openSlotIdx = numPlayersConnected;
+            localPlayers[openSlotIdx].ConnectPlayerInput(newPlayer);
+            playerInputs[openSlotIdx] = newPlayer;
+            playerPanels[openSlotIdx].SetActive(true);
+            playerPanels[openSlotIdx].SetPlayerInput(newPlayer);
+            numPlayersConnected++;
         }
     
         /*

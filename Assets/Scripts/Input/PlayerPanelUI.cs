@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace Balltallion.Input
@@ -16,6 +17,8 @@ namespace Balltallion.Input
         [SerializeField] private Sprite activatedSprite;
         [SerializeField] private Color activatedColor;
         [SerializeField] private Color deactivatedColor;
+        
+        private PlayerInput trackedPlayerInput;
 
         public void Start()
         {
@@ -28,6 +31,17 @@ namespace Balltallion.Input
             iconImage.sprite = active ? activatedSprite : null;
             iconImage.enabled = active;
             controlsText.enabled = active;
+        }
+
+        public void SetPlayerInput(PlayerInput playerInput)
+        {
+            trackedPlayerInput = playerInput;
+            string readyControlName = playerInput.actions.FindAction("Ready").controls[0].displayName;
+            string disconnectControlName = playerInput.actions.FindAction("Disconnect").controls[0].displayName;
+            
+            controlsText.text = $"Controls: {playerInput.currentControlScheme}";
+            controlsText.text += $"\nReady: {readyControlName}";
+            controlsText.text += $"\nDisconnect: {disconnectControlName}";
         }
     }
 }
