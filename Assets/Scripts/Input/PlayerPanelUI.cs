@@ -18,7 +18,7 @@ namespace Balltallion.Input
         [SerializeField] private Color activatedColor;
         [SerializeField] private Color deactivatedColor;
         
-        private PlayerInput trackedPlayerInput;
+        private LocalPlayerSO trackedPlayerData;
 
         public void Start()
         {
@@ -28,18 +28,19 @@ namespace Balltallion.Input
         public void SetActive(bool active)
         {
             panelImage.color = active ? activatedColor : deactivatedColor;
-            iconImage.sprite = active ? activatedSprite : null;
             iconImage.enabled = active;
             controlsText.enabled = active;
         }
 
-        public void SetPlayerInput(PlayerInput playerInput)
+        public void LoadPlayerData(LocalPlayerSO playerData)
         {
-            trackedPlayerInput = playerInput;
-            string readyControlName = playerInput.actions.FindAction("Ready").controls[0].displayName;
-            string disconnectControlName = playerInput.actions.FindAction("Disconnect").controls[0].displayName;
+            trackedPlayerData = playerData;
+            string readyControlName = playerData.GetControlForAction("Ready");
+            string disconnectControlName = playerData.GetControlForAction("Disconnect");
+
+            iconImage.sprite = playerData.GetDeviceIcon();
             
-            controlsText.text = $"Controls: {playerInput.currentControlScheme}";
+            controlsText.text = $"Controls: {playerData.GetControlScheme()}";
             controlsText.text += $"\nReady: {readyControlName}";
             controlsText.text += $"\nDisconnect: {disconnectControlName}";
         }

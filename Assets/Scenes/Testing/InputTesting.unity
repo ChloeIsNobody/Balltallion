@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 227675521}
   - component: {fileID: 227675520}
   m_Layer: 0
-  m_Name: PlayerManager
+  m_Name: InputManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5319915815264675692, guid: 4234d33ced146db48862ffd79538d845, type: 3}
   m_PrefabInstance: {fileID: 7448868212646791082}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1959754577}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac8c5009fa1a4f2fa70431155bcd9b1e, type: 3}
@@ -430,7 +430,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.SimpleWaveAnimator
   frequency: 0.25
-  timeOffset: 0
+  timeOffset: 0.25
   positionOffset: {x: 0, y: 0, z: 0}
   positionTimeOffset: 0
   rotationOffset: 3
@@ -713,6 +713,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1814875260 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4723702506111191501, guid: 4234d33ced146db48862ffd79538d845, type: 3}
+  m_PrefabInstance: {fileID: 1964850871}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1959754577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4723702506111191501, guid: 4234d33ced146db48862ffd79538d845, type: 3}
+  m_PrefabInstance: {fileID: 7448868212646791082}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1959754580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959754577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60215b62a9b42d2803201b77bc0484c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.SimpleWaveAnimator
+  frequency: 0.25
+  timeOffset: 0
+  positionOffset: {x: 0, y: 0, z: 0}
+  positionTimeOffset: 0
+  rotationOffset: 1.2
+  rotationTimeOffset: 0.25
+  scaleOffset: {x: 0.02, y: -0.02, z: 0}
+  scaleTimeOffset: 0
 --- !u!1001 &1964850871
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -721,10 +751,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1435861648}
     m_Modifications:
-    - target: {fileID: 6021208579572472, guid: 4234d33ced146db48862ffd79538d845, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
     - target: {fileID: 331374952571573850, guid: 4234d33ced146db48862ffd79538d845, type: 3}
       propertyPath: m_Color.b
       value: 0.7137255
@@ -852,7 +878,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4723702506111191501, guid: 4234d33ced146db48862ffd79538d845, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1964850878}
   m_SourcePrefab: {fileID: 100100000, guid: 4234d33ced146db48862ffd79538d845, type: 3}
 --- !u!224 &1964850872 stripped
 RectTransform:
@@ -864,12 +893,32 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5319915815264675692, guid: 4234d33ced146db48862ffd79538d845, type: 3}
   m_PrefabInstance: {fileID: 1964850871}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1814875260}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac8c5009fa1a4f2fa70431155bcd9b1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.PlayerPanelUI
+--- !u!114 &1964850878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814875260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f60215b62a9b42d2803201b77bc0484c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.SimpleWaveAnimator
+  frequency: 0.25
+  timeOffset: 0.5
+  positionOffset: {x: 0, y: 0, z: 0}
+  positionTimeOffset: 0
+  rotationOffset: 1.2
+  rotationTimeOffset: 0.25
+  scaleOffset: {x: 0.02, y: -0.02, z: 0}
+  scaleTimeOffset: 0
 --- !u!1001 &7448868212646791082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -965,7 +1014,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4723702506111191501, guid: 4234d33ced146db48862ffd79538d845, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1959754580}
   m_SourcePrefab: {fileID: 100100000, guid: 4234d33ced146db48862ffd79538d845, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

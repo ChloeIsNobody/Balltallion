@@ -10,7 +10,7 @@ using UnityEngine.InputSystem.Users;
 
 namespace Balltallion.Input
 {
-    public class PlayerManager : MonoBehaviour
+    public class InputManager : MonoBehaviour
     {
         [SerializeField] private PlayerInput playerInputPrefab;
         [SerializeField] private InputActionAsset playerActionAsset;
@@ -70,15 +70,17 @@ namespace Balltallion.Input
         {
             if (GetNumConnectedPlayers() >= playerLimit) return;
             
-            PlayerInput newPlayer =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
+            PlayerInput newPlayerInput =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
                 controlScheme, -1, pairWithDevice);
-            newPlayer.transform.SetParent(transform);
+            newPlayerInput.transform.SetParent(transform);
 
             int openSlotIdx = FindNextOpenPlayerSlot();
             if (openSlotIdx < 0) return;
-            localPlayers[openSlotIdx].Connect(newPlayer);
+            
+            LocalPlayerSO localPlayer = localPlayers[openSlotIdx];
+            localPlayer.Connect(newPlayerInput);
             playerPanels[openSlotIdx].SetActive(true);
-            playerPanels[openSlotIdx].SetPlayerInput(newPlayer);
+            playerPanels[openSlotIdx].LoadPlayerData(localPlayer);
         }
 
         private int FindNextOpenPlayerSlot()

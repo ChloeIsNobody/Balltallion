@@ -4,13 +4,16 @@ using UnityEngine.InputSystem;
 
 namespace Balltallion.Input
 {
-    [CreateAssetMenu(menuName = "Balltallion/LocalPlayerSO", fileName = "LocalPlayerSO")]
+    [CreateAssetMenu(menuName = "Balltallion/Input/LocalPlayer", fileName = "LocalPlayer")]
     public class LocalPlayerSO : ScriptableObject
     {
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
+
+        [SerializeField] private DeviceListSO deviceList;
         
         private PlayerInput playerInput;
+        private DeviceDataSO deviceData;
 
         private bool isConnected;
 
@@ -24,6 +27,7 @@ namespace Balltallion.Input
             newPlayerInput.onDeviceLost += OnDeviceLost;
             newPlayerInput.onDeviceRegained += OnDeviceRegained;
             playerInput = newPlayerInput;
+            deviceData = deviceList.GetDeviceData(newPlayerInput.devices[0]);
             
             isConnected = true;
         }
@@ -38,6 +42,7 @@ namespace Balltallion.Input
                 playerInput.onDeviceRegained -= OnDeviceRegained;
             }
             playerInput = null;
+            deviceData = null;
             
             isConnected = false;
         }
@@ -63,7 +68,9 @@ namespace Balltallion.Input
         public string GetDisplayName() => displayName;
         public int GetPlayerNumber() => playerNumber;
         public string GetControlScheme() => playerInput?.currentControlScheme ?? "None";
-        public string GetDevice() => playerInput?.devices[0].displayName ?? "None";
+        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].name;
+        public Sprite GetIconForAction(string action) => deviceData.GetIconForAction(action);
+        public Sprite GetDeviceIcon() => deviceData.icon;
         public bool IsConnected() => isConnected;
     }
 }

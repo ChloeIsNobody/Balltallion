@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.LocalPlayerSO
   displayName: Player 2
   playerNumber: 2
+  deviceList: {fileID: 11400000, guid: 8a67468f9289bd6458bd912f49408d1d, type: 2}
