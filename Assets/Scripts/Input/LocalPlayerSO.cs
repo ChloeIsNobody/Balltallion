@@ -51,7 +51,7 @@ namespace Balltallion.Input
         {
             if (context.phase == InputActionPhase.Performed)
             {
-                Debug.Log($"{displayName} performed {context.action.name}!");
+                Debug.Log($"{displayName} performed {context.action.name} with {context.control.name}!");
             }
         }
 
@@ -71,6 +71,7 @@ namespace Balltallion.Input
         public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].name;
         public Sprite GetIconForAction(string action) => deviceData.GetIconForAction(action);
         public Sprite GetDeviceIcon() => deviceData.icon;
+        public InputDevice GetDevice() => playerInput.devices[0];
         public bool IsConnected() => isConnected;
     }
 }

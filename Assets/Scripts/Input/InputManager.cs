@@ -17,8 +17,10 @@ namespace Balltallion.Input
 
         [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private List<PlayerPanelUI> playerPanels;
+        [SerializeField] private GameObject splitKeyboardPrompt;
         
         private const int playerLimit = 2;
+        private bool canActivateSplitKeyboard;
 
         private void Awake()
         {
@@ -27,6 +29,7 @@ namespace Balltallion.Input
             
             // Ensure local players start disconnected
             foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
+            splitKeyboardPrompt.SetActive(false);
         }
 
         private void OnEnable()
@@ -43,7 +46,13 @@ namespace Balltallion.Input
 
         private void Update()
         {
-            
+            canActivateSplitKeyboard = GetNumConnectedPlayers() == 0;
+            splitKeyboardPrompt.gameObject.SetActive(canActivateSplitKeyboard);
+            if (Keyboard.current.spaceKey.isPressed)
+            {
+                // Join player with the same device as player 1 (keyboard) but with the alternative control scheme
+                JoinPlayer("KeyboardRight", localPlayers[0].GetDevice());
+            }
         }
         
         /*
@@ -55,6 +64,13 @@ namespace Balltallion.Input
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
             
             Debug.Log($"Unpaired device used: {control.device.displayName}");
+
+            if (canActivateSplitKeyboard && control.device is Keyboard keyboard && control.displayName == "Space")
+            {
+                ActivateSplitKeyboard(keyboard);
+                return;
+            }
+            
             InputControlScheme? potentialControlScheme =
                 InputControlScheme.FindControlSchemeForDevice(control.device, playerActionAsset.controlSchemes);
 
@@ -64,6 +80,12 @@ namespace Balltallion.Input
                 Debug.Log($"Found control scheme: {controlScheme.name}");
                 JoinPlayer(controlScheme.name, control.device);
             }
+        }
+
+        private void ActivateSplitKeyboard(Keyboard keyboardDevice)
+        {
+            JoinPlayer("KeyboardLeft", keyboardDevice);
+            JoinPlayer("KeyboardRight", keyboardDevice);
         }
         
         private void JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
