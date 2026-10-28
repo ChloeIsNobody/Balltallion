@@ -33,6 +33,7 @@ namespace Balltallion.Input
             inputRelay.OnLeaveTriggered += LeavePressed;
             
             isConnected = true;
+            isReady = false;
             OnConnected?.Invoke();
         }
 

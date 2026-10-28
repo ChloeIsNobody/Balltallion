@@ -8,6 +8,7 @@ namespace Balltallion.UI.DevicePairing
     public class PlayerPanelUI : MonoBehaviour
     {
         [SerializeField] private LocalPlayerSO trackedPlayer;
+        private PlayerInputRelaySO inputRelay;
         
         [Header("References")]
         [SerializeField] private TextMeshProUGUI controlsText;
@@ -19,6 +20,7 @@ namespace Balltallion.UI.DevicePairing
         [SerializeField] private TextMeshProUGUI readyText;
         [SerializeField] private Image leaveIcon;
         [SerializeField] private GameObject joinPrompt;
+        [SerializeField] private GameObject disconnectedFlair;
 
         [Header("Style")]
         [SerializeField] private Sprite activatedSprite;
@@ -26,6 +28,11 @@ namespace Balltallion.UI.DevicePairing
         [SerializeField] private Color deactivatedColor;
         [SerializeField] private Color readyColor;
 
+        private void Awake()
+        {
+            inputRelay = trackedPlayer.GetInputRelay();
+        }
+        
         private void Start()
         {
             SetActive(false);
@@ -37,6 +44,8 @@ namespace Balltallion.UI.DevicePairing
             trackedPlayer.OnDisconnected += OnPlayerDisconnected;
             trackedPlayer.OnReadied += OnPlayerReadied;
             trackedPlayer.OnUnreadied += OnPlayerUnreadied;
+            inputRelay.OnDeviceLost += OnDeviceLost;
+            inputRelay.OnDeviceRegained += OnDeviceRegained;
         }
 
         private void OnDisable()
@@ -45,6 +54,8 @@ namespace Balltallion.UI.DevicePairing
             trackedPlayer.OnDisconnected -= OnPlayerDisconnected;
             trackedPlayer.OnReadied -= OnPlayerReadied;
             trackedPlayer.OnUnreadied -= OnPlayerUnreadied;
+            inputRelay.OnDeviceLost -= OnDeviceLost;
+            inputRelay.OnDeviceRegained -= OnDeviceRegained;
         }
 
         private void OnPlayerConnected()
@@ -70,7 +81,16 @@ namespace Balltallion.UI.DevicePairing
             readyIcon.color = Color.white;
             readyText.color = Color.white;
         }
-        
+
+        private void OnDeviceLost()
+        {
+            disconnectedFlair.SetActive(true);
+        }
+
+        private void OnDeviceRegained()
+        {
+            disconnectedFlair.SetActive(false);
+        }
         
         private void SetActive(bool active)
         {
