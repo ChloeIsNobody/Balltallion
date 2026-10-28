@@ -15,7 +15,55 @@ MonoBehaviour:
   displayName: Keyboard
   icon: {fileID: 21300000, guid: 7b2d6d04a2d77f0488431706d0fb139d, type: 3}
   iconMappingsList:
-  - actionName: Ready
+  - controlName: A
+    icon: {fileID: 21300000, guid: ca6a4c128c912db448d27f25d6c914e5, type: 3}
+  - controlName: B
+    icon: {fileID: 21300000, guid: 68376c1b0949896418fbc70b71001016, type: 3}
+  - controlName: C
+    icon: {fileID: 21300000, guid: d327b9d89ad018544bb1323f6a6ffe7a, type: 3}
+  - controlName: D
     icon: {fileID: 21300000, guid: c01cc6c7f0b2f1848931b5f160f7f271, type: 3}
-  - actionName: Leave
+  - controlName: E
+    icon: {fileID: 21300000, guid: a72a819b88f7b614db5e21ddfa086bf4, type: 3}
+  - controlName: F
+    icon: {fileID: 21300000, guid: acc69d76c7506684399c9ada6b085b76, type: 3}
+  - controlName: G
+    icon: {fileID: 21300000, guid: cf8374cfb2854614e8ef2f6afa108242, type: 3}
+  - controlName: H
+    icon: {fileID: 21300000, guid: 6a2cb190cdcb6964a9f6d1b7788e1274, type: 3}
+  - controlName: I
+    icon: {fileID: 21300000, guid: fe7ac95b0b4eac240a5a35e728b3dc24, type: 3}
+  - controlName: J
+    icon: {fileID: 21300000, guid: 774671edb7fdee846bd9217c3afacb31, type: 3}
+  - controlName: K
+    icon: {fileID: 21300000, guid: 5b7cbab1720b0394a98a1deef987dd18, type: 3}
+  - controlName: L
+    icon: {fileID: 21300000, guid: 7872603037f99fe44a1b1a9f3d44d978, type: 3}
+  - controlName: M
+    icon: {fileID: 21300000, guid: 75793f7ec9aecc742949d7cdf8824c25, type: 3}
+  - controlName: N
+    icon: {fileID: 21300000, guid: ea8cd3ea6b69ebf4b90e33893bc0cf4d, type: 3}
+  - controlName: O
+    icon: {fileID: 21300000, guid: 5f42424173a76494cb4ddc433e082fef, type: 3}
+  - controlName: P
+    icon: {fileID: 21300000, guid: 2c122af5890ec70409002da5924ffd93, type: 3}
+  - controlName: Q
     icon: {fileID: 21300000, guid: 94739f6b00d28bb438a60e9334dfec7d, type: 3}
+  - controlName: R
+    icon: {fileID: 21300000, guid: 670dbaa5876a15a44a223390a2534054, type: 3}
+  - controlName: S
+    icon: {fileID: 21300000, guid: 9b030a809c7cd504fa0005b08d41a23d, type: 3}
+  - controlName: T
+    icon: {fileID: 21300000, guid: 5bf1c8ec37338eb41a503dec9d4b8757, type: 3}
+  - controlName: U
+    icon: {fileID: 21300000, guid: 0d0a0eff119b16d4caeffc624cb306ce, type: 3}
+  - controlName: V
+    icon: {fileID: 21300000, guid: 55bf1f0197f3ec045b3f9acc4582e963, type: 3}
+  - controlName: W
+    icon: {fileID: 21300000, guid: 3717050b5b28b60489632a9850b8cb1f, type: 3}
+  - controlName: X
+    icon: {fileID: 21300000, guid: 3aefcb4dbc547944e92571aee1546e4f, type: 3}
+  - controlName: Y
+    icon: {fileID: 21300000, guid: c7e154be0cef4e245a1a8b73b6a7669c, type: 3}
+  - controlName: Z
+    icon: {fileID: 21300000, guid: babca9ccf5c17984d950533e9e6ba4bc, type: 3}

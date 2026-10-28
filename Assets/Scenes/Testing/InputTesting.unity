@@ -434,9 +434,9 @@ MonoBehaviour:
   timeOffset: 0.25
   positionOffset: {x: 0, y: 0, z: 0}
   positionTimeOffset: 0
-  rotationOffset: 3
+  rotationOffset: 1.2
   rotationTimeOffset: 0.25
-  scaleOffset: {x: 0.05, y: -0.05, z: 0}
+  scaleOffset: {x: 0.025, y: -0.025, z: 0}
   scaleTimeOffset: 0
 --- !u!1 &1085996301
 GameObject:

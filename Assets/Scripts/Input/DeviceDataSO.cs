@@ -16,17 +16,17 @@ namespace Balltallion.Input
         [Serializable]
         private struct IconMapping
         {
-            public string actionName;
+            public string controlName;
             public Sprite icon;
         }
 
         private void OnValidate()
         {
             iconMappings = new Dictionary<string, Sprite>();
-            foreach (var mapping in iconMappingsList) iconMappings.Add(mapping.actionName, mapping.icon);
+            foreach (var mapping in iconMappingsList) iconMappings.Add(mapping.controlName, mapping.icon);
         }
         
-        public Sprite GetIconForAction(string actionName) => iconMappings.ContainsKey(actionName) ? iconMappings[actionName] : null;
+        public Sprite GetIconForControl(string actionName) => iconMappings.ContainsKey(actionName) ? iconMappings[actionName] : null;
     }
     
     

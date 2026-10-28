@@ -68,8 +68,15 @@ namespace Balltallion.Input
         public string GetDisplayName() => displayName;
         public int GetPlayerNumber() => playerNumber;
         public string GetControlScheme() => playerInput?.currentControlScheme ?? "None";
-        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].name;
-        public Sprite GetIconForAction(string action) => deviceData.GetIconForAction(action);
+
+        public Sprite GetIconForAction(string action)
+        {
+            string controlName = GetControlForAction(action);
+            return deviceData.GetIconForControl(controlName);
+        }
+        
+        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].displayName;
+
         public Sprite GetDeviceIcon() => deviceData.icon;
         public InputDevice GetDevice() => playerInput.devices[0];
         public bool IsConnected() => isConnected;
