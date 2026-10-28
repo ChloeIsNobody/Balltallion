@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.DeviceDataSO
   displayName: Keyboard
   icon: {fileID: 21300000, guid: 7b2d6d04a2d77f0488431706d0fb139d, type: 3}
+  missingControlIcon: {fileID: 21300000, guid: 1d26f0da2b755604ab4b244b2f204c8a, type: 3}
   iconMappingsList:
   - controlName: A
     icon: {fileID: 21300000, guid: ca6a4c128c912db448d27f25d6c914e5, type: 3}
@@ -87,3 +88,29 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: af2585d1aa9ca3b438d2a2fb02dcbdeb, type: 3}
   - controlName: 9
     icon: {fileID: 21300000, guid: 8d54da13589b75744bf0014d3a409fc6, type: 3}
+  - controlName: Space
+    icon: {fileID: 21300000, guid: 8b9790aafd49d4840b7e21ca6600c6e1, type: 3}
+  - controlName: Esc
+    icon: {fileID: 21300000, guid: ab81f3747197c2f40a8c8d990a9afcae, type: 3}
+  - controlName: Enter
+    icon: {fileID: 21300000, guid: 8f7585d2e4bdc5b4897ca47c27f16056, type: 3}
+  - controlName: Shift
+    icon: {fileID: 21300000, guid: 12f1278201de1904e9d828b9e2c31536, type: 3}
+  - controlName: Right Shift
+    icon: {fileID: 21300000, guid: 12f1278201de1904e9d828b9e2c31536, type: 3}
+  - controlName: Tab
+    icon: {fileID: 21300000, guid: 751ea4249e49fd847987480abb404666, type: 3}
+  - controlName: Ctrl
+    icon: {fileID: 21300000, guid: 94acbd9bda7c66544842fc86397b57b3, type: 3}
+  - controlName: Alt
+    icon: {fileID: 21300000, guid: 518b7111deef64a43af2bf819bf8801e, type: 3}
+  - controlName: Right Alt
+    icon: {fileID: 21300000, guid: 518b7111deef64a43af2bf819bf8801e, type: 3}
+  - controlName: Up
+    icon: {fileID: 21300000, guid: b1998134c4ca63a4faa00da1bbcca7bd, type: 3}
+  - controlName: Down
+    icon: {fileID: 21300000, guid: fdd421f8b36472f439435cd3fba91fd3, type: 3}
+  - controlName: Left
+    icon: {fileID: 21300000, guid: b5d1c57dcb270064899aef84eea6f1fa, type: 3}
+  - controlName: Right
+    icon: {fileID: 21300000, guid: 0858fe35f42352949b57a66772c97834, type: 3}

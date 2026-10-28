@@ -14,12 +14,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.DeviceDataSO
   displayName: Playstation Controller
   icon: {fileID: 21300000, guid: 6d7a3497b5bd9dc4389f0e2bd369e859, type: 3}
+  missingControlIcon: {fileID: 21300000, guid: 1d26f0da2b755604ab4b244b2f204c8a, type: 3}
   iconMappingsList:
-  - controlName: southButton
+  - controlName: Cross
     icon: {fileID: 21300000, guid: c69c9499893dca14b92ce03b666778d5, type: 3}
-  - controlName: eastButton
+  - controlName: Circle
     icon: {fileID: 21300000, guid: c763aee03e4675d458929ee3ceba7dd5, type: 3}
-  - controlName: northButton
+  - controlName: Triangle
     icon: {fileID: 21300000, guid: 656db9c74fced2e4a8108c26322d3808, type: 3}
-  - controlName: westButton
+  - controlName: Square
     icon: {fileID: 21300000, guid: b1a6ef1ac6d1eb944b07db46d9491fb7, type: 3}
+  - controlName: L3
+    icon: {fileID: 21300000, guid: 73bf73450544cf8458281582cecfebb8, type: 3}
+  - controlName: R3
+    icon: {fileID: 21300000, guid: 0c7c70285ad5f3c4da3434ae6abba31d, type: 3}
+  - controlName: D-Pad Up
+    icon: {fileID: 21300000, guid: 95297bc61867ee1498204031c805daaf, type: 3}
+  - controlName: D-Pad Down
+    icon: {fileID: 21300000, guid: 34cda555bf19bc84bb1334e5246984f6, type: 3}
+  - controlName: D-Pad Left
+    icon: {fileID: 21300000, guid: 90f9615366dec104a8a6644e593ebf49, type: 3}
+  - controlName: D-Pad Right
+    icon: {fileID: 21300000, guid: 26f6e923a5238da45ae66f8f3a1d6fc5, type: 3}
+  - controlName: L1
+    icon: {fileID: 21300000, guid: 92bd5dc365c20904bb7f663e81ef67ed, type: 3}
+  - controlName: R1
+    icon: {fileID: 21300000, guid: e9b81e3af1768f64199cd5af83e0d098, type: 3}
+  - controlName: L2
+    icon: {fileID: 21300000, guid: d849a601c8a31bc4fa4c38f9883a16e9, type: 3}
+  - controlName: R2
+    icon: {fileID: 21300000, guid: f81b8f30c77bdd6408dc96f8169f15a4, type: 3}
+  - controlName: Touchpad Press
+    icon: {fileID: 21300000, guid: 14fbab93878a28548abc6831c52e3e06, type: 3}
+  - controlName: Options
+    icon: {fileID: 21300000, guid: a691be1a0a29df84d882453e6edabc97, type: 3}
+  - controlName: Share
+    icon: {fileID: 21300000, guid: 62473c5a33691d64ab79c60fec5af069, type: 3}
