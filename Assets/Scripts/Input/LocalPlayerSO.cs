@@ -9,6 +9,8 @@ namespace Balltallion.Input
     {
         public event Action OnConnected;
         public event Action OnDisconnected;
+        public event Action OnReadied;
+        public event Action OnUnreadied;
         
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
@@ -18,6 +20,7 @@ namespace Balltallion.Input
         [SerializeField] private bool logToConsole;
 
         private bool isConnected;
+        private bool isReady;
         
         public void Connect(PlayerInput newPlayerInput)
         {
@@ -48,7 +51,9 @@ namespace Balltallion.Input
 
         public void ReadyPressed()
         {
-            
+            isReady = !isReady;
+            if (isReady) OnReadied?.Invoke();
+            else OnUnreadied?.Invoke();
         }
 
         public void LeavePressed()
@@ -59,5 +64,6 @@ namespace Balltallion.Input
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
         public string GetDisplayName() => displayName;
         public bool IsConnected() => isConnected;
+        public bool IsReady() => isReady;
     }
 }

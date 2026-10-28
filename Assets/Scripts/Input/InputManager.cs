@@ -51,11 +51,6 @@ namespace Balltallion.Input
         {
             canActivateSplitKeyboard = GetNumConnectedPlayers() == 0;
             splitKeyboardPrompt.gameObject.SetActive(canActivateSplitKeyboard);
-            if (Keyboard.current.spaceKey.isPressed)
-            {
-                // Join player with the same device as player 1 (keyboard) but with the alternative control scheme
-                JoinPlayer("KeyboardRight", localPlayers[0].GetInputRelay().GetDevice());
-            }
         }
         
         /*

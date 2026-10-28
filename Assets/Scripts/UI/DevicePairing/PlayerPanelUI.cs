@@ -16,6 +16,7 @@ namespace Balltallion.UI.DevicePairing
         
         [SerializeField] private GameObject buttonObjects;
         [SerializeField] private Image readyIcon;
+        [SerializeField] private TextMeshProUGUI readyText;
         [SerializeField] private Image leaveIcon;
         [SerializeField] private GameObject joinPrompt;
 
@@ -23,6 +24,7 @@ namespace Balltallion.UI.DevicePairing
         [SerializeField] private Sprite activatedSprite;
         [SerializeField] private Color activatedColor;
         [SerializeField] private Color deactivatedColor;
+        [SerializeField] private Color readyColor;
 
         private void Start()
         {
@@ -33,15 +35,19 @@ namespace Balltallion.UI.DevicePairing
         {
             trackedPlayer.OnConnected += OnPlayerConnected;
             trackedPlayer.OnDisconnected += OnPlayerDisconnected;
+            trackedPlayer.OnReadied += OnPlayerReadied;
+            trackedPlayer.OnUnreadied += OnPlayerUnreadied;
         }
 
         private void OnDisable()
         {
             trackedPlayer.OnConnected -= OnPlayerConnected;
             trackedPlayer.OnDisconnected -= OnPlayerDisconnected;
+            trackedPlayer.OnReadied -= OnPlayerReadied;
+            trackedPlayer.OnUnreadied -= OnPlayerUnreadied;
         }
 
-        public void OnPlayerConnected()
+        private void OnPlayerConnected()
         {
             SetActive(true);
             PlayerInputRelaySO inputRelay = trackedPlayer.GetInputRelay();
@@ -51,9 +57,22 @@ namespace Balltallion.UI.DevicePairing
             leaveIcon.sprite = inputRelay.GetIconForAction("Leave");
         }
         
-        public void OnPlayerDisconnected() => SetActive(false);
+        private void OnPlayerDisconnected() => SetActive(false);
+
+        private void OnPlayerReadied()
+        {
+            readyIcon.color = readyColor;
+            readyText.color = readyColor;
+        }
+
+        private void OnPlayerUnreadied()
+        {
+            readyIcon.color = Color.white;
+            readyText.color = Color.white;
+        }
         
-        public void SetActive(bool active)
+        
+        private void SetActive(bool active)
         {
             panelImage.color = active ? activatedColor : deactivatedColor;
             deviceIcon.enabled = active;
