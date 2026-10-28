@@ -15,7 +15,11 @@ MonoBehaviour:
   displayName: Xbox Controller
   icon: {fileID: 21300000, guid: 17769aa45d07bfe45bbb3f8fef98694b, type: 3}
   iconMappingsList:
-  - actionName: Ready
+  - controlName: southButton
     icon: {fileID: 21300000, guid: 7e50745b469dfc740a03d418659507ed, type: 3}
-  - actionName: Leave
+  - controlName: eastButton
     icon: {fileID: 21300000, guid: a6b69bc26004b37468ece54cb0e03a57, type: 3}
+  - controlName: northButton
+    icon: {fileID: 21300000, guid: 25b1f98972ac5aa4ea7d35aa87ca3ad1, type: 3}
+  - controlName: westButton
+    icon: {fileID: 21300000, guid: 33ceafbec6750eb42a7e9a0ec1403f1d, type: 3}
