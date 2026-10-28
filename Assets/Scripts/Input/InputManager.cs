@@ -12,36 +12,44 @@ namespace Balltallion.Input
 {
     public class InputManager : MonoBehaviour
     {
+        public static InputManager Instance { get; private set; }
+        
         [SerializeField] private PlayerInput playerInputPrefab;
         [SerializeField] private InputActionAsset playerActionAsset;
 
         [SerializeField] private List<LocalPlayerSO> localPlayers;
-        [SerializeField] private GameObject splitKeyboardPrompt;
         
         private const int playerLimit = 2;
         private bool canActivateSplitKeyboard;
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
             
-            // Ensure local players start disconnected
-            foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
-            splitKeyboardPrompt.SetActive(false);
+            DontDestroyOnLoad(gameObject);
         }
 
-        private void OnDestroy()
+        public void StartDevicePairing()
         {
-            foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
-        }
-
-        private void OnEnable()
-        {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.Disconnect();
+                localPlayer.SetReady(false);
+            }
             ++InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
         }
 
-        private void OnDisable()
+        public void EndDevicePairing()
         {
             --InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
@@ -50,7 +58,6 @@ namespace Balltallion.Input
         private void Update()
         {
             canActivateSplitKeyboard = GetNumConnectedPlayers() == 0;
-            splitKeyboardPrompt.gameObject.SetActive(canActivateSplitKeyboard);
         }
         
         /*
@@ -171,5 +178,7 @@ namespace Balltallion.Input
 
             return false;
         }
+        
+        public bool CanActivateSplitKeyboard => canActivateSplitKeyboard;
     }
 }

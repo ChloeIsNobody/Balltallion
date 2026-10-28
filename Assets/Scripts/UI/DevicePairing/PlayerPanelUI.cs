@@ -42,54 +42,31 @@ namespace Balltallion.UI.DevicePairing
         {
             trackedPlayer.OnConnected += OnPlayerConnected;
             trackedPlayer.OnDisconnected += OnPlayerDisconnected;
-            trackedPlayer.OnReadied += OnPlayerReadied;
-            trackedPlayer.OnUnreadied += OnPlayerUnreadied;
-            inputRelay.OnDeviceLost += OnDeviceLost;
-            inputRelay.OnDeviceRegained += OnDeviceRegained;
         }
 
         private void OnDisable()
         {
             trackedPlayer.OnConnected -= OnPlayerConnected;
             trackedPlayer.OnDisconnected -= OnPlayerDisconnected;
-            trackedPlayer.OnReadied -= OnPlayerReadied;
-            trackedPlayer.OnUnreadied -= OnPlayerUnreadied;
-            inputRelay.OnDeviceLost -= OnDeviceLost;
-            inputRelay.OnDeviceRegained -= OnDeviceRegained;
         }
 
         private void OnPlayerConnected()
         {
             SetActive(true);
-            PlayerInputRelaySO inputRelay = trackedPlayer.GetInputRelay();
+            inputRelay = trackedPlayer.GetInputRelay();
             deviceIcon.sprite = inputRelay.GetDeviceIcon();
-            controlsText.text = $"Controls: {inputRelay.GetControlScheme()}";
+            controlsText.text = $"Controls: {inputRelay.GetDeviceData().displayName}";
             readyIcon.sprite = inputRelay.GetIconForAction("Ready");
             leaveIcon.sprite = inputRelay.GetIconForAction("Leave");
         }
         
         private void OnPlayerDisconnected() => SetActive(false);
 
-        private void OnPlayerReadied()
+        private void Update()
         {
-            readyIcon.color = readyColor;
-            readyText.color = readyColor;
-        }
-
-        private void OnPlayerUnreadied()
-        {
-            readyIcon.color = Color.white;
-            readyText.color = Color.white;
-        }
-
-        private void OnDeviceLost()
-        {
-            disconnectedFlair.SetActive(true);
-        }
-
-        private void OnDeviceRegained()
-        {
-            disconnectedFlair.SetActive(false);
+            readyIcon.color = trackedPlayer.IsReady() ? readyColor : Color.white;
+            readyText.color = trackedPlayer.IsReady() ? readyColor : Color.white;
+            disconnectedFlair.SetActive(inputRelay.IsDeviceLost());
         }
         
         private void SetActive(bool active)

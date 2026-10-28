@@ -1,6 +1,9 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Balltallion.Input
 {
@@ -22,6 +25,38 @@ namespace Balltallion.Input
         private bool isConnected;
         private bool isReady;
         
+        private void OnEnable()
+        {
+            ResetState();
+            #if UNITY_EDITOR
+            EditorApplication.playModeStateChanged += LogPlayModeState;
+            #endif
+        }
+
+        private void OnDisable()
+        {
+            ResetState();
+            #if UNITY_EDITOR
+            EditorApplication.playModeStateChanged -= LogPlayModeState;
+            #endif
+        }
+
+        #if UNITY_EDITOR
+        private void LogPlayModeState(PlayModeStateChange state)
+        {
+            if (state == PlayModeStateChange.EnteredPlayMode || state == PlayModeStateChange.ExitingPlayMode)
+            {
+                ResetState();
+            }
+        }
+        #endif
+
+        private void ResetState()
+        {
+            Disconnect();
+            isReady = false;
+        }
+
         public void Connect(PlayerInput newPlayerInput)
         {
             if (isConnected || !newPlayerInput) return;
@@ -47,6 +82,7 @@ namespace Balltallion.Input
             inputRelay.OnLeaveTriggered -= LeavePressed;
             
             isConnected = false;
+            isReady = false;
             OnDisconnected?.Invoke();
         }
 
@@ -56,6 +92,7 @@ namespace Balltallion.Input
             if (isReady) OnReadied?.Invoke();
             else OnUnreadied?.Invoke();
         }
+        public void SetReady(bool ready) => isReady = ready;
 
         public void LeavePressed()
         {

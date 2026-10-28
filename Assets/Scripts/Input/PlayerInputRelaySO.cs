@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
 
 namespace Balltallion.Input
 {
@@ -23,6 +22,7 @@ namespace Balltallion.Input
         private DeviceDataSO deviceData;
 
         private bool isConnected;
+        private bool isDeviceLost;
 
         public void Connect(PlayerInput newPlayerInput)
         {
@@ -37,6 +37,7 @@ namespace Balltallion.Input
             deviceData = deviceList.GetDeviceData(device);
             
             isConnected = true;
+            isDeviceLost = false;
         }
 
         public void Disconnect()
@@ -57,12 +58,14 @@ namespace Balltallion.Input
         private void OnDeviceLost_Callback(PlayerInput context)
         {
             if (logToConsole) Debug.Log($"{displayName} lost their device!");
+            isDeviceLost = true;
             OnDeviceLost?.Invoke();
         }
         
         private void OnDeviceRegained_Callback(PlayerInput context)
         {
             if (logToConsole) Debug.Log($"{displayName} regained their device!");
+            isDeviceLost = false;
             OnDeviceRegained?.Invoke();
         }
         
@@ -88,6 +91,8 @@ namespace Balltallion.Input
 
         public Sprite GetDeviceIcon() => deviceData.icon;
         public InputDevice GetDevice() => playerInput.devices[0];
+        public DeviceDataSO GetDeviceData() => deviceData;
         public bool IsConnected() => isConnected;
+        public bool IsDeviceLost() => isDeviceLost;
     }
 }
