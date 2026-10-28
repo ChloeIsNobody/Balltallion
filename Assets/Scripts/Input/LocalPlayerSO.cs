@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,78 +7,57 @@ namespace Balltallion.Input
     [CreateAssetMenu(menuName = "Balltallion/Input/LocalPlayer", fileName = "LocalPlayer")]
     public class LocalPlayerSO : ScriptableObject
     {
+        public event Action OnConnected;
+        public event Action OnDisconnected;
+        
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
-
-        [SerializeField] private DeviceListSO deviceList;
+        [SerializeField] private PlayerInputRelaySO inputRelay;
         
-        private PlayerInput playerInput;
-        private DeviceDataSO deviceData;
+        [Header("Debugging")]
+        [SerializeField] private bool logToConsole;
 
         private bool isConnected;
-
+        
         public void Connect(PlayerInput newPlayerInput)
         {
-            if (playerInput != null) Debug.LogError($"{name} is already connected to a player input! Disconnect it first before connecting a new one!", this);
+            if (isConnected || !newPlayerInput) return;
+            if (logToConsole) Debug.Log($"{displayName} connected!");
             
-            Debug.Log($"{displayName} connected!");
-            
-            newPlayerInput.onActionTriggered += OnActionTriggered;
-            newPlayerInput.onDeviceLost += OnDeviceLost;
-            newPlayerInput.onDeviceRegained += OnDeviceRegained;
-            playerInput = newPlayerInput;
-            deviceData = deviceList.GetDeviceData(newPlayerInput.devices[0]);
+            inputRelay.Connect(newPlayerInput);
+            inputRelay.displayName = displayName;
+            inputRelay.OnReadyTriggered += ReadyPressed;
+            inputRelay.OnLeaveTriggered += LeavePressed;
             
             isConnected = true;
+            OnConnected?.Invoke();
         }
 
         public void Disconnect()
         {
-            if (playerInput)
-            {
-                Debug.Log($"{displayName} disconnected!");
-                playerInput.onActionTriggered -= OnActionTriggered;
-                playerInput.onDeviceLost -= OnDeviceLost;
-                playerInput.onDeviceRegained -= OnDeviceRegained;
-            }
-            playerInput = null;
-            deviceData = null;
+            if (!isConnected) return;
+            if (logToConsole) Debug.Log($"{displayName} disconnected!");
+            
+            inputRelay.Disconnect();
+            inputRelay.OnReadyTriggered -= ReadyPressed;
+            inputRelay.OnLeaveTriggered -= LeavePressed;
             
             isConnected = false;
+            OnDisconnected?.Invoke();
         }
 
-        private void OnActionTriggered(InputAction.CallbackContext context)
+        public void ReadyPressed()
         {
-            if (context.phase == InputActionPhase.Performed)
-            {
-                Debug.Log($"{displayName} performed {context.action.name} with {context.control.name}!");
-            }
+            
         }
 
-        private void OnDeviceLost(PlayerInput context)
+        public void LeavePressed()
         {
-            Debug.Log($"{displayName} lost their device!");
+            Disconnect();
         }
         
-        private void OnDeviceRegained(PlayerInput context)
-        {
-            Debug.Log($"{displayName} regained their device!");
-        }
-        
+        public PlayerInputRelaySO GetInputRelay() => inputRelay;
         public string GetDisplayName() => displayName;
-        public int GetPlayerNumber() => playerNumber;
-        public string GetControlScheme() => playerInput?.currentControlScheme ?? "None";
-
-        public Sprite GetIconForAction(string action)
-        {
-            string controlName = GetControlForAction(action);
-            return deviceData.GetIconForControl(controlName);
-        }
-        
-        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].displayName;
-
-        public Sprite GetDeviceIcon() => deviceData.icon;
-        public InputDevice GetDevice() => playerInput.devices[0];
         public bool IsConnected() => isConnected;
     }
 }

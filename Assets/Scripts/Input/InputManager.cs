@@ -16,7 +16,6 @@ namespace Balltallion.Input
         [SerializeField] private InputActionAsset playerActionAsset;
 
         [SerializeField] private List<LocalPlayerSO> localPlayers;
-        [SerializeField] private List<PlayerPanelUI> playerPanels;
         [SerializeField] private GameObject splitKeyboardPrompt;
         
         private const int playerLimit = 2;
@@ -25,11 +24,15 @@ namespace Balltallion.Input
         private void Awake()
         {
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
-            if (playerPanels.Count != playerLimit) Debug.LogError("Player panel count doesn't match player limit");
             
             // Ensure local players start disconnected
             foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
             splitKeyboardPrompt.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            foreach(LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
         }
 
         private void OnEnable()
@@ -51,7 +54,7 @@ namespace Balltallion.Input
             if (Keyboard.current.spaceKey.isPressed)
             {
                 // Join player with the same device as player 1 (keyboard) but with the alternative control scheme
-                JoinPlayer("KeyboardRight", localPlayers[0].GetDevice());
+                JoinPlayer("KeyboardRight", localPlayers[0].GetInputRelay().GetDevice());
             }
         }
         
@@ -62,8 +65,6 @@ namespace Balltallion.Input
         {
             if (!(control is ButtonControl)) return;
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
-            
-            Debug.Log($"Unpaired device used: {control.device.displayName}");
 
             if (canActivateSplitKeyboard && control.device is Keyboard keyboard && control.displayName == "Space")
             {
@@ -77,7 +78,6 @@ namespace Balltallion.Input
             if (potentialControlScheme.HasValue)
             {
                 InputControlScheme controlScheme = potentialControlScheme.Value;
-                Debug.Log($"Found control scheme: {controlScheme.name}");
                 JoinPlayer(controlScheme.name, control.device);
             }
         }
@@ -101,8 +101,20 @@ namespace Balltallion.Input
             
             LocalPlayerSO localPlayer = localPlayers[openSlotIdx];
             localPlayer.Connect(newPlayerInput);
-            playerPanels[openSlotIdx].SetActive(true);
-            playerPanels[openSlotIdx].LoadPlayerData(localPlayer);
+            newPlayerInput.name = $"{localPlayer.GetDisplayName()} PlayerInput";
+            StartCoroutine(ActivateAfterDelay(newPlayerInput));
+        }
+
+        /*
+         * It's necessary to deactivate player input on the frame the player connects.
+         * This prevents scenarios where the player joins by pressing the leave button, and then the input is processed,
+         * causing the player to leave in the same frame.
+         */
+        private IEnumerator ActivateAfterDelay(PlayerInput playerInput)
+        {
+            playerInput.DeactivateInput();
+            yield return null;
+            playerInput.ActivateInput();
         }
 
         private int FindNextOpenPlayerSlot()
