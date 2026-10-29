@@ -9,7 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1582789096279851009}
+  - component: {fileID: 4720980196242221883}
   - component: {fileID: 5727255235581180981}
+  - component: {fileID: 736485414075421437}
   m_Layer: 5
   m_Name: VirtualCursor
   m_TagString: Untagged
@@ -37,6 +39,19 @@ RectTransform:
   m_AnchoredPosition: {x: 1066, y: 565}
   m_SizeDelta: {x: 170, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4720980196242221883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638752287052135436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3771eac65e924ce09b5c5248d4150181, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.VirtualCursorLinker
+  localPlayer: {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
 --- !u!114 &5727255235581180981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,10 +67,10 @@ MonoBehaviour:
   m_CursorMode: 0
   m_CursorGraphic: {fileID: 287882437738271235}
   m_CursorTransform: {fileID: 1582789096279851009}
-  m_CursorSpeed: 400
+  m_CursorSpeed: 1000
   m_ScrollSpeed: 45
   m_StickAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Stick
       m_Type: 0
@@ -66,9 +81,9 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
       m_Priority: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 7772340656921093067, guid: adb061446660d834883fd2369cb28c73, type: 3}
   m_LeftButtonAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Left Button
       m_Type: 0
@@ -79,9 +94,9 @@ MonoBehaviour:
       m_SingletonActionBindings: []
       m_Flags: 0
       m_Priority: 0
-    m_Reference: {fileID: 0}
+    m_Reference: {fileID: 5368488887937666799, guid: adb061446660d834883fd2369cb28c73, type: 3}
   m_MiddleButtonAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Middle Button
       m_Type: 0
@@ -94,7 +109,7 @@ MonoBehaviour:
       m_Priority: 0
     m_Reference: {fileID: 0}
   m_RightButtonAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Right Button
       m_Type: 0
@@ -107,7 +122,7 @@ MonoBehaviour:
       m_Priority: 0
     m_Reference: {fileID: 0}
   m_ForwardButtonAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Forward Button
       m_Type: 0
@@ -120,7 +135,7 @@ MonoBehaviour:
       m_Priority: 0
     m_Reference: {fileID: 0}
   m_BackButtonAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Back Button
       m_Type: 0
@@ -133,7 +148,7 @@ MonoBehaviour:
       m_Priority: 0
     m_Reference: {fileID: 0}
   m_ScrollWheelAction:
-    m_UseReference: 0
+    m_UseReference: 1
     m_Action:
       m_Name: Scroll Wheel
       m_Type: 0
@@ -145,6 +160,18 @@ MonoBehaviour:
       m_Flags: 0
       m_Priority: 0
     m_Reference: {fileID: 0}
+--- !u!225 &736485414075421437
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4638752287052135436}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5862530142414691150
 GameObject:
   m_ObjectHideFlags: 0

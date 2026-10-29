@@ -103,6 +103,7 @@ namespace Balltallion.Input
         public Sprite GetDeviceIcon() => deviceData.icon;
         public InputDevice GetDevice() => playerInput.devices[0];
         public DeviceDataSO GetDeviceData() => deviceData;
+        public InputActionAsset GetActionAsset() => playerInput.actions;
         public bool IsConnected() => isConnected;
         public bool IsDeviceLost() => isDeviceLost;
     }
@@ -110,6 +111,7 @@ namespace Balltallion.Input
     public enum ActionMaps
     {
         Pairing,
+        VirtualCursor,
         Battle
     }
 }

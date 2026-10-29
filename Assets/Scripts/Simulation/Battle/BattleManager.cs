@@ -18,8 +18,7 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private BallSpawner ballSpawner;
         [SerializeField] private BattleCountdownUI countdownUI;
         
-        [SerializeField] private LocalPlayerSO player1;
-        [SerializeField] private LocalPlayerSO player2;
+        [SerializeField] private List<LocalPlayerSO> localPlayers;
 
         public static TeamLoadout playerTeamLoadout;
         public static TeamLoadout enemyTeamLoadout;
@@ -41,6 +40,11 @@ namespace Balltallion.Simulation.Battle
 
         private void Start()
         {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);
+            }
+            
             if (playerTeamLoadout == null) Debug.LogWarning("Player team loadout not set!");
             if (enemyTeamLoadout == null) Debug.LogWarning("Enemy team loadout not set!");
             if (playerTeamLoadout != null && enemyTeamLoadout != null)
@@ -61,13 +65,13 @@ namespace Balltallion.Simulation.Battle
             {
                 if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
                 {
-                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), player1.GetInputRelay(), TeamNames.Player);
+                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), localPlayers[0].GetInputRelay(), TeamNames.Player);
                     Debug.Log("Input Relay set");
                 }
 
                 if (!currentEnemyBall && enemyTeamLoadout.HasNextBall())
                 {
-                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), player2.GetInputRelay(), TeamNames.Enemy);
+                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), localPlayers[1].GetInputRelay(), TeamNames.Enemy);
                 }
 
                 if (!currentPlayerBall && !playerTeamLoadout.HasNextBall()) { winner = TeamNames.Enemy; break; }

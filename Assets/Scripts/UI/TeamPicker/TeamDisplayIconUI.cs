@@ -1,10 +1,9 @@
-﻿using Balltallion.Simulation.Battle;
-using Balltallion.Simulation.Teams;
+﻿using Balltallion.Simulation.Teams;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.TeamPicker
+namespace Balltallion.UI.TeamPicker
 {
     public class TeamDisplayIconUI : MonoBehaviour
     {

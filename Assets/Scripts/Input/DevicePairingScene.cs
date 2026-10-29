@@ -55,11 +55,6 @@ namespace Balltallion.Input
             countdownText.text = "Go!";
             yield return new WaitForSeconds(1);
             inputManager.EndDevicePairing();
-
-            foreach (LocalPlayerSO localPlayer in localPlayers)
-            {
-                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);
-            }
             SceneManager.LoadScene("TeamPicker");
         }
 

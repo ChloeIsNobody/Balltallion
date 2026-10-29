@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Balltallion.Input;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Balltallion.TeamPicker
+namespace Balltallion.UI.TeamPicker
 {
     public class TeamPickerUI : MonoBehaviour
     {
+        [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private List<BallDataSO> selectableBalls;
         
         [Header("Ball Selection")]
@@ -44,6 +46,10 @@ namespace Balltallion.TeamPicker
             SetSelectedBall(0);
             playerTeamDisplay.UpdateDisplay(playerTeam);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.VirtualCursor);
+            }
         }
 
         private void OnEnable()
@@ -72,36 +78,7 @@ namespace Balltallion.TeamPicker
 
         private void Update()
         {
-            if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-            {
-                RotateSelectionLeft();
-            }
-            
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            {
-                RotateSelectionRight();
-            }
-
-            if (Keyboard.current.digit1Key.wasPressedThisFrame)
-            {
-                AddSelectedToPlayerTeam();
-            }
-
-            if (Keyboard.current.digit2Key.wasPressedThisFrame)
-            {
-                AddSelectedToEnemyTeam();
-            }
-
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                Application.Quit();
-            }
-            
             playButton.interactable = CanStartBattle();
-            if (Keyboard.current.enterKey.wasPressedThisFrame && CanStartBattle())
-            {
-                StartBattle();
-            }
         }
 
         private void RotateSelectionLeft()
@@ -116,12 +93,14 @@ namespace Balltallion.TeamPicker
 
         private void AddSelectedToPlayerTeam()
         {
+            if (playerTeam.Count >= 3) return;
             playerTeam.Add(selectedBallData);
             playerTeamDisplay.UpdateDisplay(playerTeam);
         }
 
         private void AddSelectedToEnemyTeam()
         {
+            if (enemyTeam.Count >= 3) return;
             enemyTeam.Add(selectedBallData);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
         }
