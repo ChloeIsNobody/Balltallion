@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Balltallion.Audio;
+using Balltallion.Input;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI.Battle;
 using NaughtyAttributes;
@@ -15,6 +17,9 @@ namespace Balltallion.Simulation.Battle
         
         [SerializeField] private BallSpawner ballSpawner;
         [SerializeField] private BattleCountdownUI countdownUI;
+        
+        [SerializeField] private LocalPlayerSO player1;
+        [SerializeField] private LocalPlayerSO player2;
 
         public static TeamLoadout playerTeamLoadout;
         public static TeamLoadout enemyTeamLoadout;
@@ -56,12 +61,13 @@ namespace Balltallion.Simulation.Battle
             {
                 if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
                 {
-                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), TeamNames.Player);
+                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), player1.GetInputRelay(), TeamNames.Player);
+                    Debug.Log("Input Relay set");
                 }
 
                 if (!currentEnemyBall && enemyTeamLoadout.HasNextBall())
                 {
-                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), TeamNames.Enemy);
+                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), player2.GetInputRelay(), TeamNames.Enemy);
                 }
 
                 if (!currentPlayerBall && !playerTeamLoadout.HasNextBall()) { winner = TeamNames.Enemy; break; }

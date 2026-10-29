@@ -32,6 +32,7 @@ namespace Balltallion.TeamPicker
 
         [Header("Other Stuff")]
         [SerializeField] private Button playButton;
+        [SerializeField] private Button backButton;
 
         private int selectedBallIdx = 0;
         private BallDataSO selectedBallData;
@@ -54,6 +55,7 @@ namespace Balltallion.TeamPicker
             clearPlayerTeamButton.onClick.AddListener(ClearPlayerTeam);
             clearEnemyTeamButton.onClick.AddListener(ClearEnemyTeam);
             playButton.onClick.AddListener(StartBattle);
+            backButton.onClick.AddListener(Back);
         }
 
         private void OnDisable()
@@ -65,6 +67,7 @@ namespace Balltallion.TeamPicker
             clearPlayerTeamButton.onClick.RemoveAllListeners();
             clearEnemyTeamButton.onClick.RemoveAllListeners();
             playButton.onClick.RemoveAllListeners();
+            backButton.onClick.RemoveAllListeners();
         }
 
         private void Update()
@@ -144,7 +147,12 @@ namespace Balltallion.TeamPicker
         {
             BattleManager.playerTeamLoadout = new TeamLoadout(playerTeam);
             BattleManager.enemyTeamLoadout = new TeamLoadout(enemyTeam);
-            SceneManager.LoadScene("Arena");
+            SceneManager.LoadScene("Battle");
+        }
+
+        private void Back()
+        {
+            SceneManager.LoadScene("DevicePairing");
         }
 
         private void SetSelectedBall(int newIdx)

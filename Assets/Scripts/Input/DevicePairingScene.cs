@@ -20,6 +20,7 @@ namespace Balltallion.Input
         private void Start()
         {
             inputManager = InputManager.Instance;
+            inputManager.StartDevicePairing();
             SetStateCoroutine(DevicePairingState());
         }
 
@@ -31,9 +32,7 @@ namespace Balltallion.Input
         private IEnumerator DevicePairingState()
         {
             countdownText.enabled = false;
-            inputManager.StartDevicePairing();
             yield return new WaitUntil(AreBothPlayersReady);
-            inputManager.EndDevicePairing();
             SetStateCoroutine(CountdownState());
         }
 
@@ -55,6 +54,12 @@ namespace Balltallion.Input
             
             countdownText.text = "Go!";
             yield return new WaitForSeconds(1);
+            inputManager.EndDevicePairing();
+
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);
+            }
             SceneManager.LoadScene("TeamPicker");
         }
 

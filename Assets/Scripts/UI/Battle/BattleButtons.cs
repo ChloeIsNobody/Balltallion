@@ -22,19 +22,6 @@ namespace Balltallion.UI.Battle
             restartButton.onClick.RemoveAllListeners();
             backButton.onClick.RemoveAllListeners();
         }
-        
-        private void Update()
-        {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
-            {
-                Return();
-            }
-
-            if (Keyboard.current.rKey.wasPressedThisFrame)
-            {
-                Restart();
-            }
-        }
 
         private void Restart()
         {

@@ -165,6 +165,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
   ballSpawner: {fileID: 1070797788}
   countdownUI: {fileID: 1857863436}
+  player1: {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
+  player2: {fileID: 11400000, guid: 8c23c1b8750e2f142805c49b805dad7b, type: 2}
   battleAudioHandler: {fileID: 308023262}
 --- !u!1 &194660383
 GameObject:

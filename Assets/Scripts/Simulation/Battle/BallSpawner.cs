@@ -1,4 +1,5 @@
-﻿using Balltallion.Simulation.Physics;
+﻿using Balltallion.Input;
+using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
 using Balltallion.TeamPicker;
 using NaughtyAttributes;
@@ -17,10 +18,11 @@ namespace Balltallion.Simulation.Battle
         [SerializeField, Range(0.0f, 360.0f)] private float enemyLaunchAngle = 0.0f;
         [SerializeField, Range(0.0f, 360.0f)] private float launchAngleSpread = 0.0f;
         
-        public BattleBall InstantiateBall(BallLoadout ballLoadout, TeamNames team)
+        public BattleBall InstantiateBall(BallLoadout ballLoadout, PlayerInputRelaySO inputRelay, TeamNames team)
         {
             BallDataSO ballData = ballLoadout.GetBallData();
             BattleBall ball = Instantiate(battleBallPrefab);
+            ball.SetInputRelay(inputRelay);
             ball.LoadBallData(ballData, team);
 
             Rect spawnRect = team == TeamNames.Player ? playerSpawnRect : enemySpawnRect;

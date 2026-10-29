@@ -8,6 +8,7 @@ namespace Balltallion.Simulation.Abilities
     {
         [SerializeField] private ActiveAbility activeAbility;
         [SerializeField] private TextMeshPro cooldownText;
+        [SerializeField] private SpriteRenderer iconSpriteRenderer;
 
         private void OnEnable()
         {
@@ -25,6 +26,11 @@ namespace Balltallion.Simulation.Abilities
             activeAbility.OnAbilityActivationBlocked -= OnAbilityActivationBlocked;
         }
 
+        private void Start()
+        {
+            iconSpriteRenderer.enabled = false;
+        }
+
         private void Update()
         {
             if (activeAbility.IsOnCooldown())
@@ -35,17 +41,20 @@ namespace Balltallion.Simulation.Abilities
 
         private void OnCooldownEntered()
         {
-            
+            cooldownText.enabled = true;
         }
 
         private void OnAbilityReady()
         {
-            cooldownText.text = activeAbility.GetInputName();
+            cooldownText.enabled = false;
+            iconSpriteRenderer.enabled = true;
+            iconSpriteRenderer.sprite = activeAbility.GetAbilityIcon();
         }
 
         private void OnAbilityActivated()
         {
             cooldownText.text = "";
+            iconSpriteRenderer.enabled = false;
         }
 
         private void OnAbilityActivationBlocked()

@@ -78,6 +78,17 @@ namespace Balltallion.Input
                 else if (context.action.name == "Leave") OnLeaveTriggered?.Invoke();
             }
         }
+
+        public bool PollActionPerformedThisFrame(string actionName)
+        {
+            return playerInput.actions[actionName].WasPerformedThisFrame();
+        }
+
+        public void SwitchActionMap(ActionMaps actionMap)
+        {
+            playerInput?.SwitchCurrentActionMap(actionMap.ToString());
+            if (playerInput && logToConsole) Debug.Log($"{displayName} switched action map: {actionMap}!");
+        }
         
         public string GetControlScheme() => playerInput?.currentControlScheme ?? "None";
 
@@ -94,5 +105,11 @@ namespace Balltallion.Input
         public DeviceDataSO GetDeviceData() => deviceData;
         public bool IsConnected() => isConnected;
         public bool IsDeviceLost() => isDeviceLost;
+    }
+
+    public enum ActionMaps
+    {
+        Pairing,
+        Battle
     }
 }
