@@ -1,5 +1,6 @@
 using System;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Physics

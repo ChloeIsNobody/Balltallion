@@ -1,4 +1,5 @@
 ﻿using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
 

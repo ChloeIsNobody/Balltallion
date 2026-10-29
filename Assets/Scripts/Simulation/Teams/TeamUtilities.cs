@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Balltallion.Simulation.Battle
+namespace Balltallion.Simulation.Teams
 {
     public enum TeamNames
     {

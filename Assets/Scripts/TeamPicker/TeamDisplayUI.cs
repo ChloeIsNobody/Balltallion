@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
+using TMPro;
 using UnityEngine;
 
 namespace Balltallion.TeamPicker
@@ -7,28 +9,38 @@ namespace Balltallion.TeamPicker
     public class TeamDisplayUI : MonoBehaviour
     {
         [SerializeField] private List<TeamDisplayIconUI> teamDisplayIcons;
-        private Dictionary<BallDataSO, int> ballCounts;
+        [SerializeField] private List<TextMeshProUGUI> numberTexts;
+
+        [SerializeField] private bool reverseOrder = false;
+
+        private void Awake()
+        {
+            if (reverseOrder)
+            {
+                numberTexts[0].text = "3";
+                numberTexts[2].text = "1";
+                
+                TextMeshProUGUI temp = numberTexts[0];
+                numberTexts[0] = numberTexts[2];
+                numberTexts[2] = temp;
+                
+                TeamDisplayIconUI tempIcon = teamDisplayIcons[0];
+                teamDisplayIcons[0] = teamDisplayIcons[2];
+                teamDisplayIcons[2] = tempIcon;
+            }
+        }
         
         public void UpdateDisplay(List<BallDataSO> team)
         {
-            ballCounts = new Dictionary<BallDataSO, int>();
-            foreach (var ballData in team)
-            {
-                ballCounts[ballData] = ballCounts.ContainsKey(ballData) ? ballCounts[ballData] + 1 : 1;
-            }
-
-            foreach (TeamDisplayIconUI icon in teamDisplayIcons)
-            {
-                icon.gameObject.SetActive(false);
-            }
-
             int iconIdx = 0;
-            foreach (KeyValuePair<BallDataSO, int> entry in ballCounts)
+            
+            foreach (TeamDisplayIconUI icon in teamDisplayIcons) icon.LoadBallData(null);
+            
+            foreach (BallDataSO ball in team)
             {
-                if (iconIdx >= teamDisplayIcons.Count) break;
                 TeamDisplayIconUI icon = teamDisplayIcons[iconIdx];
                 icon.gameObject.SetActive(true);
-                icon.LoadBallData(entry.Key, entry.Value);
+                icon.LoadBallData(ball);
                 iconIdx++;
             }
         }

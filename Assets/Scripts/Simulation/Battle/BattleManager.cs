@@ -1,148 +1,91 @@
-using System.Collections.Generic;
-using Balltallion.Simulation;
+using System;
+using System.Collections;
 using Balltallion.Audio;
-using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Teams;
+using Balltallion.UI.Battle;
 using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        [SerializeField] private BattleBall battleBallPrefab;
+        public event Action<TeamNames> OnBattleEnded; 
         
-        [Header("Battle Setup")]
-        [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField] private Rect playerSpawnRect;
-        [SerializeField] private Rect enemySpawnRect;
-        [SerializeField, Range(0.0f, 360.0f)] private float playerLaunchAngle = 0.0f;
-        [SerializeField, Range(0.0f, 360.0f)] private float enemyLaunchAngle = 0.0f;
-        [SerializeField, Range(0.0f, 360.0f)] private float launchAngleSpread = 0.0f;
+        [SerializeField] private BallSpawner ballSpawner;
+        [SerializeField] private BattleCountdownUI countdownUI;
 
-        [Header("UI")]
-        [HorizontalLine(color: EColor.Gray, height: 1.5f)]
-        [SerializeField] private BallHealthDisplayUI playerHealthDisplay;
-        [SerializeField] private BallHealthDisplayUI enemyHealthDisplay;
-        [SerializeField] private Button replayButton;
-        [SerializeField] private Button backButton;
-
-        public static List<BallDataSO> playerTeamLoadout = new();
-        public static List<BallDataSO> enemyTeamLoadout = new();
+        public static TeamLoadout playerTeamLoadout;
+        public static TeamLoadout enemyTeamLoadout;
         
-        private List<BattleBall> playerBalls = new();
-        private List<BattleBall> enemyBalls = new();
+        private BattleBall currentPlayerBall;
+        private BattleBall currentEnemyBall;
         
         [Header("Audio")]
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] private BattleAudioHandler battleAudioHandler;
         
+        private Coroutine currentState;
+        
         private void Awake()
         {
-            InstantiateBalls();
-            if (playerBalls.Count > 0) playerHealthDisplay.SetTrackedBall(playerBalls[0]);
-            if (enemyBalls.Count > 0) enemyHealthDisplay.SetTrackedBall(enemyBalls[0]);
-            
             if (battleAudioHandler != null)
                 battleAudioHandler.PlayBattleMusic();
         }
 
-        private void OnEnable()
+        private void Start()
         {
-            replayButton.onClick.AddListener(ReplayBattle);
-            backButton.onClick.AddListener(ReturnToTeamPickerScene);
-        }
-
-        private void OnDisable()
-        {
-            replayButton.onClick.RemoveAllListeners();
-            backButton.onClick.RemoveAllListeners();
-        }
-
-        private void Update()
-        {
-            if (Keyboard.current.escapeKey.wasPressedThisFrame)
+            if (playerTeamLoadout == null) Debug.LogWarning("Player team loadout not set!");
+            if (enemyTeamLoadout == null) Debug.LogWarning("Enemy team loadout not set!");
+            if (playerTeamLoadout != null && enemyTeamLoadout != null)
             {
-                ReturnToTeamPickerScene();
-            }
-
-            if (Keyboard.current.rKey.wasPressedThisFrame)
-            {
-                ReplayBattle();
+                StartCoroutine(BattleState());
             }
         }
 
-        private void InstantiateBalls()
+        private IEnumerator BattleState()
         {
-            foreach (BallDataSO ballData in playerTeamLoadout)
+            TeamNames winner;
+            playerTeamLoadout.ResetIdx();
+            enemyTeamLoadout.ResetIdx();
+
+            yield return countdownUI.CountdownCoroutine();
+
+            while (true)
             {
-                InstantiateBall(ballData, TeamNames.Player);
+                if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
+                {
+                    currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), TeamNames.Player);
+                }
+
+                if (!currentEnemyBall && enemyTeamLoadout.HasNextBall())
+                {
+                    currentEnemyBall = ballSpawner.InstantiateBall(enemyTeamLoadout.GetNextBall(), TeamNames.Enemy);
+                }
+
+                if (!currentPlayerBall && !playerTeamLoadout.HasNextBall()) { winner = TeamNames.Enemy; break; }
+                if (!currentEnemyBall && !enemyTeamLoadout.HasNextBall()) { winner = TeamNames.Player; break; }
+
+                yield return null;
             }
             
-            foreach (BallDataSO ballData in enemyTeamLoadout)
-            {
-                InstantiateBall(ballData, TeamNames.Enemy);
-            }
+            Debug.Log($"Battle over! {winner} won!");
+            OnBattleEnded?.Invoke(winner);
         }
 
-        private void InstantiateBall(BallDataSO ballData, TeamNames team)
-        {
-            BattleBall ball = Instantiate(battleBallPrefab);
-            ball.LoadBallData(ballData, team);
-
-            Rect spawnRect = team == TeamNames.Player ? playerSpawnRect : enemySpawnRect;
-            ball.transform.position = GetRandomPositionInRect(spawnRect);
-            
-            float launchAngle = team == TeamNames.Player ? playerLaunchAngle : enemyLaunchAngle;
-            launchAngle += Random.Range(-launchAngleSpread/2.0f, launchAngleSpread/2.0f);
-            Vector2 startVelocity = Vector2.zero;
-            startVelocity.x = Mathf.Cos(Mathf.Deg2Rad * launchAngle);
-            startVelocity.y = Mathf.Sin(Mathf.Deg2Rad * launchAngle);
-            startVelocity *= ballData.speed;
-            
-            BallBody body = ball.GetComponent<BallBody>();
-            body.SetVelocity(startVelocity);
-
-            List<BattleBall> teamList = team == TeamNames.Player ? playerBalls : enemyBalls;
-            teamList.Add(ball);
-        }
-
-        private void ReplayBattle()
+        public void RestartBattle()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        private void ReturnToTeamPickerScene()
+        public void ReturnToTeamPickerScene()
         {
-            if (battleAudioHandler != null)
-                battleAudioHandler.StopBattleMusic();
-            
+            if (battleAudioHandler) battleAudioHandler.StopBattleMusic();
             SceneManager.LoadScene("TeamPicker");
         }
-
-        private Vector2 GetRandomPositionInRect(Rect rect)
-        {
-            Vector2 result = Vector2.zero;
-            result.x = Random.Range(rect.x - rect.width/2.0f, rect.x + rect.width/2.0f);
-            result.y = Random.Range(rect.y - rect.height/2.0f, rect.y + rect.height/2.0f);
-            return result;
-        }
-
-        private void OnDrawGizmosSelected()
-        {
-            DrawRect(playerSpawnRect, Color.blue);
-            DrawRect(enemySpawnRect, Color.red);
-        }
-
-        private void DrawRect(Rect rect, Color color)
-        {
-            Gizmos.color = color;
-            Vector2 center = new Vector2(rect.x, rect.y);
-            Vector2 size = new Vector2(rect.width, rect.height);
-            Gizmos.DrawWireCube(center, size);
-        }
+        
+        public BattleBall GetCurrentPlayerBall() => currentPlayerBall;
+        public BattleBall GetCurrentEnemyBall() => currentEnemyBall;
     }
 }

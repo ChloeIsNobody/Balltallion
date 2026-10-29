@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
@@ -13,7 +14,6 @@ namespace Balltallion.TeamPicker
     public class TeamPickerUI : MonoBehaviour
     {
         [SerializeField] private List<BallDataSO> selectableBalls;
-        [SerializeField] private int teamLimit = 2;
         
         [Header("Ball Selection")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -113,14 +113,12 @@ namespace Balltallion.TeamPicker
 
         private void AddSelectedToPlayerTeam()
         {
-            if (playerTeam.Count >= teamLimit) return;
             playerTeam.Add(selectedBallData);
             playerTeamDisplay.UpdateDisplay(playerTeam);
         }
 
         private void AddSelectedToEnemyTeam()
         {
-            if (enemyTeam.Count >= teamLimit) return;
             enemyTeam.Add(selectedBallData);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
         }
@@ -144,8 +142,8 @@ namespace Balltallion.TeamPicker
         
         private void StartBattle()
         {
-            BattleManager.playerTeamLoadout = new List<BallDataSO>(playerTeam);
-            BattleManager.enemyTeamLoadout = new List<BallDataSO>(enemyTeam);
+            BattleManager.playerTeamLoadout = new TeamLoadout(playerTeam);
+            BattleManager.enemyTeamLoadout = new TeamLoadout(enemyTeam);
             SceneManager.LoadScene("Arena");
         }
 

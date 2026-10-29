@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
 
