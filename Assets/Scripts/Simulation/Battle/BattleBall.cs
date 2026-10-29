@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
+using Balltallion.Input;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
@@ -31,15 +32,11 @@ namespace Balltallion.Simulation.Battle
         private int health;
         private bool isInvulnerable;
         private BallBody ballBody;
+        private PlayerInputRelaySO inputRelay;
 
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
-        }
-
-        private void Start()
-        {
-            if (ballData) LoadBallData(ballData, team);
         }
 
         [Button("Editor Refresh Stats")]
@@ -160,6 +157,8 @@ namespace Balltallion.Simulation.Battle
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
+        public PlayerInputRelaySO GetInputRelay() => inputRelay;
+        public void SetInputRelay(PlayerInputRelaySO inputRelay) => this.inputRelay = inputRelay;
         public BallDataSO GetBallData() => ballData;
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
