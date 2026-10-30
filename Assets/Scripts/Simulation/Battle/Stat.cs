@@ -15,7 +15,7 @@ namespace Balltallion.Simulation.Battle
         private float multiplierValue;
         private float finalValue;
 
-        private List<StatModifier> statModifiers;
+        private List<StatModifier> statModifiers = new();
 
         public Stat(string name, float baseValue)
         {
@@ -35,6 +35,7 @@ namespace Balltallion.Simulation.Battle
             if (statModifiers.Remove(modifier)) RecalculateModifiers();
         }
         
+        public string GetName() => name;
         public float GetBaseValue() => baseValue;
         public float GetValue() => finalValue;
         public float GetFlatAddedValue() => flatAddedValue;
@@ -44,7 +45,7 @@ namespace Balltallion.Simulation.Battle
         private void RecalculateModifiers()
         {
             flatAddedValue = 0;
-            percentAddedValue = 0;
+            percentAddedValue = 100;
             multiplierValue = 1;
             
             foreach (StatModifier modifier in statModifiers) 
@@ -63,7 +64,7 @@ namespace Balltallion.Simulation.Battle
                 }
             }
 
-            finalValue = (baseValue + flatAddedValue) * (1 + percentAddedValue) * multiplierValue;
+            finalValue = (baseValue + flatAddedValue) * percentAddedValue/100 * multiplierValue;
             OnValueChanged?.Invoke();
         }
     }
