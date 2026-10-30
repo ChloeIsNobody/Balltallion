@@ -81,7 +81,7 @@ namespace Balltallion.Input
 
         public bool PollActionPerformedThisFrame(string actionName)
         {
-            return playerInput.actions[actionName].WasPerformedThisFrame();
+            return IsConnected() && playerInput.actions[actionName].WasPerformedThisFrame();
         }
 
         public void SwitchActionMap(ActionMaps actionMap)
@@ -94,6 +94,7 @@ namespace Balltallion.Input
 
         public Sprite GetIconForAction(string action)
         {
+            if (!IsConnected()) return null;
             string controlName = GetControlForAction(action);
             return deviceData.GetIconForControl(controlName);
         }
