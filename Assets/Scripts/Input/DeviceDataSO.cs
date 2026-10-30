@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 namespace Balltallion.Input
 {
@@ -22,6 +23,16 @@ namespace Balltallion.Input
         }
 
         private void OnValidate()
+        {
+            SetupDictionary();
+        }
+
+        private void OnEnable()
+        {
+            SetupDictionary();
+        }
+
+        private void SetupDictionary()
         {
             iconMappings = new Dictionary<string, Sprite>();
             foreach (var mapping in iconMappingsList) iconMappings.Add(mapping.controlName, mapping.icon);

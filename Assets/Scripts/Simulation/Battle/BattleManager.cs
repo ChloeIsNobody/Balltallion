@@ -82,6 +82,9 @@ namespace Balltallion.Simulation.Battle
             
             Debug.Log($"Battle over! {winner} won!");
             OnBattleEnded?.Invoke(winner);
+            
+            yield return new WaitForSeconds(2.5f);
+            ReturnToTeamPickerScene();
         }
 
         public void RestartBattle()
