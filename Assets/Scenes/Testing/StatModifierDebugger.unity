@@ -2163,6 +2163,8 @@ MonoBehaviour:
   deviceData: {fileID: 11400000, guid: 647c6215df141374fbf257f8cdf1759d, type: 2}
   statName: Health
   baseValue: 100
+  minValue: 0
+  maxValue: Infinity
   modifierDebugSlots:
   - key: 41
     operation: 0

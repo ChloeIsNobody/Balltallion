@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Balltallion.Simulation.Battle
 {
@@ -10,6 +11,9 @@ namespace Balltallion.Simulation.Battle
         private string name;
         
         private float baseValue;
+        private float minValue;
+        private float maxValue;
+        
         private float flatAddedValue;
         private float percentAddedValue;
         private float multiplierValue;
@@ -17,10 +21,12 @@ namespace Balltallion.Simulation.Battle
 
         private List<StatModifier> statModifiers = new();
 
-        public Stat(string name, float baseValue)
+        public Stat(string name, float baseValue, float minValue = 0, float maxValue = Mathf.Infinity)
         {
             this.name = name;
             this.baseValue = baseValue;
+            this.minValue = minValue;
+            this.maxValue = maxValue;
             RecalculateModifiers();
         }
 
@@ -65,6 +71,7 @@ namespace Balltallion.Simulation.Battle
             }
 
             finalValue = (baseValue + flatAddedValue) * percentAddedValue/100 * multiplierValue;
+            finalValue = Mathf.Clamp(finalValue, minValue, maxValue);
             OnValueChanged?.Invoke();
         }
     }

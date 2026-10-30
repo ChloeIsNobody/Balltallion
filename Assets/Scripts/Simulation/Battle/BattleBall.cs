@@ -34,6 +34,14 @@ namespace Balltallion.Simulation.Battle
         private BallBody ballBody;
         private PlayerInputRelaySO inputRelay;
 
+        private Dictionary<StatNames, Stat> stats = new();
+        
+        public enum StatNames
+        {
+            MaxHealth,
+            
+        }
+
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
