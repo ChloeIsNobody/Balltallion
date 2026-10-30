@@ -93,11 +93,11 @@ namespace Balltallion.DebugTools
                 }
             }
             
-            debugText.text = $"{stat.GetName()}: {stat.GetValue():F0}";
-            debugText.text += $"\nBase Value: {stat.GetBaseValue():F0}";
+            debugText.text = $"Base Value: {stat.GetBaseValue():F0}";
             debugText.text += $"\nFlat Addition: {stat.GetFlatAddedValue():F0}";
             debugText.text += $"\nPercent Multiplier: {stat.GetPercentAddedValue():F2}%";
             debugText.text += $"\nMultiplier: {stat.GetMultiplierValue():F2}x";
+            debugText.text += $"\n\n{stat.GetName()}: {stat.GetValue():F0}";
         }
     }
 }
