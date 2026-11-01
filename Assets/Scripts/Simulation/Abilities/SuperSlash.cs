@@ -153,7 +153,8 @@ namespace Balltallion.Simulation.Abilities
             if (hitDetectionMode == HitDetectionModes.None) return;
             
             List<Collider2D> hits = new();
-            Physics2D.OverlapCircle(transform.position, radius, targetContactFilter, hits);
+            float adjustedRadius = radius * parentBall.GetStat(BattleBall.StatNames.Size).GetValue();
+            Physics2D.OverlapCircle(transform.position, adjustedRadius, targetContactFilter, hits);
 
             if (hitDetectionMode == HitDetectionModes.ChargeUp)
             {

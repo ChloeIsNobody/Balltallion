@@ -18,7 +18,7 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: d7c56e646110f0c4eaeb38b367758477, type: 2}
   abilityPrefab: {fileID: 2819690349012160209, guid: 962cee07da481434a9dc19e1f4c8463a, type: 3}
   maxHealth: 100
-  size: 1.5
+  size: 1
   contactDamage: 0
   mass: 1
   gravityScale: 1
