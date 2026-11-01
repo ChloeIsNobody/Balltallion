@@ -30,6 +30,11 @@ namespace Balltallion.DebugTools
         private bool isModifierApplied;
         private Stat affectedStat;
 
+        private void OnValidate()
+        {
+            if (nameText) nameText.text = statName.ToString();
+        }
+
         public void Initialize(Stat affectedStat, DeviceDataSO deviceData, InputDevice inputDevice)
         {
             this.affectedStat = affectedStat;

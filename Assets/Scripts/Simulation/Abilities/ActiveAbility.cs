@@ -39,7 +39,6 @@ namespace Balltallion.Simulation.Abilities
         {
             parentBall = GetComponentInParent<BattleBall>();
             inputRelay = parentBall.GetInputRelay();
-            Debug.Log("Ability Awake");
             SetupTeam();
         }
         

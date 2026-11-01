@@ -174,7 +174,8 @@ namespace Balltallion.Simulation.Battle
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
-        public float GetStat(StatNames stat) => stats[stat].GetValue();
+        public Stat GetStat(StatNames stat) => stats[stat];
+        public float GetStatValue(StatNames stat) => stats[stat].GetValue();
         public bool IsInvulnerable() => isInvulnerable;
         public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }

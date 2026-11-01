@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using TMPro;
 using UnityEngine;
@@ -7,11 +8,17 @@ namespace Balltallion.DebugTools
 {
     public class DebugStatReadout : MonoBehaviour
     {
+        [Header("Settings")]
         [SerializeField] private ReadoutModes readoutMode;
+        
+        [Header("References")]
+        [SerializeField] private TMP_Dropdown statDropdown;
         [SerializeField] private TextMeshProUGUI statText;
         [SerializeField] private TextMeshProUGUI extraInfoText;
-        
+
+        private BattleBall trackedBall;
         private Stat trackedStat;
+        private BattleBall.StatNames dropdownSelectedStat;
 
         private enum ReadoutModes
         {
@@ -20,6 +27,40 @@ namespace Balltallion.DebugTools
             ModifierList,
         }
 
+        private void Awake()
+        {
+            if (statDropdown) InitializeStatDropdown();
+        }
+
+        private void InitializeStatDropdown()
+        {
+            List<string> statNames = new List<string>(Enum.GetNames(typeof(BattleBall.StatNames)));
+            statDropdown.ClearOptions();
+            statDropdown.AddOptions(statNames);
+        }
+        
+        private void OnEnable()
+        {
+            statDropdown?.onValueChanged.AddListener(OnDropdownValueChanged);
+        }
+
+        private void OnDisable()
+        {
+            statDropdown?.onValueChanged.RemoveAllListeners();
+        }
+        
+        private void OnDropdownValueChanged(int selectedIndex)
+        {
+            dropdownSelectedStat = (BattleBall.StatNames)selectedIndex;
+            if (trackedBall) trackedStat = trackedBall.GetStat(dropdownSelectedStat);
+        }
+
+        public void SetTrackedBall(BattleBall ball)
+        {
+            trackedBall = ball;
+            trackedStat = trackedBall.GetStat(dropdownSelectedStat);
+        }
+        
         public void SetTrackedStat(Stat stat)
         {
             trackedStat = stat;
@@ -27,7 +68,12 @@ namespace Balltallion.DebugTools
 
         private void Update()
         {
-            if (trackedStat == null) return;
+            if (trackedStat == null)
+            {
+                statText.text = "NULL";
+                extraInfoText.enabled = false;
+                return;
+            }
 
             statText.text = $"{trackedStat.GetName()}: {trackedStat.GetValue():F0}";
             

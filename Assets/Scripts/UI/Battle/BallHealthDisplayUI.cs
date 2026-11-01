@@ -36,8 +36,8 @@ namespace Balltallion.UI.Battle
             {
                 nameText.text = trackedBall.name;
                 iconImage.sprite = trackedBall.GetSprite();
-                float healthRatio = trackedBall.GetHealth() / trackedBall.GetStat(BattleBall.StatNames.MaxHealth);
-                healthText.text = $"HP: {trackedBall.GetHealth()} / {trackedBall.GetStat(BattleBall.StatNames.MaxHealth)}";
+                float healthRatio = trackedBall.GetHealth() / trackedBall.GetStatValue(BattleBall.StatNames.MaxHealth);
+                healthText.text = $"HP: {(int)trackedBall.GetHealth()} / {(int)trackedBall.GetStatValue(BattleBall.StatNames.MaxHealth)}";
                 healthSlider.value = healthRatio;
             }
         }
