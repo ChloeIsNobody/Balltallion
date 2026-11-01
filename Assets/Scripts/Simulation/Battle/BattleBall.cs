@@ -153,12 +153,7 @@ namespace Balltallion.Simulation.Battle
             
             AttackData attackData = new AttackData();
             attackData.source = this;
-            
-            if (ballData.velocityScaledContactDamage)
-            {
-                attackData.damage = ballData.GetVelocityScaledDamage(data.myCollisionPower);
-            }
-            else attackData.damage = ballData.contactDamage;
+            attackData.damage = ballData.contactDamage;
             
             otherBall.ReceiveAttack(attackData);
             

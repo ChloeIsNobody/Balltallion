@@ -20,9 +20,6 @@ namespace Balltallion.Simulation.Teams
         [SerializeField, Range(10, 1000)] public int maxHealth = 100;
         
         [SerializeField] public int contactDamage = 3;
-        [SerializeField, Space] public bool velocityScaledContactDamage;
-        [SerializeField, EnableIf("VelocityScaling")] private Vector2 velocityScalingRange;
-        [SerializeField, EnableIf("VelocityScaling")] private Vector2 contactDamageRange;
 
         [Space]
         [SerializeField, Expandable] public WeaponDataSO weapon;
@@ -54,17 +51,6 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public AudioResource bounceSound;
         [SerializeField] public AudioResource damageSound;
-
-        public int GetVelocityScaledDamage(float velocity)
-        {
-            if (velocity < velocityScalingRange.x) return contactDamage;
-            float t = Mathf.InverseLerp(velocityScalingRange.x, velocityScalingRange.y, velocity);
-            t = Mathf.Clamp01(t);
-            float damage = Mathf.Lerp(contactDamageRange.x, contactDamageRange.y, t);
-            return Mathf.RoundToInt(damage);
-        }
-        
-        private bool VelocityScaling() => velocityScaledContactDamage;
     }
     
     // Marks a Sprite field to be used as the icon for this ScriptableObject in the Project view.
