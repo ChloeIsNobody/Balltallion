@@ -22,5 +22,16 @@
         public string GetName() => name;
         public float GetValue() => value;
         public OperationType GetOperation() => operation;
+
+        public string GetEffectString()
+        {
+            return operation switch
+            {
+                OperationType.FlatAdditive => $"+{value}",
+                OperationType.PercentAdditive => $"+{value}%",
+                OperationType.Multiplicative => $"{value:F2}x",
+                _ => "???"
+            };
+        }
     }
 }
