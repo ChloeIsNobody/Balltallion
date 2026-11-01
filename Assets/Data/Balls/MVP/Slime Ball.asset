@@ -15,18 +15,14 @@ MonoBehaviour:
   displayName: Slime Ball
   debugColor: {r: 0.6117647, g: 0.7372549, b: 0.59607846, a: 1}
   ballSprite: {fileID: 21300000, guid: 9bc7b7e4398ce2c43a28419aca78c641, type: 3}
-  maxHealth: 100
-  contactDamage: 0
-  velocityScaledContactDamage: 0
-  velocityScalingRange: {x: 0, y: 0}
-  contactDamageRange: {x: 0, y: 0}
   weapon: {fileID: 0}
   abilityPrefab: {fileID: 0}
+  maxHealth: 100
   size: 1
-  mass: 1
   gravityScale: 1
+  bounciness: 1.12
+  contactDamage: 0
   speed: 7.3
-  bounciness: 1.06
   linearDamping: 0.615
   animStiffness: 0.28
   animDamping: 0.175

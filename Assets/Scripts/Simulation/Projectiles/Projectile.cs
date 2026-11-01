@@ -46,7 +46,7 @@ namespace Balltallion.Simulation.Projectiles
         private void OnValidate()
         {
             if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.SetSize(baseSize);
+            ballBody?.SetSize(baseSize);
         }
 
         private void Awake()

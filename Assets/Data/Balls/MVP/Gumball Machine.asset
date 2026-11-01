@@ -18,12 +18,11 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 98075e61b37b5564ea228046c3226615, type: 2}
   abilityPrefab: {fileID: 5383679034311467814, guid: 141f3124702b1fd4886bcb1488afd974, type: 3}
   maxHealth: 100
-  contactDamage: 0
   size: 1
-  mass: 1
   gravityScale: 1
+  bounciness: 1.12
+  contactDamage: 0
   speed: 7.6
-  bounciness: 1.06
   linearDamping: 0.615
   animStiffness: 0.35
   animDamping: 0.3

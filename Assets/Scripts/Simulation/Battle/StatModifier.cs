@@ -1,4 +1,6 @@
-﻿namespace Balltallion.Simulation.Battle
+﻿using UnityEngine;
+
+namespace Balltallion.Simulation.Battle
 {
     public class StatModifier
     {
@@ -25,11 +27,14 @@
 
         public string GetEffectString()
         {
+            string sign = Mathf.Approximately(Mathf.Sign(value), -1) ? "-" : "+";
+            float absVal = Mathf.Abs(value);
+            
             return operation switch
             {
-                OperationType.FlatAdditive => $"+{value}",
-                OperationType.PercentAdditive => $"+{value}%",
-                OperationType.Multiplicative => $"{value:F2}x",
+                OperationType.FlatAdditive => $"{sign}{absVal}",
+                OperationType.PercentAdditive => $"{sign}{absVal}%",
+                OperationType.Multiplicative => $"{absVal:F2}x",
                 _ => "???"
             };
         }

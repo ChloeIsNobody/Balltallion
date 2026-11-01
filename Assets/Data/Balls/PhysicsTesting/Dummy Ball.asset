@@ -19,11 +19,10 @@ MonoBehaviour:
   abilityPrefab: {fileID: 0}
   maxHealth: 999
   size: 1
-  contactDamage: 0
-  mass: 1
   gravityScale: 1
+  bounciness: 1.12
+  contactDamage: 0
   speed: 7.3
-  bounciness: 1.05
   linearDamping: 0.5
   animStiffness: 0.35
   animDamping: 0.3

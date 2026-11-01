@@ -40,6 +40,8 @@ namespace Balltallion.Simulation.Battle
         {
             MaxHealth,
             Size,
+            Gravity,
+            Bounciness,
         }
 
         private void Awake()
@@ -78,6 +80,8 @@ namespace Balltallion.Simulation.Battle
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallData(data);
             ballBody.LoadSizeStat(stats[StatNames.Size]);
+            ballBody.LoadGravityStat(stats[StatNames.Gravity]);
+            ballBody.LoadBouncinessStat(stats[StatNames.Bounciness]);
             
             ballAnimator.LoadBallData(data);
             
@@ -100,6 +104,8 @@ namespace Balltallion.Simulation.Battle
             {
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
+                [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
+                [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
             };
         }
         

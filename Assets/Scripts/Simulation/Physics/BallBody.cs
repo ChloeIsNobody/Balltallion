@@ -32,6 +32,8 @@ namespace Balltallion.Simulation.Physics
         [SerializeField] private float linearDamping;
 
         private Stat sizeStat;
+        private Stat gravityStat;
+        private Stat bouncinessStat;
         
         private void Awake()
         {
@@ -44,10 +46,8 @@ namespace Balltallion.Simulation.Physics
             this.ballData = ballData;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            rb.gravityScale = ballData.gravityScale;
 
             speed = ballData.speed;
-            bounciness = ballData.bounciness;
             linearDamping = ballData.linearDamping;
             debugColor = ballData.debugColor;
         }
@@ -58,6 +58,22 @@ namespace Balltallion.Simulation.Physics
             newStat.OnValueChanged += SetSize;
             SetSize(newStat.GetValue());
             sizeStat = newStat;
+        }
+
+        public void LoadGravityStat(Stat newStat)
+        {
+            if (sizeStat != null) sizeStat.OnValueChanged -= SetGravityScale;
+            newStat.OnValueChanged += SetGravityScale;
+            SetGravityScale(newStat.GetValue());
+            gravityStat = newStat;
+        }
+
+        public void LoadBouncinessStat(Stat newStat)
+        {
+            if (bouncinessStat != null) bouncinessStat.OnValueChanged -= SetBounciness;
+            newStat.OnValueChanged += SetBounciness;
+            SetBounciness(newStat.GetValue());
+            bouncinessStat = newStat;
         }
 
         private void FixedUpdate()
@@ -71,7 +87,7 @@ namespace Balltallion.Simulation.Physics
             if (rb.linearVelocity.magnitude > speed)
             {
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
-                rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
+                rb.linearVelocity -= rb.linearVelocity.normalized * (0.2f * velocityDiff * velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
         }
 
@@ -108,11 +124,15 @@ namespace Balltallion.Simulation.Physics
             });
             
             rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionDot;
-            float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
-            if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
+
+            if (adjustVelocityPostCollision)
             {
-                float gravityMult = Mathf.Sqrt(Mathf.Max(0.5f, rb.gravityScale));
-                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce * gravityMult;
+                float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
+                if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
+                {
+                    float gravityMult = Mathf.Sqrt(Mathf.Max(0.5f, rb.gravityScale));
+                    rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce * gravityMult * bounciness;
+                }
             }
         }
 
@@ -180,17 +200,22 @@ namespace Balltallion.Simulation.Physics
         public void SetSize(float newSize)
         {
             transform.localScale = Vector3.one * newSize;
-            rb.mass = newSize;
+            if (rb) rb.mass = newSize;
         }
+
+        public void SetGravityScale(float newGravity)
+        {
+            if (rb) { rb.gravityScale = newGravity; }
+        }
+
+        private void SetBounciness(float newBounciness) => bounciness = newBounciness;
         
         private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
-        
         public Vector2 GetVelocity() => rb.linearVelocity;
         public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
         public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
         public float GetSpeed() => speed;
         public void SetColliderEnabled(bool enabled) => collider.enabled = enabled;
-        public void SetGravityScale(float newGravityScale) => rb.gravityScale = newGravityScale;
         private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
     }
 }
