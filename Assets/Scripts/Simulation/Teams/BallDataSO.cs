@@ -21,9 +21,10 @@ namespace Balltallion.Simulation.Teams
         [SerializeField, Expandable] public WeaponDataSO weapon;
         [SerializeField] public GameObject abilityPrefab;
         
-        [Header("Base Stats")]
+        [Header("Base Stat Values")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.0f;
+        [SerializeField] public float attackPower = 1.0f;
+        [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.07f;
         [SerializeField] public int contactDamage = 3;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         [SerializeField] public int maxHealth = 100;
@@ -57,6 +58,7 @@ namespace Balltallion.Simulation.Teams
         {
             switch (statName)
             {
+                case BattleBall.StatNames.AttackPower: return attackPower;
                 case BattleBall.StatNames.Bounciness: return bounciness;
                 case BattleBall.StatNames.ContactDamage: return contactDamage;
                 case BattleBall.StatNames.Gravity: return gravityScale;

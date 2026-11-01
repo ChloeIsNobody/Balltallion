@@ -29,7 +29,7 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private bool debugLogToConsole = false;
         [SerializeField] private bool debugAttacks;
         
-        private int health;
+        private float health;
         private bool isInvulnerable;
         private BallBody ballBody;
         private PlayerInputRelaySO inputRelay;
@@ -38,6 +38,7 @@ namespace Balltallion.Simulation.Battle
         
         public enum StatNames
         {
+            AttackPower,
             Bounciness,
             ContactDamage,
             Gravity,
@@ -103,6 +104,7 @@ namespace Balltallion.Simulation.Battle
         {
             stats = new Dictionary<StatNames, Stat>
             {
+                [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), ballData.GetBaseStat(StatNames.AttackPower), "F2"),
                 [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
                 [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
                 [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
@@ -126,12 +128,16 @@ namespace Balltallion.Simulation.Battle
 
         public void ReceiveAttack(AttackData attackData)
         {
-            Color damageColor = attackData.source?.GetColor() ?? Color.white; 
-            TakeDamage(attackData.damage, damageColor);
+            Color damageColor = attackData.source?.GetColor() ?? Color.white;
+            
+            float damage = attackData.damage;
+            if (attackData.source) damage *= attackData.source.GetStat(StatNames.AttackPower).GetValue();
+            TakeDamage(damage, damageColor);
+            
             ballBody.ApplyKnockback(attackData.knockback);
             if (debugAttacks) DebugAttack(attackData);
         }
-        private void TakeDamage(int damage, Color damageColor)
+        private void TakeDamage(float damage, Color damageColor)
         {
             if (isInvulnerable) damage = 0;
             if (damage <= 0) return;
@@ -170,7 +176,7 @@ namespace Balltallion.Simulation.Battle
             
             AttackData attackData = new AttackData();
             attackData.source = this;
-            attackData.damage = (int)stats[StatNames.ContactDamage].GetValue();
+            attackData.damage = stats[StatNames.ContactDamage].GetValue();
             
             otherBall.ReceiveAttack(attackData);
             
