@@ -19,14 +19,17 @@ namespace Balltallion.UI.Battle
         
         private BattleBall trackedBall;
         private IBattleManager battleManager;
+        private CanvasGroup canvasGroup;
 
         private void Start()
         {
             battleManager = battleManagerRef.GetComponent<IBattleManager>();
+            canvasGroup = GetComponent<CanvasGroup>();
         }
         
         private void Update()
         {
+            canvasGroup.alpha = trackedBall ? 1 : 0;
             if (!trackedBall) SearchForBall();
             
             if (trackedBall)
