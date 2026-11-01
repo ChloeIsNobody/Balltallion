@@ -17,11 +17,11 @@ MonoBehaviour:
   ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   weapon: {fileID: 0}
   abilityPrefab: {fileID: 0}
+  bounciness: 1.08
+  contactDamage: 5
+  gravityScale: 1
   maxHealth: 100
   size: 1
-  gravityScale: 1
-  bounciness: 1.05
-  contactDamage: 5
   speed: 7.3
   linearDamping: 0.5
   animStiffness: 0.35

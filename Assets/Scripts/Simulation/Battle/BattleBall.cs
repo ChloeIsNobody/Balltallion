@@ -38,10 +38,11 @@ namespace Balltallion.Simulation.Battle
         
         public enum StatNames
         {
+            Bounciness,
+            ContactDamage,
+            Gravity,
             MaxHealth,
             Size,
-            Gravity,
-            Bounciness,
         }
 
         private void Awake()
@@ -102,10 +103,11 @@ namespace Balltallion.Simulation.Battle
         {
             stats = new Dictionary<StatNames, Stat>
             {
+                [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
+                [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
+                [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
-                [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
-                [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
             };
         }
         
@@ -168,7 +170,7 @@ namespace Balltallion.Simulation.Battle
             
             AttackData attackData = new AttackData();
             attackData.source = this;
-            attackData.damage = ballData.contactDamage;
+            attackData.damage = (int)stats[StatNames.ContactDamage].GetValue();
             
             otherBall.ReceiveAttack(attackData);
             

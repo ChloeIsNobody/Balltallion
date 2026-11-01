@@ -1927,7 +1927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: statName
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: operation
@@ -3028,8 +3028,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 480433533}
     m_Modifications:
     - target: {fileID: 4252455935701496336, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
+      propertyPath: m_text
+      value: ContactDamage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4252455935701496336, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_fontSize
-      value: 21.1
+      value: 16.7
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_Pivot.x
@@ -3045,7 +3049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3053,7 +3057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3093,11 +3097,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 742.55005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3117,19 +3121,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5441170461650855284, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: key
       value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
-      propertyPath: operation
+      propertyPath: statName
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
+      propertyPath: operation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: modifierValue
-      value: 65
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3601,7 +3609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: statName
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: operation
@@ -3734,7 +3742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: statName
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: operation
