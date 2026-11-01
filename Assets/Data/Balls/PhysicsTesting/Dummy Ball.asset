@@ -12,16 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b439cc09b6e3364eb5ef06b5afb1d36, type: 3}
   m_Name: Dummy Ball
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallStatsSO
-  displayName: Pacifist Ball
-  debugColor: {r: 0.19607845, g: 0.86274517, b: 0.79215693, a: 1}
-  ballSprite: {fileID: 21300000, guid: 6c69cdb0543642941ac0ed15a5726a0a, type: 3}
-  maxHealth: 500
-  contactDamage: 0
-  velocityScaledContactDamage: 0
-  velocityScalingRange: {x: 1, y: 15}
-  contactDamageRange: {x: 1, y: 15}
+  displayName: Dummy
+  debugColor: {r: 0.92549026, g: 0.30588236, b: 0.34509805, a: 1}
+  ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
   weapon: {fileID: 0}
+  abilityPrefab: {fileID: 0}
+  maxHealth: 999
   size: 1
+  contactDamage: 0
   mass: 1
   gravityScale: 1
   speed: 7.3

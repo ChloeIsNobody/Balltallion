@@ -178,7 +178,7 @@ namespace Balltallion.Simulation.Physics
             }
         }
 
-        private void SetSize(float newSize)
+        public void SetSize(float newSize)
         {
             transform.localScale = Vector3.one * newSize;
         }

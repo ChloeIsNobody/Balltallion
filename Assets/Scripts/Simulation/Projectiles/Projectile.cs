@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Projectiles
 {
@@ -14,6 +16,7 @@ namespace Balltallion.Simulation.Projectiles
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
         [SerializeField] private int damage;
         [SerializeField] private float knockback;
+        [SerializeField, Range(0.1f, 5.0f)] private float baseSize = 0.4f;
         [SerializeField, Range(0, 5)] private int maxBounces;
         [SerializeField] private bool destroyOnDeflect;
         
@@ -39,7 +42,13 @@ namespace Balltallion.Simulation.Projectiles
         private float deflectCooldown = 0.5f;
         private float deflectCooldownTimer = 0.0f;
         private bool isDead;
-        
+
+        private void OnValidate()
+        {
+            if (!ballBody) ballBody = GetComponent<BallBody>();
+            ballBody.SetSize(baseSize);
+        }
+
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
@@ -50,6 +59,9 @@ namespace Balltallion.Simulation.Projectiles
         {
             this.shooter = shooter;
             ballBody.SetVelocity(shootDirection * ballBody.GetSpeed());
+
+            float shooterSize = shooter.GetStat(BattleBall.StatNames.Size).GetValue();
+            ballBody.SetSize(baseSize * shooterSize);
             
             gameObject.layer = TeamUtilities.GetProjectileTeamLayerID(team);
             

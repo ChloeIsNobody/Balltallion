@@ -81,7 +81,7 @@ namespace Balltallion.Simulation.Battle
             
             ballAnimator.LoadBallData(data);
             
-            weaponController.gameObject.SetActive(data.weapon != null);
+            weaponController.gameObject.SetActive(data.weapon);
             weaponController.LoadWeaponData(data.weapon);
 
             ClearChildAbilities();
@@ -99,7 +99,7 @@ namespace Balltallion.Simulation.Battle
             stats = new Dictionary<StatNames, Stat>
             {
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
-                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 10.0f),
+                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
             };
         }
         
