@@ -4,5 +4,6 @@
     {
         public BattleBall GetCurrentPlayerBall();
         public BattleBall GetCurrentEnemyBall();
+        public void RestartBattle();
     }
 }

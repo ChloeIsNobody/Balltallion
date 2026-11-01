@@ -5,6 +5,7 @@ using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 namespace Balltallion.DebugTools
 {
@@ -60,5 +61,9 @@ namespace Balltallion.DebugTools
 
         public BattleBall GetCurrentPlayerBall() => currentPlayerBall;
         public BattleBall GetCurrentEnemyBall() => currentEnemyBall;
+        public void RestartBattle()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 }

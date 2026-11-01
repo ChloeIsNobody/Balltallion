@@ -22,27 +22,17 @@ namespace Balltallion.DebugTools
 
         private void Awake()
         {
-            SetSliderValue(1.0f);
-        }
-
-        private void Update()
-        {
-            if (Keyboard.current.leftArrowKey.wasPressedThisFrame)
-            {
-                SetSliderValue(slider.value - 0.1f);
-            }
-            
-            if (Keyboard.current.rightArrowKey.wasPressedThisFrame)
-            {
-                SetSliderValue(slider.value + 0.1f);
-            }
+            SetSliderValue(0.5f);
         }
 
         private void SetSliderValue(float value)
         {
             slider.value = Mathf.Clamp(value, 0.0f, 1.0f);
-            timeScaleText.text = $"TimeScale: {slider.value:F2}";
-            Time.timeScale = slider.value;
+            if (slider.value > 0.45f && slider.value < 0.55f) slider.value = 0.5f;
+            
+            float timeValue = slider.value * 2.0f;
+            timeScaleText.text = $"TimeScale: {timeValue:F2}";
+            Time.timeScale = timeValue;
         }
         
         private void OnSliderValueChanged(float value)

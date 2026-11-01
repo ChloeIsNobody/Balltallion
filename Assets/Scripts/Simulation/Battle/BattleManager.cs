@@ -84,18 +84,12 @@ namespace Balltallion.Simulation.Battle
             OnBattleEnded?.Invoke(winner);
             
             yield return new WaitForSeconds(2.5f);
-            ReturnToTeamPickerScene();
+            SceneManager.LoadScene("TeamPicker");
         }
 
         public void RestartBattle()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        public void ReturnToTeamPickerScene()
-        {
-            if (battleAudioHandler) battleAudioHandler.StopBattleMusic();
-            SceneManager.LoadScene("TeamPicker");
         }
         
         public BattleBall GetCurrentPlayerBall() => currentPlayerBall;

@@ -1397,7 +1397,7 @@ GameObject:
   - component: {fileID: 1028283602}
   - component: {fileID: 1028283603}
   m_Layer: 5
-  m_Name: BattleButtons
+  m_Name: DebugBattleButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1436,7 +1436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f8cbe36bdd425c8b7b47073906b807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Battle.BattleButtons
-  battleManager: {fileID: 152826097}
+  battleManagerRef: {fileID: 152826095}
   restartButton: {fileID: 1789056751}
   backButton: {fileID: 1953046429}
 --- !u!1 &1034422283
