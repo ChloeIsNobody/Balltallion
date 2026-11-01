@@ -40,7 +40,7 @@ namespace Balltallion.DebugTools
 
         private void SetSliderValue(float value)
         {
-            slider.value = Mathf.Clamp(value, 0.1f, 1.0f);
+            slider.value = Mathf.Clamp(value, 0.0f, 1.0f);
             timeScaleText.text = $"TimeScale: {slider.value:F2}";
             Time.timeScale = slider.value;
         }

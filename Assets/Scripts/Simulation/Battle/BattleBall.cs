@@ -25,7 +25,7 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private BallAudioHandler audioHandler;
         [SerializeField] private Transform abilitiesParent;
         
-        [Header("Debug Draw")]
+        [Header("Debug")]
         [SerializeField] private bool debugLogToConsole = false;
         [SerializeField] private bool debugAttacks;
         
@@ -39,6 +39,7 @@ namespace Balltallion.Simulation.Battle
         public enum StatNames
         {
             MaxHealth,
+            Size,
         }
 
         private void Awake()
@@ -95,7 +96,8 @@ namespace Balltallion.Simulation.Battle
         {
             stats = new Dictionary<StatNames, Stat>
             {
-                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth))
+                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth)),
+                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), 0.1f, 10.0f),
             };
         }
         

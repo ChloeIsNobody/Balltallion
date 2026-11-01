@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace Balltallion.Simulation.Battle
 {
-    public class BattleManager : MonoBehaviour
+    public class BattleManager : MonoBehaviour, IBattleManager
     {
         public event Action<TeamNames> OnBattleEnded; 
         

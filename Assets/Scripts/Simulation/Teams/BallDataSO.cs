@@ -24,11 +24,12 @@ namespace Balltallion.Simulation.Teams
         [Header("Base Stats")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public int maxHealth = 100;
+        [SerializeField, Range(0.1f, 10.0f)] public float size = 1.0f;
+        
         [SerializeField] public int contactDamage = 3;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(0.05f, 5.0f)] public float size = 1.0f;
         [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         
@@ -58,6 +59,7 @@ namespace Balltallion.Simulation.Teams
             switch (statName)
             {
                 case BattleBall.StatNames.MaxHealth: return maxHealth;
+                case BattleBall.StatNames.Size: return size;
                 default:
                     Debug.LogError($"StatName {statName.ToString()} does not have a default value defined in BallDataSO!");
                     break;

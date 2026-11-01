@@ -11,14 +11,20 @@ namespace Balltallion.UI.Battle
         [SerializeField] private TeamNames trackedTeam;
         
         [Header("References")]
-        [SerializeField] private BattleManager battleManager;
+        [SerializeField] private GameObject battleManagerRef;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image iconImage;
         
         private BattleBall trackedBall;
+        private IBattleManager battleManager;
 
+        private void Start()
+        {
+            battleManager = battleManagerRef.GetComponent<IBattleManager>();
+        }
+        
         private void Update()
         {
             if (!trackedBall) SearchForBall();
