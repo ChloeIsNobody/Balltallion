@@ -16,14 +16,15 @@ namespace Balltallion.DebugTools
      */
     
     [Serializable]
-    public class DebugModifierToggle
+    public class DebugModifierToggle : MonoBehaviour
     {
         public Key key;
         public BattleBall.StatNames statName;
         [SerializeField] private StatModifier.OperationType operation;
         [SerializeField] private float modifierValue;
         [SerializeField] private Image icon;
-        [SerializeField] private TextMeshProUGUI text;
+        [SerializeField] private TextMeshProUGUI nameText;
+        [SerializeField] private TextMeshProUGUI valueText;
 
         private StatModifier statModifier;
         private bool isModifierApplied;
@@ -36,13 +37,16 @@ namespace Balltallion.DebugTools
             
             icon.sprite = deviceData.GetIconForControl(Keyboard.current[key].displayName);
             icon.color = Color.black;
-            text.color = Color.black;
+            valueText.color = Color.black;
+            nameText.color = Color.black;
 
-            text.text = statModifier.GetEffectString();
+            nameText.text = affectedStat.GetName();
+            valueText.text = statModifier.GetEffectString();
         }
 
-        public void Update()
+        private void Update()
         {
+            if (affectedStat == null) return;
             if (Keyboard.current[key].wasPressedThisFrame) ToggleModifier();
         }
 
@@ -57,7 +61,8 @@ namespace Balltallion.DebugTools
             affectedStat?.AddModifier(statModifier);
             isModifierApplied = true;
             icon.color = Color.white;
-            text.color = Color.white;
+            valueText.color = Color.white;
+            nameText.color = Color.white;
         }
 
         private void RemoveModifier()
@@ -65,7 +70,8 @@ namespace Balltallion.DebugTools
             affectedStat?.RemoveModifier(statModifier);
             isModifierApplied = false;
             icon.color = Color.black;
-            text.color = Color.black;
+            valueText.color = Color.black;
+            nameText.color = Color.black;
         }
     }
 }

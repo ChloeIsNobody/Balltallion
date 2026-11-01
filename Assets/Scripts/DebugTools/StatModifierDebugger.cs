@@ -33,10 +33,5 @@ namespace Balltallion.DebugTools
                 slot.Initialize(stat, deviceData, Keyboard.current);
             }
         }
-
-        private void Update()
-        {
-            foreach (DebugModifierToggle slot in modifierDebugSlots) slot.Update();
-        }
     }
 }
