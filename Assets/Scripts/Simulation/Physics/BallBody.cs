@@ -44,7 +44,6 @@ namespace Balltallion.Simulation.Physics
             this.ballData = ballData;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            rb.mass = ballData.mass;
             rb.gravityScale = ballData.gravityScale;
 
             speed = ballData.speed;
@@ -181,6 +180,7 @@ namespace Balltallion.Simulation.Physics
         public void SetSize(float newSize)
         {
             transform.localScale = Vector3.one * newSize;
+            rb.mass = newSize;
         }
         
         private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;

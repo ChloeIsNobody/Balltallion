@@ -30,7 +30,6 @@ namespace Balltallion.Simulation.Teams
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         
         [Space]

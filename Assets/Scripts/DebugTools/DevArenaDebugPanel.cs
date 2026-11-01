@@ -23,6 +23,10 @@ namespace Balltallion.DebugTools
         private void Awake()
         {
             battleManager = battleManagerRef.GetComponent<IBattleManager>();
+            foreach (DebugModifierToggle toggle in modifierToggles)
+            {
+                toggle.Initialize(keyboardDeviceData, Keyboard.current);
+            }
         }
         
         private void Update()
@@ -36,15 +40,30 @@ namespace Balltallion.DebugTools
         private void SetTrackedBall(BattleBall ball)
         {
             trackedBall = ball;
+            trackedBall.OnDeath += OnTrackedBallDied;
+                
             foreach (DebugModifierToggle toggle in modifierToggles)
             {
                 Stat ballStat = ball.GetStat(toggle.statName);
-                toggle.Initialize(ballStat, keyboardDeviceData, Keyboard.current);
+                toggle.SetAffectedStat(ballStat);
             }
 
             foreach (DebugStatReadout readout in statReadouts)
             {
                 readout.SetTrackedBall(ball);
+            }
+        }
+
+        private void OnTrackedBallDied()
+        {
+            foreach (DebugModifierToggle toggle in modifierToggles)
+            {
+                toggle.SetAffectedStat(null);
+            }
+
+            foreach (DebugStatReadout readout in statReadouts)
+            {
+                readout.SetTrackedBall(null);
             }
         }
     }

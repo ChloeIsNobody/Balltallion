@@ -58,7 +58,7 @@ namespace Balltallion.DebugTools
         public void SetTrackedBall(BattleBall ball)
         {
             trackedBall = ball;
-            trackedStat = trackedBall.GetStat(dropdownSelectedStat);
+            trackedStat = trackedBall?.GetStat(dropdownSelectedStat);
         }
         
         public void SetTrackedStat(Stat stat)

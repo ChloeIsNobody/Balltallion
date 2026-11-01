@@ -35,18 +35,23 @@ namespace Balltallion.DebugTools
             if (nameText) nameText.text = statName.ToString();
         }
 
-        public void Initialize(Stat affectedStat, DeviceDataSO deviceData, InputDevice inputDevice)
+        public void Initialize(DeviceDataSO deviceData, InputDevice inputDevice)
         {
-            this.affectedStat = affectedStat;
             statModifier = new StatModifier($"DebugToggle-{key.ToString()}", modifierValue, operation);
             
             icon.sprite = deviceData.GetIconForControl(Keyboard.current[key].displayName);
             icon.color = Color.black;
             valueText.color = Color.black;
             nameText.color = Color.black;
-
-            nameText.text = affectedStat.GetName();
+            
             valueText.text = statModifier.GetEffectString();
+        }
+
+        public void SetAffectedStat(Stat stat)
+        {
+            affectedStat = stat;
+            nameText.text = affectedStat?.GetName() ?? "NULL";
+            if (affectedStat == null) RemoveModifier();
         }
 
         private void Update()
