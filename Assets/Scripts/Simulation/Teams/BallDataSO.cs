@@ -1,4 +1,5 @@
 using System;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,15 +16,15 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public Color debugColor = Color.white;
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
         
-        [Header("Stats")]
+        [Header("Loadout")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(10, 1000)] public int maxHealth = 100;
-        
-        [SerializeField] public int contactDamage = 3;
-
-        [Space]
         [SerializeField, Expandable] public WeaponDataSO weapon;
         [SerializeField] public GameObject abilityPrefab;
+        
+        [Header("Base Stats")]
+        [HorizontalLine(color: EColor.Gray, height:1.5f)]
+        [SerializeField] public int maxHealth = 100;
+        [SerializeField] public int contactDamage = 3;
         
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
@@ -51,6 +52,18 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public AudioResource bounceSound;
         [SerializeField] public AudioResource damageSound;
+
+        public float GetBaseStat(BattleBall.StatNames statName)
+        {
+            switch (statName)
+            {
+                case BattleBall.StatNames.MaxHealth: return maxHealth;
+                default:
+                    Debug.LogError($"StatName {statName.ToString()} does not have a default value defined in BallDataSO!");
+                    break;
+            }
+            return 0.0f;
+        }
     }
     
     // Marks a Sprite field to be used as the icon for this ScriptableObject in the Project view.

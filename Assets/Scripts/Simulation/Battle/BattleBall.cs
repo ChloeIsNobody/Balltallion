@@ -39,16 +39,27 @@ namespace Balltallion.Simulation.Battle
         public enum StatNames
         {
             MaxHealth,
-            
         }
 
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
         }
+        
+        private void OnEnable()
+        {
+            ballBody.OnWallBounce += OnWallBounce;
+            ballBody.OnBallCollision += OnBallCollision;
+        }
 
-        [Button("Editor Refresh Stats")]
-        private void EditorLoadStats()
+        private void OnDisable()
+        {
+            ballBody.OnWallBounce -= OnWallBounce;
+            ballBody.OnBallCollision -= OnBallCollision;
+        }
+
+        [Button("Reload BallDataSO")]
+        private void EditorLoadData()
         {
             if (ballData) LoadBallData(ballData, team);
         }
@@ -56,7 +67,8 @@ namespace Balltallion.Simulation.Battle
         public void LoadBallData(BallDataSO data, TeamNames team)
         {
             ballData = data;
-            health = data.maxHealth;
+            InitializeStatsDictionary();
+            health = (int)stats[StatNames.MaxHealth].GetValue();
             
             SetTeam(team);
             name = data.displayName;
@@ -79,6 +91,14 @@ namespace Balltallion.Simulation.Battle
             audioHandler.LoadBallData(data);
         }
         
+        private void InitializeStatsDictionary()
+        {
+            stats = new Dictionary<StatNames, Stat>
+            {
+                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth))
+            };
+        }
+        
         private void ClearChildAbilities()
         {
             List<Transform> abilityTransforms = new();
@@ -90,18 +110,6 @@ namespace Balltallion.Simulation.Battle
         {
             team = newTeam;
             gameObject.layer = TeamUtilities.GetTeamLayerID(newTeam);
-        }
-        
-        private void OnEnable()
-        {
-            ballBody.OnWallBounce += OnWallBounce;
-            ballBody.OnBallCollision += OnBallCollision;
-        }
-
-        private void OnDisable()
-        {
-            ballBody.OnWallBounce -= OnWallBounce;
-            ballBody.OnBallCollision -= OnBallCollision;
         }
 
         public void ReceiveAttack(AttackData attackData)
@@ -136,9 +144,6 @@ namespace Balltallion.Simulation.Battle
             OnDeath?.Invoke();
             Destroy(gameObject, 0f);
         }
-        
-        public float GetHealth() => health;
-        public float GetMaxHealth() => ballData.maxHealth;
 
         private void OnWallBounce(BallCollisionData data)
         {
@@ -166,6 +171,8 @@ namespace Balltallion.Simulation.Battle
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
+        public float GetHealth() => health;
+        public float GetStat(StatNames stat) => stats[stat].GetValue();
         public bool IsInvulnerable() => isInvulnerable;
         public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }

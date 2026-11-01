@@ -15,13 +15,10 @@ MonoBehaviour:
   displayName: Gumball Machine
   debugColor: {r: 0.7803922, g: 0.97647065, b: 1, a: 1}
   ballSprite: {fileID: 21300000, guid: d176cbdbf98347c4fa9da1da0ea4377c, type: 3}
-  maxHealth: 100
-  contactDamage: 0
-  velocityScaledContactDamage: 0
-  velocityScalingRange: {x: 1, y: 15}
-  contactDamageRange: {x: 1, y: 15}
   weapon: {fileID: 11400000, guid: 98075e61b37b5564ea228046c3226615, type: 2}
   abilityPrefab: {fileID: 5383679034311467814, guid: 141f3124702b1fd4886bcb1488afd974, type: 3}
+  maxHealth: 100
+  contactDamage: 0
   size: 1
   mass: 1
   gravityScale: 1
