@@ -25,7 +25,7 @@ namespace Balltallion.DebugTools
         
         private void Start()
         {
-            stat = new Stat(statName, baseValue, minValue, maxValue);
+            stat = new Stat(statName, baseValue, "F0", minValue, maxValue);
             debugStatReadout.SetTrackedStat(stat);
             
             foreach (DebugModifierToggle slot in modifierDebugSlots)

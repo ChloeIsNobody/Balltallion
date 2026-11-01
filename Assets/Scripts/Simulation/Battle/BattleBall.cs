@@ -68,7 +68,7 @@ namespace Balltallion.Simulation.Battle
         public void LoadBallData(BallDataSO data, TeamNames team)
         {
             ballData = data;
-            InitializeStatsDictionary();
+            InitializeStats();
             health = (int)stats[StatNames.MaxHealth].GetValue();
             
             SetTeam(team);
@@ -77,6 +77,8 @@ namespace Balltallion.Simulation.Battle
             
             if (!ballBody) ballBody = GetComponent<BallBody>();
             ballBody.LoadBallData(data);
+            ballBody.LoadSizeStat(stats[StatNames.Size]);
+            
             ballAnimator.LoadBallData(data);
             
             weaponController.gameObject.SetActive(data.weapon != null);
@@ -92,12 +94,12 @@ namespace Balltallion.Simulation.Battle
             audioHandler.LoadBallData(data);
         }
         
-        private void InitializeStatsDictionary()
+        private void InitializeStats()
         {
             stats = new Dictionary<StatNames, Stat>
             {
-                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth)),
-                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), 0.1f, 10.0f),
+                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
+                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 10.0f),
             };
         }
         
@@ -175,7 +177,6 @@ namespace Balltallion.Simulation.Battle
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
         public Stat GetStat(StatNames stat) => stats[stat];
-        public float GetStatValue(StatNames stat) => stats[stat].GetValue();
         public bool IsInvulnerable() => isInvulnerable;
         public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }

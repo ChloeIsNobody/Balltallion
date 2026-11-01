@@ -75,7 +75,7 @@ namespace Balltallion.DebugTools
                 return;
             }
 
-            statText.text = $"{trackedStat.GetName()}: {trackedStat.GetValue():F0}";
+            statText.text = $"{trackedStat.GetName()}: {trackedStat.GetDisplayValue()}";
             
             extraInfoText.enabled = readoutMode != ReadoutModes.OnlyFinalStat;
 

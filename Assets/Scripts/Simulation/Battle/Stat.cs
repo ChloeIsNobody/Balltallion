@@ -6,7 +6,7 @@ namespace Balltallion.Simulation.Battle
 {
     public class Stat
     {
-        public event Action OnValueChanged;
+        public event Action<float> OnValueChanged;
         
         private string name;
         
@@ -20,8 +20,9 @@ namespace Balltallion.Simulation.Battle
         private float finalValue;
 
         private List<StatModifier> statModifiers = new();
+        private string displayFormat;
 
-        public Stat(string name, float baseValue, float minValue = 0, float maxValue = Mathf.Infinity)
+        public Stat(string name, float baseValue, string displayFormat, float minValue = 0, float maxValue = Mathf.Infinity)
         {
             this.name = name;
             this.baseValue = baseValue;
@@ -65,12 +66,13 @@ namespace Balltallion.Simulation.Battle
 
             finalValue = (baseValue + flatAddedValue) * percentAddedValue/100 * multiplierValue;
             finalValue = Mathf.Clamp(finalValue, minValue, maxValue);
-            OnValueChanged?.Invoke();
+            OnValueChanged?.Invoke(finalValue);
         }
         
         public string GetName() => name;
         public float GetBaseValue() => baseValue;
         public float GetValue() => finalValue;
+        public string GetDisplayValue() => GetValue().ToString(displayFormat);
         public float GetFlatAddedValue() => flatAddedValue;
         public float GetPercentAddedValue() => percentAddedValue;
         public float GetMultiplierValue() => multiplierValue;

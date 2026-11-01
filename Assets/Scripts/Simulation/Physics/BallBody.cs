@@ -30,6 +30,8 @@ namespace Balltallion.Simulation.Physics
         [SerializeField] private float speed = 10.0f;
         [SerializeField] private float bounciness = 1.0f;
         [SerializeField] private float linearDamping;
+
+        private Stat sizeStat;
         
         private void Awake()
         {
@@ -40,7 +42,6 @@ namespace Balltallion.Simulation.Physics
         public void LoadBallData(BallDataSO ballData)
         {
             this.ballData = ballData;
-            transform.localScale = Vector3.one * ballData.size;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
             rb.mass = ballData.mass;
@@ -50,6 +51,14 @@ namespace Balltallion.Simulation.Physics
             bounciness = ballData.bounciness;
             linearDamping = ballData.linearDamping;
             debugColor = ballData.debugColor;
+        }
+
+        public void LoadSizeStat(Stat newStat)
+        {
+            if (sizeStat != null) sizeStat.OnValueChanged -= SetSize;
+            newStat.OnValueChanged += SetSize;
+            SetSize(newStat.GetValue());
+            sizeStat = newStat;
         }
 
         private void FixedUpdate()
@@ -168,6 +177,12 @@ namespace Balltallion.Simulation.Physics
                 rb.linearVelocityY = globalPhysicsData.minVelocityYAfterCollision * Mathf.Sign(rb.linearVelocityY);
             }
         }
+
+        private void SetSize(float newSize)
+        {
+            transform.localScale = Vector3.one * newSize;
+        }
+        
         private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
         
         public Vector2 GetVelocity() => rb.linearVelocity;
