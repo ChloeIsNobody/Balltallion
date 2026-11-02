@@ -22,7 +22,6 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private AudioSource audioSource;
         
         [Header("Slash Stats")]
-        [SerializeField] private int damage = 10;
         [SerializeField] private float knockback;
         [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
@@ -258,7 +257,7 @@ namespace Balltallion.Simulation.Abilities
             AttackData attack = new AttackData()
             {
                 source = parentBall,
-                damage = damage,
+                damage = parentBall.GetStat(BattleBall.StatNames.AbilityDamage).GetValue(),
                 knockback = knockbackDir * knockback
             };
             otherBall.ReceiveAttack(attack);

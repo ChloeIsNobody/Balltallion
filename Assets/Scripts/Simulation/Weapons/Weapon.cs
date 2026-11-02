@@ -146,7 +146,7 @@ namespace Balltallion.Simulation.Weapons
             AttackData attackData = new AttackData
             {
                 source = parentBall,
-                damage = weaponData.damage,
+                damage = parentBall.GetStat(BattleBall.StatNames.AttackDamage).GetValue(),
                 knockback = directionalKnockback + awayKnockback
             };
             hitBall.ReceiveAttack(attackData);
@@ -264,7 +264,7 @@ namespace Balltallion.Simulation.Weapons
                 HitFlash(parryColor);
                 audioHandler.PlayParrySound();
             }
-            bool canReverseSpinDirection = projectile.GetDamage() >= weaponData.damage;
+            bool canReverseSpinDirection = projectile.GetDamage() >= parentBall.GetStat(BattleBall.StatNames.AbilityDamage).GetValue();
             if (canReverseSpinDirection)
             {
                 float dotProd = Vector2.Dot(GetWeaponRotationVector(), CalculateKnockbackDir(projectile.transform));

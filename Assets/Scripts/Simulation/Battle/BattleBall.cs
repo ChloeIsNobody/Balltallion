@@ -40,6 +40,8 @@ namespace Balltallion.Simulation.Battle
         
         public enum StatNames
         {
+            AbilityDamage,
+            AttackDamage,
             AttackPower,
             Bounciness,
             ContactDamage,
@@ -110,7 +112,9 @@ namespace Balltallion.Simulation.Battle
         {
             stats = new Dictionary<StatNames, Stat>
             {
-                [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), ballData.GetBaseStat(StatNames.AttackPower), "F2"),
+                [StatNames.AbilityDamage] = new(nameof(StatNames.AbilityDamage), ballData.GetBaseStat(StatNames.AbilityDamage), "F0"),
+                [StatNames.AttackDamage] = new(nameof(StatNames.AttackDamage), ballData.GetBaseStat(StatNames.AttackDamage), "F0"),
+                [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), 1.0f, "F2"),
                 [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
                 [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
                 [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),

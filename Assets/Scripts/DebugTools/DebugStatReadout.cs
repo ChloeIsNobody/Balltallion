@@ -89,7 +89,8 @@ namespace Balltallion.DebugTools
 
             if (readoutMode == ReadoutModes.ModifierList)
             {
-                extraInfoText.text = "Modifiers:";
+                extraInfoText.text = $"Base Value: {trackedStat.GetBaseValue():F0}";
+                extraInfoText.text += "\nModifiers:";
                 
                 IReadOnlyList<StatModifier> modifiers = trackedStat.GetModifiers();
                 foreach (StatModifier modifier in modifiers)

@@ -24,7 +24,6 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField] public bool ignoresCollisions;
         [SerializeField, HideIf("IgnoresCollisions")] public bool canParry = true;
         [SerializeField, HideIf("IgnoresCollisions")] public bool canDeflect = true;
-        [SerializeField, HideIf("IgnoresCollisions")] public int damage;
         [SerializeField, HideIf("IgnoresCollisions")] public float directionalKnockback;
         [SerializeField, HideIf("IgnoresCollisions")] public float awayKnockback;
         [SerializeField, HideIf("IgnoresCollisions")] public float parryKnockback;

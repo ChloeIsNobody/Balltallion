@@ -14,7 +14,6 @@ namespace Balltallion.Simulation.Projectiles
     {
         [Header("Stats")]
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
-        [SerializeField] private int damage;
         [SerializeField] private float knockback;
         [SerializeField, Range(0.1f, 5.0f)] private float baseSize = 0.4f;
         [SerializeField, Range(0, 5)] private int maxBounces;
@@ -37,6 +36,7 @@ namespace Balltallion.Simulation.Projectiles
         private Material material;
         
         private Vector2 moveDirection;
+        private float damage;
 
         private int currentBounces = 0;
         private float deflectCooldown = 0.5f;
@@ -55,9 +55,10 @@ namespace Balltallion.Simulation.Projectiles
             material = spriteRenderer.material;
         }
         
-        public void Initialize(BattleBall shooter, Vector2 shootDirection, TeamNames team)
+        public void Initialize(BattleBall shooter, float damage, Vector2 shootDirection, TeamNames team)
         {
             this.shooter = shooter;
+            this.damage = damage;
             ballBody.SetVelocity(shootDirection * ballBody.GetSpeed());
 
             float shooterSize = shooter.GetStat(BattleBall.StatNames.Size).GetValue();
