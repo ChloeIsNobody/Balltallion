@@ -42,6 +42,7 @@ namespace Balltallion.Simulation.Battle
             Bounciness,
             ContactDamage,
             Gravity,
+            Knockback,
             MaxHealth,
             Size,
         }
@@ -108,6 +109,7 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
                 [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
                 [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
+                [StatNames.Knockback] = new(nameof(StatNames.Knockback), ballData.GetBaseStat(StatNames.Knockback), "F2"),
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
             };
@@ -133,8 +135,11 @@ namespace Balltallion.Simulation.Battle
             float damage = attackData.damage;
             if (attackData.source) damage *= attackData.source.GetStat(StatNames.AttackPower).GetValue();
             TakeDamage(damage, damageColor);
+
+            Vector2 knockback = attackData.knockback;
+            if (attackData.source) knockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
+            ballBody.ApplyKnockback(knockback);
             
-            ballBody.ApplyKnockback(attackData.knockback);
             if (debugAttacks) DebugAttack(attackData);
         }
         private void TakeDamage(float damage, Color damageColor)

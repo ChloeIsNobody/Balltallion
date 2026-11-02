@@ -27,6 +27,7 @@ namespace Balltallion.Simulation.Teams
         [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.07f;
         [SerializeField] public int contactDamage = 3;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
+        [SerializeField] public float knockback = 1.0f;
         [SerializeField] public int maxHealth = 100;
         [SerializeField, Range(0.1f, 10.0f)] public float size = 1.0f;
         
@@ -62,6 +63,7 @@ namespace Balltallion.Simulation.Teams
                 case BattleBall.StatNames.Bounciness: return bounciness;
                 case BattleBall.StatNames.ContactDamage: return contactDamage;
                 case BattleBall.StatNames.Gravity: return gravityScale;
+                case BattleBall.StatNames.Knockback: return knockback;
                 case BattleBall.StatNames.MaxHealth: return maxHealth;
                 case BattleBall.StatNames.Size: return size;
                 default:
