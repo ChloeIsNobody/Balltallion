@@ -33,6 +33,8 @@ namespace Balltallion.DebugTools
         private void OnValidate()
         {
             if (nameText) nameText.text = statName.ToString();
+            statModifier = new StatModifier($"DebugToggle-{key.ToString()}", modifierValue, operation);
+            valueText.text = statModifier.GetEffectString();
         }
 
         public void Initialize(DeviceDataSO deviceData, InputDevice inputDevice)

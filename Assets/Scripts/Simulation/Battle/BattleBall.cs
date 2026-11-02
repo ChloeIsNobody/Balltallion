@@ -45,6 +45,9 @@ namespace Balltallion.Simulation.Battle
             Knockback,
             MaxHealth,
             Size,
+            Toughness,
+            Vulnerability,
+            Weakness,
         }
 
         private void Awake()
@@ -112,6 +115,9 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.Knockback] = new(nameof(StatNames.Knockback), ballData.GetBaseStat(StatNames.Knockback), "F2"),
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
+                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0", 0.0f, 100.0f),
+                [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0"),
+                [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0", 0.0f, 100.0f),
             };
         }
         
@@ -132,25 +138,32 @@ namespace Balltallion.Simulation.Battle
         {
             Color damageColor = attackData.source?.GetColor() ?? Color.white;
             
-            float damage = attackData.damage;
-            if (attackData.source) damage *= attackData.source.GetStat(StatNames.AttackPower).GetValue();
-            TakeDamage(damage, damageColor);
+            float finalDamage = attackData.damage;
+            if (attackData.source)
+            {
+                finalDamage *= attackData.source.GetStat(StatNames.AttackPower).GetValue();
+                finalDamage *= 1.0f - attackData.source.GetStat(StatNames.Weakness).GetValue() / 100.0f;
+            }
+            finalDamage *= 1.0f + stats[StatNames.Vulnerability].GetValue() / 100.0f;
+            finalDamage *= 1.0f - stats[StatNames.Toughness].GetValue() / 100.0f;
+            
+            TakeDamage(attackData.damage, finalDamage, damageColor);
 
-            Vector2 knockback = attackData.knockback;
-            if (attackData.source) knockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
-            ballBody.ApplyKnockback(knockback);
+            Vector2 finalKnockback = attackData.knockback;
+            if (attackData.source) finalKnockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
+            ballBody.ApplyKnockback(finalKnockback);
             
             if (debugAttacks) DebugAttack(attackData);
         }
-        private void TakeDamage(float damage, Color damageColor)
+        private void TakeDamage(float baseDamage, float finalDamage, Color damageColor)
         {
-            if (isInvulnerable) damage = 0;
-            if (damage <= 0) return;
+            if (isInvulnerable) finalDamage = 0;
+            if (baseDamage <= 0) return;
             
-            health -= damage;
+            health -= finalDamage;
             ballAnimator.HitFlash();
             audioHandler.PlayDamageSound();
-            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damage, damageColor);
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, finalDamage, damageColor);
             
             if (health <= 0) Die();
         }

@@ -25,7 +25,7 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public float attackPower = 1.0f;
         [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.07f;
-        [SerializeField] public int contactDamage = 3;
+        [SerializeField] public int contactDamage;
         [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         [SerializeField] public float knockback = 1.0f;
         [SerializeField] public int maxHealth = 100;

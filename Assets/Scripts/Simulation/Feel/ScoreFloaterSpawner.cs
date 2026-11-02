@@ -31,7 +31,7 @@ namespace Balltallion.Simulation.Feel
         {
             Transform scoreFloater = Instantiate(scoreFloaterPrefab, spawnPosition, Quaternion.identity, transform);
             TextMeshPro textMesh = scoreFloater.GetComponentInChildren<TextMeshPro>();
-            textMesh.text = value.ToString("F0");
+            textMesh.text = Mathf.RoundToInt(value).ToString();
             textMesh.color = color;
             scoreFloater.localScale = Vector3.one * CalculateSize(value);
             Destroy(scoreFloater.gameObject, 0.833f);
