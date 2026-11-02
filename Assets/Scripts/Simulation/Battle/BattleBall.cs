@@ -30,7 +30,6 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private bool debugAttacks;
         
         private float health;
-        private bool isInvulnerable;
         private BallBody ballBody;
         private PlayerInputRelaySO inputRelay;
 
@@ -47,9 +46,11 @@ namespace Balltallion.Simulation.Battle
             AttackPower,
             Bounciness,
             ContactDamage,
+            Deflection,
             Gravity,
             Knockback,
             MaxHealth,
+            MoveSpeed,
             Size,
             SpinRate,
             Toughness,
@@ -95,6 +96,7 @@ namespace Balltallion.Simulation.Battle
             ballBody.LoadSizeStat(stats[StatNames.Size]);
             ballBody.LoadGravityStat(stats[StatNames.Gravity]);
             ballBody.LoadBouncinessStat(stats[StatNames.Bounciness]);
+            ballBody.LoadSpeedStat(stats[StatNames.MoveSpeed]);
             
             ballAnimator.LoadBallData(data);
             
@@ -122,14 +124,16 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), 1.0f, "F2"),
                 [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
                 [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
+                [StatNames.Deflection] = new(nameof(StatNames.Deflection), 0.0f, "F0%"),
                 [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
                 [StatNames.Knockback] = new(nameof(StatNames.Knockback), ballData.GetBaseStat(StatNames.Knockback), "F2"),
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
+                [StatNames.MoveSpeed] = new(nameof(StatNames.MoveSpeed), ballData.GetBaseStat(StatNames.MoveSpeed), "F1"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
                 [StatNames.SpinRate] = new(nameof(StatNames.SpinRate), ballData.GetBaseStat(StatNames.SpinRate), "F2"),
-                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0", 0.0f, 100.0f),
-                [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0"),
-                [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0", 0.0f, 100.0f),
+                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0%", 0.0f, 100.0f),
+                [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0%"),
+                [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0%", 0.0f, 100.0f),
             };
         }
         
@@ -186,7 +190,6 @@ namespace Balltallion.Simulation.Battle
         
         private void TakeDamage(float baseDamage, float finalDamage, Color damageColor)
         {
-            if (isInvulnerable) finalDamage = 0;
             if (baseDamage <= 0) return;
             
             health -= finalDamage;
@@ -238,7 +241,5 @@ namespace Balltallion.Simulation.Battle
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
         public Stat GetStat(StatNames stat) => stats[stat];
-        public bool IsInvulnerable() => isInvulnerable;
-        public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
     }
 }

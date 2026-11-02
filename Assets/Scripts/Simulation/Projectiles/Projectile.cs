@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
@@ -108,7 +107,8 @@ namespace Balltallion.Simulation.Projectiles
             };
             ball.ReceiveAttack(attackData);
             
-            if (ball.IsInvulnerable())
+            float deflection = ball.GetStat(BattleBall.StatNames.Deflection).GetValue();
+            if (deflection > Random.Range(0.0f, 99.9f))
             {
                 Vector2 dirAwayFromBall = (transform.position - ball.transform.position).normalized;
                 Deflect(dirAwayFromBall);

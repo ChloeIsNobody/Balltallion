@@ -24,7 +24,10 @@ namespace Balltallion.Simulation.Abilities
             ballBody = parentBall.GetComponent<BallBody>();
             weaponController = parentBall.GetComponentInChildren<WeaponController>();
             projectileShooter = weaponController.GetMainWeapon().GetComponentInChildren<ProjectileShooter>();
-            
+        }
+
+        private void Start()
+        {
             InitializeStateMachine(ShootState, nameof(ShootState));
         }
         

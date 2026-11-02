@@ -39,7 +39,7 @@ namespace Balltallion.Simulation.Battle
             Vector2 startVelocity = Vector2.zero;
             startVelocity.x = Mathf.Cos(Mathf.Deg2Rad * launchAngle);
             startVelocity.y = Mathf.Sin(Mathf.Deg2Rad * launchAngle);
-            startVelocity *= ball.GetBallData().speed;
+            startVelocity *= ball.GetStat(BattleBall.StatNames.MoveSpeed).GetValue();
             
             BallBody body = ball.GetComponent<BallBody>();
             body.SetVelocity(startVelocity);

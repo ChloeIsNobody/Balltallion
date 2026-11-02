@@ -38,6 +38,11 @@ namespace Balltallion.Simulation.Abilities
 
         private bool popTriggered;
         private bool isShieldActive;
+
+        private Stat toughnessStat;
+        private Stat deflectionStat;
+        private StatModifier toughnessStatMod;
+        private StatModifier deflectionStatMod;
         
         private void OnValidate()
         {
@@ -54,6 +59,16 @@ namespace Balltallion.Simulation.Abilities
             ballCollider = parentBall.GetComponent<CircleCollider2D>();
             ballBody = parentBall.GetComponent<BallBody>();
             ballAnimator.SetTrackedBody(ballBody);
+
+            
+        }
+
+        private void Start()
+        {
+            toughnessStat = parentBall.GetStat(BattleBall.StatNames.Toughness);
+            deflectionStat = parentBall.GetStat(BattleBall.StatNames.Deflection);
+            toughnessStatMod = new StatModifier("BubbleGumShield", 100f, StatModifier.OperationType.FlatAdditive);
+            deflectionStatMod = new StatModifier("BubbleGumShield", 100f, StatModifier.OperationType.FlatAdditive);
             
             InitializeStateMachine(ShieldState, nameof(ShieldState));
         }
@@ -71,7 +86,7 @@ namespace Balltallion.Simulation.Abilities
         protected override void CooldownEntered()
         {
             isShieldActive = false;
-            parentBall.SetInvulnerable(false);
+            RemoveModifiers();
             triggerCollider.enabled = false;
             ballCollider.radius = 0.5f;
             animator.Play("Idle");
@@ -86,7 +101,7 @@ namespace Balltallion.Simulation.Abilities
         private IEnumerator ShieldState()
         {
             isShieldActive = true;
-            parentBall.SetInvulnerable(true);
+            ApplyModifiers();
             triggerCollider.enabled = true;
             ballCollider.radius = radius;
             animator.speed = 1.0f/inflateAnimTime;
@@ -102,7 +117,7 @@ namespace Balltallion.Simulation.Abilities
             }
 
             isShieldActive = false;
-            parentBall.SetInvulnerable(false);
+            RemoveModifiers();
             ballCollider.radius = 0.5f;
             
             if (!popTriggered)
@@ -114,6 +129,18 @@ namespace Balltallion.Simulation.Abilities
             }
             
             TransitionToCooldown();
+        }
+
+        private void ApplyModifiers()
+        {
+            toughnessStat.AddModifier(toughnessStatMod);
+            deflectionStat.AddModifier(deflectionStatMod);
+        }
+
+        private void RemoveModifiers()
+        {
+            toughnessStat.RemoveModifier(toughnessStatMod);
+            deflectionStat.RemoveModifier(deflectionStatMod);
         }
 
         public void Pop()

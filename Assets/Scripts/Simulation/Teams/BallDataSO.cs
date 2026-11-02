@@ -32,6 +32,7 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public float gravityScale = 1.0f;
         [SerializeField] public float knockback = 1.0f;
         [SerializeField] public int maxHealth = 100;
+        [SerializeField] public float moveSpeed = 7.3f;
         [SerializeField] public float size = 1.0f;
         [SerializeField] public float spinRate = 1.0f;
         
@@ -40,7 +41,6 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         
         [Space]
-        [SerializeField, Range(0.0f, 100.0f)] public float speed;
         [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
         [Header("Animation Properties")]
@@ -72,6 +72,7 @@ namespace Balltallion.Simulation.Teams
                 case BattleBall.StatNames.Gravity: return gravityScale;
                 case BattleBall.StatNames.Knockback: return knockback;
                 case BattleBall.StatNames.MaxHealth: return maxHealth;
+                case BattleBall.StatNames.MoveSpeed: return moveSpeed;
                 case BattleBall.StatNames.Size: return size;
                 case BattleBall.StatNames.SpinRate: return spinRate;
                 default:

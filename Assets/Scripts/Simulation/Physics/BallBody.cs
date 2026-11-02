@@ -34,6 +34,7 @@ namespace Balltallion.Simulation.Physics
         private Stat sizeStat;
         private Stat gravityStat;
         private Stat bouncinessStat;
+        private Stat speedStat;
         
         private void Awake()
         {
@@ -46,8 +47,7 @@ namespace Balltallion.Simulation.Physics
             this.ballData = ballData;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
-
-            speed = ballData.speed;
+            
             linearDamping = ballData.linearDamping;
             debugColor = ballData.debugColor;
         }
@@ -74,6 +74,14 @@ namespace Balltallion.Simulation.Physics
             newStat.OnValueChanged += SetBounciness;
             SetBounciness(newStat.GetValue());
             bouncinessStat = newStat;
+        }
+
+        public void LoadSpeedStat(Stat newStat)
+        {
+            if (speedStat != null) speedStat.OnValueChanged -= SetSpeed;
+            newStat.OnValueChanged += SetSpeed;
+            SetSpeed(newStat.GetValue());
+            speedStat = newStat;
         }
 
         private void FixedUpdate()
@@ -209,12 +217,13 @@ namespace Balltallion.Simulation.Physics
         }
 
         private void SetBounciness(float newBounciness) => bounciness = newBounciness;
+        public float GetSpeed() => speed;
+        private void SetSpeed(float newSpeed) => speed = newSpeed;
         
         private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
         public Vector2 GetVelocity() => rb.linearVelocity;
         public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
         public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
-        public float GetSpeed() => speed;
         public void SetColliderEnabled(bool enabled) => collider.enabled = enabled;
         private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
     }

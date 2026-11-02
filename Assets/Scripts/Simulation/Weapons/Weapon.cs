@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
@@ -158,7 +157,8 @@ namespace Balltallion.Simulation.Weapons
             parentBall.ReceiveAttack(attackData);
             
             // Effects
-            if (hitBall.IsInvulnerable()) ParryRecoil(false, attackData.knockback);
+            float toughness = hitBall.GetStat(BattleBall.StatNames.Toughness).GetValue();
+            if (toughness >= 100.0f) ParryRecoil(false, attackData.knockback);
             else Recoil(attackData.knockback);
             
             hitLog[hitBall] = Time.time;

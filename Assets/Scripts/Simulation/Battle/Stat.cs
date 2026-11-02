@@ -21,6 +21,7 @@ namespace Balltallion.Simulation.Battle
 
         private List<StatModifier> statModifiers = new();
         private string displayFormat;
+        private bool displaysWithPercent;
 
         public Stat(string name, float baseValue, string displayFormat, float minValue = 0, float maxValue = Mathf.Infinity)
         {
@@ -28,6 +29,10 @@ namespace Balltallion.Simulation.Battle
             this.baseValue = baseValue;
             this.minValue = minValue;
             this.maxValue = maxValue;
+            
+            displaysWithPercent = displayFormat[displayFormat.Length - 1] == '%';
+            if (displaysWithPercent) displayFormat = displayFormat.Substring(0, displayFormat.Length - 1);
+            
             RecalculateModifiers();
         }
 
@@ -73,8 +78,20 @@ namespace Balltallion.Simulation.Battle
         public float GetBaseValue() => baseValue;
         public float GetValue() => finalValue;
         public float GetValueBaseRatio() => finalValue / baseValue;
-        public string GetDisplayValue() => GetValue().ToString(displayFormat);
-        public string GetDisplayBaseValue() => baseValue.ToString(displayFormat);
+
+        public string GetDisplayValue()
+        {
+            string result = GetValue().ToString(displayFormat);
+            if (displaysWithPercent) result += "%";
+            return result;
+        }
+        public string GetDisplayBaseValue()
+        {
+            string result = baseValue.ToString(displayFormat);
+            if (displaysWithPercent) result += "%";
+            return result;
+        }
+        
         public float GetFlatAddedValue() => flatAddedValue;
         public float GetPercentAddedValue() => percentAddedValue;
         public float GetMultiplierValue() => multiplierValue;
