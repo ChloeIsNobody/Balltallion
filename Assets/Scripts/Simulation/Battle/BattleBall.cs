@@ -34,6 +34,8 @@ namespace Balltallion.Simulation.Battle
         private BallBody ballBody;
         private PlayerInputRelaySO inputRelay;
 
+        private float damageResidue; // Stores decimal point damage only dealt when it becomes greater than 1
+
         private Dictionary<StatNames, Stat> stats = new();
         
         public enum StatNames
@@ -137,7 +139,22 @@ namespace Balltallion.Simulation.Battle
         public void ReceiveAttack(AttackData attackData)
         {
             Color damageColor = attackData.source?.GetColor() ?? Color.white;
+
+            if (attackData.damage >= 0)
+            {
+                float finalDamage = CalculateAttackDamage(attackData);
+                TakeDamage(attackData.damage, finalDamage, damageColor);
+            }
+
+            Vector2 finalKnockback = attackData.knockback;
+            if (attackData.source) finalKnockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
+            ballBody.ApplyKnockback(finalKnockback);
             
+            if (debugAttacks) DebugAttack(attackData);
+        }
+
+        private float CalculateAttackDamage(AttackData attackData)
+        {
             float finalDamage = attackData.damage;
             if (attackData.source)
             {
@@ -146,15 +163,17 @@ namespace Balltallion.Simulation.Battle
             }
             finalDamage *= 1.0f + stats[StatNames.Vulnerability].GetValue() / 100.0f;
             finalDamage *= 1.0f - stats[StatNames.Toughness].GetValue() / 100.0f;
-            
-            TakeDamage(attackData.damage, finalDamage, damageColor);
-
-            Vector2 finalKnockback = attackData.knockback;
-            if (attackData.source) finalKnockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
-            ballBody.ApplyKnockback(finalKnockback);
-            
-            if (debugAttacks) DebugAttack(attackData);
+                
+            damageResidue += finalDamage - Mathf.Floor(finalDamage);
+            finalDamage = Mathf.Floor(finalDamage);
+            if (damageResidue > 1.0f)
+            {
+                finalDamage += Mathf.Floor(damageResidue);
+                damageResidue -= Mathf.Floor(damageResidue);
+            }
+            return finalDamage;
         }
+        
         private void TakeDamage(float baseDamage, float finalDamage, Color damageColor)
         {
             if (isInvulnerable) finalDamage = 0;

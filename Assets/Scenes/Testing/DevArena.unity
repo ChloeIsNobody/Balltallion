@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2915656cdccd46e2933175f35ec3d435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.DebugTools.DebugBattleManager
-  playerBall: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
-  enemyBall: {fileID: 11400000, guid: b9c6fff3eb4775644975237ca651a575, type: 2}
+  playerBall: {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
+  enemyBall: {fileID: 11400000, guid: 5dd5daafb23e0d745b94c77d1bac1d09, type: 2}
   inputManager: {fileID: 353589057}
   localPlayers:
   - {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
@@ -2793,11 +2793,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4252455935701496336, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_text
-      value: Vulnerability
+      value: AttackPower
       objectReference: {fileID: 0}
     - target: {fileID: 4252455935701496336, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_fontSize
-      value: 21.4
+      value: 17.95
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_Pivot.x
@@ -2813,7 +2813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2821,7 +2821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2861,11 +2861,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1082.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4298098609530792420, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2885,7 +2885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5441170461650855284, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: key
@@ -2893,7 +2893,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: statName
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: operation
@@ -2901,11 +2901,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7110456823210755178, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: modifierValue
-      value: 25
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7991531793776400225, guid: 664cd7dc4dadd384d88494c8f4b66342, type: 3}
       propertyPath: m_text
-      value: +25
+      value: +0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
