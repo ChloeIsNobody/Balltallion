@@ -4,10 +4,8 @@ using Balltallion.Input;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
-namespace Balltallion.Simulation.Abilities
+namespace Balltallion.Simulation.ActiveAbilities
 {
     public abstract class ActiveAbility : MonoBehaviour
     {

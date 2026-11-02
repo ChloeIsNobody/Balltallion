@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
-using Balltallion.Simulation.Projectiles;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace Balltallion.Simulation.Abilities
+namespace Balltallion.Simulation.ActiveAbilities
 {
     public class BubbleGumShield : ActiveAbility
     {

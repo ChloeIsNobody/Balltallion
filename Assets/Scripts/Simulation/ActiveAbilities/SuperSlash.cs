@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
 using Balltallion.Simulation.Teams;
 using Balltallion.Simulation.Weapons;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
-namespace Balltallion.Simulation.Abilities
+namespace Balltallion.Simulation.ActiveAbilities
 {
     public class SuperSlash : ActiveAbility
     {

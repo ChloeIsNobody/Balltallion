@@ -5,7 +5,7 @@ using Balltallion.Simulation.Projectiles;
 using Balltallion.Simulation.Weapons;
 using UnityEngine;
 
-namespace Balltallion.Simulation.Abilities
+namespace Balltallion.Simulation.ActiveAbilities
 {
     public class SuperShot : ActiveAbility
     {

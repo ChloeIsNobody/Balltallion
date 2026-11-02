@@ -1,8 +1,7 @@
-using System;
 using TMPro;
 using UnityEngine;
 
-namespace Balltallion.Simulation.Abilities
+namespace Balltallion.Simulation.ActiveAbilities
 {
     public class AbilityCooldownTag : MonoBehaviour
     {
