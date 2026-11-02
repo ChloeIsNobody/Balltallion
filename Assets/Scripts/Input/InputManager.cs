@@ -84,7 +84,7 @@ namespace Balltallion.Input
             }
         }
 
-        private void ActivateSplitKeyboard(Keyboard keyboardDevice)
+        public void ActivateSplitKeyboard(Keyboard keyboardDevice)
         {
             JoinPlayer("KeyboardLeft", keyboardDevice);
             JoinPlayer("KeyboardRight", keyboardDevice);

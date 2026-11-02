@@ -11,7 +11,7 @@ using UnityEngine.SceneManagement;
 
 namespace Balltallion.Simulation.Battle
 {
-    public class BattleManager : MonoBehaviour
+    public class BattleManager : MonoBehaviour, IBattleManager
     {
         public event Action<TeamNames> OnBattleEnded; 
         
@@ -84,18 +84,12 @@ namespace Balltallion.Simulation.Battle
             OnBattleEnded?.Invoke(winner);
             
             yield return new WaitForSeconds(2.5f);
-            ReturnToTeamPickerScene();
+            SceneManager.LoadScene("TeamPicker");
         }
 
         public void RestartBattle()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        public void ReturnToTeamPickerScene()
-        {
-            if (battleAudioHandler) battleAudioHandler.StopBattleMusic();
-            SceneManager.LoadScene("TeamPicker");
         }
         
         public BattleBall GetCurrentPlayerBall() => currentPlayerBall;

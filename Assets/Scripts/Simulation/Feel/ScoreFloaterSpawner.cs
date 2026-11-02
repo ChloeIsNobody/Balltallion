@@ -27,17 +27,17 @@ namespace Balltallion.Simulation.Feel
             }
         }
 
-        public void SpawnScoreFloater(Vector3 spawnPosition, int value, Color color)
+        public void SpawnScoreFloater(Vector3 spawnPosition, float value, Color color)
         {
             Transform scoreFloater = Instantiate(scoreFloaterPrefab, spawnPosition, Quaternion.identity, transform);
             TextMeshPro textMesh = scoreFloater.GetComponentInChildren<TextMeshPro>();
-            textMesh.text = value.ToString();
+            textMesh.text = Mathf.RoundToInt(value).ToString();
             textMesh.color = color;
             scoreFloater.localScale = Vector3.one * CalculateSize(value);
             Destroy(scoreFloater.gameObject, 0.833f);
         }
 
-        public float CalculateSize(int value)
+        public float CalculateSize(float value)
         {
             float t = Mathf.InverseLerp(damageScaling.x, damageScaling.y, value);
             t = Mathf.Pow(t, sizeScalingExponent);

@@ -35,7 +35,7 @@ namespace Balltallion.Simulation.Abilities
         {
             if (activeAbility.IsOnCooldown())
             {
-                cooldownText.text = $"{activeAbility.GetCooldownTimer():F1}s";
+                cooldownText.text = $"{activeAbility.GetSecondsUntilReady():F1}s";
             }
         }
 

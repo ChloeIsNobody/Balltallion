@@ -22,7 +22,6 @@ namespace Balltallion.Simulation.Abilities
         [SerializeField] private AudioSource audioSource;
         
         [Header("Slash Stats")]
-        [SerializeField] private int damage = 10;
         [SerializeField] private float knockback;
         [SerializeField] private float radius = 1.0f;
         [SerializeField] private float chargeUpDuration = 0.2f;
@@ -153,7 +152,8 @@ namespace Balltallion.Simulation.Abilities
             if (hitDetectionMode == HitDetectionModes.None) return;
             
             List<Collider2D> hits = new();
-            Physics2D.OverlapCircle(transform.position, radius, targetContactFilter, hits);
+            float adjustedRadius = radius * parentBall.GetStat(BattleBall.StatNames.Size).GetValue();
+            Physics2D.OverlapCircle(transform.position, adjustedRadius, targetContactFilter, hits);
 
             if (hitDetectionMode == HitDetectionModes.ChargeUp)
             {
@@ -257,7 +257,7 @@ namespace Balltallion.Simulation.Abilities
             AttackData attack = new AttackData()
             {
                 source = parentBall,
-                damage = damage,
+                damage = parentBall.GetStat(BattleBall.StatNames.AbilityDamage).GetValue(),
                 knockback = knockbackDir * knockback
             };
             otherBall.ReceiveAttack(attack);

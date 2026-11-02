@@ -1,4 +1,5 @@
 using System;
+using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
@@ -15,28 +16,31 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public Color debugColor = Color.white;
         [SerializeField, ShowAssetPreview, ScriptableObjectIcon] public Sprite ballSprite;
         
-        [Header("Stats")]
+        [Header("Loadout")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(10, 1000)] public int maxHealth = 100;
-        
-        [SerializeField] public int contactDamage = 3;
-        [SerializeField, Space] public bool velocityScaledContactDamage;
-        [SerializeField, EnableIf("VelocityScaling")] private Vector2 velocityScalingRange;
-        [SerializeField, EnableIf("VelocityScaling")] private Vector2 contactDamageRange;
-
-        [Space]
         [SerializeField, Expandable] public WeaponDataSO weapon;
         [SerializeField] public GameObject abilityPrefab;
         
+        [Header("Base Stat Values")]
+        [HorizontalLine(color: EColor.Gray, height:1.5f)]
+        [SerializeField] public float abilityCooldown = 5.0f;
+        [SerializeField] public int abilityDamage = 1;
+        [SerializeField] public float attackCooldown = 3.0f;
+        [SerializeField] public int attackDamage = 1;
+        [SerializeField] public float bounciness = 1.07f;
+        [SerializeField] public int contactDamage;
+        [SerializeField] public float gravityScale = 1.0f;
+        [SerializeField] public float knockback = 1.0f;
+        [SerializeField] public int maxHealth = 100;
+        [SerializeField] public float moveSpeed = 7.3f;
+        [SerializeField] public float size = 1.0f;
+        [SerializeField] public float spinRate = 1.0f;
+        
+        
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
-        [SerializeField, Range(0.05f, 5.0f)] public float size = 1.0f;
-        [SerializeField, Range(0.05f, 10.0f)] public float mass = 1.0f;
-        [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         
         [Space]
-        [SerializeField, Range(0.0f, 100.0f)] public float speed;
-        [SerializeField, Range(0.8f, 2.0f)] public float bounciness = 1.0f;
         [SerializeField, Range(0.0f, 1.0f)] public float linearDamping;
 
         [Header("Animation Properties")]
@@ -55,16 +59,28 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public AudioResource bounceSound;
         [SerializeField] public AudioResource damageSound;
 
-        public int GetVelocityScaledDamage(float velocity)
+        public float GetBaseStat(BattleBall.StatNames statName)
         {
-            if (velocity < velocityScalingRange.x) return contactDamage;
-            float t = Mathf.InverseLerp(velocityScalingRange.x, velocityScalingRange.y, velocity);
-            t = Mathf.Clamp01(t);
-            float damage = Mathf.Lerp(contactDamageRange.x, contactDamageRange.y, t);
-            return Mathf.RoundToInt(damage);
+            switch (statName)
+            {
+                case BattleBall.StatNames.AbilityCooldown: return abilityCooldown;
+                case BattleBall.StatNames.AbilityDamage: return abilityDamage;
+                case BattleBall.StatNames.AttackCooldown: return attackCooldown;
+                case BattleBall.StatNames.AttackDamage: return attackDamage;
+                case BattleBall.StatNames.Bounciness: return bounciness;
+                case BattleBall.StatNames.ContactDamage: return contactDamage;
+                case BattleBall.StatNames.Gravity: return gravityScale;
+                case BattleBall.StatNames.Knockback: return knockback;
+                case BattleBall.StatNames.MaxHealth: return maxHealth;
+                case BattleBall.StatNames.MoveSpeed: return moveSpeed;
+                case BattleBall.StatNames.Size: return size;
+                case BattleBall.StatNames.SpinRate: return spinRate;
+                default:
+                    Debug.LogError($"StatName {statName.ToString()} does not have a default value defined in BallDataSO!");
+                    break;
+            }
+            return 0.0f;
         }
-        
-        private bool VelocityScaling() => velocityScaledContactDamage;
     }
     
     // Marks a Sprite field to be used as the icon for this ScriptableObject in the Project view.

@@ -30,6 +30,11 @@ namespace Balltallion.Simulation.Physics
         [SerializeField] private float speed = 10.0f;
         [SerializeField] private float bounciness = 1.0f;
         [SerializeField] private float linearDamping;
+
+        private Stat sizeStat;
+        private Stat gravityStat;
+        private Stat bouncinessStat;
+        private Stat speedStat;
         
         private void Awake()
         {
@@ -40,16 +45,43 @@ namespace Balltallion.Simulation.Physics
         public void LoadBallData(BallDataSO ballData)
         {
             this.ballData = ballData;
-            transform.localScale = Vector3.one * ballData.size;
             
             if (!rb) rb = GetComponent<Rigidbody2D>();
-            rb.mass = ballData.mass;
-            rb.gravityScale = ballData.gravityScale;
-
-            speed = ballData.speed;
-            bounciness = ballData.bounciness;
+            
             linearDamping = ballData.linearDamping;
             debugColor = ballData.debugColor;
+        }
+
+        public void LoadSizeStat(Stat newStat)
+        {
+            if (sizeStat != null) sizeStat.OnValueChanged -= SetSize;
+            newStat.OnValueChanged += SetSize;
+            SetSize(newStat.GetValue());
+            sizeStat = newStat;
+        }
+
+        public void LoadGravityStat(Stat newStat)
+        {
+            if (sizeStat != null) sizeStat.OnValueChanged -= SetGravityScale;
+            newStat.OnValueChanged += SetGravityScale;
+            SetGravityScale(newStat.GetValue());
+            gravityStat = newStat;
+        }
+
+        public void LoadBouncinessStat(Stat newStat)
+        {
+            if (bouncinessStat != null) bouncinessStat.OnValueChanged -= SetBounciness;
+            newStat.OnValueChanged += SetBounciness;
+            SetBounciness(newStat.GetValue());
+            bouncinessStat = newStat;
+        }
+
+        public void LoadSpeedStat(Stat newStat)
+        {
+            if (speedStat != null) speedStat.OnValueChanged -= SetSpeed;
+            newStat.OnValueChanged += SetSpeed;
+            SetSpeed(newStat.GetValue());
+            speedStat = newStat;
         }
 
         private void FixedUpdate()
@@ -63,7 +95,7 @@ namespace Balltallion.Simulation.Physics
             if (rb.linearVelocity.magnitude > speed)
             {
                 float velocityDiff = rb.linearVelocity.magnitude - speed;
-                rb.linearVelocity -= rb.linearVelocity.normalized * (velocityDiff * linearDamping * Time.fixedDeltaTime);
+                rb.linearVelocity -= rb.linearVelocity.normalized * (0.2f * velocityDiff * velocityDiff * linearDamping * Time.fixedDeltaTime);
             }
         }
 
@@ -100,11 +132,15 @@ namespace Balltallion.Simulation.Physics
             });
             
             rb.linearVelocity += rb.linearVelocity * (bounciness - 1.0f) * collisionDot;
-            float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
-            if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
+
+            if (adjustVelocityPostCollision)
             {
-                float gravityMult = Mathf.Sqrt(Mathf.Max(0.5f, rb.gravityScale));
-                rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce * gravityMult;
+                float angleFromFloor = Vector2.Angle(contact.normal, Vector2.up);
+                if (angleFromFloor < 20.0f && rb.linearVelocity.y < globalPhysicsData.minVelocityYAfterFloorBounce)
+                {
+                    float gravityMult = Mathf.Sqrt(Mathf.Max(0.5f, rb.gravityScale));
+                    rb.linearVelocityY = globalPhysicsData.minVelocityYAfterFloorBounce * gravityMult * bounciness;
+                }
             }
         }
 
@@ -168,14 +204,27 @@ namespace Balltallion.Simulation.Physics
                 rb.linearVelocityY = globalPhysicsData.minVelocityYAfterCollision * Mathf.Sign(rb.linearVelocityY);
             }
         }
-        private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
+
+        public void SetSize(float newSize)
+        {
+            transform.localScale = Vector3.one * newSize;
+            if (rb) rb.mass = newSize;
+        }
+
+        public void SetGravityScale(float newGravity)
+        {
+            if (rb) { rb.gravityScale = newGravity; }
+        }
+
+        private void SetBounciness(float newBounciness) => bounciness = newBounciness;
+        public float GetSpeed() => speed;
+        private void SetSpeed(float newSpeed) => speed = newSpeed;
         
+        private bool IsLayerIdInMask(int layerId, LayerMask mask) => (mask & (1 << layerId)) != 0;
         public Vector2 GetVelocity() => rb.linearVelocity;
         public void SetVelocity(Vector2 newVelocity) => rb.linearVelocity = newVelocity;
         public float GetKineticEnergy() => 0.5f * rb.mass * rb.linearVelocity.sqrMagnitude;
-        public float GetSpeed() => speed;
         public void SetColliderEnabled(bool enabled) => collider.enabled = enabled;
-        public void SetGravityScale(float newGravityScale) => rb.gravityScale = newGravityScale;
         private Vector2 ProjectVector(Vector2 a, Vector2 b) => Vector2.Dot(a, b) * b / b.sqrMagnitude;
     }
 }

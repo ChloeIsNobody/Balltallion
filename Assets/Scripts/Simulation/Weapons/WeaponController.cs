@@ -94,7 +94,8 @@ namespace Balltallion.Simulation.Weapons
                 spinBoost = Mathf.Lerp(currentSpinBoostMult, 1.0f, animValue);
             }
             
-            currentAngle += 90.0f * spinBoost * weaponData.spinSpeed * spinDirection * Time.deltaTime;
+            float spinRate = 360.0f * parentBall.GetStat(BattleBall.StatNames.SpinRate).GetValue();
+            currentAngle += spinBoost * spinRate * spinDirection * Time.deltaTime;
             if (currentAngle >= 360.0f) currentAngle -= 360.0f;
             if (currentAngle < 0.0f) currentAngle += 360.0f;
             transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);

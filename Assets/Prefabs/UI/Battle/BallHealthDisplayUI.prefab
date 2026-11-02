@@ -463,6 +463,7 @@ GameObject:
   - component: {fileID: 6651863893809135080}
   - component: {fileID: 1919462242118733435}
   - component: {fileID: 1202160446331127059}
+  - component: {fileID: 7615061991296018416}
   m_Layer: 5
   m_Name: BallHealthDisplayUI
   m_TagString: Untagged
@@ -506,7 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.BallHealthDisplayUI
   trackedTeam: 0
-  battleManager: {fileID: 0}
+  battleManagerRef: {fileID: 0}
   nameText: {fileID: 8262296730648606785}
   healthText: {fileID: 8181115033675571540}
   healthSlider: {fileID: 237815286999496864}
@@ -549,6 +550,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 0.33
+--- !u!225 &7615061991296018416
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6657328311649224436}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7555493919245623800
 GameObject:
   m_ObjectHideFlags: 0

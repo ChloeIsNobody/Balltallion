@@ -1,11 +1,12 @@
 ﻿using System;
+using Balltallion.Input;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 
-namespace Balltallion.Input
+namespace Balltallion.DebugTools
 {
     public class InputMapDebugger : MonoBehaviour
     {

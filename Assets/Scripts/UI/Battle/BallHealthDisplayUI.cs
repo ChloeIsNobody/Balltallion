@@ -11,24 +11,33 @@ namespace Balltallion.UI.Battle
         [SerializeField] private TeamNames trackedTeam;
         
         [Header("References")]
-        [SerializeField] private BattleManager battleManager;
+        [SerializeField] private GameObject battleManagerRef;
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private Slider healthSlider;
         [SerializeField] private Image iconImage;
         
         private BattleBall trackedBall;
+        private IBattleManager battleManager;
+        private CanvasGroup canvasGroup;
 
+        private void Start()
+        {
+            battleManager = battleManagerRef.GetComponent<IBattleManager>();
+            canvasGroup = GetComponent<CanvasGroup>();
+        }
+        
         private void Update()
         {
+            canvasGroup.alpha = trackedBall ? 1 : 0;
             if (!trackedBall) SearchForBall();
             
             if (trackedBall)
             {
                 nameText.text = trackedBall.name;
                 iconImage.sprite = trackedBall.GetSprite();
-                float healthRatio = trackedBall.GetHealth() / trackedBall.GetMaxHealth();
-                healthText.text = $"HP: {trackedBall.GetHealth()} / {trackedBall.GetMaxHealth()}";
+                float healthRatio = trackedBall.GetHealth() / trackedBall.GetStat(BattleBall.StatNames.MaxHealth).GetValue();
+                healthText.text = $"HP: {(int)trackedBall.GetHealth()} / {trackedBall.GetStat(BattleBall.StatNames.MaxHealth).GetDisplayValue()}";
                 healthSlider.value = healthRatio;
             }
         }
