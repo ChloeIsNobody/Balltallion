@@ -23,6 +23,7 @@ namespace Balltallion.Simulation.Teams
         
         [Header("Base Stat Values")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
+        [SerializeField] public float abilityCooldown = 5.0f;
         [SerializeField] public int abilityDamage = 1;
         [SerializeField] public int attackDamage = 1;
         [SerializeField] public float bounciness = 1.07f;
@@ -60,6 +61,7 @@ namespace Balltallion.Simulation.Teams
         {
             switch (statName)
             {
+                case BattleBall.StatNames.AbilityCooldown: return abilityCooldown;
                 case BattleBall.StatNames.AbilityDamage: return abilityDamage;
                 case BattleBall.StatNames.AttackDamage: return attackDamage;
                 case BattleBall.StatNames.Bounciness: return bounciness;

@@ -17,7 +17,6 @@ namespace Balltallion.Simulation.Abilities
         public event Action OnAbilityActivationBlocked;
         
         [Header("Base Ability Data")]
-        [SerializeField] private float cooldown = 1.0f;
         [SerializeField] private bool debugStatesInConsole = false;
 
         private const string actionName = "Ability1";
@@ -57,13 +56,13 @@ namespace Balltallion.Simulation.Abilities
         
         private IEnumerator CooldownState()
         {
-            cooldownTimer = cooldown;
+            cooldownTimer = 1.0f;
             CooldownEntered();
             OnCooldownEntered?.Invoke();
 
             while (cooldownTimer > 0.0f)
             {
-                cooldownTimer -= Time.deltaTime;
+                cooldownTimer -= GetChargeRate() * Time.deltaTime;
                 if (inputRelay.PollActionPerformedThisFrame(actionName)) OnAbilityActivationBlocked?.Invoke();
                 yield return null;
             }
@@ -98,7 +97,9 @@ namespace Balltallion.Simulation.Abilities
         
         public BattleBall GetParentBall() => parentBall;
         public bool IsOnCooldown() => currentStateName == nameof(CooldownState);
-        public float GetCooldownTimer() => cooldownTimer;
+
+        public float GetSecondsUntilReady() => cooldownTimer / GetChargeRate();
+        private float GetChargeRate() => 1.0f / (0.01f + parentBall.GetStat(BattleBall.StatNames.AbilityCooldown).GetValue());
         public Sprite GetAbilityIcon() => inputRelay.GetIconForAction(actionName); 
     }
 }
