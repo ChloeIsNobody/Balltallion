@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using Balltallion.Input;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -15,11 +17,12 @@ namespace Balltallion.Simulation.Abilities
         public event Action OnAbilityActivationBlocked;
         
         [Header("Base Ability Data")]
-        [SerializeField] private float cooldown = 1.0f;
         [SerializeField] private bool debugStatesInConsole = false;
+
+        private const string actionName = "Ability1";
         
         protected BattleBall parentBall;
-        private KeyControl abilityKey;
+        protected PlayerInputRelaySO inputRelay;
 
         protected TeamNames team;
         private bool onCooldown;
@@ -34,6 +37,7 @@ namespace Balltallion.Simulation.Abilities
         protected virtual void Awake()
         {
             parentBall = GetComponentInParent<BattleBall>();
+            inputRelay = parentBall.GetInputRelay();
             SetupTeam();
         }
         
@@ -41,7 +45,6 @@ namespace Balltallion.Simulation.Abilities
         {
             team = parentBall.GetTeam();
             gameObject.layer = TeamUtilities.GetWeaponTeamLayerID(team);
-            abilityKey = parentBall.GetTeam() == TeamNames.Player ? Keyboard.current.dKey : Keyboard.current.jKey;
         }
 
         protected void InitializeStateMachine(Func<IEnumerator> abilityStartState, string abilityStartStateName)
@@ -53,14 +56,14 @@ namespace Balltallion.Simulation.Abilities
         
         private IEnumerator CooldownState()
         {
-            cooldownTimer = cooldown;
+            cooldownTimer = 1.0f;
             CooldownEntered();
             OnCooldownEntered?.Invoke();
 
             while (cooldownTimer > 0.0f)
             {
-                cooldownTimer -= Time.deltaTime;
-                if (abilityKey.wasPressedThisFrame) OnAbilityActivationBlocked?.Invoke();
+                cooldownTimer -= GetChargeRate() * Time.deltaTime;
+                if (inputRelay.PollActionPerformedThisFrame(actionName)) OnAbilityActivationBlocked?.Invoke();
                 yield return null;
             }
             
@@ -73,7 +76,7 @@ namespace Balltallion.Simulation.Abilities
 
         private IEnumerator ReadyState()
         {
-            yield return new WaitUntil(() => abilityKey.wasPressedThisFrame);
+            yield return new WaitUntil(() => inputRelay.PollActionPerformedThisFrame(actionName));
             OnAbilityActivated?.Invoke();
             
             TransitionToState(abilityStartState.Invoke(), abilityStartStateName);
@@ -94,7 +97,9 @@ namespace Balltallion.Simulation.Abilities
         
         public BattleBall GetParentBall() => parentBall;
         public bool IsOnCooldown() => currentStateName == nameof(CooldownState);
-        public float GetCooldownTimer() => cooldownTimer;
-        public string GetInputName() => abilityKey.name; 
+
+        public float GetSecondsUntilReady() => cooldownTimer / GetChargeRate();
+        private float GetChargeRate() => 1.0f / (0.01f + parentBall.GetStat(BattleBall.StatNames.AbilityCooldown).GetValue());
+        public Sprite GetAbilityIcon() => inputRelay.GetIconForAction(actionName); 
     }
 }

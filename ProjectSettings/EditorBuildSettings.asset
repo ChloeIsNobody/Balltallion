@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Build/DevicePairing.unity
+    guid: 44c56d4dac972fa43a54f80be29e6bd9
+  - enabled: 1
     path: Assets/Scenes/Build/TeamPicker.unity
     guid: 1a8ffd6a5f4abae44816cfae7aae03a4
   - enabled: 1
-    path: Assets/Scenes/Build/Arena.unity
+    path: Assets/Scenes/Build/Battle.unity
     guid: ff308ce8df590c54eb02f887cc1d38c3
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

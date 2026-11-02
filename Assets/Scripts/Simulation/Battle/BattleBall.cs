@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
-using Balltallion.Simulation.Abilities;
+using Balltallion.Input;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Teams;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
 using UnityEngine;
@@ -24,57 +25,42 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private BallAudioHandler audioHandler;
         [SerializeField] private Transform abilitiesParent;
         
-        [Header("Debug Draw")]
+        [Header("Debug")]
         [SerializeField] private bool debugLogToConsole = false;
         [SerializeField] private bool debugAttacks;
         
-        private int health;
-        private bool isInvulnerable;
+        private float health;
         private BallBody ballBody;
-        private AbilityBuilder abilityBuilder;
+        private PlayerInputRelaySO inputRelay;
+
+        private float damageResidue; // Stores decimal point damage only dealt when it becomes greater than 1
+
+        private Dictionary<StatNames, Stat> stats = new();
+        
+        public enum StatNames
+        {
+            AbilityCooldown,
+            AbilityDamage,
+            AttackCooldown,
+            AttackDamage,
+            AttackPower,
+            Bounciness,
+            ContactDamage,
+            Deflection,
+            Gravity,
+            Knockback,
+            MaxHealth,
+            MoveSpeed,
+            Size,
+            SpinRate,
+            Toughness,
+            Vulnerability,
+            Weakness,
+        }
 
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
-        }
-
-        private void Start()
-        {
-            if (ballData) LoadBallData(ballData, team);
-        }
-
-        [Button("Editor Refresh Stats")]
-        private void EditorLoadStats()
-        {
-            if (ballData) LoadBallData(ballData, team);
-        }
-
-        public void LoadBallData(BallDataSO data, TeamNames team)
-        {
-            ballData = data;
-            health = data.maxHealth;
-            
-            SetTeam(team);
-            name = data.displayName;
-            ballAnimator.SetSprite(data.ballSprite);
-            
-            if (!ballBody) ballBody = GetComponent<BallBody>();
-            ballBody.LoadBallData(data);
-            ballAnimator.LoadBallData(data);
-            
-            weaponController.gameObject.SetActive(data.weapon != null);
-            weaponController.LoadWeaponData(data.weapon);
-
-            if (!abilityBuilder) abilityBuilder = GetComponent<AbilityBuilder>();
-            if (abilityBuilder) abilityBuilder.BuildAbilities(this, data.abilities);
-
-            audioHandler.LoadBallData(data);
-        }
-
-        private void SetTeam(TeamNames newTeam)
-        {
-            team = newTeam;
-            gameObject.layer = TeamUtilities.GetTeamLayerID(newTeam);
         }
         
         private void OnEnable()
@@ -89,22 +75,127 @@ namespace Balltallion.Simulation.Battle
             ballBody.OnBallCollision -= OnBallCollision;
         }
 
+        [Button("Reload BallDataSO")]
+        private void EditorLoadData()
+        {
+            if (ballData) LoadBallData(ballData, team);
+        }
+
+        public void LoadBallData(BallDataSO data, TeamNames team)
+        {
+            ballData = data;
+            InitializeStats();
+            health = (int)stats[StatNames.MaxHealth].GetValue();
+            
+            SetTeam(team);
+            name = data.displayName;
+            ballAnimator.SetSprite(data.ballSprite);
+            
+            if (!ballBody) ballBody = GetComponent<BallBody>();
+            ballBody.LoadBallData(data);
+            ballBody.LoadSizeStat(stats[StatNames.Size]);
+            ballBody.LoadGravityStat(stats[StatNames.Gravity]);
+            ballBody.LoadBouncinessStat(stats[StatNames.Bounciness]);
+            ballBody.LoadSpeedStat(stats[StatNames.MoveSpeed]);
+            
+            ballAnimator.LoadBallData(data);
+            
+            weaponController.gameObject.SetActive(data.weapon);
+            weaponController.LoadWeaponData(data.weapon);
+
+            ClearChildAbilities();
+            if (data.abilityPrefab)
+            {
+                GameObject ability = Instantiate(data.abilityPrefab, abilitiesParent.transform);
+                ability.transform.localPosition = Vector3.zero;
+            }
+
+            audioHandler.LoadBallData(data);
+        }
+        
+        private void InitializeStats()
+        {
+            stats = new Dictionary<StatNames, Stat>
+            {
+                [StatNames.AbilityCooldown] = new(nameof(StatNames.AbilityCooldown), ballData.GetBaseStat(StatNames.AbilityCooldown), "F1"),
+                [StatNames.AbilityDamage] = new(nameof(StatNames.AbilityDamage), ballData.GetBaseStat(StatNames.AbilityDamage), "F0"),
+                [StatNames.AttackCooldown] = new(nameof(StatNames.AttackCooldown), ballData.GetBaseStat(StatNames.AttackCooldown), "F1"),
+                [StatNames.AttackDamage] = new(nameof(StatNames.AttackDamage), ballData.GetBaseStat(StatNames.AttackDamage), "F0"),
+                [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), 1.0f, "F2"),
+                [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
+                [StatNames.ContactDamage] = new(nameof(StatNames.ContactDamage), ballData.GetBaseStat(StatNames.ContactDamage), "F0"),
+                [StatNames.Deflection] = new(nameof(StatNames.Deflection), 0.0f, "F0%"),
+                [StatNames.Gravity] = new(nameof(StatNames.Gravity), ballData.GetBaseStat(StatNames.Gravity), "F2", 0.0f, 5.0f),
+                [StatNames.Knockback] = new(nameof(StatNames.Knockback), ballData.GetBaseStat(StatNames.Knockback), "F2"),
+                [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
+                [StatNames.MoveSpeed] = new(nameof(StatNames.MoveSpeed), ballData.GetBaseStat(StatNames.MoveSpeed), "F1"),
+                [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
+                [StatNames.SpinRate] = new(nameof(StatNames.SpinRate), ballData.GetBaseStat(StatNames.SpinRate), "F2"),
+                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0%", 0.0f, 100.0f),
+                [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0%"),
+                [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0%", 0.0f, 100.0f),
+            };
+        }
+        
+        private void ClearChildAbilities()
+        {
+            List<Transform> abilityTransforms = new();
+            foreach (Transform child in abilitiesParent) abilityTransforms.Add(child);
+            foreach (Transform child in abilityTransforms) DestroyImmediate(child.gameObject);
+        }
+
+        private void SetTeam(TeamNames newTeam)
+        {
+            team = newTeam;
+            gameObject.layer = TeamUtilities.GetTeamLayerID(newTeam);
+        }
+
         public void ReceiveAttack(AttackData attackData)
         {
-            Color damageColor = attackData.source?.GetColor() ?? Color.white; 
-            TakeDamage(attackData.damage, damageColor);
-            ballBody.ApplyKnockback(attackData.knockback);
+            Color damageColor = attackData.source?.GetColor() ?? Color.white;
+
+            if (attackData.damage >= 0)
+            {
+                float finalDamage = CalculateAttackDamage(attackData);
+                TakeDamage(attackData.damage, finalDamage, damageColor);
+            }
+
+            Vector2 finalKnockback = attackData.knockback;
+            if (attackData.source) finalKnockback *= attackData.source.GetStat(StatNames.Knockback).GetValue();
+            ballBody.ApplyKnockback(finalKnockback);
+            
             if (debugAttacks) DebugAttack(attackData);
         }
-        private void TakeDamage(int damage, Color damageColor)
+
+        private float CalculateAttackDamage(AttackData attackData)
         {
-            if (isInvulnerable) damage = 0;
-            if (damage <= 0) return;
+            float finalDamage = attackData.damage;
+            if (attackData.source)
+            {
+                finalDamage *= attackData.source.GetStat(StatNames.AttackPower).GetValue();
+                finalDamage *= 1.0f - attackData.source.GetStat(StatNames.Weakness).GetValue() / 100.0f;
+            }
+            finalDamage *= 1.0f + stats[StatNames.Vulnerability].GetValue() / 100.0f;
+            finalDamage *= 1.0f - stats[StatNames.Toughness].GetValue() / 100.0f;
+                
+            damageResidue += finalDamage - Mathf.Floor(finalDamage);
+            finalDamage = Mathf.Floor(finalDamage);
+            if (damageResidue > 1.0f)
+            {
+                finalDamage += Mathf.Floor(damageResidue);
+                damageResidue -= Mathf.Floor(damageResidue);
+            }
+            return finalDamage;
+        }
+        
+        private void TakeDamage(float baseDamage, float finalDamage, Color damageColor)
+        {
+            if (baseDamage <= 0) return;
             
-            health -= damage;
+            health -= finalDamage;
             ballAnimator.HitFlash();
             audioHandler.PlayDamageSound();
-            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, damage, damageColor);
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, finalDamage, damageColor);
             
             if (health <= 0) Die();
         }
@@ -121,9 +212,6 @@ namespace Balltallion.Simulation.Battle
             OnDeath?.Invoke();
             Destroy(gameObject, 0f);
         }
-        
-        public float GetHealth() => health;
-        public float GetMaxHealth() => ballData.maxHealth;
 
         private void OnWallBounce(BallCollisionData data)
         {
@@ -138,23 +226,20 @@ namespace Balltallion.Simulation.Battle
             
             AttackData attackData = new AttackData();
             attackData.source = this;
-            
-            if (ballData.velocityScaledContactDamage)
-            {
-                attackData.damage = ballData.GetVelocityScaledDamage(data.myCollisionPower);
-            }
-            else attackData.damage = ballData.contactDamage;
+            attackData.damage = stats[StatNames.ContactDamage].GetValue();
             
             otherBall.ReceiveAttack(attackData);
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
         
+        public PlayerInputRelaySO GetInputRelay() => inputRelay;
+        public void SetInputRelay(PlayerInputRelaySO inputRelay) => this.inputRelay = inputRelay;
         public BallDataSO GetBallData() => ballData;
         public Sprite GetSprite() => ballData.ballSprite;
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
-        public bool IsInvulnerable() => isInvulnerable;
-        public void SetInvulnerable(bool invulnerable) => isInvulnerable = invulnerable;
+        public float GetHealth() => health;
+        public Stat GetStat(StatNames stat) => stats[stat];
     }
 }

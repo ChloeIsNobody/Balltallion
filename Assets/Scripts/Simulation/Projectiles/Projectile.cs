@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Projectiles
 {
@@ -11,8 +13,8 @@ namespace Balltallion.Simulation.Projectiles
     {
         [Header("Stats")]
         [HorizontalLine(color: EColor.Gray, height: 1.5f)]
-        [SerializeField] private int damage;
         [SerializeField] private float knockback;
+        [SerializeField, Range(0.1f, 5.0f)] private float baseSize = 0.4f;
         [SerializeField, Range(0, 5)] private int maxBounces;
         [SerializeField] private bool destroyOnDeflect;
         
@@ -33,22 +35,33 @@ namespace Balltallion.Simulation.Projectiles
         private Material material;
         
         private Vector2 moveDirection;
+        private float damage;
 
         private int currentBounces = 0;
         private float deflectCooldown = 0.5f;
         private float deflectCooldownTimer = 0.0f;
         private bool isDead;
-        
+
+        private void OnValidate()
+        {
+            if (!ballBody) ballBody = GetComponent<BallBody>();
+            ballBody?.SetSize(baseSize);
+        }
+
         private void Awake()
         {
             ballBody = GetComponent<BallBody>();
             material = spriteRenderer.material;
         }
         
-        public void Initialize(BattleBall shooter, Vector2 shootDirection, TeamNames team)
+        public void Initialize(BattleBall shooter, float damage, Vector2 shootDirection, TeamNames team)
         {
             this.shooter = shooter;
+            this.damage = damage;
             ballBody.SetVelocity(shootDirection * ballBody.GetSpeed());
+
+            float shooterSize = shooter.GetStat(BattleBall.StatNames.Size).GetValue();
+            ballBody.SetSize(baseSize * shooterSize);
             
             gameObject.layer = TeamUtilities.GetProjectileTeamLayerID(team);
             
@@ -94,7 +107,8 @@ namespace Balltallion.Simulation.Projectiles
             };
             ball.ReceiveAttack(attackData);
             
-            if (ball.IsInvulnerable())
+            float deflection = ball.GetStat(BattleBall.StatNames.Deflection).GetValue();
+            if (deflection > Random.Range(0.0f, 99.9f))
             {
                 Vector2 dirAwayFromBall = (transform.position - ball.transform.position).normalized;
                 Deflect(dirAwayFromBall);

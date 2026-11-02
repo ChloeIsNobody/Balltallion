@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91701300040645fe9ec2821c4ced1f95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.BubbleGumShield
-  cooldown: 11.5
+  cooldown: 12
   debugStatesInConsole: 0
   triggerCollider: {fileID: 2528669422996289791}
   visualTransform: {fileID: 2206838373608933581}
@@ -287,7 +287,7 @@ AudioSource:
   m_GameObject: {fileID: 5383679034311467814}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3717680942527771372, guid: bbc6d40596521d1468eb0c664bc60bc6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -384,7 +384,7 @@ AudioSource:
   m_GameObject: {fileID: 5383679034311467814}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 3717680942527771372, guid: bbc6d40596521d1468eb0c664bc60bc6, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -549,9 +549,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 1273950095
+  m_SortingLayer: 1
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: e942c88accd78644c821114d84d7afdd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.69803923}
