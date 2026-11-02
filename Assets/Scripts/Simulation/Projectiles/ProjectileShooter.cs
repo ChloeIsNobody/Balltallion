@@ -40,14 +40,17 @@ namespace Balltallion.Simulation.Projectiles
                 Shoot(weaponData.projectilePrefab, damage, weaponData.shotRecoil);
                 currentAmmo--;
                 if (currentAmmo == 0) break;
-                yield return new WaitForSeconds(weaponData.delayBetweenShots);
+                
+                float speedupRatio = parentBall.GetStat(BattleBall.StatNames.AttackCooldown).GetValueBaseRatio();
+                yield return new WaitForSeconds(weaponData.delayBetweenShots * speedupRatio);
             }
             stateCoroutine = StartCoroutine(ReloadState());
         }
 
         private IEnumerator ReloadState()
         {
-            yield return new WaitForSeconds(weaponData.reloadDuration);
+            float cooldown = parentBall.GetStat(BattleBall.StatNames.AttackCooldown).GetValue();
+            yield return new WaitForSeconds(cooldown);
             stateCoroutine = StartCoroutine(ShootState());
         }
 

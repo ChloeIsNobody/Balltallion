@@ -25,6 +25,7 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField] public float abilityCooldown = 5.0f;
         [SerializeField] public int abilityDamage = 1;
+        [SerializeField] public float attackCooldown = 3.0f;
         [SerializeField] public int attackDamage = 1;
         [SerializeField] public float bounciness = 1.07f;
         [SerializeField] public int contactDamage;
@@ -32,6 +33,7 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public float knockback = 1.0f;
         [SerializeField] public int maxHealth = 100;
         [SerializeField] public float size = 1.0f;
+        [SerializeField] public float spinRate = 1.0f;
         
         
         [Header("Physics Properties")]
@@ -63,6 +65,7 @@ namespace Balltallion.Simulation.Teams
             {
                 case BattleBall.StatNames.AbilityCooldown: return abilityCooldown;
                 case BattleBall.StatNames.AbilityDamage: return abilityDamage;
+                case BattleBall.StatNames.AttackCooldown: return attackCooldown;
                 case BattleBall.StatNames.AttackDamage: return attackDamage;
                 case BattleBall.StatNames.Bounciness: return bounciness;
                 case BattleBall.StatNames.ContactDamage: return contactDamage;
@@ -70,6 +73,7 @@ namespace Balltallion.Simulation.Teams
                 case BattleBall.StatNames.Knockback: return knockback;
                 case BattleBall.StatNames.MaxHealth: return maxHealth;
                 case BattleBall.StatNames.Size: return size;
+                case BattleBall.StatNames.SpinRate: return spinRate;
                 default:
                     Debug.LogError($"StatName {statName.ToString()} does not have a default value defined in BallDataSO!");
                     break;

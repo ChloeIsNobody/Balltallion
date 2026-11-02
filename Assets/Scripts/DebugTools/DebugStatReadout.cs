@@ -81,7 +81,7 @@ namespace Balltallion.DebugTools
 
             if (readoutMode == ReadoutModes.AllCalculationSteps)
             {
-                extraInfoText.text = $"Base Value: {trackedStat.GetBaseValue():F0}";
+                extraInfoText.text = $"Base Value: {trackedStat.GetDisplayValue()}";
                 extraInfoText.text += $"\nFlat Addition: {trackedStat.GetFlatAddedValue():F0}";
                 extraInfoText.text += $"\nPercent Multiplier: {trackedStat.GetPercentAddedValue():F2}%";
                 extraInfoText.text += $"\nMultiplier: {trackedStat.GetMultiplierValue():F2}x";
@@ -89,7 +89,7 @@ namespace Balltallion.DebugTools
 
             if (readoutMode == ReadoutModes.ModifierList)
             {
-                extraInfoText.text = $"Base Value: {trackedStat.GetBaseValue():F0}";
+                extraInfoText.text = $"Base Value: {trackedStat.GetDisplayBaseValue()}";
                 extraInfoText.text += "\nModifiers:";
                 
                 IReadOnlyList<StatModifier> modifiers = trackedStat.GetModifiers();

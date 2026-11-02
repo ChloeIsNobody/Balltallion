@@ -16,7 +16,6 @@ namespace Balltallion.Simulation.Weapons
 
         [SerializeField] public int weaponCount;
         [SerializeField] public WeaponAimModes weaponAimMode = WeaponAimModes.Spinning;
-        [SerializeField, ShowIf("SpinMode"), Range(0.0f, 10.0f)] public float spinSpeed;
         [SerializeField, ShowIf("StaticMode"), Range(0.0f, 360.0f)] public float staticAimAngle;
         
         [Header("Melee Stats")] 
@@ -34,7 +33,6 @@ namespace Balltallion.Simulation.Weapons
         [SerializeField, ShowIf("ShootsProjectiles")] public Projectile projectilePrefab;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(1, 50)] public int ammo = 1;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 1.0f)] public float delayBetweenShots;
-        [SerializeField, ShowIf("ShootsProjectiles"), Range(0.05f, 10.0f)] public float reloadDuration = 2.0f;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 360.0f)] public float shotSpread = 0.0f;
         [SerializeField, ShowIf("ShootsProjectiles"), Range(0.0f, 10.0f)] public float shotRecoil = 0.0f;
 

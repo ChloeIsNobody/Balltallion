@@ -42,6 +42,7 @@ namespace Balltallion.Simulation.Battle
         {
             AbilityCooldown,
             AbilityDamage,
+            AttackCooldown,
             AttackDamage,
             AttackPower,
             Bounciness,
@@ -50,6 +51,7 @@ namespace Balltallion.Simulation.Battle
             Knockback,
             MaxHealth,
             Size,
+            SpinRate,
             Toughness,
             Vulnerability,
             Weakness,
@@ -115,6 +117,7 @@ namespace Balltallion.Simulation.Battle
             {
                 [StatNames.AbilityCooldown] = new(nameof(StatNames.AbilityCooldown), ballData.GetBaseStat(StatNames.AbilityCooldown), "F1"),
                 [StatNames.AbilityDamage] = new(nameof(StatNames.AbilityDamage), ballData.GetBaseStat(StatNames.AbilityDamage), "F0"),
+                [StatNames.AttackCooldown] = new(nameof(StatNames.AttackCooldown), ballData.GetBaseStat(StatNames.AttackCooldown), "F1"),
                 [StatNames.AttackDamage] = new(nameof(StatNames.AttackDamage), ballData.GetBaseStat(StatNames.AttackDamage), "F0"),
                 [StatNames.AttackPower] = new(nameof(StatNames.AttackPower), 1.0f, "F2"),
                 [StatNames.Bounciness] = new(nameof(StatNames.Bounciness), ballData.GetBaseStat(StatNames.Bounciness), "F2", 0.0f, 1.75f),
@@ -123,6 +126,7 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.Knockback] = new(nameof(StatNames.Knockback), ballData.GetBaseStat(StatNames.Knockback), "F2"),
                 [StatNames.MaxHealth] = new(nameof(StatNames.MaxHealth), ballData.GetBaseStat(StatNames.MaxHealth), "F0"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
+                [StatNames.SpinRate] = new(nameof(StatNames.SpinRate), ballData.GetBaseStat(StatNames.SpinRate), "F2"),
                 [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0", 0.0f, 100.0f),
                 [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0"),
                 [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0", 0.0f, 100.0f),

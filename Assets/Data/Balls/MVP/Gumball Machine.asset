@@ -19,6 +19,7 @@ MonoBehaviour:
   abilityPrefab: {fileID: 5383679034311467814, guid: 141f3124702b1fd4886bcb1488afd974, type: 3}
   abilityCooldown: 12
   abilityDamage: 0
+  attackCooldown: 4.1
   attackDamage: 3
   bounciness: 1.07
   contactDamage: 0
@@ -26,6 +27,7 @@ MonoBehaviour:
   knockback: 1
   maxHealth: 100
   size: 1
+  spinRate: 0
   speed: 7.6
   linearDamping: 0.615
   animStiffness: 0.35

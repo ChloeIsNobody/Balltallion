@@ -72,7 +72,9 @@ namespace Balltallion.Simulation.Battle
         public string GetName() => name;
         public float GetBaseValue() => baseValue;
         public float GetValue() => finalValue;
+        public float GetValueBaseRatio() => finalValue / baseValue;
         public string GetDisplayValue() => GetValue().ToString(displayFormat);
+        public string GetDisplayBaseValue() => baseValue.ToString(displayFormat);
         public float GetFlatAddedValue() => flatAddedValue;
         public float GetPercentAddedValue() => percentAddedValue;
         public float GetMultiplierValue() => multiplierValue;
