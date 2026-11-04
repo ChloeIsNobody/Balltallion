@@ -36,6 +36,7 @@ namespace Balltallion.Simulation.Abilities
         private void Update()
         {
             trigger.Update();
+            foreach (AbilityEffect effect in effects) effect.Update();
         }
     }
 }

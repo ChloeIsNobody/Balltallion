@@ -6,12 +6,18 @@ namespace Balltallion.Simulation.Abilities
     [Serializable]
     public abstract class AbilityEffect
     {
-        private BattleBall parentBall;
+        protected BattleBall parentBall;
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
         
         public abstract void Activate();
         public abstract void Deactivate();
+        
+        public virtual void Update()
+        {
+            
+        }
+        
         public abstract AbilityEffect Clone();
     }
 }

@@ -10,7 +10,7 @@ namespace Balltallion.Simulation.Abilities
         public event Action OnTrigger;
         public event Action OnUntrigger;
 
-        private BattleBall parentBall;
+        protected BattleBall parentBall;
         
         public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
         

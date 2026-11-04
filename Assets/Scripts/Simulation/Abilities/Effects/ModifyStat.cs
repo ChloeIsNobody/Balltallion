@@ -15,15 +15,20 @@ namespace Balltallion.Simulation.Abilities.Effects
         [SerializeField] private string modifierLabel;
         [SerializeField] private StatModifier.OperationType operation;
         [SerializeField] private float value;
+
+        private StatModifier statModifier;
         
         public override void Activate()
         {
-            
+            if (!parentBall) return;
+            if (statModifier == null) statModifier = new StatModifier(modifierLabel, value, operation);
+            parentBall.GetStat(stat)?.AddModifier(statModifier);
         }
 
         public override void Deactivate()
         {
-            
+            if (!parentBall) return;
+            parentBall.GetStat(stat)?.RemoveModifier(statModifier);
         }
         
         public override AbilityEffect Clone()
