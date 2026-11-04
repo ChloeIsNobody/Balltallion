@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa284e48d89a4bd383c5b0cc544a2cf5, type: 3}
+  m_Name: ReferenceTest
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilityTest
+  trigger:
+    rid: 2536140208203890802
+  effect:
+  - rid: 2536140208203890801
+  - rid: 2536140208203890818
+  references:
+    version: 2
+    RefIds:
+    - rid: 2536140208203890801
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities, asm: Assembly-CSharp}
+      data:
+        stat: 13
+        modifierLabel: Rage
+        operation: 2
+        value: 1.25
+    - rid: 2536140208203890802
+      type: {class: OnHealthThreshold, ns: Balltallion.Simulation.Abilities, asm: Assembly-CSharp}
+      data:
+        comparisonType: 0
+        percentValue: 25
+        triggersOnce: 0
+    - rid: 2536140208203890818
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities, asm: Assembly-CSharp}
+      data:
+        stat: 13
+        modifierLabel: Rage
+        operation: 0
+        value: 1.5
