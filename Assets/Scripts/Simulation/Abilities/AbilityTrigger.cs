@@ -12,7 +12,7 @@ namespace Balltallion.Simulation.Abilities
 
         protected BattleBall parentBall;
         
-        public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
+        public virtual void BindToBall(BattleBall ball) => this.parentBall = ball;
         
         protected void Trigger() => OnTrigger?.Invoke();
         protected void Untrigger() => OnUntrigger?.Invoke();

@@ -7,8 +7,7 @@ namespace Balltallion.Simulation.Abilities
     public abstract class AbilityEffect
     {
         protected BattleBall parentBall;
-        
-        public void SetParentBall(BattleBall parentBall) => this.parentBall = parentBall;
+        public virtual void BindToBall(BattleBall ball) => this.parentBall = ball;
         
         public abstract void Activate();
         public abstract void Deactivate();

@@ -36,4 +36,4 @@ MonoBehaviour:
         stat: 12
         modifierLabel: Tanky
         operation: 1
-        value: 10
+        value: 15

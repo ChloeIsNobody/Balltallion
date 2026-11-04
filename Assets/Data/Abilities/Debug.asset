@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: Debug
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140211404406901
-  effects:
-  - rid: 2536140211404406902
+    rid: 2536140211404406921
+  effects: []
   references:
     version: 2
     RefIds:
-    - rid: 2536140211404406901
+    - rid: 2536140211404406921
       type: {class: OnKeyPressed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
         key: 31
-    - rid: 2536140211404406902
-      type: {class: DebugLog, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        activateMessage: Ability activated!
-        deactivateMessage: Ability deactivated!

@@ -14,13 +14,13 @@ namespace Balltallion.Simulation.Abilities
         {
             this.battleBall = battleBall;
             
+            effects = effectInstances;
+            foreach (AbilityEffect effect in effects) effect.BindToBall(battleBall);
+            
             trigger = triggerInstance;
-            trigger.SetParentBall(battleBall);
             trigger.OnTrigger += OnTrigger;
             trigger.OnUntrigger += OnUntrigger;
-            
-            effects = effectInstances;
-            foreach (AbilityEffect effect in effects) effect.SetParentBall(battleBall);
+            trigger.BindToBall(battleBall);
         }
 
         private void OnTrigger()
