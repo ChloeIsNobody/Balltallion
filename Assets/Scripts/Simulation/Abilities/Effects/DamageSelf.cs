@@ -1,4 +1,5 @@
 ﻿using System;
+using Balltallion.Simulation.Battle;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Abilities.Effects
@@ -10,7 +11,12 @@ namespace Balltallion.Simulation.Abilities.Effects
         
         public override void Activate()
         {
-            
+            AttackData attackData = new AttackData()
+            {
+                source = parentBall,
+                damage = damage,
+            };
+            parentBall.ReceiveAttack(attackData);
         }
 
         public override void Deactivate()
