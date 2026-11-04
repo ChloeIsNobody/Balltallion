@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
@@ -21,6 +22,7 @@ namespace Balltallion.Simulation.Battle
         
         [Header("References")]
         [SerializeField] private WeaponController weaponController;
+        [SerializeField] private AbilityBuilder abilityBuilder;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private BallAudioHandler audioHandler;
         [SerializeField] private Transform abilitiesParent;
@@ -85,6 +87,9 @@ namespace Balltallion.Simulation.Battle
         {
             ballData = data;
             InitializeStats();
+            
+            if (Application.isPlaying) abilityBuilder.BuildAbilities(data.innateAbilities);
+            
             health = (int)stats[StatNames.MaxHealth].GetValue();
             
             SetTeam(team);
@@ -104,9 +109,9 @@ namespace Balltallion.Simulation.Battle
             weaponController.LoadWeaponData(data.weapon);
 
             ClearChildAbilities();
-            if (data.abilityPrefab)
+            if (data.activeAbilityPrefab)
             {
-                GameObject ability = Instantiate(data.abilityPrefab, abilitiesParent.transform);
+                GameObject ability = Instantiate(data.activeAbilityPrefab, abilitiesParent.transform);
                 ability.transform.localPosition = Vector3.zero;
             }
 

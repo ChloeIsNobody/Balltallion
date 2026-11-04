@@ -7,17 +7,11 @@ namespace Balltallion.Simulation.Abilities
     public class AbilityBuilder : MonoBehaviour
     {
         [SerializeField] private BattleBall battleBall;
-        [SerializeField] private List<AbilitySO>  abilities = new List<AbilitySO>();
         [SerializeField] private AbilityRunner abilityRunnerPrefab;
         
         private List<AbilityRunner> abilityRunners = new List<AbilityRunner>();
 
-        private void Start()
-        {
-            BuildAbilities(abilities);
-        }
-
-        private void BuildAbilities(List<AbilitySO> abilities)
+        public void BuildAbilities(List<AbilitySO> abilities)
         {
             foreach (AbilitySO ability in abilities)
             {
@@ -26,7 +20,7 @@ namespace Balltallion.Simulation.Abilities
                 
                 AbilityTrigger triggerInstance = ability.GetTriggerInstance();
                 List<AbilityEffect> effectInstances = ability.GetEffectInstances();
-                abilityRunner.Initialize(triggerInstance, effectInstances);
+                abilityRunner.Initialize(battleBall, triggerInstance, effectInstances);
             }
         }
     }

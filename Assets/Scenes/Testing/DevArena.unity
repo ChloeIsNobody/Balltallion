@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2915656cdccd46e2933175f35ec3d435, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.DebugTools.DebugBattleManager
-  playerBall: {fileID: 11400000, guid: b9c6fff3eb4775644975237ca651a575, type: 2}
+  playerBall: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
   enemyBall: {fileID: 11400000, guid: 5dd5daafb23e0d745b94c77d1bac1d09, type: 2}
   inputManager: {fileID: 353589057}
   localPlayers:

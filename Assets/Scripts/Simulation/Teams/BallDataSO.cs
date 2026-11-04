@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Weapons;
 using NaughtyAttributes;
@@ -19,7 +21,8 @@ namespace Balltallion.Simulation.Teams
         [Header("Loadout")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, Expandable] public WeaponDataSO weapon;
-        [SerializeField] public GameObject abilityPrefab;
+        [SerializeField] public GameObject activeAbilityPrefab;
+        [SerializeField] public List<AbilitySO> innateAbilities;
         
         [Header("Base Stat Values")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
