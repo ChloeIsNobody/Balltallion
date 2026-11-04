@@ -22,8 +22,8 @@ MonoBehaviour:
     - rid: 2536140227674374249
       type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        cooldown: 0.1
+        cooldown: 0.33
     - rid: 2536140227674374251
       type: {class: DamageSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        damage: 1
+        damage: 5

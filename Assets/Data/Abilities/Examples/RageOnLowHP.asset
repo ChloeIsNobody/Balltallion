@@ -34,14 +34,14 @@ MonoBehaviour:
         stat: 13
         modifierLabel: Rage
         operation: 2
-        value: 1.5
+        value: 2
     - rid: 2536140211404406883
       type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         stat: 2
         modifierLabel: Rage
         operation: 2
-        value: 1.5
+        value: 0.5
     - rid: 2536140211404406884
       type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:

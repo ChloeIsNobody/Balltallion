@@ -38,7 +38,7 @@ namespace Balltallion.Simulation.Battle
 
         public void AddModifier(StatModifier modifier)
         {
-            statModifiers.Add(modifier);
+            if(!statModifiers.Contains(modifier)) statModifiers.Add(modifier);
             RecalculateModifiers();
         }
 
