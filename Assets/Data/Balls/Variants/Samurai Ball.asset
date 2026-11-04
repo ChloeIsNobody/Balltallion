@@ -17,7 +17,8 @@ MonoBehaviour:
   ballSprite: {fileID: 21300000, guid: 6ced025257b21ba439a0555f64f64b0e, type: 3}
   weapon: {fileID: 11400000, guid: 92a0826bf65bcfa4a9129a25ebc6c2e6, type: 2}
   activeAbilityPrefab: {fileID: 6873439986824680292, guid: 2a9d41ecceeacb74d8c8cb353678165b, type: 3}
-  innateAbilities: []
+  innateAbilities:
+  - {fileID: 11400000, guid: bec44551bbef21945985243989b6290c, type: 2}
   abilityCooldown: 4
   abilityDamage: 6
   attackCooldown: 0

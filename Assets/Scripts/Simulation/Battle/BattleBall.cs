@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Input;
 using Balltallion.Simulation.Abilities;
+using Balltallion.Simulation.ActiveAbilities;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
@@ -15,6 +16,7 @@ namespace Balltallion.Simulation.Battle
     public class BattleBall : MonoBehaviour
     {
         public event Action OnDeath;
+        public event Action OnPrimaryAbilityUsed;
         
         [Header("Loaded Data")]
         [SerializeField, Expandable] private BallDataSO ballData;
@@ -26,6 +28,7 @@ namespace Balltallion.Simulation.Battle
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private BallAudioHandler audioHandler;
         [SerializeField] private Transform abilitiesParent;
+        private ActiveAbility primaryActive;
         
         [Header("Debug")]
         [SerializeField] private bool debugLogToConsole = false;
@@ -64,18 +67,6 @@ namespace Balltallion.Simulation.Battle
         {
             ballBody = GetComponent<BallBody>();
         }
-        
-        private void OnEnable()
-        {
-            ballBody.OnWallBounce += OnWallBounce;
-            ballBody.OnBallCollision += OnBallCollision;
-        }
-
-        private void OnDisable()
-        {
-            ballBody.OnWallBounce -= OnWallBounce;
-            ballBody.OnBallCollision -= OnBallCollision;
-        }
 
         [Button("Reload BallDataSO")]
         private void EditorLoadData()
@@ -102,6 +93,8 @@ namespace Balltallion.Simulation.Battle
             ballBody.LoadGravityStat(stats[StatNames.Gravity]);
             ballBody.LoadBouncinessStat(stats[StatNames.Bounciness]);
             ballBody.LoadSpeedStat(stats[StatNames.MoveSpeed]);
+            ballBody.OnWallBounce += OnWallBounce;
+            ballBody.OnBallCollision += OnBallCollision;
             
             ballAnimator.LoadBallData(data);
             
@@ -111,8 +104,9 @@ namespace Balltallion.Simulation.Battle
             ClearChildAbilities();
             if (data.activeAbilityPrefab)
             {
-                GameObject ability = Instantiate(data.activeAbilityPrefab, abilitiesParent.transform);
-                ability.transform.localPosition = Vector3.zero;
+                primaryActive = Instantiate(data.activeAbilityPrefab, abilitiesParent.transform).GetComponent<ActiveAbility>();
+                primaryActive.gameObject.transform.localPosition = Vector3.zero;
+                primaryActive.OnAbilityActivated += OnActiveAbilityUsed;
             }
 
             audioHandler.LoadBallData(data);
@@ -247,6 +241,11 @@ namespace Balltallion.Simulation.Battle
             otherBall.ReceiveAttack(attackData);
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
+        }
+
+        private void OnActiveAbilityUsed()
+        {
+            OnPrimaryAbilityUsed?.Invoke();
         }
         
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
