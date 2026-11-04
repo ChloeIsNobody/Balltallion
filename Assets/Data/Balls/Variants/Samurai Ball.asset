@@ -18,7 +18,7 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 92a0826bf65bcfa4a9129a25ebc6c2e6, type: 2}
   activeAbilityPrefab: {fileID: 6873439986824680292, guid: 2a9d41ecceeacb74d8c8cb353678165b, type: 3}
   innateAbilities:
-  - {fileID: 11400000, guid: 2de7308decc00614587ba649096ca415, type: 2}
+  - {fileID: 11400000, guid: 57430208c8c52494c9ecd69fa2dc7275, type: 2}
   abilityCooldown: 4
   abilityDamage: 6
   attackCooldown: 0

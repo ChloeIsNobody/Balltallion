@@ -1,5 +1,9 @@
 ﻿using System;
+using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Physics;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Balltallion.Simulation.Abilities.Effects
 {
@@ -10,6 +14,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         [SerializeField] private KnockbackOptions knockbackOption;
         [SerializeField, Range(0.0f, 360.0f)] private float direction;
         [SerializeField, Range(0.0f, 360.0f)] private float randomSpread;
+        [SerializeField] private bool resetVelocityBeforeKnockback;
 
         private enum KnockbackOptions
         {
@@ -22,7 +27,36 @@ namespace Balltallion.Simulation.Abilities.Effects
 
         public override void Activate()
         {
+            if (resetVelocityBeforeKnockback) parentBall.ResetVelocity();
             
+            Vector2 knockbackDirection = Vector2.zero;
+            
+            if (knockbackOption == KnockbackOptions.Fixed)
+            {
+                knockbackDirection = Quaternion.Euler(0.0f, 0.0f, direction) * Vector2.right;
+            }
+            else if (knockbackOption == KnockbackOptions.Random)
+            {
+                float randAngle = direction + Random.Range(-randomSpread/2.0f, randomSpread/2.0f);
+                knockbackDirection = Quaternion.Euler(0.0f, 0.0f, randAngle) * Vector2.right;
+            }
+            else if (knockbackOption == KnockbackOptions.TowardsOpponent)
+            {
+                BattleBall opp = TeamUtilities.GetNearestOpposingBallTo(parentBall);
+                if (opp) knockbackDirection = (opp.transform.position - parentBall.transform.position).normalized;
+            }
+            else if (knockbackOption == KnockbackOptions.AwayFromOpponent)
+            {
+                BattleBall opp = TeamUtilities.GetNearestOpposingBallTo(parentBall);
+                if (opp) knockbackDirection = (parentBall.transform.position - opp.transform.position).normalized;
+            }
+            
+            AttackData attackData = new AttackData()
+            {
+                source = parentBall,
+                knockback = knockbackStrength * knockbackDirection,
+            };
+            parentBall.ReceiveAttack(attackData);
         }
 
         public override void Deactivate()
@@ -37,6 +71,7 @@ namespace Balltallion.Simulation.Abilities.Effects
             clone.knockbackOption = knockbackOption;
             clone.direction = direction;
             clone.randomSpread = randomSpread;
+            clone.resetVelocityBeforeKnockback = resetVelocityBeforeKnockback;
             return clone;
         }
     }

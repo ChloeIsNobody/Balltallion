@@ -256,6 +256,7 @@ namespace Balltallion.Simulation.Battle
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
         public float GetRelativeHealth() => health / GetStat(StatNames.MaxHealth).GetValue();
+        public void  ResetVelocity() => ballBody.SetVelocity(Vector2.zero);
         public Stat GetStat(StatNames stat) => stats[stat];
     }
 }
