@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
+  m_Name: Tanky
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
+  trigger:
+    rid: 2536140211404406881
+  effects:
+  - rid: 2536140211404406882
+  - rid: 2536140211404406883
+  - rid: 2536140211404406884
+  references:
+    version: 2
+    RefIds:
+    - rid: 2536140211404406881
+      type: {class: OnHealthThreshold, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data:
+        comparisonType: 0
+        percentValue: 25
+        triggersOnce: 0
+    - rid: 2536140211404406882
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 13
+        modifierLabel: Rage
+        operation: 2
+        value: 1.5
+    - rid: 2536140211404406883
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 2
+        modifierLabel: Rage
+        operation: 2
+        value: 1.5
+    - rid: 2536140211404406884
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 4
+        modifierLabel: Rage
+        operation: 2
+        value: 1.25
