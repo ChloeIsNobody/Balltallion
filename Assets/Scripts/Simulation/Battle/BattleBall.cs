@@ -205,6 +205,17 @@ namespace Balltallion.Simulation.Battle
             if (health <= 0) Die();
         }
 
+        public void Heal(float amount)
+        {
+            float maxHealPossible = GetStat(StatNames.MaxHealth).GetValue() - health;
+            float finalHealAmount = Mathf.Min(amount, maxHealPossible);
+            health += finalHealAmount;
+            
+            if (finalHealAmount <= 0) return;
+            ballAnimator.HitFlash(Color.limeGreen);
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, finalHealAmount, Color.limeGreen, "+");
+        }
+
         private void DebugAttack(AttackData attackData)
         {
             Vector2 end = (Vector2)transform.position + attackData.knockback/5.0f;

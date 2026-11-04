@@ -18,6 +18,7 @@ MonoBehaviour:
   - rid: 2536140211404406882
   - rid: 2536140211404406883
   - rid: 2536140211404406884
+  - rid: 2536140227674374154
   references:
     version: 2
     RefIds:
@@ -48,3 +49,10 @@ MonoBehaviour:
         modifierLabel: Rage
         operation: 2
         value: 1.25
+    - rid: 2536140227674374154
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 12
+        modifierLabel: Rage
+        operation: 1
+        value: 10

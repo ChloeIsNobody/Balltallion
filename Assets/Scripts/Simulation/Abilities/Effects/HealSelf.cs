@@ -10,7 +10,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         
         public override void Activate()
         {
-            
+            parentBall.Heal(healing);
         }
 
         public override void Deactivate()
