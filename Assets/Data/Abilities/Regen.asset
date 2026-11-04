@@ -16,6 +16,7 @@ MonoBehaviour:
     rid: 2536140211404406889
   effects:
   - rid: 2536140211404406890
+  - rid: 2536140211404406938
   references:
     version: 2
     RefIds:
@@ -27,3 +28,8 @@ MonoBehaviour:
       type: {class: HealSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         healing: 5
+    - rid: 2536140211404406938
+      type: {class: DebugLog, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        activateMessage: REGEN!
+        deactivateMessage: 

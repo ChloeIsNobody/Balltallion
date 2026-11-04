@@ -9,17 +9,37 @@ namespace Balltallion.Simulation.Abilities.Triggers
     {
         [InfoBox("Trigger activates when health is...")]
         [SerializeField] private ComparisonType comparisonType;
-        [SerializeField] private float percentValue;
+        [SerializeField, Range(0, 100)] private int percentValue;
         [SerializeField] private bool triggersOnce;
-
-        private bool triggerLock;
+        
+        private bool isActive = false;
 
         private enum ComparisonType
         {
             LessThan,
-            LessThanOrEqualTo,
             GreaterThan,
-            GreaterThanOrEqualTo,
+        }
+
+        public override void Update()
+        {
+            bool conditionMet = comparisonType switch
+            {
+                ComparisonType.GreaterThan => parentBall.GetRelativeHealth() >= percentValue/100.0f,
+                ComparisonType.LessThan => parentBall.GetRelativeHealth() <= percentValue/100.0f,
+                _ => throw new ArgumentOutOfRangeException()
+            };
+
+            if (!isActive && conditionMet)
+            {
+                isActive = true;
+                Trigger();
+            }
+
+            if (isActive && !conditionMet && !triggersOnce)
+            {
+                isActive = false;
+                Untrigger();
+            }
         }
         
         public override AbilityTrigger Clone()

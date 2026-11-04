@@ -13,12 +13,44 @@ MonoBehaviour:
   m_Name: Debug
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140211404406921
-  effects: []
+    rid: 2536140211404406926
+  effects:
+  - rid: 2536140211404406927
+  - rid: 2536140211404406930
+  - rid: 2536140211404406931
+  - rid: 2536140211404406932
   references:
     version: 2
     RefIds:
-    - rid: 2536140211404406921
-      type: {class: OnKeyPressed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+    - rid: 2536140211404406926
+      type: {class: OnHealthThreshold, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        key: 31
+        comparisonType: 0
+        percentValue: 75
+        triggersOnce: 0
+    - rid: 2536140211404406927
+      type: {class: DebugLog, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        activateMessage: 'Health is less than 75%. Activating! '
+        deactivateMessage: Health is greater than 75%. Deactivating!
+    - rid: 2536140211404406930
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 13
+        modifierLabel: RAGE
+        operation: 1
+        value: 50
+    - rid: 2536140211404406931
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 4
+        modifierLabel: RAGE
+        operation: 1
+        value: 50
+    - rid: 2536140211404406932
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 12
+        modifierLabel: RAGE
+        operation: 1
+        value: 10

@@ -245,6 +245,7 @@ namespace Balltallion.Simulation.Battle
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
+        public float GetRelativeHealth() => health / GetStat(StatNames.MaxHealth).GetValue();
         public Stat GetStat(StatNames stat) => stats[stat];
     }
 }
