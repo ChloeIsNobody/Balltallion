@@ -7,5 +7,6 @@ namespace Balltallion.Simulation.Abilities
     {
         public event Action OnTrigger;
         public event Action OnUntrigger;
+        public abstract AbilityTrigger Clone();
     }
 }

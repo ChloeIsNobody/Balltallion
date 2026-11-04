@@ -17,5 +17,12 @@ namespace Balltallion.Simulation.Abilities.Effects
         {
             
         }
+        
+        public override AbilityEffect Clone()
+        {
+            HealSelf clone = new HealSelf();
+            clone.healing = healing;
+            return clone;
+        }
     }
 }

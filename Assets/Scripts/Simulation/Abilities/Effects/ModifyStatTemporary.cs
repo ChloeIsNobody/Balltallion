@@ -27,5 +27,16 @@ namespace Balltallion.Simulation.Abilities.Effects
         {
             
         }
+        
+        public override AbilityEffect Clone()
+        {
+            ModifyStatTemporary clone = new ModifyStatTemporary();
+            clone.stat = stat;
+            clone.duration = duration;
+            clone.modifierLabel = modifierLabel;
+            clone.operation = operation;
+            clone.value = value;
+            return clone;
+        }
     }
 }

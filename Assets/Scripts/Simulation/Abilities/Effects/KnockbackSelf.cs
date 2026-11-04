@@ -7,7 +7,7 @@ namespace Balltallion.Simulation.Abilities.Effects
     public class KnockbackSelf : AbilityEffect
     {
         [SerializeField] private float knockbackStrength;
-        [SerializeField] private KnockbackOptions knockbackOptions;
+        [SerializeField] private KnockbackOptions knockbackOption;
         [SerializeField, Range(0.0f, 360.0f)] private float direction;
         [SerializeField, Range(0.0f, 360.0f)] private float randomSpread;
 
@@ -28,6 +28,16 @@ namespace Balltallion.Simulation.Abilities.Effects
         public override void Deactivate()
         {
             
+        }
+        
+        public override AbilityEffect Clone()
+        {
+            KnockbackSelf clone = new KnockbackSelf();
+            clone.knockbackStrength = knockbackStrength;
+            clone.knockbackOption = knockbackOption;
+            clone.direction = direction;
+            clone.randomSpread = randomSpread;
+            return clone;
         }
     }
 }

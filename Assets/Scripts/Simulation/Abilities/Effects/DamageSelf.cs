@@ -17,5 +17,12 @@ namespace Balltallion.Simulation.Abilities.Effects
         {
             
         }
+        
+        public override AbilityEffect Clone()
+        {
+            DamageSelf clone = new DamageSelf();
+            clone.damage = damage;
+            return clone;
+        }
     }
 }

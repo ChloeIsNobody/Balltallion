@@ -7,5 +7,6 @@ namespace Balltallion.Simulation.Abilities
     {
         public abstract void Activate();
         public abstract void Deactivate();
+        public abstract AbilityEffect Clone();
     }
 }

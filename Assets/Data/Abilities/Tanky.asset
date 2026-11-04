@@ -13,38 +13,27 @@ MonoBehaviour:
   m_Name: Tanky
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140211404406881
+    rid: 2536140211404406886
   effects:
-  - rid: 2536140211404406882
-  - rid: 2536140211404406883
-  - rid: 2536140211404406884
+  - rid: 2536140211404406885
+  - rid: 2536140211404406888
   references:
     version: 2
     RefIds:
-    - rid: 2536140211404406881
-      type: {class: OnHealthThreshold, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data:
-        comparisonType: 0
-        percentValue: 25
-        triggersOnce: 0
-    - rid: 2536140211404406882
+    - rid: 2536140211404406885
       type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        stat: 13
-        modifierLabel: Rage
-        operation: 2
-        value: 1.5
-    - rid: 2536140211404406883
+        stat: 10
+        modifierLabel: Tanky
+        operation: 1
+        value: 20
+    - rid: 2536140211404406886
+      type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data: 
+    - rid: 2536140211404406888
       type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        stat: 2
-        modifierLabel: Rage
-        operation: 2
-        value: 1.5
-    - rid: 2536140211404406884
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        stat: 4
-        modifierLabel: Rage
-        operation: 2
-        value: 1.25
+        stat: 12
+        modifierLabel: Tanky
+        operation: 1
+        value: 10

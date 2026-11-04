@@ -21,5 +21,14 @@ namespace Balltallion.Simulation.Abilities.Triggers
             GreaterThan,
             GreaterThanOrEqualTo,
         }
+        
+        public override AbilityTrigger Clone()
+        {
+            OnHealthThreshold clone = new OnHealthThreshold();
+            clone.comparisonType = comparisonType;
+            clone.percentValue = percentValue;
+            clone.triggersOnce = triggersOnce;
+            return clone;
+        }
     }
 }
