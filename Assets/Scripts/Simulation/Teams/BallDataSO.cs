@@ -9,7 +9,7 @@ using UnityEngine.Audio;
 
 namespace Balltallion.Simulation.Teams
 {
-    [CreateAssetMenu(menuName = "Balltallion/BallData", fileName = "BallData")]
+    [CreateAssetMenu(menuName = "Balltallion/BallData", fileName = "New Ball")]
     public class BallDataSO : ScriptableObject
     {
         [Header("Display Info")]

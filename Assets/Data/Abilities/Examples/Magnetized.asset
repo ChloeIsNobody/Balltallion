@@ -22,7 +22,7 @@ MonoBehaviour:
     - rid: 2536140227674374266
       type: {class: KnockbackSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        knockbackStrength: 2.5
+        knockbackStrength: 1
         knockbackOption: 2
         direction: 90
         randomSpread: 55

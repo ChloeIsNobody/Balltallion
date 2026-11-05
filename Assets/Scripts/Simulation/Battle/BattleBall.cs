@@ -71,15 +71,21 @@ namespace Balltallion.Simulation.Battle
         [Button("Reload BallDataSO")]
         private void EditorLoadData()
         {
-            if (ballData) LoadBallData(ballData, team);
+            if (ballData) LoadBallData(ballData, team, null);
         }
 
-        public void LoadBallData(BallDataSO data, TeamNames team)
+        public void LoadBallData(BallDataSO data, TeamNames team, IReadOnlyList<EquipableDataSO> equipables)
         {
             ballData = data;
             InitializeStats();
-            
-            if (Application.isPlaying) abilityBuilder.BuildAbilities(data.innateAbilities);
+
+            if (Application.isPlaying)
+            {
+                List<AbilitySO> abilities = new();
+                abilities.AddRange(ballData.innateAbilities);
+                foreach (EquipableDataSO equipable in equipables) abilities.AddRange(equipable.GetAbilities());
+                abilityBuilder.BuildAbilities(abilities);
+            }
             
             health = (int)stats[StatNames.MaxHealth].GetValue();
             

@@ -382,6 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallBody
   globalPhysicsData: {fileID: 11400000, guid: b2cdf9ac4d377134eac99ee5c05dff60, type: 2}
   adjustVelocityPostCollision: 1
+  minKnockbackPowerForAdjustment: 1.5
   debugDraw: 0
   debugColor: {r: 1, g: 0, b: 0, a: 1}
   wallLayerMask:

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984678c4a49b4595bf3b888d43e0ef44, type: 3}
+  m_Name: Magnet
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.EquipableDataSO
+  designerNotes: 'Cristian: Magnetism / other physical forces (gravity, rope, etc...) might be very interesting to play around with.
+
+
+    I think it would be beneficial for melee balls to get closer to their opponent. Might be too OP though?
+
+
+    I prototyped this using by using the OnTimer trigger to spam knockback towards the opponent, simulating a continuous force applied at all times.
+
+
+    If we like this, I can maybe create an "ApplyConstantForce" effect instead of doing the weird knockback timer.'
+  displayName: Magnet
+  tooltipDescription: Magnetically attracts your ball to the opponent!
+  icon: {fileID: 21300000, guid: 51faa7b154844f04b833805d75d432b3, type: 3}
+  abilities:
+  - {fileID: 11400000, guid: 57430208c8c52494c9ecd69fa2dc7275, type: 2}

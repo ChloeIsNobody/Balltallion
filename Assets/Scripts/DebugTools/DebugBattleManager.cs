@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
@@ -12,7 +13,9 @@ namespace Balltallion.DebugTools
     public class DebugBattleManager : MonoBehaviour, IBattleManager
     {
         [SerializeField] private BallDataSO playerBall;
+        [SerializeField] private List<EquipableDataSO> playerEquipables;
         [SerializeField] private BallDataSO enemyBall;
+        [SerializeField] private List<EquipableDataSO> enemyEquipables;
         
         [Header("References")]
         [SerializeField] private InputManager inputManager;
@@ -48,13 +51,13 @@ namespace Balltallion.DebugTools
         {
             if (playerBall)
             {
-                BallLoadout playerBallLoadout = new BallLoadout(playerBall);
+                BallLoadout playerBallLoadout = new BallLoadout(playerBall, playerEquipables);
                 currentPlayerBall = ballSpawner.InstantiateBall(playerBallLoadout, localPlayers[0].GetInputRelay(), TeamNames.Player);
             }
 
             if (enemyBall)
             {
-                BallLoadout enemyBallLoadout = new BallLoadout(enemyBall);
+                BallLoadout enemyBallLoadout = new BallLoadout(enemyBall, enemyEquipables);
                 currentEnemyBall = ballSpawner.InstantiateBall(enemyBallLoadout, localPlayers[1].GetInputRelay(), TeamNames.Enemy);
             }
         }
