@@ -30,14 +30,15 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public int abilityDamage = 1;
         [SerializeField] public float attackCooldown = 3.0f;
         [SerializeField] public int attackDamage = 1;
-        [SerializeField] public float bounciness = 1.07f;
+        [SerializeField, Range(0.0f, 1.75f)] public float bounciness = 1.07f;
         [SerializeField] public int contactDamage;
-        [SerializeField] public float gravityScale = 1.0f;
+        [SerializeField, Range(0.0f, 5.0f)] public float gravityScale = 1.0f;
         [SerializeField] public float knockback = 1.0f;
         [SerializeField] public int maxHealth = 100;
         [SerializeField] public float moveSpeed = 7.3f;
-        [SerializeField] public float size = 1.0f;
+        [SerializeField, Range(0.1f, 3.0f)] public float size = 1.0f;
         [SerializeField] public float spinRate = 1.0f;
+        [SerializeField, Range(0.0f, 100.0f)] public float toughness = 0.0f;
         
         
         [Header("Physics Properties")]
@@ -78,6 +79,7 @@ namespace Balltallion.Simulation.Teams
                 case BattleBall.StatNames.MoveSpeed: return moveSpeed;
                 case BattleBall.StatNames.Size: return size;
                 case BattleBall.StatNames.SpinRate: return spinRate;
+                case BattleBall.StatNames.Toughness: return toughness;
                 default:
                     Debug.LogError($"StatName {statName.ToString()} does not have a default value defined in BallDataSO!");
                     break;

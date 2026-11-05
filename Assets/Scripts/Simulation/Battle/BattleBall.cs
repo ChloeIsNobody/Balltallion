@@ -136,7 +136,7 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.MoveSpeed] = new(nameof(StatNames.MoveSpeed), ballData.GetBaseStat(StatNames.MoveSpeed), "F1"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
                 [StatNames.SpinRate] = new(nameof(StatNames.SpinRate), ballData.GetBaseStat(StatNames.SpinRate), "F2"),
-                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0%", 0.0f, 100.0f),
+                [StatNames.Toughness] = new(nameof(StatNames.Toughness), ballData.GetBaseStat(StatNames.Toughness), "F0%", 0.0f, 100.0f),
                 [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0%"),
                 [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0%", 0.0f, 100.0f),
             };

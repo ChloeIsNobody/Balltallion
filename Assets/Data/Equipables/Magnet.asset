@@ -15,10 +15,10 @@ MonoBehaviour:
   designerNotes: 'Cristian: Magnetism / other physical forces (gravity, rope, etc...) might be very interesting to play around with.
 
 
-    I think it would be beneficial for melee balls to get closer to their opponent. Might be too OP though?
-
-
     I prototyped this using by using the OnTimer trigger to spam knockback towards the opponent, simulating a continuous force applied at all times.
+
+
+    I think it would be beneficial for melee balls to get closer to their opponent. Might be too OP though?
 
 
     If we like this, I can maybe create an "ApplyConstantForce" effect instead of doing the weird knockback timer.'
