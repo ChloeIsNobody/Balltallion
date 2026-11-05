@@ -195,7 +195,6 @@ namespace Balltallion.Simulation.Physics
 
         private void AdjustVelocityPostCollision()
         {
-            Debug.Log("Velocity adjusted!");
             if (Mathf.Abs(rb.linearVelocityX) < globalPhysicsData.minVelocityXAfterCollision)
             {
                 rb.linearVelocityX = globalPhysicsData.minVelocityXAfterCollision * Mathf.Sign(rb.linearVelocityX);
