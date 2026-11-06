@@ -164,7 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.DebugTools.DebugBattleManager
   playerBall: {fileID: 11400000, guid: 131d1d28007976146a1896b198dca18e, type: 2}
-  enemyBall: {fileID: 11400000, guid: 5dd5daafb23e0d745b94c77d1bac1d09, type: 2}
+  playerEquipables: []
+  enemyBall: {fileID: 11400000, guid: 2c9c25aaf7416b442a1254b4ca8912b0, type: 2}
+  enemyEquipables: []
   inputManager: {fileID: 353589057}
   localPlayers:
   - {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
@@ -283,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4250546497321868838, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -50.000122
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4250546497321868838, guid: cb25f77e278d0c3409b13c2ee185df9b, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -4,7 +4,7 @@ namespace Balltallion.Simulation.Battle
 {
     public class StatModifier
     {
-        private string name;
+        private string label;
         private float value;
         private OperationType operation;
         public enum OperationType
@@ -14,14 +14,14 @@ namespace Balltallion.Simulation.Battle
             Multiplicative
         }
 
-        public StatModifier(string name, float value, OperationType operation)
+        public StatModifier(string label, float value, OperationType operation)
         {
-            this.name = name;
+            this.label = label;
             this.value = value;
             this.operation = operation;
         }
         
-        public string GetName() => name;
+        public string GetLabel() => label;
         public float GetValue() => value;
         public OperationType GetOperation() => operation;
 

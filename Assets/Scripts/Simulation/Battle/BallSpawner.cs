@@ -1,4 +1,6 @@
-﻿using Balltallion.Input;
+﻿using System.Collections.Generic;
+using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
@@ -20,9 +22,10 @@ namespace Balltallion.Simulation.Battle
         public BattleBall InstantiateBall(BallLoadout ballLoadout, PlayerInputRelaySO inputRelay, TeamNames team)
         {
             BallDataSO ballData = ballLoadout.GetBallData();
+            IReadOnlyList<EquipableDataSO> equipables = ballLoadout.GetEquipables();
             BattleBall ball = Instantiate(battleBallPrefab);
             ball.SetInputRelay(inputRelay);
-            ball.LoadBallData(ballData, team);
+            ball.LoadBallData(ballData, team, equipables);
 
             Rect spawnRect = team == TeamNames.Player ? playerSpawnRect : enemySpawnRect;
             ball.transform.position = GetRandomPositionInRect(spawnRect);

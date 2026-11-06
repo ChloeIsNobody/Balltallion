@@ -96,7 +96,7 @@ namespace Balltallion.DebugTools
                 foreach (StatModifier modifier in modifiers)
                 {
                     string modifierString = "\n\t";
-                    modifierString += modifier.GetName() + " / ";
+                    modifierString += modifier.GetLabel() + " / ";
                     modifierString += modifier.GetEffectString();
                     extraInfoText.text += modifierString;
                 }

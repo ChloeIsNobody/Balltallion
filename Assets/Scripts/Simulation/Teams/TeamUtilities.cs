@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Balltallion.Simulation.Battle;
+using UnityEngine;
 
 namespace Balltallion.Simulation.Teams
 {
@@ -20,6 +21,28 @@ namespace Balltallion.Simulation.Teams
         public static TeamNames GetOpposingTeam(TeamNames team)
         {
             return team == TeamNames.Player ? TeamNames.Enemy : TeamNames.Player;
+        }
+
+        public static BattleBall GetNearestOpposingBallTo(BattleBall ball)
+        {
+            BattleBall[] oppBalls = Object.FindObjectsByType<BattleBall>();
+            TeamNames opposingTeam = GetOpposingTeam(ball.GetTeam());
+            
+            BattleBall closestTarget = null;
+            float closestDistance = float.MaxValue;
+            
+            foreach (BattleBall otherBall in oppBalls)
+            {
+                if (otherBall.GetTeam() != opposingTeam) continue;
+                float distance = Vector3.Distance(otherBall.transform.position, ball.transform.position);
+                if (distance < closestDistance || !closestTarget)
+                {
+                    closestTarget = otherBall;
+                    closestDistance = distance;
+                }
+            }
+            
+            return closestTarget;
         }
 
         public static int GetTeamLayerID(TeamNames team)

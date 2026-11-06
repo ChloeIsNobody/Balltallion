@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
+using Balltallion.Simulation.ActiveAbilities;
 using Balltallion.Simulation.Feel;
 using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
@@ -14,6 +16,7 @@ namespace Balltallion.Simulation.Battle
     public class BattleBall : MonoBehaviour
     {
         public event Action OnDeath;
+        public event Action OnPrimaryAbilityUsed;
         
         [Header("Loaded Data")]
         [SerializeField, Expandable] private BallDataSO ballData;
@@ -21,9 +24,11 @@ namespace Balltallion.Simulation.Battle
         
         [Header("References")]
         [SerializeField] private WeaponController weaponController;
+        [SerializeField] private AbilityBuilder abilityBuilder;
         [SerializeField] private BallAnimator ballAnimator;
         [SerializeField] private BallAudioHandler audioHandler;
         [SerializeField] private Transform abilitiesParent;
+        private ActiveAbility primaryActive;
         
         [Header("Debug")]
         [SerializeField] private bool debugLogToConsole = false;
@@ -62,29 +67,26 @@ namespace Balltallion.Simulation.Battle
         {
             ballBody = GetComponent<BallBody>();
         }
-        
-        private void OnEnable()
-        {
-            ballBody.OnWallBounce += OnWallBounce;
-            ballBody.OnBallCollision += OnBallCollision;
-        }
-
-        private void OnDisable()
-        {
-            ballBody.OnWallBounce -= OnWallBounce;
-            ballBody.OnBallCollision -= OnBallCollision;
-        }
 
         [Button("Reload BallDataSO")]
         private void EditorLoadData()
         {
-            if (ballData) LoadBallData(ballData, team);
+            if (ballData) LoadBallData(ballData, team, null);
         }
 
-        public void LoadBallData(BallDataSO data, TeamNames team)
+        public void LoadBallData(BallDataSO data, TeamNames team, IReadOnlyList<EquipableDataSO> equipables)
         {
             ballData = data;
             InitializeStats();
+
+            if (Application.isPlaying)
+            {
+                List<AbilitySO> abilities = new();
+                abilities.AddRange(ballData.innateAbilities);
+                foreach (EquipableDataSO equipable in equipables) abilities.AddRange(equipable.GetAbilities());
+                abilityBuilder.BuildAbilities(abilities);
+            }
+            
             health = (int)stats[StatNames.MaxHealth].GetValue();
             
             SetTeam(team);
@@ -97,6 +99,8 @@ namespace Balltallion.Simulation.Battle
             ballBody.LoadGravityStat(stats[StatNames.Gravity]);
             ballBody.LoadBouncinessStat(stats[StatNames.Bounciness]);
             ballBody.LoadSpeedStat(stats[StatNames.MoveSpeed]);
+            ballBody.OnWallBounce += OnWallBounce;
+            ballBody.OnBallCollision += OnBallCollision;
             
             ballAnimator.LoadBallData(data);
             
@@ -104,10 +108,11 @@ namespace Balltallion.Simulation.Battle
             weaponController.LoadWeaponData(data.weapon);
 
             ClearChildAbilities();
-            if (data.abilityPrefab)
+            if (data.activeAbilityPrefab)
             {
-                GameObject ability = Instantiate(data.abilityPrefab, abilitiesParent.transform);
-                ability.transform.localPosition = Vector3.zero;
+                primaryActive = Instantiate(data.activeAbilityPrefab, abilitiesParent.transform).GetComponent<ActiveAbility>();
+                primaryActive.gameObject.transform.localPosition = Vector3.zero;
+                primaryActive.OnAbilityActivated += OnActiveAbilityUsed;
             }
 
             audioHandler.LoadBallData(data);
@@ -131,7 +136,7 @@ namespace Balltallion.Simulation.Battle
                 [StatNames.MoveSpeed] = new(nameof(StatNames.MoveSpeed), ballData.GetBaseStat(StatNames.MoveSpeed), "F1"),
                 [StatNames.Size] = new(nameof(StatNames.Size), ballData.GetBaseStat(StatNames.Size), "F2", 0.1f, 3.0f),
                 [StatNames.SpinRate] = new(nameof(StatNames.SpinRate), ballData.GetBaseStat(StatNames.SpinRate), "F2"),
-                [StatNames.Toughness] = new(nameof(StatNames.Toughness), 0.0f, "F0%", 0.0f, 100.0f),
+                [StatNames.Toughness] = new(nameof(StatNames.Toughness), ballData.GetBaseStat(StatNames.Toughness), "F0%", 0.0f, 100.0f),
                 [StatNames.Vulnerability] = new(nameof(StatNames.Vulnerability), 0.0f, "F0%"),
                 [StatNames.Weakness] = new(nameof(StatNames.Weakness), 0.0f, "F0%", 0.0f, 100.0f),
             };
@@ -200,6 +205,17 @@ namespace Balltallion.Simulation.Battle
             if (health <= 0) Die();
         }
 
+        public void Heal(float amount)
+        {
+            float maxHealPossible = GetStat(StatNames.MaxHealth).GetValue() - health;
+            float finalHealAmount = Mathf.Min(amount, maxHealPossible);
+            health += finalHealAmount;
+            
+            if (finalHealAmount <= 0) return;
+            ballAnimator.HitFlash(Color.limeGreen);
+            ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, finalHealAmount, Color.limeGreen, "+");
+        }
+
         private void DebugAttack(AttackData attackData)
         {
             Vector2 end = (Vector2)transform.position + attackData.knockback/5.0f;
@@ -232,6 +248,11 @@ namespace Balltallion.Simulation.Battle
             
             if (debugLogToConsole) Debug.Log($"{name} collided with {otherBall.name}, dealing {attackData.damage} damage!");
         }
+
+        private void OnActiveAbilityUsed()
+        {
+            OnPrimaryAbilityUsed?.Invoke();
+        }
         
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
         public void SetInputRelay(PlayerInputRelaySO inputRelay) => this.inputRelay = inputRelay;
@@ -240,6 +261,8 @@ namespace Balltallion.Simulation.Battle
         public Color GetColor() => ballData.debugColor;
         public TeamNames GetTeam() => team;
         public float GetHealth() => health;
+        public float GetRelativeHealth() => health / GetStat(StatNames.MaxHealth).GetValue();
+        public void  ResetVelocity() => ballBody.SetVelocity(Vector2.zero);
         public Stat GetStat(StatNames stat) => stats[stat];
     }
 }

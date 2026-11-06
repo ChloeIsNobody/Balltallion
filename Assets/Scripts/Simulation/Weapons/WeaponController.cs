@@ -109,33 +109,11 @@ namespace Balltallion.Simulation.Weapons
 
         private void FollowingMode()
         {
-            if (!followModeTarget) followModeTarget = SearchForClosestTarget();
+            if (!followModeTarget) followModeTarget = TeamUtilities.GetNearestOpposingBallTo(parentBall);
             if (!followModeTarget) return;
             Vector3 dirToTarget = (followModeTarget.transform.position - transform.position).normalized;
             currentAngle = Vector2.SignedAngle(Vector2.right, dirToTarget);
             transform.localRotation = Quaternion.Euler(0.0f, 0.0f, currentAngle);
-        }
-
-        private BattleBall SearchForClosestTarget()
-        {
-            BattleBall[] battleBalls = FindObjectsByType<BattleBall>();
-            TeamNames opposingTeam = TeamUtilities.GetOpposingTeam(parentBall.GetTeam());
-            
-            BattleBall closestTarget = null;
-            float closestDistance = float.MaxValue;
-            
-            foreach (BattleBall battleBall in battleBalls)
-            {
-                if (battleBall.GetTeam() != opposingTeam) continue;
-                float distance = Vector3.Distance(battleBall.transform.position, parentBall.transform.position);
-                if (distance < closestDistance || !closestTarget)
-                {
-                    closestTarget = battleBall;
-                    closestDistance = distance;
-                }
-            }
-            
-            return closestTarget;
         }
         
         public float GetSpinDirection() => spinDirection;

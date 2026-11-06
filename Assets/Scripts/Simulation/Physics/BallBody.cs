@@ -12,7 +12,8 @@ namespace Balltallion.Simulation.Physics
         public event Action<BallCollisionData> OnBallCollision;
 
         [SerializeField] private GlobalPhysicsDataSO globalPhysicsData;
-        [SerializeField] private bool adjustVelocityPostCollision = true; 
+        [SerializeField] private bool adjustVelocityPostCollision = true;
+        [SerializeField] private float minKnockbackPowerForAdjustment = 1.0f;
         
         [Header("Debug")]
         [SerializeField] private bool debugDraw;
@@ -172,7 +173,7 @@ namespace Balltallion.Simulation.Physics
         public void ApplyKnockback(Vector2 knockback)
         {
             rb.AddForce(knockback, ForceMode2D.Impulse);
-            if (adjustVelocityPostCollision) AdjustVelocityPostCollision();
+            if (adjustVelocityPostCollision && knockback.magnitude >= minKnockbackPowerForAdjustment) AdjustVelocityPostCollision();
             
             OnBounce?.Invoke(new BallCollisionData
             {

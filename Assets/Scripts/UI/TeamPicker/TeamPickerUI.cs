@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
@@ -124,8 +125,18 @@ namespace Balltallion.UI.TeamPicker
         
         private void StartBattle()
         {
-            BattleManager.playerTeamLoadout = new TeamLoadout(playerTeam);
-            BattleManager.enemyTeamLoadout = new TeamLoadout(enemyTeam);
+            BattleManager.playerTeamLoadout = new TeamLoadout();
+            foreach (BallDataSO ball in playerTeam)
+            {
+                BattleManager.playerTeamLoadout.AddBall(new BallLoadout(ball, null));
+            }
+            
+            BattleManager.enemyTeamLoadout = new TeamLoadout();
+            foreach (BallDataSO ball in enemyTeam)
+            {
+                BattleManager.enemyTeamLoadout.AddBall(new BallLoadout(ball, null));
+            }
+            
             SceneManager.LoadScene("Battle");
         }
 
