@@ -15,17 +15,17 @@ MonoBehaviour:
   trigger:
     rid: 2536140244791066716
   effects:
-  - rid: 2536140244791066717
+  - rid: 2536140256226050060
   references:
     version: 2
     RefIds:
     - rid: 2536140244791066716
       type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data: 
-    - rid: 2536140244791066717
+    - rid: 2536140256226050060
       type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         stat: 4
-        modifierLabel: Cleaver_DamageBuff
+        modifierLabel: Cleaver_Buff
         operation: 1
         value: 10

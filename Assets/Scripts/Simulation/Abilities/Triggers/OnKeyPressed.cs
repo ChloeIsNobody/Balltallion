@@ -8,8 +8,9 @@ namespace Balltallion.Simulation.Abilities.Triggers
     [Serializable]
     public class OnKeyPressed : AbilityTrigger
     {
-        [InfoBox("Pressing once activates the trigger, pressing again deactivates the trigger.")]
         [SerializeField] private Key key;
+        [InfoBox("Toggle Mode: Pressing once activates the trigger, pressing again deactivates the trigger.")]
+        [SerializeField] private bool isToggle = false;
         
         private bool isActivated = false;
         
@@ -17,6 +18,12 @@ namespace Balltallion.Simulation.Abilities.Triggers
         {
             if (Keyboard.current[key].wasPressedThisFrame)
             {
+                if (!isToggle)
+                {
+                    Trigger();
+                    return;
+                }
+                
                 if (!isActivated)
                 {
                     Trigger(); 
@@ -34,6 +41,7 @@ namespace Balltallion.Simulation.Abilities.Triggers
         {
             OnKeyPressed clone = new OnKeyPressed();
             clone.key = key;
+            clone.isToggle = isToggle;
             return clone;
         }
     }

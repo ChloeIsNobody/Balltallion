@@ -30,6 +30,7 @@ MonoBehaviour:
   moveSpeed: 7.3
   size: 1
   spinRate: 0.45
+  toughness: 0
   linearDamping: 0.615
   animStiffness: 0.35
   animDamping: 0.3
