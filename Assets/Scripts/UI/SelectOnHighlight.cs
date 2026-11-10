@@ -15,11 +15,7 @@ namespace Balltallion.UI
 
         private void Update()
         {
-            if (selectable.IsHighlighted())
-            {
-                selectable.Select();
-                Debug.Log("Selected!");
-            }
+            if (selectable.IsHighlighted()) selectable.Select();
         }
     }
 }
