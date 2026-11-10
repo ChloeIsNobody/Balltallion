@@ -112,7 +112,7 @@ namespace Balltallion.Input
     public enum ActionMaps
     {
         Pairing,
-        VirtualCursor,
+        Navigation,
         Battle
     }
 }

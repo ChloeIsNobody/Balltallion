@@ -1,19 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Balltallion.Input;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 namespace Balltallion.DebugTools
 {
     public class NavigationDebugger : MonoBehaviour
     {
-        [SerializeField] private LocalPlayerSO player1;
-        [SerializeField] private LocalPlayerSO player2;
+        [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private List<BallDataSO> ballData;
-
+        [SerializeField] private InputManager inputManager;
+        
         [SerializeField] private Transform player1Grid;
         [SerializeField] private Transform player2Grid;
         [SerializeField] private Transform sharedButtons;
@@ -25,10 +28,8 @@ namespace Balltallion.DebugTools
         
         private LocalPlayerSO currentPlayer;
 
-        private void Start()
+        private void Awake()
         {
-            SetCurrentPlayerTurn(player1);
-
             foreach (Transform child in player1Grid)
             {
                 BallDataSO randomBall = ballData[Random.Range(0, ballData.Count)];
@@ -53,6 +54,25 @@ namespace Balltallion.DebugTools
                 button.onClick.AddListener(OnSharedButtonClicked);
             }
         }
+        
+        private void Start() => StartCoroutine(DelayedStart());
+        
+        // Has to be done just because of input state setup being finicky
+        private IEnumerator DelayedStart()
+        {
+            yield return null;
+            InitializeInput();
+            SetCurrentPlayerTurn(localPlayers[0]);
+        }
+
+        private void InitializeInput()
+        {
+            inputManager.ActivateSplitKeyboard();
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Navigation);
+            }
+        }
 
         private void OnPlayer1ButtonClicked()
         {
@@ -74,18 +94,37 @@ namespace Balltallion.DebugTools
 
         private void EndCurrentPlayerTurn()
         {
-            SetCurrentPlayerTurn(currentPlayer == player1 ? player2 : player1);
+            SetCurrentPlayerTurn(currentPlayer == localPlayers[0] ? localPlayers[1] : localPlayers[0]);
         }
 
         private void SetCurrentPlayerTurn(LocalPlayerSO player)
         {
-            GameObject defaultButton = player == player1 ? defaultButtonPlayer1.gameObject : defaultButtonPlayer2.gameObject;
+            currentPlayer = player;
+            
+            GameObject defaultButton = player == localPlayers[0] ? defaultButtonPlayer1.gameObject : defaultButtonPlayer2.gameObject;
             EventSystem.current.SetSelectedGameObject(defaultButton);
             
-            player1Grid.GetComponent<CanvasGroup>().interactable = player == player1;
-            player2Grid.GetComponent<CanvasGroup>().interactable = player == player2;
+            InputSystemUIInputModule inputModule = EventSystem.current.currentInputModule as InputSystemUIInputModule;
+            if (inputModule)
+            {
+                InputActionAsset playerActions = player.GetInputRelay().GetActionAsset();
+                inputModule.UnassignActions();
+                inputModule.actionsAsset = playerActions;
+                inputModule.point = InputActionReference.Create(playerActions.FindAction("Navigation/Point"));
+                inputModule.leftClick = InputActionReference.Create(playerActions.FindAction("Navigation/Click"));
+                inputModule.middleClick = InputActionReference.Create(playerActions.FindAction("Navigation/MiddleClick"));
+                inputModule.rightClick = InputActionReference.Create(playerActions.FindAction("Navigation/RightClick"));
+                inputModule.scrollWheel = InputActionReference.Create(playerActions.FindAction("Navigation/ScrollWheel"));
+                inputModule.move = InputActionReference.Create(playerActions.FindAction("Navigation/Navigate"));
+                inputModule.submit = InputActionReference.Create(playerActions.FindAction("Navigation/Submit"));
+                inputModule.cancel = InputActionReference.Create(playerActions.FindAction("Navigation/Cancel"));
+                inputModule.trackedDevicePosition = null;
+                inputModule.trackedDeviceOrientation = null;
+            }
             
-            currentPlayer = player;
+            player1Grid.GetComponent<CanvasGroup>().interactable = player == localPlayers[0];
+            player2Grid.GetComponent<CanvasGroup>().interactable = player == localPlayers[1];
+            
             navigationPointer.SetColor(player.GetTeamColor());
             background.material = player.GetBackgroundMaterial();
         }

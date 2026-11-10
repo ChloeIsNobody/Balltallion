@@ -68,9 +68,9 @@ namespace Balltallion.Input
             if (!(control is ButtonControl)) return;
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
 
-            if (canActivateSplitKeyboard && control.device is Keyboard keyboard && control.displayName == "Space")
+            if (canActivateSplitKeyboard && control.device is Keyboard && control.displayName == "Space")
             {
-                ActivateSplitKeyboard(keyboard);
+                ActivateSplitKeyboard();
                 return;
             }
             
@@ -84,10 +84,10 @@ namespace Balltallion.Input
             }
         }
 
-        public void ActivateSplitKeyboard(Keyboard keyboardDevice)
+        public void ActivateSplitKeyboard()
         {
-            JoinPlayer("KeyboardLeft", keyboardDevice);
-            JoinPlayer("KeyboardRight", keyboardDevice);
+            JoinPlayer("KeyboardLeft", Keyboard.current);
+            JoinPlayer("KeyboardRight", Keyboard.current);
         }
         
         private void JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)

@@ -40,7 +40,7 @@ namespace Balltallion.DebugTools
 
         private void InitializeInput()
         {
-            inputManager.ActivateSplitKeyboard(Keyboard.current);
+            inputManager.ActivateSplitKeyboard();
             foreach (LocalPlayerSO localPlayer in localPlayers)
             {
                 localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);

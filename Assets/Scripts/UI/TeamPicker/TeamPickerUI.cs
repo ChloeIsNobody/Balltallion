@@ -49,7 +49,7 @@ namespace Balltallion.UI.TeamPicker
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
             foreach (LocalPlayerSO localPlayer in localPlayers)
             {
-                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.VirtualCursor);
+                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Navigation);
             }
         }
 
