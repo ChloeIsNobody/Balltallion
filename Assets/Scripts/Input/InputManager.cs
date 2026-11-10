@@ -96,6 +96,7 @@ namespace Balltallion.Input
             
             PlayerInput newPlayerInput =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
                 controlScheme, -1, pairWithDevice);
+            InputUser.PerformPairingWithDevice(Mouse.current, newPlayerInput.user);
             newPlayerInput.transform.SetParent(transform);
 
             int openSlotIdx = FindNextOpenPlayerSlot();
@@ -104,6 +105,7 @@ namespace Balltallion.Input
             LocalPlayerSO localPlayer = localPlayers[openSlotIdx];
             localPlayer.Connect(newPlayerInput);
             newPlayerInput.name = $"{localPlayer.GetDisplayName()} PlayerInput";
+            
             StartCoroutine(ActivateAfterDelay(newPlayerInput));
         }
 

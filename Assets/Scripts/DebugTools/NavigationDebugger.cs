@@ -62,6 +62,7 @@ namespace Balltallion.DebugTools
         {
             yield return null;
             InitializeInput();
+            yield return null;
             SetCurrentPlayerTurn(localPlayers[0]);
         }
 
@@ -103,30 +104,31 @@ namespace Balltallion.DebugTools
             
             GameObject defaultButton = player == localPlayers[0] ? defaultButtonPlayer1.gameObject : defaultButtonPlayer2.gameObject;
             EventSystem.current.SetSelectedGameObject(defaultButton);
-            
-            InputSystemUIInputModule inputModule = EventSystem.current.currentInputModule as InputSystemUIInputModule;
-            if (inputModule)
-            {
-                InputActionAsset playerActions = player.GetInputRelay().GetActionAsset();
-                inputModule.UnassignActions();
-                inputModule.actionsAsset = playerActions;
-                inputModule.point = InputActionReference.Create(playerActions.FindAction("Navigation/Point"));
-                inputModule.leftClick = InputActionReference.Create(playerActions.FindAction("Navigation/Click"));
-                inputModule.middleClick = InputActionReference.Create(playerActions.FindAction("Navigation/MiddleClick"));
-                inputModule.rightClick = InputActionReference.Create(playerActions.FindAction("Navigation/RightClick"));
-                inputModule.scrollWheel = InputActionReference.Create(playerActions.FindAction("Navigation/ScrollWheel"));
-                inputModule.move = InputActionReference.Create(playerActions.FindAction("Navigation/Navigate"));
-                inputModule.submit = InputActionReference.Create(playerActions.FindAction("Navigation/Submit"));
-                inputModule.cancel = InputActionReference.Create(playerActions.FindAction("Navigation/Cancel"));
-                inputModule.trackedDevicePosition = null;
-                inputModule.trackedDeviceOrientation = null;
-            }
+            SetActionsAsset(player.GetInputRelay().GetActionAsset());
             
             player1Grid.GetComponent<CanvasGroup>().interactable = player == localPlayers[0];
             player2Grid.GetComponent<CanvasGroup>().interactable = player == localPlayers[1];
             
             navigationPointer.SetColor(player.GetTeamColor());
             background.material = player.GetBackgroundMaterial();
+        }
+
+        private void SetActionsAsset(InputActionAsset newActionAsset)
+        {
+            InputSystemUIInputModule inputModule = EventSystem.current.currentInputModule as InputSystemUIInputModule;
+            if (!inputModule) return;
+            inputModule.UnassignActions();
+            inputModule.actionsAsset = newActionAsset;
+            inputModule.point = InputActionReference.Create(newActionAsset.FindAction("Navigation/Point"));
+            inputModule.leftClick = InputActionReference.Create(newActionAsset.FindAction("Navigation/Click"));
+            inputModule.middleClick = InputActionReference.Create(newActionAsset.FindAction("Navigation/MiddleClick"));
+            inputModule.rightClick = InputActionReference.Create(newActionAsset.FindAction("Navigation/RightClick"));
+            inputModule.scrollWheel = InputActionReference.Create(newActionAsset.FindAction("Navigation/ScrollWheel"));
+            inputModule.move = InputActionReference.Create(newActionAsset.FindAction("Navigation/Navigate"));
+            inputModule.submit = InputActionReference.Create(newActionAsset.FindAction("Navigation/Submit"));
+            inputModule.cancel = InputActionReference.Create(newActionAsset.FindAction("Navigation/Cancel"));
+            inputModule.trackedDevicePosition = null;
+            inputModule.trackedDeviceOrientation = null;
         }
     }
 }

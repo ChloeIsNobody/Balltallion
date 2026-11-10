@@ -5543,7 +5543,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7add25fc1726dd140a31850e574c4c6d, type: 2}
   - {fileID: 11400000, guid: 7163334d246b3eb4ca8b3a37c58e4f86, type: 2}
   inputManager: {fileID: 1305831598}
-  testAsset: {fileID: -944628639613478452, guid: adb061446660d834883fd2369cb28c73, type: 3}
+  defaultInputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   player1Grid: {fileID: 349301061}
   player2Grid: {fileID: 873711840}
   sharedButtons: {fileID: 947354108}
