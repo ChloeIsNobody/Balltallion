@@ -31,34 +31,42 @@ namespace Balltallion.UI
 
         private void Update()
         {
-            GameObject newSelectedObject = EventSystem.current.currentSelectedGameObject;
+            SetSelectedObject(EventSystem.current.currentSelectedGameObject);
             crosshairImage.enabled = currentSelectedObject;
+            LerpPointer();
+        }
 
+        private void SetSelectedObject(GameObject newSelectedObject)
+        {
+            if (newSelectedObject == currentSelectedObject) return;
             if (!newSelectedObject)
             {
                 currentSelectedObject = null;
                 return;
-            } 
-            
-            if (newSelectedObject != currentSelectedObject)
-            {
-                currentSelectedObject = newSelectedObject;
-                
-                oldLerpState = GetCurrentLerpState();
-                targetLerpState = new LerpState
-                {
-                    position = GetObjectPosition(newSelectedObject),
-                    size = GetObjectSize(newSelectedObject)
-                };
-                lerpVal = 0.0f;
             }
-
-            LerpPointer();
+            
+            GameObject oldSelectedObject = currentSelectedObject;
+            currentSelectedObject = newSelectedObject;
+                
+            oldLerpState = GetCurrentLerpState();
+            targetLerpState = new LerpState
+            {
+                position = GetObjectPosition(newSelectedObject),
+                size = GetObjectSize(newSelectedObject)
+            };
+            if (!oldSelectedObject) oldLerpState = targetLerpState;
+            lerpVal = 0.0f;
         }
 
         private void LerpPointer()
         {
             if (!currentSelectedObject) return;
+            
+            if (currentSelectedObject)
+            {
+                targetLerpState.position = GetObjectPosition(currentSelectedObject);
+                targetLerpState.size = GetObjectSize(currentSelectedObject);
+            }
             
             lerpVal = Mathf.Lerp(lerpVal, 1.0f, Time.deltaTime * lerpSpeed);
             LerpState currentLerpState = GetCurrentLerpState();
@@ -78,5 +86,7 @@ namespace Balltallion.UI
         
         private Vector2 GetObjectPosition(GameObject a) =>a.GetComponent<RectTransform>().position;
         private Vector2 GetObjectSize(GameObject a) => a.GetComponent<RectTransform>().rect.size + new Vector2(paddingX, paddingY);
+        
+        public void SetColor(Color newColor) => crosshairImage.color = newColor;
     }
 }

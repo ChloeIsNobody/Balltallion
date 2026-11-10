@@ -19,6 +19,10 @@ namespace Balltallion.Input
         [SerializeField] private int playerNumber;
         [SerializeField] private PlayerInputRelaySO inputRelay;
         
+        [Header("Style")]
+        [SerializeField] private Color teamColor;
+        [SerializeField] private Material backgroundMaterial;
+        
         [Header("Debugging")]
         [SerializeField] private bool logToConsole;
 
@@ -101,6 +105,8 @@ namespace Balltallion.Input
         
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
         public string GetDisplayName() => displayName;
+        public Color GetTeamColor() => teamColor;
+        public Material GetBackgroundMaterial() => backgroundMaterial;
         public bool IsConnected() => isConnected;
         public bool IsReady() => isReady;
     }
