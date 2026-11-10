@@ -19,7 +19,9 @@ namespace Balltallion.DebugTools
         [SerializeField] private Transform sharedButtons;
         [SerializeField] private NavigationPointer navigationPointer;
         [SerializeField] private SpriteRenderer background;
-        [SerializeField] private Button defaultButton;
+        
+        [SerializeField] private Button defaultButtonPlayer1;
+        [SerializeField] private Button defaultButtonPlayer2;
         
         private LocalPlayerSO currentPlayer;
 
@@ -55,29 +57,34 @@ namespace Balltallion.DebugTools
         private void OnPlayer1ButtonClicked()
         {
             Debug.Log("Player 1 button clicked!");
-            SwitchPlayerTurn();
+            EndCurrentPlayerTurn();
         }
 
         private void OnPlayer2ButtonClicked()
         {
             Debug.Log("Player 2 button clicked!");
-            SwitchPlayerTurn();
+            EndCurrentPlayerTurn();
         }
 
         private void OnSharedButtonClicked()
         {
             Debug.Log("Shared button clicked!");
-            SwitchPlayerTurn();
+            EndCurrentPlayerTurn();
         }
 
-        private void SwitchPlayerTurn()
+        private void EndCurrentPlayerTurn()
         {
             SetCurrentPlayerTurn(currentPlayer == player1 ? player2 : player1);
         }
 
         private void SetCurrentPlayerTurn(LocalPlayerSO player)
         {
-            EventSystem.current.SetSelectedGameObject(defaultButton.gameObject);
+            GameObject defaultButton = player == player1 ? defaultButtonPlayer1.gameObject : defaultButtonPlayer2.gameObject;
+            EventSystem.current.SetSelectedGameObject(defaultButton);
+            
+            player1Grid.GetComponent<CanvasGroup>().interactable = player == player1;
+            player2Grid.GetComponent<CanvasGroup>().interactable = player == player2;
+            
             currentPlayer = player;
             navigationPointer.SetColor(player.GetTeamColor());
             background.material = player.GetBackgroundMaterial();

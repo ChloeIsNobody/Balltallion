@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 349301062}
   - component: {fileID: 349301064}
   - component: {fileID: 349301063}
+  - component: {fileID: 349301065}
   m_Layer: 5
   m_Name: Player1Grid
   m_TagString: Untagged
@@ -707,6 +708,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 349301060}
   m_CullTransparentMesh: 1
+--- !u!225 &349301065
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349301060}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &373606393
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 0.2471698, g: 0.7295942, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2257,6 +2270,7 @@ GameObject:
   - component: {fileID: 873711841}
   - component: {fileID: 873711843}
   - component: {fileID: 873711842}
+  - component: {fileID: 873711844}
   m_Layer: 5
   m_Name: Player2Grid
   m_TagString: Untagged
@@ -2353,6 +2367,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 873711839}
   m_CullTransparentMesh: 1
+--- !u!225 &873711844
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873711839}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &921195302
 GameObject:
   m_ObjectHideFlags: 0
@@ -4089,6 +4115,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1291196083}
   m_CullTransparentMesh: 1
+--- !u!1001 &1305831597
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1027.8196
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 551.6112
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 759307963470243587, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125338044361308632, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: m_Name
+      value: InputManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
 --- !u!1 &1432378416
 GameObject:
   m_ObjectHideFlags: 0
@@ -5452,7 +5535,8 @@ MonoBehaviour:
   sharedButtons: {fileID: 947354108}
   navigationPointer: {fileID: 587099177}
   background: {fileID: 735101199}
-  defaultButton: {fileID: 994973907}
+  defaultButtonPlayer1: {fileID: 994973907}
+  defaultButtonPlayer2: {fileID: 1205971692}
 --- !u!1 &1725957330
 GameObject:
   m_ObjectHideFlags: 0
@@ -6373,7 +6457,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1639098613}
+  - {fileID: 1700144065}
+  - {fileID: 735101200}
+  - {fileID: 1305831597}
   - {fileID: 643231377}
   - {fileID: 1925116309}
-  - {fileID: 735101200}
-  - {fileID: 1700144065}
