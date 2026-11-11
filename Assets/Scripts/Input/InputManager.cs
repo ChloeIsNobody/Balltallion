@@ -12,12 +12,17 @@ namespace Balltallion.Input
 {
     public class InputManager : MonoBehaviour
     {
+        public event Action OnSetupCompleted;
         public static InputManager Instance { get; private set; }
         
         [SerializeField] private PlayerInput playerInputPrefab;
         [SerializeField] private InputActionAsset playerActionAsset;
 
         [SerializeField] private List<LocalPlayerSO> localPlayers;
+
+        [Header("Debugging")]
+        [SerializeField] private ActionMaps defaultActionMap;
+        [SerializeField] private bool autoSplitKeyboard;
         
         private const int playerLimit = 2;
         private bool canActivateSplitKeyboard;
@@ -34,10 +39,22 @@ namespace Balltallion.Input
             }
             
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
-            
             DontDestroyOnLoad(gameObject);
         }
-
+        
+        private void Start() => StartCoroutine(DelayedStart());
+        
+        // Has to be done just because of input state setup being finicky
+        private IEnumerator DelayedStart()
+        {
+            yield return null;
+            if (autoSplitKeyboard)
+            {
+                ActivateSplitKeyboard();
+                OnSetupCompleted?.Invoke();
+            }
+        }
+        
         public void StartDevicePairing()
         {
             foreach (LocalPlayerSO localPlayer in localPlayers)
@@ -53,6 +70,7 @@ namespace Balltallion.Input
         {
             --InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+            OnSetupCompleted?.Invoke();
         }
 
         private void Update()
@@ -96,6 +114,7 @@ namespace Balltallion.Input
             
             PlayerInput newPlayerInput =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
                 controlScheme, -1, pairWithDevice);
+            newPlayerInput.SwitchCurrentActionMap(defaultActionMap.ToString());
             InputUser.PerformPairingWithDevice(Mouse.current, newPlayerInput.user);
             newPlayerInput.transform.SetParent(transform);
 
@@ -119,6 +138,7 @@ namespace Balltallion.Input
             playerInput.DeactivateInput();
             yield return null;
             playerInput.ActivateInput();
+
         }
 
         private int FindNextOpenPlayerSlot()
