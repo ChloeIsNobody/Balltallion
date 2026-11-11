@@ -138,7 +138,6 @@ namespace Balltallion.Input
             playerInput.DeactivateInput();
             yield return null;
             playerInput.ActivateInput();
-
         }
 
         private int FindNextOpenPlayerSlot()

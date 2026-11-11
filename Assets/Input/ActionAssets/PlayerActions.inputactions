@@ -100,7 +100,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "Submit",
+                    "name": "Select",
                     "type": "Button",
                     "id": "a8f22e7b-3b5d-4bbd-8220-fcf704309652",
                     "expectedControlType": "",
@@ -332,29 +332,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse;Gamepad;Touch;Joystick;XR",
-                    "action": "Submit",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "742e7e40-45fd-4d27-b4bf-b23814f7a417",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";KeyboardLeft",
-                    "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "4a4b4b3d-2a14-490e-b66b-3f48f301e35a",
-                    "path": "<Keyboard>/rightShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";KeyboardRight",
-                    "action": "Submit",
+                    "groups": ";KeyboardLeft;KeyboardRight",
+                    "action": "Select",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

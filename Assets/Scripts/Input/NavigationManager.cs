@@ -12,7 +12,7 @@ namespace Balltallion.Input
     {
         public event Action<LocalPlayerSO> OnPlayerTurnStarted; 
         
-        public NavigationManager Instance { get; private set; }
+        public static NavigationManager Instance { get; private set; }
 
         [SerializeField] private InputManager inputManager;
         [SerializeField] private InputSystemUIInputModule inputModule;
@@ -79,7 +79,7 @@ namespace Balltallion.Input
             inputModule.rightClick = InputActionReference.Create(newActionAsset.FindAction("Navigation/RightClick"));
             inputModule.scrollWheel = InputActionReference.Create(newActionAsset.FindAction("Navigation/ScrollWheel"));
             inputModule.move = InputActionReference.Create(newActionAsset.FindAction("Navigation/Navigate"));
-            inputModule.submit = InputActionReference.Create(newActionAsset.FindAction("Navigation/Submit"));
+            inputModule.submit = InputActionReference.Create(newActionAsset.FindAction("Navigation/Select"));
             inputModule.cancel = InputActionReference.Create(newActionAsset.FindAction("Navigation/Cancel"));
             inputModule.trackedDevicePosition = null;
             inputModule.trackedDeviceOrientation = null;
@@ -89,5 +89,7 @@ namespace Balltallion.Input
         {
             foreach (CanvasGroup canvasGroup in canvasGroups) canvasGroup.interactable = interactable;
         }
+        
+        public LocalPlayerSO GetCurrentPlayer() => currentPlayer;
     }
 }

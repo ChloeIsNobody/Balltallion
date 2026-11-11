@@ -98,9 +98,9 @@ namespace Balltallion.Input
             string controlName = GetControlForAction(action);
             return deviceData.GetIconForControl(controlName);
         }
-        
-        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].displayName;
 
+        public string GetControlForAction(string action) => playerInput.actions.FindAction(action).controls[0].displayName;
+        
         public Sprite GetDeviceIcon() => deviceData.icon;
         public InputDevice GetDevice() => playerInput.devices[0];
         public DeviceDataSO GetDeviceData() => deviceData;

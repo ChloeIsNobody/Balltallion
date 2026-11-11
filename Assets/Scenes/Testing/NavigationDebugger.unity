@@ -1787,9 +1787,8 @@ GameObject:
   - component: {fileID: 838272926}
   - component: {fileID: 838272928}
   - component: {fileID: 838272927}
-  - component: {fileID: 838272929}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1812,7 +1811,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 57.699997, y: 0}
+  m_SizeDelta: {x: 57.699997, y: 57.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &838272927
 MonoBehaviour:
@@ -1852,20 +1851,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 838272925}
   m_CullTransparentMesh: 1
---- !u!114 &838272929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 838272925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.AspectRatioFitter
-  m_AspectMode: 2
-  m_AspectRatio: 1
 --- !u!1 &847681927
 GameObject:
   m_ObjectHideFlags: 0
@@ -3957,7 +3942,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -40, y: 30}
-  m_SizeDelta: {x: 260.1, y: 116}
+  m_SizeDelta: {x: 260.1, y: 112.1}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1193220842
 MonoBehaviour:
@@ -4454,7 +4439,7 @@ GameObject:
   - component: {fileID: 1344527532}
   - component: {fileID: 1344527531}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4477,7 +4462,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 133.67, y: 0}
+  m_SizeDelta: {x: 133.67, y: 57.699997}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1344527531
 MonoBehaviour:
@@ -5411,6 +5396,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1576879286}
+  - component: {fileID: 1576879290}
   - component: {fileID: 1576879289}
   - component: {fileID: 1576879287}
   m_Layer: 5
@@ -5463,7 +5449,7 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
@@ -5475,6 +5461,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576879285}
   m_CullTransparentMesh: 1
+--- !u!114 &1576879290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1576879285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa7816494c2c47448459873a908057f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.ContextualInputPrompt
+  actionPath: Navigation/Select
+  displayName: Select
+  mode: 1
+  manualSetPlayer: {fileID: 0}
+  label: {fileID: 1344527531}
+  icon: {fileID: 838272927}
 --- !u!1 &1582895326
 GameObject:
   m_ObjectHideFlags: 0
