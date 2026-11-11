@@ -18,7 +18,6 @@ namespace Balltallion.DebugTools
         [SerializeField] private List<EquipableDataSO> enemyEquipables;
         
         [Header("References")]
-        [SerializeField] private InputManager inputManager;
         [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private BallSpawner ballSpawner;
         
@@ -27,24 +26,7 @@ namespace Balltallion.DebugTools
         
         private void Start()
         {
-            StartCoroutine(DelayedStart());
-        }
-
-        // Has to be done just because of input state setup being finicky
-        private IEnumerator DelayedStart()
-        {
-            yield return null;
-            InitializeInput();
             SpawnBalls();
-        }
-
-        private void InitializeInput()
-        {
-            inputManager.ActivateSplitKeyboard();
-            foreach (LocalPlayerSO localPlayer in localPlayers)
-            {
-                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);
-            }
         }
 
         private void SpawnBalls()

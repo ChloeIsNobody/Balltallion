@@ -3270,6 +3270,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4481236966524550880, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
+      propertyPath: autoSplitKeyboard
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9125338044361308632, guid: e3372359a2c00274287e0b7522fe9c88, type: 3}
       propertyPath: m_Name
       value: InputManager
