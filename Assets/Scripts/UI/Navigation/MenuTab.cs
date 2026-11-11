@@ -24,6 +24,11 @@ namespace Balltallion.UI.Navigation
         private PlayerInputRelaySO inputRelay;
         private Action selectionRequestBinding;
 
+        private void OnValidate()
+        {
+            if (tabImage) tabImage.color = inactiveColor;
+        }
+
         private void Awake()
         {
             inputPrompt.SetTargetPlayer(targetPlayer);
@@ -68,5 +73,7 @@ namespace Balltallion.UI.Navigation
             CanvasGroupUtilities.SetCanvasGroupEnabled(menuCanvasGroup, false);
             tabImage.color = inactiveColor;
         }
+        
+        public CanvasGroup GetCanvasGroup() => menuCanvasGroup;
     }
 }

@@ -106,6 +106,7 @@ namespace Balltallion.Input
         }
         
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
+        public int GetPlayerID() => playerNumber;
         public string GetDisplayName() => displayName;
         public Color GetColorFromPalette(int colorIdx) => colorPalette[colorIdx];
         public Material GetBackgroundMaterial() => backgroundMaterial;

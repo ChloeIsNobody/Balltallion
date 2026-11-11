@@ -7,6 +7,8 @@ namespace Balltallion.UI.Navigation
     public class TabMenuSelector : MonoBehaviour
     {
         [SerializeField] private List<MenuTab> tabs;
+        
+        private MenuTab selectedTab;
 
         private void Start()
         {
@@ -16,6 +18,8 @@ namespace Balltallion.UI.Navigation
                 tab.BindSelectionRequest(() => SelectTab(tab));
             }
         }
+        
+        public void SelectTabIdx(int idx) => SelectTab(tabs[idx]);
 
         private void SelectTab(MenuTab tabToSelect)
         {
@@ -24,6 +28,9 @@ namespace Balltallion.UI.Navigation
                 if (tab == tabToSelect) tab.Select();
                 else tab.Deselect();
             }
+            selectedTab = tabToSelect;
         }
+
+        public void GetSelectedCanvasGroup() => selectedTab.GetCanvasGroup();
     }
 }

@@ -58,8 +58,6 @@ namespace Balltallion.UI.Navigation
             currentPlayer = player;
             inputModule.enabled = currentPlayer;
             
-            Selectable defaultSelection = player == localPlayers[0] ? player1DefaultSelection : player2DefaultSelection;
-            defaultSelection.Select();
             SetActionsAsset(player.GetInputRelay().GetActionAsset());
             
             SetCanvasGroupInteractable(player1CanvasGroups, player == localPlayers[0]);
@@ -67,6 +65,8 @@ namespace Balltallion.UI.Navigation
             
             navigationPointer.SetColor(player.GetColorFromPalette(0));
             OnPlayerTurnStarted?.Invoke(player);
+            Selectable defaultSelection = player == localPlayers[0] ? player1DefaultSelection : player2DefaultSelection;
+            defaultSelection.Select();
         }
         
         private void SetActionsAsset(InputActionAsset newActionAsset)

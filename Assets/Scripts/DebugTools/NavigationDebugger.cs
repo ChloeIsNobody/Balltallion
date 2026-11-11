@@ -6,9 +6,6 @@ using Balltallion.Simulation.Teams;
 using Balltallion.UI;
 using Balltallion.UI.Navigation;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
 namespace Balltallion.DebugTools
@@ -17,6 +14,9 @@ namespace Balltallion.DebugTools
     {
         [SerializeField] private InputManager inputManager;
         [SerializeField] private NavigationManager navigationManager;
+        [SerializeField] private TabMenuSelector inventoryTabSelector1;
+        [SerializeField] private TabMenuSelector inventoryTabSelector2;
+        
         [SerializeField] private LocalPlayerSO firstPlayer;
         [SerializeField] private CanvasGroup devicePairingScreen;
         [SerializeField] private CanvasGroup navigationScreen;
@@ -102,6 +102,8 @@ namespace Balltallion.DebugTools
 
         private void OnPlayerTurnStarted(LocalPlayerSO player)
         {
+            TabMenuSelector selector = player.GetPlayerID() == 1 ? inventoryTabSelector1 : inventoryTabSelector2;
+            selector.SelectTabIdx(0);
             background.material = player.GetBackgroundMaterial();
         }
     }
