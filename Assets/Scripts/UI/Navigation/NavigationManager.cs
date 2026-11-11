@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Balltallion.UI;
+using Balltallion.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
-namespace Balltallion.Input
+namespace Balltallion.UI.Navigation
 {
     public class NavigationManager : MonoBehaviour
     {

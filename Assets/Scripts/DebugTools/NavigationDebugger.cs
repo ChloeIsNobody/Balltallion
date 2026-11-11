@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Input;
+using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI;
+using Balltallion.UI.Navigation;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -15,47 +17,55 @@ namespace Balltallion.DebugTools
     {
         [SerializeField] private InputManager inputManager;
         [SerializeField] private NavigationManager navigationManager;
-        [SerializeField] private List<BallDataSO> ballData;
         [SerializeField] private LocalPlayerSO firstPlayer;
-
         [SerializeField] private CanvasGroup devicePairingScreen;
         [SerializeField] private CanvasGroup navigationScreen;
-        
-        [SerializeField] private Transform player1Grid;
-        [SerializeField] private Transform player2Grid;
-        [SerializeField] private Transform sharedButtons;
         [SerializeField] private SpriteRenderer background;
+
+        [Header("Inventory Population")]
+        [SerializeField] private List<BallDataSO> ballData;
+        [SerializeField] private List<Transform> ballInventories;
+        [SerializeField] private List<EquipableDataSO> equipableData;
+        [SerializeField] private List<Transform> equipableInventories;
+        [SerializeField] private Transform sharedButtons;
 
         private void Awake()
         {
-            foreach (Transform child in player1Grid)
+            PopulateInventories();
+        }
+
+        private void PopulateInventories()
+        {
+            List<Button> ballButtons = new List<Button>();
+            foreach (Transform inventory in ballInventories) ballButtons.AddRange(inventory.GetComponentsInChildren<Button>());
+            List<Button> equipableButtons = new List<Button>();
+            foreach (Transform inventory in equipableInventories) equipableButtons.AddRange(inventory.GetComponentsInChildren<Button>());
+            
+            foreach (Button button in ballButtons)
             {
                 BallDataSO randomBall = ballData[Random.Range(0, ballData.Count)];
-                Button button = child.GetComponent<Button>();
                 Image image = button.transform.GetChild(0).GetComponent<Image>();
                 image.sprite = randomBall.ballSprite;
-                button.onClick.AddListener(OnPlayer1ButtonClicked);
+                button.onClick.AddListener(OnButtonClicked);
             }
 
-            foreach (Transform child in player2Grid)
+            foreach (Button button in equipableButtons)
             {
-                BallDataSO randomBall = ballData[Random.Range(0, ballData.Count)];
-                Button button = child.GetComponent<Button>();
+                EquipableDataSO randomEquipable = equipableData[Random.Range(0, equipableData.Count)];
                 Image image = button.transform.GetChild(0).GetComponent<Image>();
-                image.sprite = randomBall.ballSprite;
-                button.onClick.AddListener(OnPlayer2ButtonClicked);
+                image.sprite = randomEquipable.icon;
+                button.onClick.AddListener(OnButtonClicked);
             }
 
             foreach (Transform child in sharedButtons)
             {
                 Button button = child.GetComponent<Button>();
-                button.onClick.AddListener(OnSharedButtonClicked);
+                button.onClick.AddListener(OnButtonClicked);
             }
         }
 
         private void Start()
         {
-            
             navigationManager.SetFirstPlayer(firstPlayer);
             StartCoroutine(DevicePairingState());
         }
@@ -83,22 +93,10 @@ namespace Balltallion.DebugTools
         {
             navigationManager.OnPlayerTurnStarted -= OnPlayerTurnStarted;
         }
-        
-        private void OnPlayer1ButtonClicked()
-        {
-            Debug.Log("Player 1 button clicked!");
-            navigationManager.EndPlayerTurn();
-        }
 
-        private void OnPlayer2ButtonClicked()
+        private void OnButtonClicked()
         {
-            Debug.Log("Player 2 button clicked!");
-            navigationManager.EndPlayerTurn();
-        }
-
-        private void OnSharedButtonClicked()
-        {
-            Debug.Log("Shared button clicked!");
+            Debug.Log($"Button clicked by {navigationManager.GetCurrentPlayer().GetDisplayName()}");
             navigationManager.EndPlayerTurn();
         }
 

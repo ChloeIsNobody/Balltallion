@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.UI
+namespace Balltallion.UI.Navigation
 {
     public class SelectOnHighlight : MonoBehaviour
     {

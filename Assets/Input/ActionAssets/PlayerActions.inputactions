@@ -168,6 +168,26 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
+                },
+                {
+                    "name": "MenuTab1",
+                    "type": "Button",
+                    "id": "2acaaf31-bf87-4c9e-9860-9eda0d9294c1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "MenuTab2",
+                    "type": "Button",
+                    "id": "9b73409d-6dab-4d75-ae1b-698e3964ad91",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
                 }
             ],
             "bindings": [
@@ -410,6 +430,50 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse;KeyboardLeft;KeyboardRight;Gamepad",
                     "action": "MiddleClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "360b98a5-dc8d-4385-a702-3e6a59c61f5d",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardLeft;KeyboardRight",
+                    "action": "MenuTab1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1093ab53-de1b-45cf-9fe2-0471a4e6cb8d",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "MenuTab1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "353670e7-2e17-45c2-aa8a-25d1b29f20d0",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardLeft;KeyboardRight",
+                    "action": "MenuTab2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "151656fa-9861-491b-a5cb-fda18771ff9a",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "MenuTab2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
