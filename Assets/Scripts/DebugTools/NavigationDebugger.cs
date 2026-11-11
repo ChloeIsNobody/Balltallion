@@ -87,17 +87,29 @@ namespace Balltallion.DebugTools
         private void OnEnable()
         {
             navigationManager.OnPlayerTurnStarted += OnPlayerTurnStarted;
+            inventoryTabSelector1.OnTabSelected += OnTabSelected;
+            inventoryTabSelector2.OnTabSelected += OnTabSelected;
         }
 
         private void OnDisable()
         {
             navigationManager.OnPlayerTurnStarted -= OnPlayerTurnStarted;
+            inventoryTabSelector1.OnTabSelected -= OnTabSelected;
+            inventoryTabSelector2.OnTabSelected -= OnTabSelected;
         }
 
         private void OnButtonClicked()
         {
-            Debug.Log($"Button clicked by {navigationManager.GetCurrentPlayer().GetDisplayName()}");
             navigationManager.EndPlayerTurn();
+        }
+
+        private void OnTabSelected()
+        {
+            LocalPlayerSO player = navigationManager.GetCurrentPlayer();
+            TabMenuSelector currentTabMenu = player.GetPlayerID() == 1 ? inventoryTabSelector1 : inventoryTabSelector2;
+            CanvasGroup currentMenu = currentTabMenu.GetSelectedCanvasGroup();
+            Selectable firstOption = currentMenu.transform.GetChild(0).GetComponent<Selectable>();
+            firstOption.Select();
         }
 
         private void OnPlayerTurnStarted(LocalPlayerSO player)
