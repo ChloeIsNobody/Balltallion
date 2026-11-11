@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 namespace Balltallion.UI.DevicePairing
 {
-    public class PlayerPanelUI : MonoBehaviour
+    public class DevicePairingPanel : MonoBehaviour
     {
         [SerializeField] private LocalPlayerSO trackedPlayer;
         private PlayerInputRelaySO inputRelay;
         
         [Header("References")]
+        [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI controlsText;
         [SerializeField] private Image panelImage;
         [SerializeField] private Image deviceIcon;
@@ -23,10 +24,19 @@ namespace Balltallion.UI.DevicePairing
         [SerializeField] private GameObject disconnectedFlair;
 
         [Header("Style")]
+        [SerializeField] private int activatedColorPaletteIdx;
+        [SerializeField] private int deactivatedColorPaletteIdx;
         [SerializeField] private Sprite activatedSprite;
-        [SerializeField] private Color activatedColor;
-        [SerializeField] private Color deactivatedColor;
         [SerializeField] private Color readyColor;
+
+        private void OnValidate()
+        {
+            if (trackedPlayer)
+            {
+                nameText.text = trackedPlayer.GetDisplayName();
+                panelImage.color = GetActivatedColor();
+            }
+        }
 
         private void Awake()
         {
@@ -55,6 +65,7 @@ namespace Balltallion.UI.DevicePairing
             SetActive(true);
             inputRelay = trackedPlayer.GetInputRelay();
             deviceIcon.sprite = inputRelay.GetDeviceIcon();
+            nameText.text = trackedPlayer.GetDisplayName();
             controlsText.text = $"Controls: {inputRelay.GetDeviceData().displayName}";
             readyIcon.sprite = inputRelay.GetIconForAction("Ready");
             leaveIcon.sprite = inputRelay.GetIconForAction("Leave");
@@ -71,11 +82,14 @@ namespace Balltallion.UI.DevicePairing
         
         private void SetActive(bool active)
         {
-            panelImage.color = active ? activatedColor : deactivatedColor;
+            panelImage.color = active ? GetActivatedColor() : GetDeactivatedColor();
             deviceIcon.enabled = active;
             controlsText.gameObject.SetActive(active);
             buttonObjects.SetActive(active);
             joinPrompt.SetActive(!active);
         }
+
+        private Color GetActivatedColor() => trackedPlayer.GetColorFromPalette(activatedColorPaletteIdx);
+        private Color GetDeactivatedColor() => trackedPlayer.GetColorFromPalette(deactivatedColorPaletteIdx);
     }
 }

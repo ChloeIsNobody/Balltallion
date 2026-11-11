@@ -65,7 +65,7 @@ namespace Balltallion.Input
             SetCanvasGroupInteractable(player1CanvasGroups, player == localPlayers[0]);
             SetCanvasGroupInteractable(player2CanvasGroups, player == localPlayers[1]);
             
-            navigationPointer.SetColor(player.GetTeamColor());
+            navigationPointer.SetColor(player.GetColorFromPalette(0));
             OnPlayerTurnStarted?.Invoke(player);
         }
         

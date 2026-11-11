@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #if UNITY_EDITOR
@@ -18,9 +19,10 @@ namespace Balltallion.Input
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
         [SerializeField] private PlayerInputRelaySO inputRelay;
-        
+
         [Header("Style")]
         [SerializeField] private Color teamColor;
+        [SerializeField] private List<Color> colorPalette;
         [SerializeField] private Material backgroundMaterial;
         
         [Header("Debugging")]
@@ -105,7 +107,7 @@ namespace Balltallion.Input
         
         public PlayerInputRelaySO GetInputRelay() => inputRelay;
         public string GetDisplayName() => displayName;
-        public Color GetTeamColor() => teamColor;
+        public Color GetColorFromPalette(int colorIdx) => colorPalette[colorIdx];
         public Material GetBackgroundMaterial() => backgroundMaterial;
         public bool IsConnected() => isConnected;
         public bool IsReady() => isReady;

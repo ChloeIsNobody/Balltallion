@@ -697,7 +697,7 @@ GameObject:
   - component: {fileID: 4538947800271265226}
   - component: {fileID: 331374952571573850}
   m_Layer: 5
-  m_Name: PlayerPanel
+  m_Name: DevicePairingPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -736,6 +736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.PlayerPanelUI
   trackedPlayer: {fileID: 0}
+  nameText: {fileID: 402746839917249951}
   controlsText: {fileID: 369092652759252479}
   panelImage: {fileID: 331374952571573850}
   deviceIcon: {fileID: 6021208579572472}
@@ -745,9 +746,9 @@ MonoBehaviour:
   leaveIcon: {fileID: 7604529223227418765}
   joinPrompt: {fileID: 5657728736361657166}
   disconnectedFlair: {fileID: 5633290646751242652}
+  activatedColorPaletteIdx: 0
+  deactivatedColorPaletteIdx: 1
   activatedSprite: {fileID: 21300000, guid: 6ced025257b21ba439a0555f64f64b0e, type: 3}
-  activatedColor: {r: 0.42745098, g: 0.60784316, b: 1, a: 1}
-  deactivatedColor: {r: 0.2784314, g: 0.30980393, b: 0.38039216, a: 1}
   readyColor: {r: 0.28235295, g: 0.87058824, b: 0.4862745, a: 1}
 --- !u!222 &4538947800271265226
 CanvasRenderer:

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Balltallion.DebugTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -198,6 +197,23 @@ namespace Balltallion.Input
                     return true;
 
             return false;
+        }
+
+        public void SetPlayerActionMaps(ActionMaps newActionMap)
+        {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(newActionMap);
+            }
+        }
+        
+        public bool AreBothPlayersReady()
+        {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                if (!localPlayer.IsReady()) return false;
+            }
+            return true;
         }
         
         public bool CanActivateSplitKeyboard => canActivateSplitKeyboard;

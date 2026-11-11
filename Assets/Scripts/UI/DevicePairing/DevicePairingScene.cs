@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Balltallion.Input;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Balltallion.Input
+namespace Balltallion.UI.DevicePairing
 {
     public class DevicePairingScene : MonoBehaviour
     {
@@ -32,7 +33,7 @@ namespace Balltallion.Input
         private IEnumerator DevicePairingState()
         {
             countdownText.enabled = false;
-            yield return new WaitUntil(AreBothPlayersReady);
+            yield return new WaitUntil(inputManager.AreBothPlayersReady);
             SetStateCoroutine(CountdownState());
         }
 
@@ -44,7 +45,7 @@ namespace Balltallion.Input
             {
                 countdownTimer -= Time.deltaTime;
                 countdownText.text = $"{Mathf.CeilToInt(countdownTimer)}";
-                if (!AreBothPlayersReady())
+                if (!inputManager.AreBothPlayersReady())
                 {
                     SetStateCoroutine(DevicePairingState());
                     break;
@@ -62,15 +63,6 @@ namespace Balltallion.Input
         {
             if (stateCoroutine != null) StopCoroutine(stateCoroutine);
             stateCoroutine = StartCoroutine(newState);
-        }
-
-        private bool AreBothPlayersReady()
-        {
-            foreach (LocalPlayerSO localPlayer in localPlayers)
-            {
-                if (!localPlayer.IsReady()) return false;
-            }
-            return true;
         }
     }
 }

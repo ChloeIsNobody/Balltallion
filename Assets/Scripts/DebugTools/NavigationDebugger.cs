@@ -17,6 +17,9 @@ namespace Balltallion.DebugTools
         [SerializeField] private NavigationManager navigationManager;
         [SerializeField] private List<BallDataSO> ballData;
         [SerializeField] private LocalPlayerSO firstPlayer;
+
+        [SerializeField] private CanvasGroup devicePairingScreen;
+        [SerializeField] private CanvasGroup navigationScreen;
         
         [SerializeField] private Transform player1Grid;
         [SerializeField] private Transform player2Grid;
@@ -25,8 +28,6 @@ namespace Balltallion.DebugTools
 
         private void Awake()
         {
-            navigationManager.SetFirstPlayer(firstPlayer);
-            
             foreach (Transform child in player1Grid)
             {
                 BallDataSO randomBall = ballData[Random.Range(0, ballData.Count)];
@@ -50,6 +51,27 @@ namespace Balltallion.DebugTools
                 Button button = child.GetComponent<Button>();
                 button.onClick.AddListener(OnSharedButtonClicked);
             }
+        }
+
+        private void Start()
+        {
+            
+            navigationManager.SetFirstPlayer(firstPlayer);
+            StartCoroutine(DevicePairingState());
+        }
+        
+        private IEnumerator DevicePairingState()
+        {
+            CanvasGroupUtilities.SetCanvasGroupEnabled(devicePairingScreen, true);
+            CanvasGroupUtilities.SetCanvasGroupEnabled(navigationScreen, false);
+            inputManager.StartDevicePairing();
+            
+            yield return new WaitUntil(inputManager.AreBothPlayersReady);
+            
+            inputManager.EndDevicePairing();
+            CanvasGroupUtilities.SetCanvasGroupEnabled(devicePairingScreen, false);
+            CanvasGroupUtilities.SetCanvasGroupEnabled(navigationScreen, true);
+            inputManager.SetPlayerActionMaps(ActionMaps.Navigation);
         }
 
         private void OnEnable()
