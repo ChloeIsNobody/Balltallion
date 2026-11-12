@@ -87,15 +87,15 @@ namespace Balltallion.DebugTools
         private void OnEnable()
         {
             navigationManager.OnPlayerTurnStarted += OnPlayerTurnStarted;
-            inventoryTabSelector1.OnTabSelected += OnTabSelected;
-            inventoryTabSelector2.OnTabSelected += OnTabSelected;
+            // inventoryTabSelector1.OnTabSelected += OnTabSelected;
+            // inventoryTabSelector2.OnTabSelected += OnTabSelected;
         }
 
         private void OnDisable()
         {
             navigationManager.OnPlayerTurnStarted -= OnPlayerTurnStarted;
-            inventoryTabSelector1.OnTabSelected -= OnTabSelected;
-            inventoryTabSelector2.OnTabSelected -= OnTabSelected;
+            // inventoryTabSelector1.OnTabSelected -= OnTabSelected;
+            // inventoryTabSelector2.OnTabSelected -= OnTabSelected;
         }
 
         private void OnButtonClicked()

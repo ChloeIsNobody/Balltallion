@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ namespace Balltallion.UI.Navigation
         private RectTransform rectTransform;
 
         private GameObject currentSelectedObject;
+        private Selectable currentSelectable;
         
         private LerpState targetLerpState;
         private LerpState oldLerpState;
@@ -32,6 +34,7 @@ namespace Balltallion.UI.Navigation
         private void Update()
         {
             SetSelectedObject(EventSystem.current.currentSelectedGameObject);
+            MoveSelectionIfNotInteractable();
             crosshairImage.enabled = currentSelectedObject;
             LerpPointer();
         }
@@ -47,6 +50,7 @@ namespace Balltallion.UI.Navigation
             
             GameObject oldSelectedObject = currentSelectedObject;
             currentSelectedObject = newSelectedObject;
+            currentSelectable = newSelectedObject.GetComponent<Selectable>();
                 
             oldLerpState = GetCurrentLerpState();
             targetLerpState = new LerpState
@@ -56,6 +60,34 @@ namespace Balltallion.UI.Navigation
             };
             if (!oldSelectedObject) oldLerpState = targetLerpState;
             lerpVal = 0.0f;
+        }
+
+        private void MoveSelectionIfNotInteractable()
+        {
+            if (currentSelectable && !currentSelectable.IsInteractable())
+            {
+                GameObject nearestSelectable = FindNearestSelectable().gameObject;
+                EventSystem.current.SetSelectedGameObject(nearestSelectable);
+            } 
+        }
+
+        private Selectable FindNearestSelectable()
+        {
+            List<Selectable> selectables = new List<Selectable>(FindObjectsByType<Selectable>());
+            Selectable nearestSelectable = null;
+            float nearestDistance = Mathf.Infinity;
+            foreach (Selectable selectable in selectables)
+            {
+                if (!selectable.enabled || !selectable.IsInteractable()) continue;
+                float distance = Vector2.Distance(transform.position, selectable.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestSelectable = selectable;
+                }
+            }
+
+            return nearestSelectable;
         }
 
         private void LerpPointer()
