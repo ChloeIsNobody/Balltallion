@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Projectiles;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Weapons
@@ -145,7 +145,7 @@ namespace Balltallion.Simulation.Weapons
             AttackData attackData = new AttackData
             {
                 source = parentBall,
-                damage = weaponData.damage,
+                damage = parentBall.GetStat(BattleBall.StatNames.AttackDamage).GetValue(),
                 knockback = directionalKnockback + awayKnockback
             };
             hitBall.ReceiveAttack(attackData);
@@ -157,7 +157,8 @@ namespace Balltallion.Simulation.Weapons
             parentBall.ReceiveAttack(attackData);
             
             // Effects
-            if (hitBall.IsInvulnerable()) ParryRecoil(false, attackData.knockback);
+            float toughness = hitBall.GetStat(BattleBall.StatNames.Toughness).GetValue();
+            if (toughness >= 100.0f) ParryRecoil(false, attackData.knockback);
             else Recoil(attackData.knockback);
             
             hitLog[hitBall] = Time.time;
@@ -263,7 +264,7 @@ namespace Balltallion.Simulation.Weapons
                 HitFlash(parryColor);
                 audioHandler.PlayParrySound();
             }
-            bool canReverseSpinDirection = projectile.GetDamage() >= weaponData.damage;
+            bool canReverseSpinDirection = projectile.GetDamage() >= parentBall.GetStat(BattleBall.StatNames.AbilityDamage).GetValue();
             if (canReverseSpinDirection)
             {
                 float dotProd = Vector2.Dot(GetWeaponRotationVector(), CalculateKnockbackDir(projectile.transform));

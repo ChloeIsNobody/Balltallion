@@ -15,14 +15,21 @@ MonoBehaviour:
   displayName: Really Big Ball
   debugColor: {r: 0.13725491, g: 0.8078432, b: 0.34509805, a: 1}
   ballSprite: {fileID: 21300000, guid: b32edda9333cbfb428ba49dca10f9446, type: 3}
+  weapon: {fileID: 0}
+  abilityPrefab: {fileID: 0}
   maxHealth: 200
-  contactDamage: 10
-  velocityScaledContactDamage: 1
-  velocityScalingRange: {x: 1, y: 15}
-  contactDamageRange: {x: 1, y: 15}
   size: 2.5
-  mass: 2
   gravityScale: 0.7
-  speed: 6
   bounciness: 1.05
+  contactDamage: 10
+  speed: 6
   linearDamping: 0.5
+  animStiffness: 0.35
+  animDamping: 0.3
+  animVelocityStretching: 0.1
+  animHueShift: 0
+  animSaturation: 1
+  animBrightness: 1
+  animContrast: 1
+  bounceSound: {fileID: 0}
+  damageSound: {fileID: 0}

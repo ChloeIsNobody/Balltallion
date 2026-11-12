@@ -15,17 +15,15 @@ MonoBehaviour:
   displayName: Normal Ball
   debugColor: {r: 0.92549026, g: 0.30588236, b: 0.34509805, a: 1}
   ballSprite: {fileID: 21300000, guid: 1c309554b6e9a5146a4409bb838f2a5a, type: 3}
-  maxHealth: 100
-  contactDamage: 5
-  velocityScaledContactDamage: 0
-  velocityScalingRange: {x: 1, y: 15}
-  contactDamageRange: {x: 1, y: 15}
   weapon: {fileID: 0}
-  size: 1
-  mass: 1
+  abilityPrefab: {fileID: 0}
+  attackPower: 1
+  bounciness: 1.07
+  contactDamage: 5
   gravityScale: 1
+  maxHealth: 100
+  size: 1
   speed: 7.3
-  bounciness: 1.05
   linearDamping: 0.5
   animStiffness: 0.35
   animDamping: 0.3

@@ -1,4 +1,5 @@
 ﻿using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -56,7 +57,7 @@ namespace Balltallion.Simulation.Physics
 
         public void LoadBallData(BallDataSO data)
         {
-            SetSpringData(data.animStiffness, data.animDamping, data.mass, data.animVelocityStretching);
+            SetSpringData(data.animStiffness, data.animDamping, data.size, data.animVelocityStretching);
             if (material)
             {
                 material.SetFloat("_HueShift", data.animHueShift);

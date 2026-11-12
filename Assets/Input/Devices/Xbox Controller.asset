@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c493316fb4764250af5e6167d4411ad9, type: 3}
+  m_Name: Xbox Controller
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.DeviceDataSO
+  displayName: Xbox Controller
+  icon: {fileID: 21300000, guid: 17769aa45d07bfe45bbb3f8fef98694b, type: 3}
+  missingControlIcon: {fileID: 21300000, guid: 1d26f0da2b755604ab4b244b2f204c8a, type: 3}
+  iconMappingsList:
+  - controlName: A
+    icon: {fileID: 21300000, guid: 7e50745b469dfc740a03d418659507ed, type: 3}
+  - controlName: B
+    icon: {fileID: 21300000, guid: a6b69bc26004b37468ece54cb0e03a57, type: 3}
+  - controlName: Y
+    icon: {fileID: 21300000, guid: 25b1f98972ac5aa4ea7d35aa87ca3ad1, type: 3}
+  - controlName: X
+    icon: {fileID: 21300000, guid: 33ceafbec6750eb42a7e9a0ec1403f1d, type: 3}
+  - controlName: Left Stick Press
+    icon: {fileID: 21300000, guid: f3870eb0ea0f58143b111db2ff358a8f, type: 3}
+  - controlName: Right Stick Press
+    icon: {fileID: 21300000, guid: e16e10fc948e1594fb9c8ea861d95013, type: 3}
+  - controlName: D-Pad Up
+    icon: {fileID: 21300000, guid: c067ef4fd826c2f4d9848c8ecca67c82, type: 3}
+  - controlName: D-Pad Right
+    icon: {fileID: 21300000, guid: b4b073f8dfd71f748894c6b690968253, type: 3}
+  - controlName: D-Pad Left
+    icon: {fileID: 21300000, guid: 9605818b47e5e634694d0ca2aca02e36, type: 3}
+  - controlName: D-Pad Down
+    icon: {fileID: 21300000, guid: ff06a932598d73f4591e81363b5ae0f2, type: 3}
+  - controlName: Left Bumper
+    icon: {fileID: 21300000, guid: 8acb9d8d0e9bc034bbc8112f7c3e8971, type: 3}
+  - controlName: Right Bumper
+    icon: {fileID: 21300000, guid: 5543a0d3af7169540bcc3f3c831cabbb, type: 3}
+  - controlName: Left Trigger
+    icon: {fileID: 21300000, guid: f1cc106ceba22114890733a2cd83e03a, type: 3}
+  - controlName: Right Trigger
+    icon: {fileID: 21300000, guid: 7846d98ff8f8de44f9450a017b8f7605, type: 3}
+  - controlName: Start
+    icon: {fileID: 21300000, guid: 602dd88c71f157645b1d20e742645c68, type: 3}
+  - controlName: Select
+    icon: {fileID: 21300000, guid: 43b3017d178db3a4490a3d5bd45d84bf, type: 3}

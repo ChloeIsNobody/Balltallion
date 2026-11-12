@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using Balltallion.Simulation.Battle;
+using Balltallion.Simulation.Teams;
 using Object = UnityEngine.Object;
 
 /*

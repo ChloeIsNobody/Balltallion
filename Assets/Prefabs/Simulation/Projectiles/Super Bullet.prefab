@@ -89,6 +89,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
+      propertyPath: baseSize
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: 7747066795157372299, guid: 9e7eb83b28e7cc949a60e3478efd5b53, type: 3}
       propertyPath: knockback
       value: 8
       objectReference: {fileID: 0}

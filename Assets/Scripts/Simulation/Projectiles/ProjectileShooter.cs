@@ -36,32 +36,36 @@ namespace Balltallion.Simulation.Projectiles
             int currentAmmo = weaponData.ammo;
             while (currentAmmo > 0)
             {
-                Shoot(weaponData.projectilePrefab, weaponData.shotRecoil);
+                float damage = parentBall.GetStat(BattleBall.StatNames.AttackDamage).GetValue();
+                Shoot(weaponData.projectilePrefab, damage, weaponData.shotRecoil);
                 currentAmmo--;
                 if (currentAmmo == 0) break;
-                yield return new WaitForSeconds(weaponData.delayBetweenShots);
+                
+                float speedupRatio = parentBall.GetStat(BattleBall.StatNames.AttackCooldown).GetValueBaseRatio();
+                yield return new WaitForSeconds(weaponData.delayBetweenShots * speedupRatio);
             }
             stateCoroutine = StartCoroutine(ReloadState());
         }
 
         private IEnumerator ReloadState()
         {
-            yield return new WaitForSeconds(weaponData.reloadDuration);
+            float cooldown = parentBall.GetStat(BattleBall.StatNames.AttackCooldown).GetValue();
+            yield return new WaitForSeconds(cooldown);
             stateCoroutine = StartCoroutine(ShootState());
         }
 
-        public void Shoot(Projectile projectilePrefab, float knockback = 0.0f)
+        public void Shoot(Projectile projectilePrefab, float damage, float recoil)
         {
             Projectile newProjectile = Instantiate(projectilePrefab);
             newProjectile.transform.position = transform.position;
             Vector2 shootDirection = CalculateShootDirection();
-            newProjectile.Initialize(parentBall, shootDirection, parentBall.GetTeam());
+            newProjectile.Initialize(parentBall, damage, shootDirection, parentBall.GetTeam());
 
             AttackData recoilKnockback = new AttackData()
             {
                 source = parentBall,
                 damage = 0,
-                knockback = -shootDirection * knockback
+                knockback = -shootDirection * recoil
             };
             parentBall.ReceiveAttack(recoilKnockback);
             
