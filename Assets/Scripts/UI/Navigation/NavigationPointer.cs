@@ -64,7 +64,8 @@ namespace Balltallion.UI.Navigation
 
         private void MoveSelectionIfNotInteractable()
         {
-            if (currentSelectable && !currentSelectable.IsInteractable())
+            if (!currentSelectable) return;
+            if (!currentSelectable.IsInteractable() || !currentSelectable.isActiveAndEnabled)
             {
                 GameObject nearestSelectable = FindNearestSelectable().gameObject;
                 EventSystem.current.SetSelectedGameObject(nearestSelectable);
