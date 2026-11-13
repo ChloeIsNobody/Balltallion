@@ -20,6 +20,7 @@ namespace Balltallion.UI.Navigation
         [SerializeField] private int debugSetPageIdx = 0;
         
         [Header("References")]
+        [SerializeField] private RectTransform resizeTransform;
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private GridLayoutGroup gridLayout;
 
@@ -36,6 +37,15 @@ namespace Balltallion.UI.Navigation
             if (!gridLayout) return;
             gridLayout.cellSize = cellSize;
             gridLayout.spacing = cellSpacing * Vector2.one;
+
+            if (resizeTransform)
+            {
+                Vector2 sizeDelta = new Vector2(GetPageOffset(LayoutModes.Horizontal),
+                    GetPageOffset(LayoutModes.Vertical));
+                sizeDelta += padding * Vector2.one;
+                resizeTransform.sizeDelta = sizeDelta;
+            }
+            
             SetLayoutMode(layoutMode);
         }
         
@@ -62,21 +72,24 @@ namespace Balltallion.UI.Navigation
         private void SetPageIdx(int newPageIdx)
         {
             currentPageIdx = newPageIdx;
-
-            gridLayout.padding = new RectOffset(padding, padding, padding, padding);
-            
-            if (layoutMode == LayoutModes.Horizontal)
-            {
-                int pageOffset = pageColumns * (cellSize.x + cellSpacing);
-                gridLayout.padding.left -= currentPageIdx * pageOffset;
-            }
-            else
-            {
-                int pageOffset = pageRows * (cellSize.y + cellSpacing);
-                gridLayout.padding.top -= currentPageIdx * pageOffset;
-            }
-            
+            gridLayout.padding = GetPaddingValueForPage(currentPageIdx);
             LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        }
+
+        private RectOffset GetPaddingValueForPage(int pageIdx)
+        {
+            int defaultPadding = (padding + cellSpacing) / 2;
+            RectOffset result = new RectOffset(defaultPadding, 0, defaultPadding, 0);
+            if (layoutMode == LayoutModes.Horizontal) result.left -= pageIdx * GetPageOffset(layoutMode);
+            if (layoutMode == LayoutModes.Vertical) result.top -= pageIdx * GetPageOffset(layoutMode);
+            return result;
+        }
+
+        private int GetPageOffset(LayoutModes mode)
+        {
+            if (mode == LayoutModes.Horizontal) return pageColumns * (cellSize.x + cellSpacing);
+            if (mode == LayoutModes.Vertical) return pageRows * (cellSize.y + cellSpacing);
+            return 0;
         }
     }
 }
