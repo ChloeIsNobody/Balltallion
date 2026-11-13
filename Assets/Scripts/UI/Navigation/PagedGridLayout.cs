@@ -19,7 +19,7 @@ namespace Balltallion.UI.Navigation
         [SerializeField] private int padding = 35;
 
         [Header("Debug")]
-        [SerializeField] private int debugSetPageIdx = 0;
+        [SerializeField] private int debugSetPageIdx;
         
         [Header("References")]
         [SerializeField] private RectTransform resizeTransform;
@@ -70,6 +70,7 @@ namespace Balltallion.UI.Navigation
         private void OnObjectSelected(Selectable currentSelection)
         {
             int selectablePageIdx = GetSelectablePageIdx(currentSelection);
+            SetPageInteraction(selectablePageIdx >= 0);
             if (selectablePageIdx == -1) return;
             if (selectablePageIdx != currentPageIdx) GoToPage(selectablePageIdx);
         }
@@ -104,6 +105,16 @@ namespace Balltallion.UI.Navigation
             if (mode == LayoutModes.Horizontal) return pageColumns * (cellSize.x + cellSpacing);
             if (mode == LayoutModes.Vertical) return pageRows * (cellSize.y + cellSpacing);
             return 0;
+        }
+        
+        private void SetPageInteraction(bool interactable)
+        {
+            foreach (Transform child in transform)
+            {
+                Selectable selectable = child.GetComponent<Selectable>();
+                int pageIdx = GetSelectablePageIdx(selectable);
+                selectable.interactable = pageIdx == currentPageIdx || interactable;
+            }
         }
         
         private int GetSelectablePageIdx(Selectable selectable)
