@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components.Navigation
 {
     public class NavigationManager : MonoBehaviour
     {

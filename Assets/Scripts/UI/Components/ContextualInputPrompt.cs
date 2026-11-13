@@ -1,10 +1,11 @@
 ﻿using Balltallion.Input;
+using Balltallion.UI.Components.Navigation;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components
 {
     public class ContextualInputPrompt : MonoBehaviour
     {

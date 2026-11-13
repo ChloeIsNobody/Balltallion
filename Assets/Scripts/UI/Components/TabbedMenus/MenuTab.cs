@@ -3,7 +3,7 @@ using Balltallion.Input;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components.TabbedMenus
 {
     public class MenuTab : MonoBehaviour
     {

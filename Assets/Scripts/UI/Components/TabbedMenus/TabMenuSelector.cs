@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components.TabbedMenus
 {
     public class TabMenuSelector : MonoBehaviour
     {

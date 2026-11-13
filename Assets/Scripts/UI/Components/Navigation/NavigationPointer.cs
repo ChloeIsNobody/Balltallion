@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components.Navigation
 {
     public class NavigationPointer : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-﻿using NaughtyAttributes;
+﻿using Balltallion.UI.Components.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Navigation
+namespace Balltallion.UI.Components.PagedGrid
 {
     public class PagedGridLayout : MonoBehaviour
     {

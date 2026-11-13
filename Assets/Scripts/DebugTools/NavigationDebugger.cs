@@ -4,7 +4,8 @@ using Balltallion.Input;
 using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI;
-using Balltallion.UI.Navigation;
+using Balltallion.UI.Components.Navigation;
+using Balltallion.UI.Components.TabbedMenus;
 using UnityEngine;
 using UnityEngine.UI;
 
