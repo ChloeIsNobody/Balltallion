@@ -1,7 +1,5 @@
-﻿using System;
-using NaughtyAttributes;
+﻿using NaughtyAttributes;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Balltallion.UI.Navigation
@@ -12,14 +10,12 @@ namespace Balltallion.UI.Navigation
         [SerializeField] private LayoutModes layoutMode = LayoutModes.Horizontal;
         [SerializeField] private int pageRows;
         [SerializeField] private int pageColumns;
+        [SerializeField] private float scrollSpeed = 10.0f;
         
         [Space]
         [SerializeField] private Vector2Int cellSize = new (100, 100);
         [SerializeField] private int cellSpacing = 35;
         [SerializeField] private int padding = 35;
-
-        [Header("Debug")]
-        [SerializeField] private int debugSetPageIdx;
         
         [Header("References")]
         [SerializeField] private RectTransform resizeTransform;
@@ -27,6 +23,7 @@ namespace Balltallion.UI.Navigation
         [SerializeField] private GridLayoutGroup gridLayout;
 
         private int currentPageIdx = 0;
+        private float pageLerpVal = 0;
         
         private enum LayoutModes
         {
@@ -51,12 +48,6 @@ namespace Balltallion.UI.Navigation
             SetLayoutMode(layoutMode);
         }
 
-        [Button("SetPageIdx")]
-        private void DebugSetPageIdx()
-        {
-            GoToPage(debugSetPageIdx);
-        }
-
         private void OnEnable()
         {
             NavigationManager.Instance.OnObjectSelected += OnObjectSelected;
@@ -65,6 +56,12 @@ namespace Balltallion.UI.Navigation
         private void OnDisable()
         {
             NavigationManager.Instance.OnObjectSelected -= OnObjectSelected;   
+        }
+
+        private void Update()
+        {
+            pageLerpVal = Mathf.Lerp(pageLerpVal, currentPageIdx, Time.deltaTime * scrollSpeed);
+            gridLayout.padding = GetPaddingValueForPage(pageLerpVal);
         }
 
         private void OnObjectSelected(Selectable currentSelection)
@@ -84,19 +81,19 @@ namespace Balltallion.UI.Navigation
             GoToPage(currentPageIdx);
         }
         
-        private void GoToPage(int newPageIdx)
+        private void GoToPage(int newPageIdx, bool immediate = false)
         {
+            if (immediate) pageLerpVal = currentPageIdx;
+            if (currentPageIdx == newPageIdx) return;
             currentPageIdx = newPageIdx;
-            gridLayout.padding = GetPaddingValueForPage(currentPageIdx);
-            LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
         }
 
-        private RectOffset GetPaddingValueForPage(int pageIdx)
+        private RectOffset GetPaddingValueForPage(float pageIdx)
         {
             int defaultPadding = (padding + cellSpacing) / 2;
             RectOffset result = new RectOffset(defaultPadding, 0, defaultPadding, 0);
-            if (layoutMode == LayoutModes.Horizontal) result.left -= pageIdx * GetPageOffset(layoutMode);
-            if (layoutMode == LayoutModes.Vertical) result.top -= pageIdx * GetPageOffset(layoutMode);
+            if (layoutMode == LayoutModes.Horizontal) result.left -= (int)(pageIdx * GetPageOffset(layoutMode));
+            if (layoutMode == LayoutModes.Vertical) result.top -= (int)(pageIdx * GetPageOffset(layoutMode));
             return result;
         }
 
