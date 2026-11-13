@@ -1,4 +1,5 @@
-﻿using Balltallion.UI.Components.Navigation;
+﻿using System;
+using Balltallion.UI.Components.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ namespace Balltallion.UI.Components.PagedGrid
 {
     public class PagedGridLayout : MonoBehaviour
     {
+        public event Action<int> OnPageChanged;
+        
         [Header("Settings")]
         [SerializeField] private LayoutModes layoutMode = LayoutModes.Horizontal;
         [SerializeField] private int pageRows;
@@ -86,6 +89,7 @@ namespace Balltallion.UI.Components.PagedGrid
             if (immediate) pageLerpVal = currentPageIdx;
             if (currentPageIdx == newPageIdx) return;
             currentPageIdx = newPageIdx;
+            OnPageChanged?.Invoke(currentPageIdx);
         }
 
         private RectOffset GetPaddingValueForPage(float pageIdx)
@@ -128,5 +132,8 @@ namespace Balltallion.UI.Components.PagedGrid
             if (selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
             return -1;
         }
+
+        public int GetCurrentPage() => currentPageIdx;
+        public int GetNumPages() => Mathf.Max(1, 1 + (transform.childCount-1) / (pageRows * pageColumns));
     }
 }
