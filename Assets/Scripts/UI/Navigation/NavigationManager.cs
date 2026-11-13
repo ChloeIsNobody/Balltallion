@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Balltallion.Input;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
@@ -10,7 +11,8 @@ namespace Balltallion.UI.Navigation
 {
     public class NavigationManager : MonoBehaviour
     {
-        public event Action<LocalPlayerSO> OnPlayerTurnStarted; 
+        public event Action<LocalPlayerSO> OnPlayerTurnStarted;
+        public event Action<Selectable> OnObjectSelected;
         
         public static NavigationManager Instance { get; private set; }
 
@@ -30,6 +32,8 @@ namespace Balltallion.UI.Navigation
         private LocalPlayerSO currentPlayer;
         private bool inputManagerSetupComplete;
 
+        private Selectable selectedObject;
+
         private void Awake()
         {
             if (Instance == null)
@@ -45,7 +49,20 @@ namespace Balltallion.UI.Navigation
             inputModule.enabled = false;
             inputManager.OnSetupCompleted += () => SetPlayerTurn(firstPlayer);
         }
-        
+
+        private void Update()
+        { 
+            SetSelectedObject(EventSystem.current.currentSelectedGameObject);
+        }
+
+        private void SetSelectedObject(GameObject newSelectedObject)
+        {
+            if (!newSelectedObject) return;
+            if (selectedObject && newSelectedObject == selectedObject.gameObject) return;
+            selectedObject = newSelectedObject.GetComponent<Selectable>();
+            OnObjectSelected?.Invoke(selectedObject);
+        }
+
         public void SetFirstPlayer(LocalPlayerSO player) => firstPlayer = player;
         
         public void EndPlayerTurn()
@@ -89,6 +106,8 @@ namespace Balltallion.UI.Navigation
         {
             foreach (CanvasGroup canvasGroup in canvasGroups) canvasGroup.interactable = interactable;
         }
+
+        public Selectable GetCurrentSelectable() => selectedObject;
         
         public LocalPlayerSO GetCurrentPlayer() => currentPlayer;
     }

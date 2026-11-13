@@ -1,5 +1,7 @@
-﻿using NaughtyAttributes;
+﻿using System;
+using NaughtyAttributes;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Balltallion.UI.Navigation
@@ -48,16 +50,28 @@ namespace Balltallion.UI.Navigation
             
             SetLayoutMode(layoutMode);
         }
-        
-        private void Awake()
-        {
-            
-        }
 
         [Button("SetPageIdx")]
         private void DebugSetPageIdx()
         {
-            SetPageIdx(debugSetPageIdx);
+            GoToPage(debugSetPageIdx);
+        }
+
+        private void OnEnable()
+        {
+            NavigationManager.Instance.OnObjectSelected += OnObjectSelected;
+        }
+
+        private void OnDisable()
+        {
+            NavigationManager.Instance.OnObjectSelected -= OnObjectSelected;   
+        }
+
+        private void OnObjectSelected(Selectable currentSelection)
+        {
+            int selectablePageIdx = GetSelectablePageIdx(currentSelection);
+            if (selectablePageIdx == -1) return;
+            if (selectablePageIdx != currentPageIdx) GoToPage(selectablePageIdx);
         }
 
         private void SetLayoutMode(LayoutModes newLayoutMode)
@@ -66,10 +80,10 @@ namespace Balltallion.UI.Navigation
             gridLayout.startAxis = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Axis.Vertical : GridLayoutGroup.Axis.Horizontal;
             gridLayout.constraint = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Constraint.FixedRowCount : GridLayoutGroup.Constraint.FixedColumnCount;
             gridLayout.constraintCount = newLayoutMode == LayoutModes.Horizontal ? pageRows : pageColumns;
-            SetPageIdx(currentPageIdx);
+            GoToPage(currentPageIdx);
         }
         
-        private void SetPageIdx(int newPageIdx)
+        private void GoToPage(int newPageIdx)
         {
             currentPageIdx = newPageIdx;
             gridLayout.padding = GetPaddingValueForPage(currentPageIdx);
@@ -90,6 +104,21 @@ namespace Balltallion.UI.Navigation
             if (mode == LayoutModes.Horizontal) return pageColumns * (cellSize.x + cellSpacing);
             if (mode == LayoutModes.Vertical) return pageRows * (cellSize.y + cellSpacing);
             return 0;
+        }
+        
+        private int GetSelectablePageIdx(Selectable selectable)
+        {
+            int selectableIdx = GetSelectableIdx(selectable);
+            if (selectableIdx == -1) return -1;
+            
+            int elementsPerPage = pageRows * pageColumns;
+            return selectableIdx / elementsPerPage;
+        }
+
+        private int GetSelectableIdx(Selectable selectable)
+        {
+            if (selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
+            return -1;
         }
     }
 }
