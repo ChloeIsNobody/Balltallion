@@ -8,6 +8,7 @@ namespace Balltallion.UI.Components.PagedGrid
     public class PagedGridLayout : MonoBehaviour
     {
         public event Action<int> OnPageChanged;
+        public event Action<bool> OnFocusChanged;
         
         [Header("Settings")]
         [SerializeField] private LayoutModes layoutMode = LayoutModes.Horizontal;
@@ -27,6 +28,7 @@ namespace Balltallion.UI.Components.PagedGrid
 
         private int currentPageIdx = 0;
         private float pageLerpVal = 0;
+        private bool hasFocus = false;
         
         private enum LayoutModes
         {
@@ -70,7 +72,12 @@ namespace Balltallion.UI.Components.PagedGrid
         private void OnObjectSelected(Selectable currentSelection)
         {
             int selectablePageIdx = GetSelectablePageIdx(currentSelection);
-            SetPageInteraction(selectablePageIdx >= 0);
+            bool oldFocus = hasFocus;
+            hasFocus = selectablePageIdx >= 0;
+            if (oldFocus != hasFocus) OnFocusChanged?.Invoke(hasFocus);
+            
+            SetPageInteraction(hasFocus);
+            
             if (selectablePageIdx == -1) return;
             if (selectablePageIdx != currentPageIdx) GoToPage(selectablePageIdx);
         }
@@ -134,6 +141,9 @@ namespace Balltallion.UI.Components.PagedGrid
         }
 
         public int GetCurrentPage() => currentPageIdx;
+        public bool HasFocus() => hasFocus;
+        public bool IsAtLeftMostPage() => currentPageIdx == 0;
+        public bool IsAtRightMostPage() => currentPageIdx == GetNumPages() - 1;
         public int GetNumPages() => Mathf.Max(1, 1 + (transform.childCount-1) / (pageRows * pageColumns));
     }
 }
