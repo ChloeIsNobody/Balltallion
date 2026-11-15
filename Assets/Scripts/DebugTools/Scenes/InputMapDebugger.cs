@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using UnityEngine.UI;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.DebugTools.Scenes
 {
     public class InputMapDebugger : MonoBehaviour
     {

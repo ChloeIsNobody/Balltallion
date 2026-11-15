@@ -1,11 +1,10 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.UI.Components.Debugging
 {
-    public class DebugTimeScaleSlider : MonoBehaviour
+    public class TimeScaleSlider : MonoBehaviour
     {
         [SerializeField] private Slider slider;
         [SerializeField] private TextMeshProUGUI timeScaleText;

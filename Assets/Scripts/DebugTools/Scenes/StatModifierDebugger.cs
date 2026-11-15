@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Balltallion.Input;
 using Balltallion.Simulation.Battle;
-using TMPro;
+using Balltallion.UI.Components.Debugging;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
-using UnityEngine.UI;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.DebugTools.Scenes
 {
     public class StatModifierDebugger : MonoBehaviour
     {
-        [SerializeField] private DebugStatReadout debugStatReadout;
+        [SerializeField] private StatReadout statReadout;
         [SerializeField] private DeviceDataSO deviceData;
         
         [SerializeField] private string statName;
@@ -20,15 +17,15 @@ namespace Balltallion.DebugTools
         [SerializeField] private float minValue = 0;
         [SerializeField] private float maxValue = 200;
         
-        [SerializeField] private List<DebugModifierToggle> modifierDebugSlots;
+        [SerializeField] private List<StatModifierToggle> modifierDebugSlots;
         private Stat stat;
         
         private void Start()
         {
             stat = new Stat(statName, baseValue, "F0", minValue, maxValue);
-            debugStatReadout.SetTrackedStat(stat);
+            statReadout.SetTrackedStat(stat);
             
-            foreach (DebugModifierToggle slot in modifierDebugSlots)
+            foreach (StatModifierToggle slot in modifierDebugSlots)
             {
                 slot.Initialize(deviceData, Keyboard.current);
                 slot.SetAffectedStat(stat);

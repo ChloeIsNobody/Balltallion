@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Balltallion.Simulation;
 using Balltallion.Simulation.Physics;
+using Balltallion.UI.Components.Debugging;
 using UnityEngine;
 
 namespace Balltallion.DebugTools

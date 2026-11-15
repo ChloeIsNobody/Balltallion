@@ -1,16 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Balltallion.Input;
 using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.DebugTools.DevArena
 {
-    public class DebugBattleManager : MonoBehaviour, IBattleManager
+    public class DevArenaBattleManager : MonoBehaviour, IBattleManager
     {
         [SerializeField] private BallDataSO playerBall;
         [SerializeField] private List<EquipableDataSO> playerEquipables;

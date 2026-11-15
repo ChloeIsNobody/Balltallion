@@ -4,9 +4,9 @@ using Balltallion.Simulation.Battle;
 using TMPro;
 using UnityEngine;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.UI.Components.Debugging
 {
-    public class DebugStatReadout : MonoBehaviour
+    public class StatReadout : MonoBehaviour
     {
         [Header("Settings")]
         [SerializeField] private ReadoutModes readoutMode;
@@ -81,7 +81,7 @@ namespace Balltallion.DebugTools
 
             if (readoutMode == ReadoutModes.AllCalculationSteps)
             {
-                extraInfoText.text = $"Base Value: {trackedStat.GetDisplayValue()}";
+                extraInfoText.text = $"Base Value: {trackedStat.GetDisplayBaseValue()}";
                 extraInfoText.text += $"\nFlat Addition: {trackedStat.GetFlatAddedValue():F0}";
                 extraInfoText.text += $"\nPercent Multiplier: {trackedStat.GetPercentAddedValue():F2}%";
                 extraInfoText.text += $"\nMultiplier: {trackedStat.GetMultiplierValue():F2}x";
