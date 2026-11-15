@@ -74,7 +74,6 @@ namespace Balltallion.UI.Components.PagedGrid
         private void OnObjectSelected(Selectable currentSelection)
         {
             int selectablePageIdx = GetSelectablePageIdx(currentSelection);
-            Debug.Log($"{name} selected page: {selectablePageIdx}", this);
             bool oldFocus = hasFocus;
             hasFocus = selectablePageIdx >= 0;
             if (oldFocus != hasFocus) OnFocusChanged?.Invoke(hasFocus);
