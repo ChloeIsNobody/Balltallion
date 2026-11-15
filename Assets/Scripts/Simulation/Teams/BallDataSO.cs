@@ -40,7 +40,6 @@ namespace Balltallion.Simulation.Teams
         [SerializeField] public float spinRate = 1.0f;
         [SerializeField, Range(0.0f, 100.0f)] public float toughness = 0.0f;
         
-        
         [Header("Physics Properties")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         

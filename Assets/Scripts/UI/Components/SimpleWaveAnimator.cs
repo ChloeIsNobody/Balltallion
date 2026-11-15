@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Balltallion.UI
+namespace Balltallion.UI.Components
 {
     public class SimpleWaveAnimator : MonoBehaviour
     {

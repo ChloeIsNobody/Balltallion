@@ -89,7 +89,7 @@ MonoBehaviour:
   - controlName: 9
     icon: {fileID: 21300000, guid: 8d54da13589b75744bf0014d3a409fc6, type: 3}
   - controlName: Space
-    icon: {fileID: 21300000, guid: 8b9790aafd49d4840b7e21ca6600c6e1, type: 3}
+    icon: {fileID: 21300000, guid: 41e6c8ab78fe6864a8f1b13bfa8d7272, type: 3}
   - controlName: Esc
     icon: {fileID: 21300000, guid: ab81f3747197c2f40a8c8d990a9afcae, type: 3}
   - controlName: Enter

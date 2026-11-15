@@ -40,10 +40,7 @@ namespace Balltallion.Simulation.Battle
 
         private void Start()
         {
-            foreach (LocalPlayerSO localPlayer in localPlayers)
-            {
-                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.Battle);
-            }
+            InputManager.Instance?.SetPlayerActionMaps(ActionMaps.Battle);
             
             if (playerTeamLoadout == null) Debug.LogWarning("Player team loadout not set!");
             if (enemyTeamLoadout == null) Debug.LogWarning("Enemy team loadout not set!");

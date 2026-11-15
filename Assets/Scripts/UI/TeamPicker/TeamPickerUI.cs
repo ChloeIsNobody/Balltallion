@@ -47,10 +47,7 @@ namespace Balltallion.UI.TeamPicker
             SetSelectedBall(0);
             playerTeamDisplay.UpdateDisplay(playerTeam);
             enemyTeamDisplay.UpdateDisplay(enemyTeam);
-            foreach (LocalPlayerSO localPlayer in localPlayers)
-            {
-                localPlayer.GetInputRelay().SwitchActionMap(ActionMaps.VirtualCursor);
-            }
+            InputManager.Instance?.SetPlayerActionMaps(ActionMaps.Navigation);
         }
 
         private void OnEnable()
