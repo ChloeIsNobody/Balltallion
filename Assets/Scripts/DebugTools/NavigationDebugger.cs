@@ -104,15 +104,6 @@ namespace Balltallion.DebugTools
             navigationManager.EndPlayerTurn();
         }
 
-        private void OnTabSelected()
-        {
-            LocalPlayerSO player = navigationManager.GetCurrentPlayer();
-            TabMenuSelector currentTabMenu = player.GetPlayerID() == 1 ? inventoryTabSelector1 : inventoryTabSelector2;
-            CanvasGroup currentMenu = currentTabMenu.GetSelectedCanvasGroup();
-            Selectable firstOption = currentMenu.transform.GetChild(0).GetComponent<Selectable>();
-            firstOption.Select();
-        }
-
         private void OnPlayerTurnStarted(LocalPlayerSO player)
         {
             TabMenuSelector selector = player.GetPlayerID() == 1 ? inventoryTabSelector1 : inventoryTabSelector2;
