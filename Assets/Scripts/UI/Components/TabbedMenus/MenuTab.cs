@@ -31,8 +31,8 @@ namespace Balltallion.UI.Components.TabbedMenus
 
         private void Awake()
         {
-            inputPrompt.SetTargetPlayer(targetPlayer);
             inputPrompt.SetActionPath(actionPath);
+            inputPrompt.SetTargetPlayer(targetPlayer);
             inputRelay = targetPlayer.GetInputRelay();
         }
 
