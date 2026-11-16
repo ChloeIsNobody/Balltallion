@@ -36,6 +36,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         public override AbilityEffect Clone()
         {
             DamageTarget clone = new DamageTarget();
+            clone.target = target;
             clone.damage = damage;
             return clone;
         }

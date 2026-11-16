@@ -73,6 +73,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         public override AbilityEffect Clone()
         {
             KnockbackTarget clone = new KnockbackTarget();
+            clone.target = target;
             clone.knockbackStrength = knockbackStrength;
             clone.knockbackOption = knockbackOption;
             clone.direction = direction;

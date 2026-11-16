@@ -31,6 +31,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         public override AbilityEffect Clone()
         {
             HealTarget clone = new HealTarget();
+            clone.target = target;
             clone.healing = healing;
             return clone;
         }
