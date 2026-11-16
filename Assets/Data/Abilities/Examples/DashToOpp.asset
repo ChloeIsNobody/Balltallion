@@ -15,24 +15,19 @@ MonoBehaviour:
   trigger:
     rid: 2536140256226050059
   effects:
-  - rid: 2536140227674374266
-  - rid: 2536140244791066734
+  - rid: 2536140501953282138
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374266
-      type: {class: KnockbackSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140256226050059
+      type: {class: OnPrimaryActiveUsed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data: 
+    - rid: 2536140501953282138
+      type: {class: KnockbackTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        knockbackStrength: 15
+        target: 0
+        knockbackStrength: 10
         knockbackOption: 2
         direction: 0
         randomSpread: 0
         resetVelocityBeforeKnockback: 1
-    - rid: 2536140244791066734
-      type: {class: DebugLog, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        activateMessage: Ability activated!
-        deactivateMessage: Ability deactivated!
-    - rid: 2536140256226050059
-      type: {class: OnPrimaryActiveUsed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data: 

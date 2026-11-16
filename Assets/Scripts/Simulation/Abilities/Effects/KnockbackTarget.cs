@@ -1,6 +1,5 @@
 ﻿using System;
 using Balltallion.Simulation.Battle;
-using Balltallion.Simulation.Physics;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -8,8 +7,9 @@ using Random = UnityEngine.Random;
 namespace Balltallion.Simulation.Abilities.Effects
 {
     [Serializable]
-    public class KnockbackSelf : AbilityEffect
+    public class KnockbackTarget : AbilityEffect
     {
+        [SerializeField] private TargetTypes target = TargetTypes.Self;
         [SerializeField] private float knockbackStrength;
         [SerializeField] private KnockbackOptions knockbackOption;
         [SerializeField, Range(0.0f, 360.0f)] private float direction;
@@ -24,10 +24,16 @@ namespace Balltallion.Simulation.Abilities.Effects
             AwayFromOpponent,
         }
 
+        private enum TargetTypes
+        {
+            Self,
+            Opponent,
+        }
 
         public override void Activate()
         {
-            if (resetVelocityBeforeKnockback) parentBall.ResetVelocity();
+            BattleBall targetBall = target == TargetTypes.Self ? parentBall : TeamUtilities.GetNearestOpposingBallTo(parentBall);
+            if (resetVelocityBeforeKnockback) targetBall.ResetVelocity();
             
             Vector2 knockbackDirection = Vector2.zero;
             
@@ -42,13 +48,13 @@ namespace Balltallion.Simulation.Abilities.Effects
             }
             else if (knockbackOption == KnockbackOptions.TowardsOpponent)
             {
-                BattleBall opp = TeamUtilities.GetNearestOpposingBallTo(parentBall);
-                if (opp) knockbackDirection = (opp.transform.position - parentBall.transform.position).normalized;
+                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
+                if (opponent) knockbackDirection = (opponent.transform.position - targetBall.transform.position).normalized;
             }
             else if (knockbackOption == KnockbackOptions.AwayFromOpponent)
             {
-                BattleBall opp = TeamUtilities.GetNearestOpposingBallTo(parentBall);
-                if (opp) knockbackDirection = (parentBall.transform.position - opp.transform.position).normalized;
+                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
+                if (opponent) knockbackDirection = (targetBall.transform.position - opponent.transform.position).normalized;
             }
             
             AttackData attackData = new AttackData()
@@ -56,7 +62,7 @@ namespace Balltallion.Simulation.Abilities.Effects
                 source = parentBall,
                 knockback = knockbackStrength * knockbackDirection,
             };
-            parentBall.ReceiveAttack(attackData);
+            targetBall.ReceiveAttack(attackData);
         }
 
         public override void Deactivate()
@@ -66,7 +72,7 @@ namespace Balltallion.Simulation.Abilities.Effects
         
         public override AbilityEffect Clone()
         {
-            KnockbackSelf clone = new KnockbackSelf();
+            KnockbackTarget clone = new KnockbackTarget();
             clone.knockbackStrength = knockbackStrength;
             clone.knockbackOption = knockbackOption;
             clone.direction = direction;
