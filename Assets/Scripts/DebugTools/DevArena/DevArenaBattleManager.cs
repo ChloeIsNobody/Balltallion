@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using Balltallion.Input;
 using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
@@ -24,6 +25,12 @@ namespace Balltallion.DebugTools.DevArena
         
         private void Start()
         {
+            StartCoroutine(DelayedStart());
+        }
+
+        private IEnumerator DelayedStart()
+        {
+            yield return new WaitForSeconds(0.1f);
             SpawnBalls();
         }
 

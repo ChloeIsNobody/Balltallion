@@ -16,6 +16,7 @@ namespace Balltallion.Simulation.ActiveAbilities
         
         [Header("Base Ability Data")]
         [SerializeField] private bool debugStatesInConsole = false;
+        [SerializeField] private bool startOffCooldown = true;
 
         private const string actionName = "Ability1";
         
@@ -31,6 +32,7 @@ namespace Balltallion.Simulation.ActiveAbilities
         
         private Func<IEnumerator> abilityStartState;
         private string abilityStartStateName;
+
 
         protected virtual void Awake()
         {
@@ -49,7 +51,8 @@ namespace Balltallion.Simulation.ActiveAbilities
         {
             this.abilityStartState = abilityStartState;
             this.abilityStartStateName = abilityStartStateName;
-            TransitionToState(CooldownState(), nameof(CooldownState));
+            if (startOffCooldown) TransitionToState(ReadyState(), nameof(ReadyState));
+            else TransitionToState(CooldownState(), nameof(CooldownState));
         }
         
         private IEnumerator CooldownState()
@@ -66,14 +69,14 @@ namespace Balltallion.Simulation.ActiveAbilities
             }
             
             cooldownTimer = 0.0f;
-            AbilityReady();
-            OnAbilityReady?.Invoke();
             
             TransitionToState(ReadyState(), nameof(ReadyState));
         }
 
         private IEnumerator ReadyState()
         {
+            AbilityReady();
+            OnAbilityReady?.Invoke();
             yield return new WaitUntil(() => inputRelay.PollActionPerformedThisFrame(actionName));
             OnAbilityActivated?.Invoke();
             

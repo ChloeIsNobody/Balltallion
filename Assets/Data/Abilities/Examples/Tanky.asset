@@ -15,18 +15,11 @@ MonoBehaviour:
   trigger:
     rid: 2536140211404406886
   effects:
-  - rid: 2536140211404406885
+  - rid: 2536140495069118471
   - rid: 2536140211404406888
   references:
     version: 2
     RefIds:
-    - rid: 2536140211404406885
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        stat: 10
-        modifierLabel: Tanky
-        operation: 1
-        value: 20
     - rid: 2536140211404406886
       type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data: 
@@ -37,3 +30,10 @@ MonoBehaviour:
         modifierLabel: Tanky
         operation: 1
         value: 15
+    - rid: 2536140495069118471
+      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        stat: 10
+        modifierLabel: Tanky
+        operation: 1
+        value: 20

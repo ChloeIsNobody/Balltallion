@@ -442,13 +442,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2c4bf69ec04bbb89295dd0da18309d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.KnightAbility
-  cooldown: 8
   debugStatesInConsole: 0
+  startOffCooldown: 1
   visualTransform: {fileID: 7403230040884324488}
   animator: {fileID: 7616763232087025712}
   circleCollider: {fileID: 708721133452045923}
   audioSource: {fileID: 1378664900872967431}
-  damage: 12
   knockback: 13
   radius: 2.25
   chargeUpDuration: 0.3

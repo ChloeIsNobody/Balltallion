@@ -25,11 +25,6 @@ namespace Balltallion.Simulation.ActiveAbilities
             activeAbility.OnAbilityActivationBlocked -= OnAbilityActivationBlocked;
         }
 
-        private void Start()
-        {
-            iconSpriteRenderer.enabled = false;
-        }
-
         private void Update()
         {
             if (activeAbility.IsOnCooldown())
@@ -41,6 +36,7 @@ namespace Balltallion.Simulation.ActiveAbilities
         private void OnCooldownEntered()
         {
             cooldownText.enabled = true;
+            iconSpriteRenderer.enabled = false;
         }
 
         private void OnAbilityReady()
@@ -48,6 +44,7 @@ namespace Balltallion.Simulation.ActiveAbilities
             cooldownText.enabled = false;
             iconSpriteRenderer.enabled = true;
             iconSpriteRenderer.sprite = activeAbility.GetAbilityIcon();
+            Debug.Log("Ability Ready");
         }
 
         private void OnAbilityActivated()
