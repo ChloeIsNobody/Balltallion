@@ -39,5 +39,5 @@ MonoBehaviour:
   animSaturation: 1
   animBrightness: 1
   animContrast: 1
-  bounceSound: {fileID: 6418180475301049370, guid: 55979f6c6ecaa6c4299e7df352a67e41, type: 2}
-  damageSound: {fileID: 0}
+  bounceSound: {fileID: 6418180475301049370, guid: cdfb968fefb6e48309d84770bfbc11e0, type: 2}
+  damageSound: {fileID: 6418180475301049370, guid: f7f9fd07b98954854b7f701b64551a22, type: 2}
