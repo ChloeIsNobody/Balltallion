@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Balltallion.DebugTools;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
@@ -12,12 +11,17 @@ namespace Balltallion.Input
 {
     public class InputManager : MonoBehaviour
     {
+        public event Action OnSetupCompleted;
         public static InputManager Instance { get; private set; }
         
         [SerializeField] private PlayerInput playerInputPrefab;
         [SerializeField] private InputActionAsset playerActionAsset;
 
         [SerializeField] private List<LocalPlayerSO> localPlayers;
+
+        [Header("Debugging")]
+        [SerializeField] private ActionMaps defaultActionMap;
+        [SerializeField] private bool autoSplitKeyboard;
         
         private const int playerLimit = 2;
         private bool canActivateSplitKeyboard;
@@ -34,10 +38,22 @@ namespace Balltallion.Input
             }
             
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
-            
             DontDestroyOnLoad(gameObject);
         }
-
+        
+        private void Start() => StartCoroutine(DelayedStart());
+        
+        // Has to be done just because of input state setup being finicky
+        private IEnumerator DelayedStart()
+        {
+            yield return null;
+            if (autoSplitKeyboard)
+            {
+                ActivateSplitKeyboard();
+                OnSetupCompleted?.Invoke();
+            }
+        }
+        
         public void StartDevicePairing()
         {
             foreach (LocalPlayerSO localPlayer in localPlayers)
@@ -53,6 +69,7 @@ namespace Balltallion.Input
         {
             --InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+            OnSetupCompleted?.Invoke();
         }
 
         private void Update()
@@ -68,9 +85,9 @@ namespace Balltallion.Input
             if (!(control is ButtonControl)) return;
             if (!IsDeviceUsableWithPlayerActions(control.device)) return;
 
-            if (canActivateSplitKeyboard && control.device is Keyboard keyboard && control.displayName == "Space")
+            if (canActivateSplitKeyboard && control.device is Keyboard && control.displayName == "Space")
             {
-                ActivateSplitKeyboard(keyboard);
+                ActivateSplitKeyboard();
                 return;
             }
             
@@ -84,10 +101,10 @@ namespace Balltallion.Input
             }
         }
 
-        public void ActivateSplitKeyboard(Keyboard keyboardDevice)
+        public void ActivateSplitKeyboard()
         {
-            JoinPlayer("KeyboardLeft", keyboardDevice);
-            JoinPlayer("KeyboardRight", keyboardDevice);
+            JoinPlayer("KeyboardLeft", Keyboard.current);
+            JoinPlayer("KeyboardRight", Keyboard.current);
         }
         
         private void JoinPlayer(string controlScheme = null, InputDevice pairWithDevice = null)
@@ -96,6 +113,8 @@ namespace Balltallion.Input
             
             PlayerInput newPlayerInput =  PlayerInput.Instantiate(playerInputPrefab.gameObject, -1,
                 controlScheme, -1, pairWithDevice);
+            newPlayerInput.SwitchCurrentActionMap(defaultActionMap.ToString());
+            InputUser.PerformPairingWithDevice(Mouse.current, newPlayerInput.user);
             newPlayerInput.transform.SetParent(transform);
 
             int openSlotIdx = FindNextOpenPlayerSlot();
@@ -104,6 +123,7 @@ namespace Balltallion.Input
             LocalPlayerSO localPlayer = localPlayers[openSlotIdx];
             localPlayer.Connect(newPlayerInput);
             newPlayerInput.name = $"{localPlayer.GetDisplayName()} PlayerInput";
+            
             StartCoroutine(ActivateAfterDelay(newPlayerInput));
         }
 
@@ -177,6 +197,23 @@ namespace Balltallion.Input
                     return true;
 
             return false;
+        }
+
+        public void SetPlayerActionMaps(ActionMaps newActionMap)
+        {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                localPlayer.GetInputRelay().SwitchActionMap(newActionMap);
+            }
+        }
+        
+        public bool AreBothPlayersReady()
+        {
+            foreach (LocalPlayerSO localPlayer in localPlayers)
+            {
+                if (!localPlayer.IsReady()) return false;
+            }
+            return true;
         }
         
         public bool CanActivateSplitKeyboard => canActivateSplitKeyboard;
