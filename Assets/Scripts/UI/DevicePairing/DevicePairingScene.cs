@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Balltallion.Input;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 namespace Balltallion.UI.DevicePairing
@@ -15,6 +16,9 @@ namespace Balltallion.UI.DevicePairing
         
         [SerializeField] private int readyCountdownDuration = 3;
         
+        [SerializeField] private AudioSource backgroundMusic;
+        [SerializeField] private AudioResource backgroundMusicContainer;
+        
         private InputManager inputManager;
         private Coroutine stateCoroutine;
         
@@ -23,6 +27,9 @@ namespace Balltallion.UI.DevicePairing
             inputManager = InputManager.Instance;
             inputManager.StartDevicePairing();
             SetStateCoroutine(DevicePairingState());
+            
+            backgroundMusic.resource = backgroundMusicContainer;
+            backgroundMusic.Play();
         }
 
         private void Update()
