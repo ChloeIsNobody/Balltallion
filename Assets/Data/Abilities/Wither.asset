@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: Test
+  m_Name: Wither
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140268898877453
-  effects: []
+    rid: 2536140227674374249
+  effects:
+  - rid: 2536140227674374251
   references:
     version: 2
     RefIds:
-    - rid: 2536140268898877453
-      type: {class: OnKeyPressed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+    - rid: 2536140227674374249
+      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        key: 31
-        isToggle: 0
+        cooldown: 0.33
+    - rid: 2536140227674374251
+      type: {class: DamageSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        damage: 5
