@@ -18,7 +18,7 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: d7c56e646110f0c4eaeb38b367758477, type: 2}
   activeAbilityPrefab: {fileID: 2819690349012160209, guid: 962cee07da481434a9dc19e1f4c8463a, type: 3}
   innateAbilities:
-  - {fileID: 11400000, guid: 05f46f71e6f7cb54ab30108f3e357ae8, type: 2}
+  - {fileID: 11400000, guid: f89bc878f4af4f644a44a0b2ee780615, type: 2}
   abilityCooldown: 7.5
   abilityDamage: 10
   attackCooldown: 0
@@ -27,7 +27,7 @@ MonoBehaviour:
   contactDamage: 0
   gravityScale: 1
   knockback: 1
-  maxHealth: 100
+  maxHealth: 10
   moveSpeed: 7.3
   size: 1
   spinRate: 0.45
