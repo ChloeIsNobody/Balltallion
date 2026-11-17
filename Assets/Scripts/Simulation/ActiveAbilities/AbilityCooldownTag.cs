@@ -44,7 +44,6 @@ namespace Balltallion.Simulation.ActiveAbilities
             cooldownText.enabled = false;
             iconSpriteRenderer.enabled = true;
             iconSpriteRenderer.sprite = activeAbility.GetAbilityIcon();
-            Debug.Log("Ability Ready");
         }
 
         private void OnAbilityActivated()

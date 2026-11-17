@@ -13,18 +13,18 @@ MonoBehaviour:
   m_Name: Death
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140227674374249
+    rid: 2536140501953282158
   effects:
   - rid: 2536140501953282139
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374249
-      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data:
-        cooldown: 0.33
     - rid: 2536140501953282139
       type: {class: DamageTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         target: 0
         damage: 5
+    - rid: 2536140501953282158
+      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data:
+        cooldown: 0.33
