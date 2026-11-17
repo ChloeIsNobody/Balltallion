@@ -22,7 +22,7 @@ namespace Balltallion.Simulation.Teams
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
         [SerializeField, Expandable] public WeaponDataSO weapon;
         [SerializeField] public GameObject activeAbilityPrefab;
-        [SerializeField] public List<AbilitySO> innateAbilities;
+        [SerializeField] public List<AbilitySO> innateAbilities = new();
         
         [Header("Base Stat Values")]
         [HorizontalLine(color: EColor.Gray, height:1.5f)]
