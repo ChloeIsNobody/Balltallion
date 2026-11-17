@@ -20,7 +20,7 @@ MonoBehaviour:
   innateAbilities:
   - {fileID: 11400000, guid: 1c9169d5a2bbecf4cb694ed75a90c6a3, type: 2}
   - {fileID: 11400000, guid: 5fbaa1d6b63596145a8de79c3fe31749, type: 2}
-  - {fileID: 11400000, guid: dbab5e44f1ad3d942acda2714a0f6e6d, type: 2}
+  - {fileID: 11400000, guid: d35f1039989a89743afc680af0e3298a, type: 2}
   abilityCooldown: 12
   abilityDamage: 0
   attackCooldown: 4.1

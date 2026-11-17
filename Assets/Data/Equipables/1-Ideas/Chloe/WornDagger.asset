@@ -17,4 +17,4 @@ MonoBehaviour:
   tooltipDescription: TOOLTIP DESCRIPTION.
   icon: {fileID: 21300000, guid: 6d7553f535d22ca3fb2ac95e9c984fb4, type: 3}
   abilities:
-  - {fileID: 11400000, guid: 5a60cf0c8df697b47a4e4167098ae96e, type: 2}
+  - {fileID: 11400000, guid: 73f9e03c97e4a7b4f9cda64553a530ee, type: 2}

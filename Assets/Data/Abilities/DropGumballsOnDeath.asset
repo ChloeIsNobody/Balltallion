@@ -23,9 +23,9 @@ MonoBehaviour:
       type: {class: ShootProjectile, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         projectilePrefab: {fileID: 1799370660412996530, guid: 90269cfe581cc964d8a9214324fd5720, type: 3}
-        damage: 3
+        damage: 2
         recoil: 0
-        count: 5
+        count: 7
         aimOption: 1
         direction: 90
         randomSpread: 135
