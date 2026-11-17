@@ -27,8 +27,8 @@ MonoBehaviour:
       type: {class: KnockbackTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         target: 0
-        knockbackStrength: 7
-        knockbackOption: 0
+        knockbackStrength: 11
+        knockbackOption: 1
         direction: 90
-        randomSpread: 30
+        randomSpread: 55
         resetVelocityBeforeKnockback: 1
