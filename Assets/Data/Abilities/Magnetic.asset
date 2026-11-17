@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: Drunk
+  m_Name: Magnetic
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
     rid: 2536140227674374271
@@ -22,12 +22,12 @@ MonoBehaviour:
     - rid: 2536140227674374266
       type: {class: KnockbackSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        knockbackStrength: 10
-        knockbackOption: 1
+        knockbackStrength: 1
+        knockbackOption: 2
         direction: 90
         randomSpread: 55
-        resetVelocityBeforeKnockback: 1
+        resetVelocityBeforeKnockback: 0
     - rid: 2536140227674374271
       type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        cooldown: 3
+        cooldown: 0.1

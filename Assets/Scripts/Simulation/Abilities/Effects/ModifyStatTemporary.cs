@@ -1,6 +1,7 @@
 ﻿using System;
 using Balltallion.Simulation.Battle;
 using NaughtyAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Balltallion.Simulation.Abilities.Effects
@@ -30,13 +31,14 @@ namespace Balltallion.Simulation.Abilities.Effects
 
         public override void Deactivate()
         {
-            
+            if (!parentBall || statModifier == null) return;
+            parentBall.GetStat(stat)?.RemoveModifier(statModifier);
         }
 
         public override void Update()
         {
             if (timer > 0) timer -= Time.deltaTime;
-            else parentBall.GetStat(stat)?.RemoveModifier(statModifier);
+            else Deactivate();
         }
         
         public override AbilityEffect Clone()

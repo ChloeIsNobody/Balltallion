@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: Cleaver_DamageBuff
+  m_Name: Regeneration
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140244791066716
+    rid: 2536140211404406889
   effects:
-  - rid: 2536140256226050060
+  - rid: 2536140211404406890
   references:
     version: 2
     RefIds:
-    - rid: 2536140244791066716
-      type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data: 
-    - rid: 2536140256226050060
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140211404406889
+      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        stat: 4
-        modifierLabel: Cleaver_Buff
-        operation: 1
-        value: 10
+        cooldown: 2
+    - rid: 2536140211404406890
+      type: {class: HealSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        healing: 1
