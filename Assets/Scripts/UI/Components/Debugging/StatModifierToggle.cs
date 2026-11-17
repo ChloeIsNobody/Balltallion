@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.UI.Components.Debugging
 {
     /*
      * This class allows an input-toggleable stat modifier to be defined in the inspector
@@ -16,7 +16,7 @@ namespace Balltallion.DebugTools
      */
     
     [Serializable]
-    public class DebugModifierToggle : MonoBehaviour
+    public class StatModifierToggle : MonoBehaviour
     {
         public Key key;
         public BattleBall.StatNames statName;

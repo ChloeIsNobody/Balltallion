@@ -26,10 +26,11 @@ MonoBehaviour:
   contactDamage: 0
   gravityScale: 1
   knockback: 1
-  maxHealth: 100
+  maxHealth: 75
   moveSpeed: 7.3
   size: 1
   spinRate: 0
+  toughness: 0
   linearDamping: 0.615
   animStiffness: 0.35
   animDamping: 0.3

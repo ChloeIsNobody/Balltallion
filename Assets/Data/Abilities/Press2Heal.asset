@@ -15,14 +15,15 @@ MonoBehaviour:
   trigger:
     rid: 2536140227674374238
   effects:
-  - rid: 2536140227674374239
+  - rid: 2536140501953282145
   references:
     version: 2
     RefIds:
     - rid: 2536140227674374238
       type: {class: OnPrimaryActiveUsed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data: 
-    - rid: 2536140227674374239
-      type: {class: HealSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140501953282145
+      type: {class: HealTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
+        target: 0
         healing: 5

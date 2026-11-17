@@ -15,6 +15,7 @@ namespace Balltallion.Simulation.Battle
 {
     public class BattleBall : MonoBehaviour
     {
+        public event Action<float> OnHurt;
         public event Action OnDeath;
         public event Action OnPrimaryAbilityUsed;
         
@@ -198,6 +199,8 @@ namespace Balltallion.Simulation.Battle
             if (baseDamage <= 0) return;
             
             health -= finalDamage;
+            OnHurt?.Invoke(finalDamage);
+            
             ballAnimator.HitFlash();
             audioHandler.PlayDamageSound();
             ScoreFloaterSpawner.Instance.SpawnScoreFloater(transform.position, finalDamage, damageColor);

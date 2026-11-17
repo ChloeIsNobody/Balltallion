@@ -15,19 +15,20 @@ MonoBehaviour:
   trigger:
     rid: 2536140227674374271
   effects:
-  - rid: 2536140227674374266
+  - rid: 2536140501953282146
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374266
-      type: {class: KnockbackSelf, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        knockbackStrength: 1
-        knockbackOption: 2
-        direction: 90
-        randomSpread: 55
-        resetVelocityBeforeKnockback: 0
     - rid: 2536140227674374271
       type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
         cooldown: 0.1
+    - rid: 2536140501953282146
+      type: {class: KnockbackTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        target: 0
+        knockbackStrength: 1
+        knockbackOption: 2
+        direction: 0
+        randomSpread: 0
+        resetVelocityBeforeKnockback: 0

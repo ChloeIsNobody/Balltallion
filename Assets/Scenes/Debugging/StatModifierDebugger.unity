@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12abbcecbc884451938c4cde9be6602b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.DebugTools.StatModifierDebugger
-  debugStatReadout: {fileID: 326479193}
+  statReadout: {fileID: 326479193}
   deviceData: {fileID: 11400000, guid: 647c6215df141374fbf257f8cdf1759d, type: 2}
   statName: Stat
   baseValue: 100

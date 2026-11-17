@@ -5,12 +5,11 @@ using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.DebugTools.DevArena
 {
-    public class DebugBattleManager : MonoBehaviour, IBattleManager
+    public class DevArenaBattleManager : MonoBehaviour, IBattleManager
     {
         [SerializeField] private BallDataSO playerBall;
         [SerializeField] private List<EquipableDataSO> playerEquipables;
@@ -26,6 +25,12 @@ namespace Balltallion.DebugTools
         
         private void Start()
         {
+            StartCoroutine(DelayedStart());
+        }
+
+        private IEnumerator DelayedStart()
+        {
+            yield return new WaitForSeconds(0.1f);
             SpawnBalls();
         }
 

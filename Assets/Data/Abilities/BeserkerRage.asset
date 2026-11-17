@@ -15,10 +15,7 @@ MonoBehaviour:
   trigger:
     rid: 2536140211404406881
   effects:
-  - rid: 2536140211404406882
-  - rid: 2536140211404406883
-  - rid: 2536140211404406884
-  - rid: 2536140227674374154
+  - rid: 2536140518155354244
   references:
     version: 2
     RefIds:
@@ -28,31 +25,21 @@ MonoBehaviour:
         comparisonType: 0
         percentValue: 25
         triggersOnce: 0
-    - rid: 2536140211404406882
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140518155354244
+      type: {class: ModifyStatsTemporary, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        stat: 13
         modifierLabel: Rage
-        operation: 2
-        value: 2
-    - rid: 2536140211404406883
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        stat: 2
-        modifierLabel: Rage
-        operation: 2
-        value: 0.5
-    - rid: 2536140211404406884
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        stat: 4
-        modifierLabel: Rage
-        operation: 2
-        value: 1.25
-    - rid: 2536140227674374154
-      type: {class: ModifyStat, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
-      data:
-        stat: 12
-        modifierLabel: Rage
-        operation: 1
-        value: 10
+        duration: 6
+        statModifiers:
+        - stat: 13
+          operation: 2
+          value: 2
+        - stat: 2
+          operation: 2
+          value: 0.5
+        - stat: 4
+          operation: 2
+          value: 1.25
+        - stat: 12
+          operation: 1
+          value: 10

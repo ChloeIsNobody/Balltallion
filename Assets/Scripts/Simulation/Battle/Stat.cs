@@ -31,17 +31,20 @@ namespace Balltallion.Simulation.Battle
             this.maxValue = maxValue;
             
             displaysWithPercent = displayFormat[displayFormat.Length - 1] == '%';
-            if (displaysWithPercent) displayFormat = displayFormat.Substring(0, displayFormat.Length - 1);
+            this.displayFormat = displaysWithPercent ? displayFormat.Substring(0, displayFormat.Length - 1) : displayFormat;
             
             RecalculateModifiers();
         }
 
         public void AddModifier(StatModifier modifier)
         {
-            if(!statModifiers.Contains(modifier)) statModifiers.Add(modifier);
+            if (!statModifiers.Contains(modifier))
+            {
+                statModifiers.Add(modifier);
+            }
             RecalculateModifiers();
         }
-
+        
         public void RemoveModifier(StatModifier modifier)
         {
             if (statModifiers.Remove(modifier)) RecalculateModifiers();

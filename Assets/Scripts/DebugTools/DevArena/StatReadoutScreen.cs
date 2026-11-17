@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using Balltallion.Input;
 using Balltallion.Simulation.Battle;
-using TMPro;
+using Balltallion.UI.Components.Debugging;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Balltallion.DebugTools
+namespace Balltallion.DebugTools.DevArena
 {
-    public class DevArenaDebugPanel : MonoBehaviour
+    public class StatReadoutScreen : MonoBehaviour
     {
         [Header("References")]
         [SerializeField] private DeviceDataSO keyboardDeviceData;
         [SerializeField] private GameObject battleManagerRef;
-        [SerializeField] private List<DebugModifierToggle> modifierToggles;
-        [SerializeField] private List<DebugStatReadout> statReadouts;
+        [SerializeField] private List<StatModifierToggle> modifierToggles;
+        [SerializeField] private List<StatReadout> statReadouts;
         
         private IBattleManager battleManager;
         private BattleBall trackedBall;
@@ -23,7 +21,7 @@ namespace Balltallion.DebugTools
         private void Awake()
         {
             battleManager = battleManagerRef.GetComponent<IBattleManager>();
-            foreach (DebugModifierToggle toggle in modifierToggles)
+            foreach (StatModifierToggle toggle in modifierToggles)
             {
                 toggle.Initialize(keyboardDeviceData, Keyboard.current);
             }
@@ -42,13 +40,13 @@ namespace Balltallion.DebugTools
             trackedBall = ball;
             trackedBall.OnDeath += OnTrackedBallDied;
                 
-            foreach (DebugModifierToggle toggle in modifierToggles)
+            foreach (StatModifierToggle toggle in modifierToggles)
             {
                 Stat ballStat = ball.GetStat(toggle.statName);
                 toggle.SetAffectedStat(ballStat);
             }
 
-            foreach (DebugStatReadout readout in statReadouts)
+            foreach (StatReadout readout in statReadouts)
             {
                 readout.SetTrackedBall(ball);
             }
@@ -56,12 +54,12 @@ namespace Balltallion.DebugTools
 
         private void OnTrackedBallDied()
         {
-            foreach (DebugModifierToggle toggle in modifierToggles)
+            foreach (StatModifierToggle toggle in modifierToggles)
             {
                 toggle.SetAffectedStat(null);
             }
 
-            foreach (DebugStatReadout readout in statReadouts)
+            foreach (StatReadout readout in statReadouts)
             {
                 readout.SetTrackedBall(null);
             }
