@@ -19,6 +19,12 @@ namespace Balltallion.Simulation.Abilities.Effects
 
         private StatModifier statModifier;
         private float timer;
+        
+        public override void BindToBall(BattleBall ball)
+        {
+            base.BindToBall(ball);
+            Debug.LogError($"{nameof(ModifyStatTemporary)} is deprecated. Use {nameof(ModifyStatsTemporary)} instead.");
+        }
 
         public override void Activate()
         {

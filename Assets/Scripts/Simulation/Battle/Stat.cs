@@ -38,10 +38,13 @@ namespace Balltallion.Simulation.Battle
 
         public void AddModifier(StatModifier modifier)
         {
-            if(!statModifiers.Contains(modifier)) statModifiers.Add(modifier);
+            if (!statModifiers.Contains(modifier))
+            {
+                statModifiers.Add(modifier);
+            }
             RecalculateModifiers();
         }
-
+        
         public void RemoveModifier(StatModifier modifier)
         {
             if (statModifiers.Remove(modifier)) RecalculateModifiers();

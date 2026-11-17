@@ -17,6 +17,12 @@ namespace Balltallion.Simulation.Abilities.Effects
         [SerializeField] private float value;
 
         private StatModifier statModifier;
+
+        public override void BindToBall(BattleBall ball)
+        {
+            base.BindToBall(ball);
+            Debug.LogError($"{nameof(ModifyStat)} is deprecated. Use {nameof(ModifyStats)} instead.");
+        }
         
         public override void Activate()
         {

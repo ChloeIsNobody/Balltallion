@@ -25,7 +25,7 @@ MonoBehaviour:
         projectilePrefab: {fileID: 1799370660412996530, guid: 90269cfe581cc964d8a9214324fd5720, type: 3}
         damage: 3
         recoil: 0
-        count: 6
+        count: 5
         aimOption: 1
         direction: 90
         randomSpread: 135
