@@ -25,7 +25,7 @@ MonoBehaviour:
     - rid: 2536140518155354241
       type: {class: ModifyStats, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        modifierLabel: Tanky
+        modifierLabel: Healthy
         statModifiers:
         - stat: 10
           operation: 0
