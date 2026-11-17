@@ -10,33 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: StartingRage
+  m_Name: Healthy
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140227674374257
+    rid: 2536140501953282175
   effects:
-  - rid: 2536140518155354229
+  - rid: 2536140518155354241
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374257
+    - rid: 2536140501953282175
       type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data: 
-    - rid: 2536140518155354229
-      type: {class: ModifyStatsTemporary, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140518155354241
+      type: {class: ModifyStats, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        modifierLabel: Rage
-        duration: 6
+        modifierLabel: Tanky
         statModifiers:
-        - stat: 13
-          operation: 2
-          value: 2
-        - stat: 2
-          operation: 2
-          value: 0.5
-        - stat: 4
-          operation: 2
-          value: 1.25
+        - stat: 10
+          operation: 0
+          value: 20
         - stat: 12
           operation: 1
           value: 10

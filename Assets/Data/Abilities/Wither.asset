@@ -10,20 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: HealOnActive
+  m_Name: Wither
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140227674374238
+    rid: 2536140501953282158
   effects:
-  - rid: 2536140501953282145
+  - rid: 2536140501953282139
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374238
-      type: {class: OnPrimaryActiveUsed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data: 
-    - rid: 2536140501953282145
-      type: {class: HealTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140501953282139
+      type: {class: DamageTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
         target: 0
-        healing: 5
+        damage: 5
+    - rid: 2536140501953282158
+      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data:
+        cooldown: 0.33

@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: PassiveRegen
+  m_Name: DEBUG
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140211404406889
+    rid: 2536140268898877453
   effects:
-  - rid: 2536140501953282147
+  - rid: 5952445173418688594
   references:
     version: 2
     RefIds:
-    - rid: 2536140211404406889
-      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+    - rid: 2536140268898877453
+      type: {class: OnKeyPressed, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data:
-        cooldown: 2
-    - rid: 2536140501953282147
-      type: {class: HealTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+        key: 31
+        isToggle: 0
+    - rid: 5952445173418688594
+      type: {class: DebugLog, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        target: 0
-        healing: 1
+        activateMessage: Ability activated!
+        deactivateMessage: Ability deactivated!

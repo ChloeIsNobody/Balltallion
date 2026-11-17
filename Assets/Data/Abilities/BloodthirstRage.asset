@@ -10,23 +10,33 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa931d2ff33dd88a7b53fc5c0ab2fbc8, type: 3}
-  m_Name: Cleaver_DamageBuff
+  m_Name: BloodthirstRage
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140244791066716
+    rid: 2536140227674374257
   effects:
-  - rid: 2536140518155354242
+  - rid: 2536140518155354229
   references:
     version: 2
     RefIds:
-    - rid: 2536140244791066716
+    - rid: 2536140227674374257
       type: {class: OnSpawn, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
       data: 
-    - rid: 2536140518155354242
-      type: {class: ModifyStats, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+    - rid: 2536140518155354229
+      type: {class: ModifyStatsTemporary, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        modifierLabel: Cleaver
+        modifierLabel: Rage
+        duration: 6
         statModifiers:
+        - stat: 13
+          operation: 2
+          value: 2
+        - stat: 2
+          operation: 2
+          value: 0.5
         - stat: 4
+          operation: 2
+          value: 1.25
+        - stat: 12
           operation: 1
           value: 10
