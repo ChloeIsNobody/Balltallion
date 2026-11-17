@@ -34,28 +34,8 @@ namespace Balltallion.Simulation.Abilities.Effects
         {
             BattleBall targetBall = target == TargetTypes.Self ? parentBall : TeamUtilities.GetNearestOpposingBallTo(parentBall);
             if (resetVelocityBeforeKnockback) targetBall.ResetVelocity();
-            
-            Vector2 knockbackDirection = Vector2.zero;
-            
-            if (knockbackOption == KnockbackOptions.Fixed)
-            {
-                knockbackDirection = Quaternion.Euler(0.0f, 0.0f, direction) * Vector2.right;
-            }
-            else if (knockbackOption == KnockbackOptions.Random)
-            {
-                float randAngle = direction + Random.Range(-randomSpread/2.0f, randomSpread/2.0f);
-                knockbackDirection = Quaternion.Euler(0.0f, 0.0f, randAngle) * Vector2.right;
-            }
-            else if (knockbackOption == KnockbackOptions.TowardsOpponent)
-            {
-                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
-                if (opponent) knockbackDirection = (opponent.transform.position - targetBall.transform.position).normalized;
-            }
-            else if (knockbackOption == KnockbackOptions.AwayFromOpponent)
-            {
-                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
-                if (opponent) knockbackDirection = (targetBall.transform.position - opponent.transform.position).normalized;
-            }
+
+            Vector2 knockbackDirection = GetKnockbackDirection();
             
             AttackData attackData = new AttackData()
             {
@@ -63,6 +43,33 @@ namespace Balltallion.Simulation.Abilities.Effects
                 knockback = knockbackStrength * knockbackDirection,
             };
             targetBall.ReceiveAttack(attackData);
+        }
+
+        private Vector2 GetKnockbackDirection()
+        {
+            BattleBall targetBall = target == TargetTypes.Self ? parentBall : TeamUtilities.GetNearestOpposingBallTo(parentBall);
+            
+            if (knockbackOption == KnockbackOptions.Fixed)
+            {
+                return Quaternion.Euler(0.0f, 0.0f, direction) * Vector2.right;
+            }
+            if (knockbackOption == KnockbackOptions.Random)
+            {
+                float randAngle = direction + Random.Range(-randomSpread/2.0f, randomSpread/2.0f);
+                return Quaternion.Euler(0.0f, 0.0f, randAngle) * Vector2.right;
+            }
+            if (knockbackOption == KnockbackOptions.TowardsOpponent)
+            {
+                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
+                if (opponent) return (opponent.transform.position - targetBall.transform.position).normalized;
+            }
+            if (knockbackOption == KnockbackOptions.AwayFromOpponent)
+            {
+                BattleBall opponent = TeamUtilities.GetNearestOpposingBallTo(targetBall);
+                if (opponent) return (targetBall.transform.position - opponent.transform.position).normalized;
+            }
+            
+            return Vector2.zero;
         }
 
         public override void Deactivate()

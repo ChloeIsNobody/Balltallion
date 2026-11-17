@@ -13,22 +13,28 @@ MonoBehaviour:
   m_Name: Spiky
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Simulation.Abilities.AbilitySO
   trigger:
-    rid: 2536140227674374271
+    rid: 2536140501953282178
   effects:
+  - rid: 2536140501953282179
   - rid: 2536140501953282146
   references:
     version: 2
     RefIds:
-    - rid: 2536140227674374271
-      type: {class: OnTimer, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
-      data:
-        cooldown: 0.1
     - rid: 2536140501953282146
       type: {class: KnockbackTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
       data:
-        target: 0
-        knockbackStrength: 0.5
-        knockbackOption: 2
+        target: 1
+        knockbackStrength: 5
+        knockbackOption: 3
         direction: 0
         randomSpread: 0
         resetVelocityBeforeKnockback: 0
+    - rid: 2536140501953282178
+      type: {class: OnContact, ns: Balltallion.Simulation.Abilities.Triggers, asm: Assembly-CSharp}
+      data:
+        cooldown: 0
+    - rid: 2536140501953282179
+      type: {class: DamageTarget, ns: Balltallion.Simulation.Abilities.Effects, asm: Assembly-CSharp}
+      data:
+        target: 1
+        damage: 2

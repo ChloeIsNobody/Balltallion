@@ -111,7 +111,7 @@ namespace Balltallion.Simulation.Projectiles
             if (deflection > Random.Range(0.0f, 99.9f))
             {
                 Vector2 dirAwayFromBall = (transform.position - ball.transform.position).normalized;
-                Deflect(dirAwayFromBall);
+                if (CanBeDeflected()) Deflect(dirAwayFromBall);
             }
             else
             {
@@ -175,6 +175,7 @@ namespace Balltallion.Simulation.Projectiles
             Destroy(gameObject);
         }
         
+        public void SetDeflectionCooldownTimer(float cooldown) => deflectCooldownTimer = cooldown;
         public bool CanBeDeflected() => deflectCooldownTimer <= 0.0f && !isDead;
         public BattleBall GetShooter() => shooter;
         public float GetVelocityMag() => ballBody.GetVelocity().magnitude;
