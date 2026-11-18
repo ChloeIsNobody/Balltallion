@@ -413,6 +413,17 @@
                 },
                 {
                     "name": "",
+                    "id": "542ce639-e294-4b68-a5e1-39e0e920c2cf",
+                    "path": "<Keyboard>/{Submit}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";KeyboardRight;KeyboardLeft",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "627d2348-fbc8-470d-bd2b-f10cb8b93ba8",
                     "path": "<Gamepad>/{Cancel}",
                     "interactions": "",

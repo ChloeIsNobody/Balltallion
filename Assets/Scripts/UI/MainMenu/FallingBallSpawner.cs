@@ -4,7 +4,7 @@ using NaughtyAttributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Balltallion.Scenes.MainMenu
+namespace Balltallion.UI.MainMenu
 {
     public class FallingBallSpawner : MonoBehaviour
     {

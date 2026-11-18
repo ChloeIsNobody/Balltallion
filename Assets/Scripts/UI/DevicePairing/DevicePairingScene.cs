@@ -10,7 +10,6 @@ namespace Balltallion.UI.DevicePairing
     public class DevicePairingScene : MonoBehaviour
     {
         [SerializeField] private List<LocalPlayerSO> localPlayers;
-        [SerializeField] private GameObject splitKeyboardPrompt;
         [SerializeField] private TextMeshProUGUI countdownText;
         
         [SerializeField] private int readyCountdownDuration = 3;
@@ -23,11 +22,6 @@ namespace Balltallion.UI.DevicePairing
             inputManager = InputManager.Instance;
             inputManager.StartDevicePairing();
             SetStateCoroutine(DevicePairingState());
-        }
-
-        private void Update()
-        {
-            splitKeyboardPrompt.gameObject.SetActive(inputManager.CanActivateSplitKeyboard);
         }
 
         private IEnumerator DevicePairingState()

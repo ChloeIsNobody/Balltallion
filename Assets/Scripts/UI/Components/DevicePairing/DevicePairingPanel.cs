@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Balltallion.UI.Components
+namespace Balltallion.UI.Components.DevicePairing
 {
     public class DevicePairingPanel : MonoBehaviour
     {

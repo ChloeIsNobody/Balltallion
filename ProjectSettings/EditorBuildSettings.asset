@@ -6,8 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Build/DevicePairing.unity
-    guid: 44c56d4dac972fa43a54f80be29e6bd9
+    path: Assets/Scenes/Build/MainMenu.unity
+    guid: 1d886e06c60d495449076b4a3dba3822
+  - enabled: 1
+    path: Assets/Scenes/Build/Shop.unity
+    guid: 22ebf6ff502d5bc4a95434fda9141cd6
   - enabled: 1
     path: Assets/Scenes/Build/TeamPicker.unity
     guid: 1a8ffd6a5f4abae44816cfae7aae03a4

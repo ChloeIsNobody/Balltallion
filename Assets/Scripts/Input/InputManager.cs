@@ -25,6 +25,7 @@ namespace Balltallion.Input
         
         private const int playerLimit = 2;
         private bool canActivateSplitKeyboard;
+        private bool isPairingDevices;
 
         private void Awake()
         {
@@ -63,6 +64,7 @@ namespace Balltallion.Input
             }
             ++InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
+            isPairingDevices = true;
         }
 
         public void EndDevicePairing()
@@ -70,6 +72,7 @@ namespace Balltallion.Input
             --InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
             OnSetupCompleted?.Invoke();
+            isPairingDevices = false;
         }
 
         private void Update()

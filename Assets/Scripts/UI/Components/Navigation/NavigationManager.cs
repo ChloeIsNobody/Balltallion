@@ -92,7 +92,7 @@ namespace Balltallion.UI.Components.Navigation
             if (!selectedObject) return;
             if (!selectedObject.IsInteractable() || !selectedObject.isActiveAndEnabled)
             {
-                GameObject nearestSelectable = FindNearestSelectable().gameObject;
+                GameObject nearestSelectable = FindNearestSelectable()?.gameObject;
                 EventSystem.current.SetSelectedGameObject(nearestSelectable);
             } 
         }
@@ -120,10 +120,11 @@ namespace Balltallion.UI.Components.Navigation
         {
             GameObject newSelectedObject = EventSystem.current.currentSelectedGameObject;
             if (selectedObject && newSelectedObject == selectedObject.gameObject) return;
-            
-            selectedObject = newSelectedObject.GetComponent<Selectable>();
-            lastSelectedPosition = newSelectedObject.transform.position;
+            selectedObject = newSelectedObject?.GetComponent<Selectable>();
             OnObjectSelected?.Invoke(selectedObject);
+            
+            if (!selectedObject) return;
+            lastSelectedPosition = selectedObject.transform.position;
         }
 
         public void SetFirstPlayer(LocalPlayerSO player) => firstPlayer = player;
