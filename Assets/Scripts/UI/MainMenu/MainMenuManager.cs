@@ -21,10 +21,8 @@ namespace Balltallion.UI.MainMenu
         [SerializeField] private CanvasGroup pairingScreen;
         [SerializeField] private TextMeshProUGUI countdownText;
         [SerializeField] private int readyCountdownDuration;
-
-        [Header("References")]
-        [SerializeField] private InputManager inputManager;
-
+        
+        private InputManager inputManager;
         private CanvasGroup currentScreen;
         private bool countdownCompleted;
         
@@ -33,6 +31,11 @@ namespace Balltallion.UI.MainMenu
             CanvasGroupUtilities.SetCanvasGroupEnabled(titleScreen, false);
             CanvasGroupUtilities.SetCanvasGroupEnabled(pairingScreen, false);
             SwitchScreen(titleScreen);
+        }
+
+        private void Start()
+        {
+            inputManager = InputManager.Instance;
         }
 
         private void OnEnable()

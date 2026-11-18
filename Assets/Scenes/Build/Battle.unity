@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f0bfc04a7e404cbd6dbba3d02dee29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Battle.BattleManager
+  nextSceneToLoad: MainMenu
   ballSpawner: {fileID: 1070797788}
   countdownUI: {fileID: 1857863436}
   localPlayers:

@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
 using Balltallion.Input;
-using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,6 +12,9 @@ namespace Balltallion.UI.TeamPicker
 {
     public class TeamPickerUI : MonoBehaviour
     {
+        [SerializeField, Scene] private string previousScene;
+        [SerializeField, Scene] private string nextScene;
+        
         [SerializeField] private List<LocalPlayerSO> localPlayers;
         [SerializeField] private List<BallDataSO> selectableBalls;
         
@@ -134,12 +134,12 @@ namespace Balltallion.UI.TeamPicker
                 BattleManager.enemyTeamLoadout.AddBall(new BallLoadout(ball, null));
             }
             
-            SceneManager.LoadScene("Battle");
+            SceneManager.LoadScene(nextScene);
         }
 
         private void Back()
         {
-            SceneManager.LoadScene("DevicePairing");
+            SceneManager.LoadScene(previousScene);
         }
 
         private void SetSelectedBall(int newIdx)

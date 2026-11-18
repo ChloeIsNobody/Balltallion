@@ -15,6 +15,7 @@ namespace Balltallion.Simulation.Battle
     {
         public event Action<TeamNames> OnBattleEnded; 
         
+        [SerializeField, Scene] private string nextSceneToLoad;
         [SerializeField] private BallSpawner ballSpawner;
         [SerializeField] private BattleCountdownUI countdownUI;
         
@@ -81,7 +82,7 @@ namespace Balltallion.Simulation.Battle
             OnBattleEnded?.Invoke(winner);
             
             yield return new WaitForSeconds(2.5f);
-            SceneManager.LoadScene("TeamPicker");
+            SceneManager.LoadScene(nextSceneToLoad);
         }
 
         public void RestartBattle()
