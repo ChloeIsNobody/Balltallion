@@ -43,7 +43,6 @@ namespace Balltallion.UI.Components.Navigation
 
         private void Update()
         {
-            MoveSelectionIfNotInteractable();
             crosshairImage.enabled = targetSelectable;
             LerpPointer();
         }
@@ -69,35 +68,6 @@ namespace Balltallion.UI.Components.Navigation
             if (!oldSelectable) oldLerpState = targetLerpState;
             
             lerpVal = 0.0f;
-        }
-
-        private void MoveSelectionIfNotInteractable()
-        {
-            if (!targetSelectable) return;
-            if (!targetSelectable.IsInteractable() || !targetSelectable.isActiveAndEnabled)
-            {
-                GameObject nearestSelectable = FindNearestSelectable().gameObject;
-                EventSystem.current.SetSelectedGameObject(nearestSelectable);
-            } 
-        }
-
-        private Selectable FindNearestSelectable()
-        {
-            List<Selectable> selectables = new List<Selectable>(FindObjectsByType<Selectable>());
-            Selectable nearestSelectable = null;
-            float nearestDistance = Mathf.Infinity;
-            foreach (Selectable selectable in selectables)
-            {
-                if (!selectable.enabled || !selectable.IsInteractable()) continue;
-                float distance = Vector2.Distance(transform.position, selectable.transform.position);
-                if (distance < nearestDistance)
-                {
-                    nearestDistance = distance;
-                    nearestSelectable = selectable;
-                }
-            }
-
-            return nearestSelectable;
         }
 
         private void LerpPointer()

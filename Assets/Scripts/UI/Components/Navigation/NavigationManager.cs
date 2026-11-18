@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Input;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -16,23 +17,38 @@ namespace Balltallion.UI.Components.Navigation
         
         public static NavigationManager Instance { get; private set; }
 
+        [Header("Settings")]
+        [SerializeField] private NavigationModes navigationMode = NavigationModes.TurnBased;
+
+        [SerializeField, ShowIf("IsSingleMode")] private Selectable defaultSelectable;
+        
+        [SerializeField, ShowIf("IsTurnBasedMode")] private LocalPlayerSO firstPlayer;
+        [SerializeField, ShowIf("IsTurnBasedMode")] private playerNavData navData1;
+        [SerializeField, ShowIf("IsTurnBasedMode")] private playerNavData navData2;
+
+        [Serializable]
+        private class playerNavData
+        {
+            public LocalPlayerSO player;
+            public List<CanvasGroup> canvasGroups;
+            public Selectable defaultSelection;
+        }
+        
+        [Header("References")]
         [SerializeField] private InputManager inputManager;
         [SerializeField] private InputSystemUIInputModule inputModule;
-        
-        [SerializeField] private List<LocalPlayerSO> localPlayers;
-        [SerializeField] private LocalPlayerSO firstPlayer;
         [SerializeField] private NavigationPointer navigationPointer;
 
-        [SerializeField] private List<CanvasGroup> player1CanvasGroups;
-        [SerializeField] private List<CanvasGroup> player2CanvasGroups;
-
-        [SerializeField] private Selectable player1DefaultSelection;
-        [SerializeField] private Selectable player2DefaultSelection;
+        private enum NavigationModes
+        {
+            Single,
+            TurnBased,
+        }
         
         private LocalPlayerSO currentPlayer;
-        private bool inputManagerSetupComplete;
 
         private Selectable selectedObject;
+        private Vector2 lastSelectedPosition;
 
         private void Awake()
         {
@@ -45,21 +61,68 @@ namespace Balltallion.UI.Components.Navigation
                 Destroy(gameObject);
                 Debug.LogError("There can't be multiple instances of NavigationManager (singleton)!", this);
             }
+            
+            if (navigationMode == NavigationModes.Single)
+            {
+                inputModule.enabled = true;
+                defaultSelectable.Select();
+            }
+            else if (navigationMode == NavigationModes.TurnBased)
+            {
+                inputModule.enabled = false;
+                inputManager.OnSetupCompleted += InputManager_OnSetupCompleted;
+            }
+        }
 
-            inputModule.enabled = false;
-            inputManager.OnSetupCompleted += () => SetPlayerTurn(firstPlayer);
+        private void InputManager_OnSetupCompleted()
+        {
+            inputModule.enabled = true;
+            SetPlayerTurn(firstPlayer);
         }
 
         private void Update()
-        { 
-            SetSelectedObject(EventSystem.current.currentSelectedGameObject);
+        {
+            if (!inputModule.enabled) return;
+            UpdateSelectedObject();
+            ChangeSelectionIfLost();
+        }
+        
+        private void ChangeSelectionIfLost()
+        {
+            if (!selectedObject) return;
+            if (!selectedObject.IsInteractable() || !selectedObject.isActiveAndEnabled)
+            {
+                GameObject nearestSelectable = FindNearestSelectable().gameObject;
+                EventSystem.current.SetSelectedGameObject(nearestSelectable);
+            } 
         }
 
-        private void SetSelectedObject(GameObject newSelectedObject)
+        private Selectable FindNearestSelectable()
         {
-            if (!newSelectedObject) return;
+            List<Selectable> selectables = new List<Selectable>(FindObjectsByType<Selectable>());
+            Selectable nearestSelectable = null;
+            float nearestDistance = Mathf.Infinity;
+            foreach (Selectable selectable in selectables)
+            {
+                if (!selectable.enabled || !selectable.IsInteractable()) continue;
+                float distance = Vector2.Distance(lastSelectedPosition, selectable.transform.position);
+                if (distance < nearestDistance)
+                {
+                    nearestDistance = distance;
+                    nearestSelectable = selectable;
+                }
+            }
+
+            return nearestSelectable;
+        }
+
+        private void UpdateSelectedObject()
+        {
+            GameObject newSelectedObject = EventSystem.current.currentSelectedGameObject;
             if (selectedObject && newSelectedObject == selectedObject.gameObject) return;
+            
             selectedObject = newSelectedObject.GetComponent<Selectable>();
+            lastSelectedPosition = newSelectedObject.transform.position;
             OnObjectSelected?.Invoke(selectedObject);
         }
 
@@ -67,22 +130,23 @@ namespace Balltallion.UI.Components.Navigation
         
         public void EndPlayerTurn()
         {
-            SetPlayerTurn(currentPlayer == localPlayers[0] ? localPlayers[1] : localPlayers[0]);
+            SetPlayerTurn(currentPlayer == navData1.player ? navData2.player : navData1.player);
         }
 
         public void SetPlayerTurn(LocalPlayerSO player)
         {
             currentPlayer = player;
+            playerNavData navData = GetNavDataForPlayer(player);
+            
             inputModule.enabled = currentPlayer;
-            
             SetActionsAsset(player.GetInputRelay().GetActionAsset());
-            
-            SetCanvasGroupInteractable(player1CanvasGroups, player == localPlayers[0]);
-            SetCanvasGroupInteractable(player2CanvasGroups, player == localPlayers[1]);
-            
+            SetCanvasGroupInteractable(navData1.canvasGroups, player == navData1.player);
+            SetCanvasGroupInteractable(navData2.canvasGroups, player == navData2.player);
             navigationPointer.SetColor(player.GetColorFromPalette(0));
+            
             OnPlayerTurnStarted?.Invoke(player);
-            Selectable defaultSelection = player == localPlayers[0] ? player1DefaultSelection : player2DefaultSelection;
+            
+            Selectable defaultSelection = navData.defaultSelection;
             defaultSelection.Select();
         }
         
@@ -102,13 +166,21 @@ namespace Balltallion.UI.Components.Navigation
             inputModule.trackedDeviceOrientation = null;
         }
 
+        private playerNavData GetNavDataForPlayer(LocalPlayerSO player)
+        {
+            if (navData1.player == player) return navData1;
+            if (navData2.player == player) return navData2;
+            return null;
+        }
+
         private void SetCanvasGroupInteractable(List<CanvasGroup> canvasGroups, bool interactable)
         {
             foreach (CanvasGroup canvasGroup in canvasGroups) canvasGroup.interactable = interactable;
         }
 
         public Selectable GetCurrentSelectable() => selectedObject;
-        
         public LocalPlayerSO GetCurrentPlayer() => currentPlayer;
+        private bool IsSingleMode() => navigationMode == NavigationModes.Single;
+        private bool IsTurnBasedMode() => navigationMode == NavigationModes.TurnBased;
     }
 }
