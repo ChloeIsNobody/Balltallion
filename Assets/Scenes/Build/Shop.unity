@@ -769,7 +769,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64581658269d450eb2a640c70260917f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Shop.ShopManager
-  nextSceneToLoad: TeamPicker
+  nextSceneToLoad: Drafting
   nextSceneButton: {fileID: 1366890347}
 --- !u!1 &878329243
 GameObject:
