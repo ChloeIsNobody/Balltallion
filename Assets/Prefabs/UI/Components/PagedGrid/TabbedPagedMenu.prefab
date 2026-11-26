@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: 6470988319314283718}
   - component: {fileID: 2506528838673655606}
   - component: {fileID: 7862744564842380764}
+  - component: {fileID: 1603002794021682799}
   m_Layer: 5
   m_Name: EquipablesTab
   m_TagString: Untagged
@@ -336,7 +337,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 4c187b9dafcca8f4da0d66d686479c94, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -345,7 +346,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.33
+  m_PixelsPerUnitMultiplier: 0.4
 --- !u!114 &2506528838673655606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,6 +403,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fdb604a3104ca5b8580adb088a6eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.SelectOnHighlight
+--- !u!114 &1603002794021682799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327623359117699140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
 --- !u!1 &355332559992687160
 GameObject:
   m_ObjectHideFlags: 0
@@ -3904,6 +3920,7 @@ GameObject:
   - component: {fileID: 7344951996889127512}
   - component: {fileID: 8407702610840721882}
   - component: {fileID: 1846787921313308450}
+  - component: {fileID: 2884973139060764128}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -3951,14 +3968,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.50014234, g: 0.6208653, b: 0.8415094, a: 1}
+  m_Color: {r: 0.38431376, g: 0.4784314, b: 0.6509804, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: f2e44f63f6708194da31d24ba46b3d3a, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3967,7 +3984,22 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.14
+  m_PixelsPerUnitMultiplier: 0.25
+--- !u!114 &2884973139060764128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2642298536615455889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 5, y: -5}
+  m_UseGraphicAlpha: 1
 --- !u!1 &2661311754999686601
 GameObject:
   m_ObjectHideFlags: 0
@@ -4603,7 +4635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -24}
+  m_AnchoredPosition: {x: 0, y: -5.64}
   m_SizeDelta: {x: -40, y: 81.5}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &7933122039343128804
@@ -9218,6 +9250,7 @@ GameObject:
   - component: {fileID: 4094036334633785073}
   - component: {fileID: 2967722800299330783}
   - component: {fileID: 8702685455178658727}
+  - component: {fileID: 2413529127389398694}
   m_Layer: 5
   m_Name: BallsTab
   m_TagString: Untagged
@@ -9293,7 +9326,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: 4c187b9dafcca8f4da0d66d686479c94, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9302,7 +9335,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 0.33
+  m_PixelsPerUnitMultiplier: 0.4
 --- !u!114 &2967722800299330783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9359,6 +9392,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23fdb604a3104ca5b8580adb088a6eec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.SelectOnHighlight
+--- !u!114 &2413529127389398694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7074916502408360498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Outline
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 4, y: -4}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7315069143877265342
 GameObject:
   m_ObjectHideFlags: 0
