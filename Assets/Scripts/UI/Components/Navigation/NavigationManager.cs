@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Input;
+using Balltallion.Players;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;

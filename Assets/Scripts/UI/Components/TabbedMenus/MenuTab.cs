@@ -1,5 +1,6 @@
 ﻿using System;
 using Balltallion.Input;
+using Balltallion.Players;
 using UnityEngine;
 using UnityEngine.UI;
 

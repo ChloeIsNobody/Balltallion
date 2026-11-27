@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Balltallion.Audio;
 using Balltallion.Input;
+using Balltallion.Players;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI.Battle;
 using NaughtyAttributes;

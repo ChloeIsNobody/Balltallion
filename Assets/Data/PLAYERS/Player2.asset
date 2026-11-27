@@ -12,12 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891f2e68fbb94d9b9b9c8611d23a6432, type: 3}
   m_Name: Player2
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.Input.LocalPlayerSO
+  logToConsole: 1
   displayName: Player 2
   playerNumber: 2
-  inputRelay: {fileID: 11400000, guid: b7c8d0499fab923448fcc21105a2edf0, type: 2}
+  inventory:
+    ballCapacity: 8
+    equipableCapacity: 16
+    balls: []
+    equipables: []
   teamColor: {r: 1, g: 0.3764706, b: 0.6509804, a: 1}
   colorPalette:
   - {r: 1, g: 0.3764706, b: 0.6509804, a: 1}
   - {r: 0.35686275, g: 0.25490198, b: 0.3137255, a: 1}
   backgroundMaterial: {fileID: 2100000, guid: 1cdc5a85a5735c34aa542246e68a4cb6, type: 2}
-  logToConsole: 1
+  inputRelay: {fileID: 11400000, guid: b7c8d0499fab923448fcc21105a2edf0, type: 2}

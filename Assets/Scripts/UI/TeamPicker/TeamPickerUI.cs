@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Balltallion.Input;
+using Balltallion.Players;
 using Balltallion.Simulation.Battle;
 using Balltallion.Simulation.Teams;
 using NaughtyAttributes;

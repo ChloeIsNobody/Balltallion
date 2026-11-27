@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using Balltallion.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-namespace Balltallion.Input
+namespace Balltallion.Players
 {
     [CreateAssetMenu(menuName = "Balltallion/Input/LocalPlayer", fileName = "LocalPlayer")]
     public class LocalPlayerSO : ScriptableObject
@@ -16,18 +17,22 @@ namespace Balltallion.Input
         public event Action OnReadied;
         public event Action OnUnreadied;
         
+        [Header("Debugging")]
+        [SerializeField] private bool logToConsole;
+        
+        [Header("Data")]
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
-        [SerializeField] private PlayerInputRelaySO inputRelay;
-
+        [SerializeField] public PlayerInventory inventory;
+        
         [Header("Style")]
         [SerializeField] private Color teamColor;
         [SerializeField] private List<Color> colorPalette;
         [SerializeField] private Material backgroundMaterial;
         
-        [Header("Debugging")]
-        [SerializeField] private bool logToConsole;
-
+        [Header("References")]
+        [SerializeField] private PlayerInputRelaySO inputRelay;
+        
         private bool isConnected;
         private bool isReady;
         
@@ -72,6 +77,8 @@ namespace Balltallion.Input
             inputRelay.displayName = displayName;
             inputRelay.OnReadyTriggered += ReadyPressed;
             inputRelay.OnLeaveTriggered += LeavePressed;
+
+            inventory.Clear();
             
             isConnected = true;
             isReady = false;
@@ -86,6 +93,8 @@ namespace Balltallion.Input
             inputRelay.Disconnect();
             inputRelay.OnReadyTriggered -= ReadyPressed;
             inputRelay.OnLeaveTriggered -= LeavePressed;
+            
+            inventory.Clear();
             
             isConnected = false;
             isReady = false;
