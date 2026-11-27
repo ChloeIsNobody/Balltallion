@@ -16,7 +16,7 @@ namespace Balltallion.UI.Drafting
         private void LoadData(EquipableDataSO equipableData)
         {
             equipableIcon.sprite = equipableData?.icon;
-            equipableIcon.enabled = equipableData != null;
+            equipableIcon.enabled = equipableData;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Balltallion.UI.Drafting
         {
             BallDataSO ballData = trackedBallLoadout?.GetBallData();
             ballImage.sprite = ballData?.ballSprite;
-            ballImage.enabled = ballData != null;
+            ballImage.enabled = ballData;
             CanvasGroupUtilities.SetCanvasGroupEnabled(equipablesGroup, ballData != null);
         }
     }

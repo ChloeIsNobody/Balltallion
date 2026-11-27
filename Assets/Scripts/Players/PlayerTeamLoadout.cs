@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Balltallion.Players
@@ -22,7 +23,8 @@ namespace Balltallion.Players
         {
             foreach (BallLoadout loadout in ballLoadouts) loadout.Clear();
         }
-        
+
+        public BallLoadout GetFirstOpenLoadout() => ballLoadouts.FirstOrDefault(loadout => !loadout.GetBallData());
         public BallLoadout GetBallLoadout(int idx) => ballLoadouts[idx];
         
         public int TeamSize() => ballLoadouts.Count;

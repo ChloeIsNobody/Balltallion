@@ -26,12 +26,11 @@ namespace Balltallion.UI.Drafting
             PlayerInventory inventory = player.inventory;
             
             ballGrid.ClearChildren();
-            for (int i = 0; i < inventory.GetBallCapacity(); i++)
+            for (int cellIdx = 0; cellIdx < inventory.GetBallCapacity(); cellIdx++)
             {
-                int cellIdx = RemapCellIdx(i, ballGrid);
-                BallDataSO ball = inventory.GetBallAtIdx(cellIdx);
+                int ballIdx = RemapCellIdx(cellIdx, ballGrid);
                 InventoryBallSlot newSlot = Instantiate(inventoryBallSlotPrefab, ballGrid.transform);
-                newSlot.LoadData(ball, player);
+                newSlot.BindToPlayer(player, ballIdx);
             }
             
             equipableGrid.ClearChildren();
