@@ -70,7 +70,6 @@ namespace Balltallion.UI.Components.PagedGrid
         private void RegenerateDotObjects()
         {
             int dotCount = pagedGridLayout.GetNumPages();
-            Debug.Log(dotCount);
             
             List<GameObject> toDestroy = new();
             foreach (Transform child in transform)
