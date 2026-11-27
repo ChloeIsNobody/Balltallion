@@ -31,6 +31,9 @@ namespace Balltallion.Players
         public int GetBallCount() => balls.Count;
         public int GetEquipableCount() => equipables.Count;
         
+        public int GetBallCapacity() => ballCapacity;
+        public int GetEquipableCapacity() => equipableCapacity;
+        
         public bool CanAddBall(BallDataSO ball) => balls.Count < ballCapacity;
         public bool CanAddEquipable(EquipableDataSO equipable) => equipables.Count < equipableCapacity;
         

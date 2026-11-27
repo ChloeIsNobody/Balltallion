@@ -83,7 +83,8 @@ namespace Balltallion.UI.Components.PagedGrid
 
         private void OnObjectSelected(Selectable currentSelection)
         {
-            int selectablePageIdx = GetSelectablePageIdx(currentSelection);
+            int selectionIdx = GetSelectableIdx(currentSelection);
+            int selectablePageIdx = GetPageForCellIdx(selectionIdx);
             bool oldFocus = hasFocus;
             hasFocus = selectablePageIdx >= 0;
             if (oldFocus != hasFocus) OnFocusChanged?.Invoke(hasFocus);
@@ -94,12 +95,10 @@ namespace Balltallion.UI.Components.PagedGrid
             if (selectablePageIdx != currentPageIdx) GoToPage(selectablePageIdx);
         }
         
-        private int GetSelectablePageIdx(Selectable selectable)
+        public int GetPageForCellIdx(int cellIdx)
         {
-            int selectableIdx = GetSelectableIdx(selectable);
-            if (selectableIdx == -1) return -1;
-            
-            return selectableIdx / GetCellsPerPage();
+            if (cellIdx < 0) return -1;
+            return cellIdx / GetPageSize();
         }
 
         private int GetSelectableIdx(Selectable selectable)
@@ -113,7 +112,8 @@ namespace Balltallion.UI.Components.PagedGrid
             foreach (Transform child in transform)
             {
                 Selectable selectable = child.GetComponent<Selectable>();
-                int pageIdx = GetSelectablePageIdx(selectable);
+                int selectableIdx = GetSelectableIdx(selectable);
+                int pageIdx = GetPageForCellIdx(selectableIdx);
                 selectable.interactable = pageIdx == currentPageIdx || interactable;
             }
         }
@@ -151,13 +151,15 @@ namespace Balltallion.UI.Components.PagedGrid
             GoToPage(currentPageIdx);
         }
         
-        public int GetCellsPerPage() => pageRows * pageColumns;
+        public int GetPageRows() => pageRows;
+        public int GetPageColumns() => pageColumns;
+        public int GetPageSize() => pageRows * pageColumns;
 
         public int GetCurrentPage() => currentPageIdx;
         public bool HasFocus() => hasFocus;
         public bool IsAtLeftMostPage() => currentPageIdx == 0;
         public bool IsAtRightMostPage() => currentPageIdx == GetNumPages() - 1;
         public int GetNumPages() => GetNumPagesToHoldCells(transform.childCount);
-        public int GetNumPagesToHoldCells(int cellCount) => Mathf.Max(1, 1 + (cellCount-1) / GetCellsPerPage());
+        public int GetNumPagesToHoldCells(int cellCount) => Mathf.Max(1, 1 + (cellCount-1) / GetPageSize());
     }
 }

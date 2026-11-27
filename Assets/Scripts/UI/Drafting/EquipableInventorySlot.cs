@@ -25,6 +25,7 @@ namespace Balltallion.UI.Drafting
 
         private void OnEnable()
         {
+            if (equipableData == null) return;
             button.onClick.AddListener(OnButtonClicked);
         }
 

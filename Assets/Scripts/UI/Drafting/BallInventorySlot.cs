@@ -36,6 +36,7 @@ namespace Balltallion.UI.Drafting
 
         private void OnButtonClicked()
         {
+            if (ballData == null) return;
             Debug.Log($"Drafting {ballData.displayName}...");
         }
     }
