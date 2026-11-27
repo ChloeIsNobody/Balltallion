@@ -59,7 +59,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 2460415845989096468}
   - component: {fileID: 1247626125148430803}
   - component: {fileID: 5030789780479571904}
+  - component: {fileID: 2703586583436930237}
   m_Layer: 5
   m_Name: TeamEquipableSlot
   m_TagString: Untagged
@@ -196,3 +197,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2703586583436930237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660282379756290736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23fdb604a3104ca5b8580adb088a6eec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Components.Navigation.SelectOnHighlight
