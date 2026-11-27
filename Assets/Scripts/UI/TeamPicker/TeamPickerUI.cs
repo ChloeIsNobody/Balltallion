@@ -123,16 +123,20 @@ namespace Balltallion.UI.TeamPicker
         
         private void StartBattle()
         {
-            BattleManager.playerTeamLoadout = new TeamLoadout();
+            int ballIndex = 0;
+            BattleManager.playerTeamLoadout = new PlayerTeamLoadout();
             foreach (BallDataSO ball in playerTeam)
             {
-                BattleManager.playerTeamLoadout.AddBall(new BallLoadout(ball, null));
+                BallLoadout loadout = BattleManager.playerTeamLoadout.GetBallLoadout(ballIndex++);
+                loadout.SetBall(ball);
             }
-            
-            BattleManager.enemyTeamLoadout = new TeamLoadout();
+
+            ballIndex = 0;
+            BattleManager.enemyTeamLoadout = new PlayerTeamLoadout();
             foreach (BallDataSO ball in enemyTeam)
             {
-                BattleManager.enemyTeamLoadout.AddBall(new BallLoadout(ball, null));
+                BallLoadout loadout = BattleManager.enemyTeamLoadout.GetBallLoadout(ballIndex++);
+                loadout.SetBall(ball);
             }
             
             SceneManager.LoadScene(nextScene);

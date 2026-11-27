@@ -1176,6 +1176,14 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3960366770806209422, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c23c1b8750e2f142805c49b805dad7b, type: 2}
+    - target: {fileID: 3960366770806209422, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
+      propertyPath: ballSlotIdx
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4102069897238815791, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
@@ -1466,6 +1474,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5835060415498672410, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5844790246341055717, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c23c1b8750e2f142805c49b805dad7b, type: 2}
+    - target: {fileID: 5844790246341055717, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
+      propertyPath: ballSlotIdx
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6063702015727504455, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
@@ -1836,6 +1852,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7800509149532912215, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c23c1b8750e2f142805c49b805dad7b, type: 2}
     - target: {fileID: 7853533130352696750, guid: 59b100598b1162a44ac8241360699d7a, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0

@@ -10,16 +10,18 @@ namespace Balltallion.Players
     [Serializable]
     public class PlayerInventory
     {
-        [SerializeField] private int ballCapacity;
-        [SerializeField] private int equipableCapacity;
-
-        [SerializeField] private List<BallDataSO> balls = new();
-        [SerializeField] private List<EquipableDataSO> equipables = new();
+        [SerializeField] private List<BallDataSO> balls;
+        [SerializeField] private List<EquipableDataSO> equipables;
+        
+        private int ballCapacity;
+        private int equipableCapacity;
 
         public PlayerInventory(int ballCapacity, int equipableCapacity)
         {
             this.ballCapacity = ballCapacity;
             this.equipableCapacity = equipableCapacity;
+            balls = new List<BallDataSO>(ballCapacity);
+            equipables = new List<EquipableDataSO>(equipableCapacity);
         }
 
         public void AddBall(BallDataSO ball) => balls.Add(ball);
@@ -40,7 +42,6 @@ namespace Balltallion.Players
         public BallDataSO GetBallAtIdx(int idx) => idx > balls.Count - 1 ? null : balls[idx];
         public EquipableDataSO GetEquipableAtIdx(int idx) => idx > equipables.Count - 1 ? null : equipables[idx];
         
-
         public void Clear()
         {
             balls.Clear();

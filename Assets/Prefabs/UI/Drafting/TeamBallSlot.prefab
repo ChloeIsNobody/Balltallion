@@ -189,6 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7939021755098451747}
+  - component: {fileID: 5854719951465079028}
   - component: {fileID: 2527999712539838376}
   m_Layer: 5
   m_Name: EquipableSlots
@@ -219,6 +220,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -1.0999756}
   m_SizeDelta: {x: 100, y: 80.20001}
   m_Pivot: {x: 0.5, y: 1}
+--- !u!225 &5854719951465079028
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3649816384404812785}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &2527999712539838376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,6 +342,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4675116113210352877}
+  - component: {fileID: 4905264025571540491}
   - component: {fileID: 1275958865609910927}
   m_Layer: 5
   m_Name: TeamBallSlot
@@ -359,6 +373,26 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 299.7}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &4905264025571540491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6525747304564751727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846871dbe0814b1d970b20dacfed361b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.TeamBallSlot
+  player: {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
+  ballSlotIdx: 0
+  ballImage: {fileID: 1267182224389770813}
+  equipablesGroup: {fileID: 5854719951465079028}
+  equipableSlots:
+  - {fileID: 7831700817990437392}
+  - {fileID: 521403742478290854}
+  - {fileID: 2930524983352682150}
 --- !u!222 &1275958865609910927
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -514,6 +548,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6034612151716041191, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
   m_PrefabInstance: {fileID: 1268047103960741553}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7831700817990437392 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9022619326531648673, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
+  m_PrefabInstance: {fileID: 1268047103960741553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2970eb74a0b443bd9d395e6559ff6788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.TeamEquipableSlot
 --- !u!1001 &6169254787928480263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -616,6 +661,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6034612151716041191, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
   m_PrefabInstance: {fileID: 6169254787928480263}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2930524983352682150 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9022619326531648673, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
+  m_PrefabInstance: {fileID: 6169254787928480263}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2970eb74a0b443bd9d395e6559ff6788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.TeamEquipableSlot
 --- !u!1001 &8794032029730894599
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,6 +769,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
+--- !u!114 &521403742478290854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9022619326531648673, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}
+  m_PrefabInstance: {fileID: 8794032029730894599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2970eb74a0b443bd9d395e6559ff6788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.TeamEquipableSlot
 --- !u!224 &3005469193128518368 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6034612151716041191, guid: 0a2335182f5517641bd68a1a0f7ae10c, type: 3}

@@ -13,8 +13,8 @@ namespace Balltallion.UI.Drafting
         [Header("References")]
         [SerializeField] private PagedGridLayout ballGrid;
         [SerializeField] private PagedGridLayout equipableGrid;
-        [SerializeField] private BallInventorySlot ballInventorySlotPrefab;
-        [SerializeField] private EquipableInventorySlot equipableInventorySlotPrefab;
+        [SerializeField] private InventoryBallSlot inventoryBallSlotPrefab;
+        [SerializeField] private InventoryEquipableSlot inventoryEquipableSlotPrefab;
         
         private void Awake()
         {
@@ -30,7 +30,7 @@ namespace Balltallion.UI.Drafting
             {
                 int cellIdx = RemapCellIdx(i, ballGrid);
                 BallDataSO ball = inventory.GetBallAtIdx(cellIdx);
-                BallInventorySlot newSlot = Instantiate(ballInventorySlotPrefab, ballGrid.transform);
+                InventoryBallSlot newSlot = Instantiate(inventoryBallSlotPrefab, ballGrid.transform);
                 newSlot.LoadData(ball, player);
             }
             
@@ -39,7 +39,7 @@ namespace Balltallion.UI.Drafting
             {
                 int cellIdx = RemapCellIdx(i, equipableGrid);
                 EquipableDataSO equipable = inventory.GetEquipableAtIdx(cellIdx);
-                EquipableInventorySlot newSlot = Instantiate(equipableInventorySlotPrefab, equipableGrid.transform);
+                InventoryEquipableSlot newSlot = Instantiate(inventoryEquipableSlotPrefab, equipableGrid.transform);
                 newSlot.LoadData(equipable, player);
             }
         }

@@ -1,31 +1,31 @@
-﻿using Balltallion.Players;
-using Balltallion.Simulation.Abilities;
+﻿using System;
+using Balltallion.Players;
+using Balltallion.Simulation.Teams;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Balltallion.UI.Drafting
 {
-    public class EquipableInventorySlot : MonoBehaviour
+    public class InventoryBallSlot : MonoBehaviour
     {
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image icon;
         [SerializeField] private Button button;
         
         private LocalPlayerSO owningPlayer;
-        private EquipableDataSO equipableData;
+        private BallDataSO ballData;
 
-        public void LoadData(EquipableDataSO equipableData, LocalPlayerSO player)
+        public void LoadData(BallDataSO ballData, LocalPlayerSO player)
         {
-            this.equipableData = equipableData;
+            this.ballData = ballData;
             owningPlayer = player;
             backgroundImage.color = owningPlayer.GetColorFromPalette(2);
-            icon.sprite = equipableData?.icon;
-            icon.enabled = equipableData != null;
+            icon.sprite = ballData?.ballSprite;
+            icon.enabled = ballData != null;
         }
 
         private void OnEnable()
         {
-            if (equipableData == null) return;
             button.onClick.AddListener(OnButtonClicked);
         }
 
@@ -36,7 +36,8 @@ namespace Balltallion.UI.Drafting
 
         private void OnButtonClicked()
         {
-            Debug.Log($"Equipping {equipableData.displayName}...");
+            if (ballData == null) return;
+            Debug.Log($"Drafting {ballData.displayName}...");
         }
     }
 }

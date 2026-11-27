@@ -22,8 +22,8 @@ namespace Balltallion.Simulation.Battle
         
         [SerializeField] private List<LocalPlayerSO> localPlayers;
 
-        public static TeamLoadout playerTeamLoadout;
-        public static TeamLoadout enemyTeamLoadout;
+        public static PlayerTeamLoadout playerTeamLoadout;
+        public static PlayerTeamLoadout enemyTeamLoadout;
         
         private BattleBall currentPlayerBall;
         private BattleBall currentEnemyBall;
@@ -65,7 +65,6 @@ namespace Balltallion.Simulation.Battle
                 if (!currentPlayerBall && playerTeamLoadout.HasNextBall())
                 {
                     currentPlayerBall = ballSpawner.InstantiateBall(playerTeamLoadout.GetNextBall(), localPlayers[0].GetInputRelay(), TeamNames.Player);
-                    Debug.Log("Input Relay set");
                 }
 
                 if (!currentEnemyBall && enemyTeamLoadout.HasNextBall())

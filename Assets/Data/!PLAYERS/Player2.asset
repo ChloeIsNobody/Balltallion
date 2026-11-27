@@ -15,11 +15,13 @@ MonoBehaviour:
   logToConsole: 1
   displayName: Player 2
   playerNumber: 2
+  inventoryBallCapacity: 8
+  inventoryEquipableCapacity: 16
   inventory:
-    ballCapacity: 8
-    equipableCapacity: 16
     balls: []
     equipables: []
+  teamLoadout:
+    ballLoadouts: []
   teamColor: {r: 1, g: 0.3764706, b: 0.6509804, a: 1}
   colorPalette:
   - {r: 1, g: 0.3764706, b: 0.6509804, a: 1}

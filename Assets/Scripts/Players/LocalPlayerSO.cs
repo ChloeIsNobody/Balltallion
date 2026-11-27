@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Balltallion.Input;
+using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
 #if UNITY_EDITOR
@@ -23,7 +24,14 @@ namespace Balltallion.Players
         [Header("Data")]
         [SerializeField] private string displayName;
         [SerializeField] private int playerNumber;
+        [SerializeField] private int inventoryBallCapacity = 8;
+        [SerializeField] private int inventoryEquipableCapacity = 16;
+        
+        [Space]
+        [InfoBox("Read Only. Do not modify this mid-game!", EInfoBoxType.Warning)]
         [SerializeField] public PlayerInventory inventory;
+        [InfoBox("Read Only. Do not modify this mid-game!", EInfoBoxType.Warning)]
+        [SerializeField] public PlayerTeamLoadout teamLoadout;
         
         [Header("Style")]
         [SerializeField] private Color teamColor;
@@ -78,7 +86,8 @@ namespace Balltallion.Players
             inputRelay.OnReadyTriggered += ReadyPressed;
             inputRelay.OnLeaveTriggered += LeavePressed;
 
-            inventory.Clear();
+            inventory = new PlayerInventory(inventoryBallCapacity, inventoryEquipableCapacity);
+            teamLoadout = new PlayerTeamLoadout();
             
             isConnected = true;
             isReady = false;
@@ -93,8 +102,9 @@ namespace Balltallion.Players
             inputRelay.Disconnect();
             inputRelay.OnReadyTriggered -= ReadyPressed;
             inputRelay.OnLeaveTriggered -= LeavePressed;
-            
-            inventory.Clear();
+
+            inventory = null;
+            teamLoadout = null;
             
             isConnected = false;
             isReady = false;
