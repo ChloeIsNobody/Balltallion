@@ -4464,18 +4464,65 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2485132757480668248, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7971607713773857958}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 979629075633102788, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2323752574327353021}
   m_SourcePrefab: {fileID: 100100000, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
+--- !u!114 &3118460392331742803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8366025511457817946, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
+  m_PrefabInstance: {fileID: 6871623132772535049}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1859a503168465c8527ca855dd2dcf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Navigation.PagedGridLayout
 --- !u!224 &4551427165040155510 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6950464007548145791, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
   m_PrefabInstance: {fileID: 6871623132772535049}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4878337446674232669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2085095001792151124, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
+  m_PrefabInstance: {fileID: 6871623132772535049}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1859a503168465c8527ca855dd2dcf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Navigation.PagedGridLayout
 --- !u!224 &5756348746991361547 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1206472647893636354, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
   m_PrefabInstance: {fileID: 6871623132772535049}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5964102503875400909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 979629075633102788, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
+  m_PrefabInstance: {fileID: 6871623132772535049}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2323752574327353021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5964102503875400909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d7e2f45349e468892ac7c4acb3e120b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.PlayerInventoryUI
+  player: {fileID: 11400000, guid: c2cd944fb9e61eb44b82f9098aab68df, type: 2}
+  ballGrid: {fileID: 4878337446674232669}
+  equipableGrid: {fileID: 3118460392331742803}
+  ballInventorySlotPrefab: {fileID: 8311629022264016551, guid: 4efd495b1f39f8947b79a062dd64853e, type: 3}
+  equipableInventorySlotPrefab: {fileID: 4978874255877701690, guid: b51c171f8bbcc944cafcd6a871598a4c, type: 3}
 --- !u!224 &7001023772749541996 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4500304201197205861, guid: a5dbfde0ae09a0a44ae9ae8c286a5638, type: 3}
