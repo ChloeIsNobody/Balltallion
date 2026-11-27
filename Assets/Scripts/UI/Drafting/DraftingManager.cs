@@ -30,19 +30,22 @@ namespace Balltallion.UI.Drafting
 
         private void Awake()
         {
-            LoadInventory(player1.inventory, ballGrid1, equipableGrid1);
-            LoadInventory(player2.inventory, ballGrid2, equipableGrid2);
+            LoadInventory(player1, ballGrid1, equipableGrid1);
+            LoadInventory(player2, ballGrid2, equipableGrid2);
         }
 
-        private void LoadInventory(PlayerInventory inventory, PagedGridLayout ballGrid, PagedGridLayout equipableGrid)
+        private void LoadInventory(LocalPlayerSO player, PagedGridLayout ballGrid, PagedGridLayout equipableGrid)
         {
+            PlayerInventory inventory = player.inventory;
+            
             ballGrid.ClearChildren();
             int ballPageCount = ballGrid.GetNumPagesToHoldCells(inventory.GetBallCount());
             int ballSlotCount = ballPageCount * ballGrid.GetCellsPerPage();
             for (int i = 0; i < ballSlotCount; i++)
             {
                 BallDataSO ball = inventory.GetBallAtIdx(i);
-                InstantiateBallInventorySlot(ballGrid.transform, ball);
+                BallInventorySlot newSlot = Instantiate(ballInventorySlotPrefab, ballGrid.transform);
+                newSlot.LoadData(ball, player);
             }
             
             equipableGrid.ClearChildren();
@@ -51,20 +54,9 @@ namespace Balltallion.UI.Drafting
             for (int i = 0; i < equipableSlotCount; i++)
             {
                 EquipableDataSO equipable = inventory.GetEquipableAtIdx(i);
-                InstantiateEquipableInventorySlot(equipableGrid.transform, equipable);
+                EquipableInventorySlot newSlot = Instantiate(equipableInventorySlotPrefab, equipableGrid.transform);
+                newSlot.LoadData(equipable, player);
             }
-        }
-
-        private void InstantiateBallInventorySlot(Transform parent, BallDataSO ballData)
-        {
-            BallInventorySlot newSlot = Instantiate(ballInventorySlotPrefab, parent);
-            newSlot.LoadData(ballData);
-        }
-
-        private void InstantiateEquipableInventorySlot(Transform parent, EquipableDataSO equipableData)
-        {
-            EquipableInventorySlot newSlot = Instantiate(equipableInventorySlotPrefab, parent);
-            newSlot.LoadData(equipableData);
         }
 
         private void OnEnable()

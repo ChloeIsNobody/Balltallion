@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d28ae33eeb794dda9e8e2ccf4219f20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.EquipableInventorySlot
+  backgroundImage: {fileID: 8135947621419662720}
   icon: {fileID: 6397452900527117632}
   button: {fileID: 2506440599598892641}
 --- !u!222 &2713039450533453712

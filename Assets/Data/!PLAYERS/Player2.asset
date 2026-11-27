@@ -24,5 +24,6 @@ MonoBehaviour:
   colorPalette:
   - {r: 1, g: 0.3764706, b: 0.6509804, a: 1}
   - {r: 0.35686275, g: 0.25490198, b: 0.3137255, a: 1}
+  - {r: 0.85098046, g: 0.60784316, b: 0.72156864, a: 1}
   backgroundMaterial: {fileID: 2100000, guid: 1cdc5a85a5735c34aa542246e68a4cb6, type: 2}
   inputRelay: {fileID: 11400000, guid: b7c8d0499fab923448fcc21105a2edf0, type: 2}
