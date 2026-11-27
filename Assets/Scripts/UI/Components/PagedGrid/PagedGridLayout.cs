@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Balltallion.UI.Components.Navigation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ namespace Balltallion.UI.Components.PagedGrid
 {
     public class PagedGridLayout : MonoBehaviour
     {
+        public event Action OnChildCountChanged;
         public event Action<int> OnPageChanged;
         public event Action<bool> OnFocusChanged;
         
@@ -71,6 +73,14 @@ namespace Balltallion.UI.Components.PagedGrid
             gridLayout.padding = GetPaddingValueForPage(pageLerpVal);
         }
 
+        public void ClearChildren()
+        {
+            List<Transform> toDestroy = new();
+            foreach (Transform child in transform) toDestroy.Add(child);
+            foreach (Transform child in toDestroy) DestroyImmediate(child.gameObject);
+            OnChildCountChanged?.Invoke();
+        }
+
         private void OnObjectSelected(Selectable currentSelection)
         {
             int selectablePageIdx = GetSelectablePageIdx(currentSelection);
@@ -78,19 +88,34 @@ namespace Balltallion.UI.Components.PagedGrid
             hasFocus = selectablePageIdx >= 0;
             if (oldFocus != hasFocus) OnFocusChanged?.Invoke(hasFocus);
             
-            SetPageInteraction(hasFocus);
+            SetOutsidePageInteraction(hasFocus);
             
             if (selectablePageIdx == -1) return;
             if (selectablePageIdx != currentPageIdx) GoToPage(selectablePageIdx);
         }
-
-        private void SetLayoutMode(LayoutModes newLayoutMode)
+        
+        private int GetSelectablePageIdx(Selectable selectable)
         {
-            layoutMode = newLayoutMode;
-            gridLayout.startAxis = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Axis.Vertical : GridLayoutGroup.Axis.Horizontal;
-            gridLayout.constraint = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Constraint.FixedRowCount : GridLayoutGroup.Constraint.FixedColumnCount;
-            gridLayout.constraintCount = newLayoutMode == LayoutModes.Horizontal ? pageRows : pageColumns;
-            GoToPage(currentPageIdx);
+            int selectableIdx = GetSelectableIdx(selectable);
+            if (selectableIdx == -1) return -1;
+            
+            return selectableIdx / GetCellsPerPage();
+        }
+
+        private int GetSelectableIdx(Selectable selectable)
+        {
+            if (selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
+            return -1;
+        }
+        
+        private void SetOutsidePageInteraction(bool interactable)
+        {
+            foreach (Transform child in transform)
+            {
+                Selectable selectable = child.GetComponent<Selectable>();
+                int pageIdx = GetSelectablePageIdx(selectable);
+                selectable.interactable = pageIdx == currentPageIdx || interactable;
+            }
         }
         
         private void GoToPage(int newPageIdx, bool immediate = false)
@@ -117,35 +142,22 @@ namespace Balltallion.UI.Components.PagedGrid
             return 0;
         }
         
-        private void SetPageInteraction(bool interactable)
+        private void SetLayoutMode(LayoutModes newLayoutMode)
         {
-            foreach (Transform child in transform)
-            {
-                Selectable selectable = child.GetComponent<Selectable>();
-                int pageIdx = GetSelectablePageIdx(selectable);
-                selectable.interactable = pageIdx == currentPageIdx || interactable;
-            }
+            layoutMode = newLayoutMode;
+            gridLayout.startAxis = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Axis.Vertical : GridLayoutGroup.Axis.Horizontal;
+            gridLayout.constraint = newLayoutMode == LayoutModes.Horizontal ? GridLayoutGroup.Constraint.FixedRowCount : GridLayoutGroup.Constraint.FixedColumnCount;
+            gridLayout.constraintCount = newLayoutMode == LayoutModes.Horizontal ? pageRows : pageColumns;
+            GoToPage(currentPageIdx);
         }
         
-        private int GetSelectablePageIdx(Selectable selectable)
-        {
-            int selectableIdx = GetSelectableIdx(selectable);
-            if (selectableIdx == -1) return -1;
-            
-            int elementsPerPage = pageRows * pageColumns;
-            return selectableIdx / elementsPerPage;
-        }
-
-        private int GetSelectableIdx(Selectable selectable)
-        {
-            if (selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
-            return -1;
-        }
+        public int GetCellsPerPage() => pageRows * pageColumns;
 
         public int GetCurrentPage() => currentPageIdx;
         public bool HasFocus() => hasFocus;
         public bool IsAtLeftMostPage() => currentPageIdx == 0;
         public bool IsAtRightMostPage() => currentPageIdx == GetNumPages() - 1;
-        public int GetNumPages() => Mathf.Max(1, 1 + (transform.childCount-1) / (pageRows * pageColumns));
+        public int GetNumPages() => GetNumPagesToHoldCells(transform.childCount);
+        public int GetNumPagesToHoldCells(int cellCount) => Mathf.Max(1, 1 + (cellCount-1) / GetCellsPerPage());
     }
 }

@@ -33,23 +33,25 @@ namespace Balltallion.UI.Components.PagedGrid
         private void ApplySettings()
         {
             if (!pagedGridLayout) return;
-            RegenerateDotObjects(pagedGridLayout.GetNumPages());
+            RegenerateDotObjects();
         }
 
         private void Start()
         {
             if (!pagedGridLayout) return;
-            RegenerateDotObjects(pagedGridLayout.GetNumPages());
+            RegenerateDotObjects();
         }
 
         private void OnEnable()
         {
             pagedGridLayout.OnPageChanged += OnPageChanged;
+            pagedGridLayout.OnChildCountChanged += RegenerateDotObjects;
         }
 
         private void OnDisable()
         {
             pagedGridLayout.OnPageChanged -= OnPageChanged;
+            pagedGridLayout.OnChildCountChanged -= RegenerateDotObjects;
         }
         
         private void OnPageChanged(int newPage)
@@ -65,8 +67,11 @@ namespace Balltallion.UI.Components.PagedGrid
             SetDotFill(dot, true);
         }
 
-        private void RegenerateDotObjects(int dotCount)
+        private void RegenerateDotObjects()
         {
+            int dotCount = pagedGridLayout.GetNumPages();
+            Debug.Log(dotCount);
+            
             List<GameObject> toDestroy = new();
             foreach (Transform child in transform)
             {
@@ -79,7 +84,7 @@ namespace Balltallion.UI.Components.PagedGrid
             for (int i = 0; i < dotCount; i++)
             {
                 Image newDot = Instantiate(dotTemplate, transform).GetComponent<Image>();
-                SetDotFill(newDot, i == 0);
+                SetDotFill(newDot, i == pagedGridLayout.GetCurrentPage());
                 
                 RectTransform rectTransform = newDot.GetComponent<RectTransform>();
                 rectTransform.sizeDelta = new Vector2(dotSize, dotSize);
