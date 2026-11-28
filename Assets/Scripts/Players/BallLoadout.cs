@@ -13,7 +13,7 @@ namespace Balltallion.Players
         
         [SerializeField] private BallDataSO ball;
         [SerializeField] private List<EquipableDataSO> equipables;
-        private int inventoryIdx;
+        private int inventoryIdx = -1;
 
         private const int equipableLimit = 3;
 

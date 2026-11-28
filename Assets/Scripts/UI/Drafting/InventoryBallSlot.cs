@@ -26,7 +26,8 @@ namespace Balltallion.UI.Drafting
         private int inventoryIdx;
         private int draftIdx;
         private LocalPlayerSO owningPlayer;
-        private BallDataSO ballData;
+        private PlayerTeamLoadout trackedTeam;
+        private BallDataSO ballData; 
 
         private bool isEquipped;
 
@@ -40,8 +41,12 @@ namespace Balltallion.UI.Drafting
             owningPlayer = player;
             this.inventoryIdx = inventoryIdx;
             
+            trackedTeam = owningPlayer.teamLoadout;
+            trackedTeam.OnLoadoutUpdated += UpdateState;
+            
             backgroundImage.color = owningPlayer.GetColorFromPalette(2);
             ballData = owningPlayer.inventory.GetBallAtIdx(inventoryIdx);
+            
             LoadBallData(ballData);
             SetEquippedFlag(false);
         }
@@ -62,31 +67,13 @@ namespace Balltallion.UI.Drafting
             
             if (!isEquipped)
             {
-                if (TryDraftBall()) SetEquippedFlag(true);
+                draftIdx = trackedTeam.GetCurrentLoadoutIdx();
+                trackedTeam.DraftBall(ballData, inventoryIdx);
             }
             else
             {
-                RemoveBall();
-                SetEquippedFlag(false);
+                trackedTeam.RemoveBall(inventoryIdx);
             }
-        }
-
-        private bool TryDraftBall()
-        {
-            Debug.Log($"Drafting {ballData.displayName}...");
-            
-            PlayerTeamLoadout team = owningPlayer.teamLoadout;
-            BallLoadout ballLoadout = team.GetFirstOpenLoadout();
-            ballLoadout?.SetBall(ballData, inventoryIdx);
-            draftIdx = team.GetLoadoutIdx(ballLoadout);
-            
-            return ballLoadout != null;
-        }
-
-        private void RemoveBall()
-        {
-            Debug.Log($"Removing {ballData.displayName}...");
-            owningPlayer.teamLoadout.RemoveBallByInventoryIdx(inventoryIdx);
         }
 
         private void LoadBallData(BallDataSO ballData)
@@ -95,8 +82,14 @@ namespace Balltallion.UI.Drafting
             icon.enabled = ballData != null;
         }
 
+        private void UpdateState()
+        {
+            SetEquippedFlag(trackedTeam.IsBallEquipped(inventoryIdx));
+        }
+
         private void SetEquippedFlag(bool value)
         {
+            if (isEquipped == value) return;
             isEquipped = value;
             equippedVisual.SetActive(value);
             draftIndexLabel.text = $"{draftIdx+1}";

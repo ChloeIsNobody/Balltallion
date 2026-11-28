@@ -55,8 +55,8 @@ namespace Balltallion.Simulation.Battle
         private IEnumerator BattleState()
         {
             TeamNames winner;
-            playerTeamLoadout.ResetIdx();
-            enemyTeamLoadout.ResetIdx();
+            playerTeamLoadout.ResetLoadoutPointer();
+            enemyTeamLoadout.ResetLoadoutPointer();
 
             yield return countdownUI.CountdownCoroutine();
 

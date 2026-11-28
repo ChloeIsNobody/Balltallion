@@ -12,22 +12,15 @@ namespace Balltallion.UI.Drafting
 {
     public class DraftingManager : MonoBehaviour
     {
+        [SerializeField] private LocalPlayerSO player1;
+        [SerializeField] private LocalPlayerSO player2;
+        
         [SerializeField, Scene] private string nextSceneToLoad;
-        [SerializeField] private Button nextSceneButton;
 
-        private void OnEnable()
+        private void Awake()
         {
-            nextSceneButton.onClick.AddListener(GoToNextScene);
-        }
-
-        private void OnDisable()
-        {
-            nextSceneButton.onClick.RemoveAllListeners();
-        }
-
-        private void GoToNextScene()
-        {
-            SceneManager.LoadScene(nextSceneToLoad);
+            player1.teamLoadout.ResetLoadoutPointer();
+            player2.teamLoadout.ResetLoadoutPointer();
         }
     }
 }
