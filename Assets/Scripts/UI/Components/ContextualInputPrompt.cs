@@ -1,4 +1,5 @@
-﻿using Balltallion.Players;
+﻿using Balltallion.Input;
+using Balltallion.Players;
 using Balltallion.UI.Components.Navigation;
 using NaughtyAttributes;
 using TMPro;
@@ -19,6 +20,7 @@ namespace Balltallion.UI.Components
         [SerializeField] private Image icon;
 
         private LocalPlayerSO targetPlayer;
+        private PlayerInputRelaySO inputRelay;
 
         private enum PromptModes
         {
@@ -50,9 +52,11 @@ namespace Balltallion.UI.Components
         {
             if (targetPlayer) targetPlayer.OnConnected -= OnTargetPlayerConnected;
             targetPlayer = newTargetPlayer;
+            inputRelay = targetPlayer.GetInputRelay();
             if (targetPlayer.IsConnected()) UpdatePromptForPlayer(targetPlayer);
             targetPlayer.OnConnected += OnTargetPlayerConnected;
         }
+        public bool PollActionPerformedThisFrame() => inputRelay.PollActionPerformedThisFrame(actionPath);
 
         private void OnTargetPlayerConnected()
         {

@@ -26,7 +26,6 @@ namespace Balltallion.Players
         {
             BallLoadout currentLoadout = GetCurrentBallLoadout();
             currentLoadout?.SetBall(ball, inventoryIdx);
-            Debug.Log($"Drafted {ball.displayName}!");
             OnLoadoutUpdated?.Invoke();
         }
         
@@ -35,12 +34,7 @@ namespace Balltallion.Players
             BallLoadout loadout = GetBallFromInventoryIdx(inventoryIdx);
             BallDataSO removedBall = loadout?.GetBallData();
             loadout?.Clear();
-
-            if (removedBall != null)
-            {
-                Debug.Log($"Removed {removedBall.displayName}!");
-                OnLoadoutUpdated?.Invoke();
-            }
+            if (removedBall != null) OnLoadoutUpdated?.Invoke();
         }
         
         public void Clear()

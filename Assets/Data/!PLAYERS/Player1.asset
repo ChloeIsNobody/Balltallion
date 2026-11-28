@@ -15,15 +15,24 @@ MonoBehaviour:
   logToConsole: 1
   displayName: Player 1
   playerNumber: 1
+  inventoryBallCapacity: 8
+  inventoryEquipableCapacity: 16
   inventory:
-    ballCapacity: 8
-    equipableCapacity: 16
     balls: []
     equipables: []
+  teamLoadout:
+    ballLoadouts:
+    - ball: {fileID: 0}
+      equipables: []
+    - ball: {fileID: 0}
+      equipables: []
+    - ball: {fileID: 0}
+      equipables: []
   teamColor: {r: 0.24705882, g: 0.7294118, b: 1, a: 1}
   colorPalette:
   - {r: 0.24705884, g: 0.7294118, b: 1, a: 1}
   - {r: 0.2784314, g: 0.30980393, b: 0.38039216, a: 1}
   - {r: 0.60784316, g: 0.7058824, b: 0.8862746, a: 1}
+  - {r: 0.14901961, g: 0.27058825, b: 0.50980395, a: 1}
   backgroundMaterial: {fileID: 2100000, guid: 2be182d50754a974c89863ad2f54cf08, type: 2}
   inputRelay: {fileID: 11400000, guid: 024d63f916f5c1943b85c980331eeb45, type: 2}
