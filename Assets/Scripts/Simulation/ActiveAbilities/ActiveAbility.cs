@@ -101,6 +101,7 @@ namespace Balltallion.Simulation.ActiveAbilities
 
         public float GetSecondsUntilReady() => cooldownTimer / GetChargeRate();
         private float GetChargeRate() => 1.0f / (0.01f + parentBall.GetStat(BattleBall.StatNames.AbilityCooldown).GetValue());
-        public Sprite GetAbilityIcon() => inputRelay.GetIconForAction(actionName); 
+
+        public Sprite GetAbilityIcon() => inputRelay.GetIconForAction(actionName);
     }
 }

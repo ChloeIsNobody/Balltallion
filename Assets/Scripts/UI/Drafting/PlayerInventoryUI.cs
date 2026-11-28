@@ -3,25 +3,19 @@ using Balltallion.Simulation.Abilities;
 using Balltallion.Simulation.Teams;
 using Balltallion.UI.Components.PagedGrid;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Balltallion.UI.Drafting
 {
     public class PlayerInventoryUI : MonoBehaviour
     {
-        [SerializeField] private LocalPlayerSO player;
-        
         [Header("References")]
         [SerializeField] private PagedGridLayout ballGrid;
         [SerializeField] private PagedGridLayout equipableGrid;
         [SerializeField] private InventoryBallSlot inventoryBallSlotPrefab;
         [SerializeField] private InventoryEquipableSlot inventoryEquipableSlotPrefab;
-        
-        private void Start()
-        {
-            LoadInventory();
-        }
 
-        private void LoadInventory()
+        public void BindToPlayer(LocalPlayerSO player)
         {
             PlayerInventory inventory = player.inventory;
             
@@ -63,5 +57,7 @@ namespace Balltallion.UI.Drafting
 
             return mappedCellIdx + pageIdx * pageSize;
         }
+
+        public Selectable GetFirstBallSlot() => ballGrid.GetSelectableAtCellIdx(0);
     }
 }

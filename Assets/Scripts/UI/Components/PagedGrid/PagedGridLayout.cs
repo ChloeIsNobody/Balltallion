@@ -103,9 +103,11 @@ namespace Balltallion.UI.Components.PagedGrid
 
         private int GetSelectableIdx(Selectable selectable)
         {
-            if (selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
+            if (selectable && selectable.transform.IsChildOf(transform)) return selectable.transform.GetSiblingIndex();
             return -1;
         }
+
+        public Selectable GetSelectableAtCellIdx(int cellIdx) => cellIdx < 0 ? null : transform.GetChild(cellIdx).GetComponent<Selectable>();
         
         private void SetOutsidePageInteraction(bool interactable)
         {

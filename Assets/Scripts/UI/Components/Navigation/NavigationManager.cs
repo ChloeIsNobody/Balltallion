@@ -36,7 +36,6 @@ namespace Balltallion.UI.Components.Navigation
         }
         
         [Header("References")]
-        [SerializeField] private InputManager inputManager;
         [SerializeField] private InputSystemUIInputModule inputModule;
         [SerializeField] private NavigationPointer navigationPointer;
 
@@ -46,6 +45,7 @@ namespace Balltallion.UI.Components.Navigation
             TurnBased,
         }
         
+        private InputManager inputManager;
         private LocalPlayerSO currentPlayer;
 
         private Selectable selectedObject;
@@ -63,6 +63,11 @@ namespace Balltallion.UI.Components.Navigation
                 Debug.LogError("There can't be multiple instances of NavigationManager (singleton)!", this);
             }
             
+            inputManager = InputManager.Instance;
+        }
+
+        private void Start()
+        {
             if (navigationMode == NavigationModes.Single)
             {
                 inputModule.enabled = true;
@@ -70,8 +75,9 @@ namespace Balltallion.UI.Components.Navigation
             }
             else if (navigationMode == NavigationModes.TurnBased)
             {
-                inputModule.enabled = false;
-                inputManager.OnSetupCompleted += InputManager_OnSetupCompleted;
+                inputModule.enabled = inputManager.IsSetupCompleted();
+                if (inputManager.IsSetupCompleted()) SetPlayerTurn(firstPlayer);
+                else inputManager.OnSetupCompleted += InputManager_OnSetupCompleted;
             }
         }
 
@@ -149,7 +155,13 @@ namespace Balltallion.UI.Components.Navigation
             OnPlayerTurnStarted?.Invoke(player);
             
             Selectable defaultSelection = navData.defaultSelection;
-            defaultSelection.Select();
+            defaultSelection?.Select();
+        }
+
+        public void SetDefaultSelectionForPlayer(LocalPlayerSO player, Selectable newDefaultSelection)
+        {
+            playerNavData navData = GetNavDataForPlayer(player);
+            navData.defaultSelection = newDefaultSelection;
         }
         
         private void SetActionsAsset(InputActionAsset newActionAsset)

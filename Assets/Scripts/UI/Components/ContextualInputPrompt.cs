@@ -1,5 +1,4 @@
-﻿using Balltallion.Input;
-using Balltallion.Players;
+﻿using Balltallion.Players;
 using Balltallion.UI.Components.Navigation;
 using NaughtyAttributes;
 using TMPro;
@@ -32,7 +31,7 @@ namespace Balltallion.UI.Components
             if (label) label.text = displayName;
         }
 
-        private void Awake()
+        private void Start()
         {
             if (mode == PromptModes.Manual) SetTargetPlayer(manualSetPlayer);
         }

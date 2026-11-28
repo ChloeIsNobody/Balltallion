@@ -26,7 +26,7 @@ namespace Balltallion.Input
         
         private const int playerLimit = 2;
         private bool canActivateSplitKeyboard;
-        private bool isPairingDevices;
+        private bool isSetupCompleted;
 
         private void Awake()
         {
@@ -37,23 +37,25 @@ namespace Balltallion.Input
             else
             {
                 Destroy(gameObject);
+                return;
             }
             
             if (localPlayers.Count != playerLimit) Debug.LogError("Local player count doesn't match player limit");
             DontDestroyOnLoad(gameObject);
-        }
-        
-        private void Start() => StartCoroutine(DelayedStart());
-        
-        // Has to be done just because of input state setup being finicky
-        private IEnumerator DelayedStart()
-        {
-            yield return null;
+            
+            foreach (LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
+            
             if (autoSplitKeyboard)
             {
                 ActivateSplitKeyboard();
                 OnSetupCompleted?.Invoke();
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (this != Instance) return;
+            foreach (LocalPlayerSO localPlayer in localPlayers) localPlayer.Disconnect();
         }
         
         public void StartDevicePairing()
@@ -65,15 +67,15 @@ namespace Balltallion.Input
             }
             ++InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed += OnUnpairedDeviceUsed;
-            isPairingDevices = true;
+            isSetupCompleted = false;
         }
 
         public void EndDevicePairing()
         {
             --InputUser.listenForUnpairedDeviceActivity;
             InputUser.onUnpairedDeviceUsed -= OnUnpairedDeviceUsed;
+            isSetupCompleted = true;
             OnSetupCompleted?.Invoke();
-            isPairingDevices = false;
         }
 
         private void Update()
@@ -221,5 +223,6 @@ namespace Balltallion.Input
         }
         
         public bool CanActivateSplitKeyboard => canActivateSplitKeyboard;
+        public bool IsSetupCompleted() => isSetupCompleted;
     }
 }

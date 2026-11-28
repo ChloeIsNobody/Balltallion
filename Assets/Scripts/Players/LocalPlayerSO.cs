@@ -4,9 +4,6 @@ using Balltallion.Input;
 using NaughtyAttributes;
 using UnityEngine;
 using UnityEngine.InputSystem;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Balltallion.Players
 {
@@ -47,28 +44,12 @@ namespace Balltallion.Players
         private void OnEnable()
         {
             ResetState();
-            #if UNITY_EDITOR
-            EditorApplication.playModeStateChanged += LogPlayModeState;
-            #endif
         }
 
         private void OnDisable()
         {
             ResetState();
-            #if UNITY_EDITOR
-            EditorApplication.playModeStateChanged -= LogPlayModeState;
-            #endif
         }
-
-        #if UNITY_EDITOR
-        private void LogPlayModeState(PlayModeStateChange state)
-        {
-            if (state == PlayModeStateChange.EnteredPlayMode || state == PlayModeStateChange.ExitingPlayMode)
-            {
-                ResetState();
-            }
-        }
-        #endif
 
         private void ResetState()
         {
