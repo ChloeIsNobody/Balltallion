@@ -18,7 +18,7 @@ namespace Balltallion.UI.Drafting
 
         private BallLoadout trackedBallLoadout;
         
-        private void Awake()
+        private void Start()
         {
             BindToPlayer(player, ballSlotIdx);
         }

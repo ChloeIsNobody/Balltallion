@@ -23,9 +23,16 @@ namespace Balltallion.Players
         {
             foreach (BallLoadout loadout in ballLoadouts) loadout.Clear();
         }
-
+        
         public BallLoadout GetFirstOpenLoadout() => ballLoadouts.FirstOrDefault(loadout => !loadout.GetBallData());
         public BallLoadout GetBallLoadout(int idx) => ballLoadouts[idx];
+        public int GetLoadoutIdx(BallLoadout ballLoadout) => ballLoadouts.IndexOf(ballLoadout);
+        
+        public void RemoveBallByInventoryIdx(int inventoryIdx)
+        {
+            BallLoadout loadout = ballLoadouts.FirstOrDefault(loadout => loadout.GetInventoryIdx() == inventoryIdx);
+            loadout?.Clear();
+        }
         
         public int TeamSize() => ballLoadouts.Count;
         public bool HasNextBall() => currentBallIndex < ballLoadouts.Count - 1;

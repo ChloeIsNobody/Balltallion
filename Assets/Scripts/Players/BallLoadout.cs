@@ -13,6 +13,7 @@ namespace Balltallion.Players
         
         [SerializeField] private BallDataSO ball;
         [SerializeField] private List<EquipableDataSO> equipables;
+        private int inventoryIdx;
 
         private const int equipableLimit = 3;
 
@@ -26,16 +27,19 @@ namespace Balltallion.Players
         public void Clear()
         { 
             for (int i = 0; i < equipables.Count; i++) equipables[i] = null;
+            inventoryIdx = -1;
             SetBall(null);
         }
 
-        public void SetBall(BallDataSO newBall)
+        public void SetBall(BallDataSO newBall, int inventoryIdx = -1)
         {
             ball = newBall;
+            this.inventoryIdx = inventoryIdx;
             OnLoadoutUpdated?.Invoke();
         }
         
         public BallDataSO GetBallData() => ball;
+        public int GetInventoryIdx() => inventoryIdx;
         public IReadOnlyList<EquipableDataSO> GetEquipables() => equipables;
     }
 }

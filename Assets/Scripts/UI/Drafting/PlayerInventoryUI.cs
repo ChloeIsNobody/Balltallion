@@ -16,7 +16,7 @@ namespace Balltallion.UI.Drafting
         [SerializeField] private InventoryBallSlot inventoryBallSlotPrefab;
         [SerializeField] private InventoryEquipableSlot inventoryEquipableSlotPrefab;
         
-        private void Awake()
+        private void Start()
         {
             LoadInventory();
         }
