@@ -56,7 +56,8 @@ namespace Balltallion.UI.Components
             if (targetPlayer.IsConnected()) UpdatePromptForPlayer(targetPlayer);
             targetPlayer.OnConnected += OnTargetPlayerConnected;
         }
-        public bool PollActionPerformedThisFrame() => inputRelay.PollActionPerformedThisFrame(actionPath);
+        public bool PollActionPerformedThisFrame() => inputRelay?.PollActionPerformedThisFrame(actionPath) ?? false;
+        public bool PollActionIsInProgress() => inputRelay?.PollActionIsInProgress(actionPath) ??  false;
 
         private void OnTargetPlayerConnected()
         {

@@ -48,6 +48,7 @@ namespace Balltallion.Input
             if (autoSplitKeyboard)
             {
                 ActivateSplitKeyboard();
+                isSetupCompleted = true;
                 OnSetupCompleted?.Invoke();
             }
         }

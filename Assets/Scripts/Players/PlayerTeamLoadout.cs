@@ -52,5 +52,11 @@ namespace Balltallion.Players
         public bool HasNextBall() => loadoutIdx < ballLoadouts.Count - 1;
         public void ResetLoadoutPointer() => loadoutIdx = 0;
         public int GetCurrentLoadoutIdx() => loadoutIdx;
+
+        public void MoveLoadoutPointer()
+        {
+            loadoutIdx = (loadoutIdx + 1) % ballLoadouts.Count;
+            OnLoadoutUpdated?.Invoke();
+        }
     }
 }

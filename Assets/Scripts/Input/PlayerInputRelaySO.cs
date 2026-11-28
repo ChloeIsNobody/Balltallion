@@ -79,10 +79,8 @@ namespace Balltallion.Input
             }
         }
 
-        public bool PollActionPerformedThisFrame(string actionName)
-        {
-            return IsConnected() && playerInput.actions[actionName].WasPerformedThisFrame();
-        }
+        public bool PollActionPerformedThisFrame(string actionName) => IsConnected() && playerInput.actions[actionName].WasPerformedThisFrame();
+        public bool PollActionIsInProgress(string actionName) => IsConnected() && playerInput.actions[actionName].IsInProgress();
 
         public void SwitchActionMap(ActionMaps actionMap)
         {

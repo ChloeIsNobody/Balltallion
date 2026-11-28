@@ -2413,6 +2413,7 @@ MonoBehaviour:
   player2: {fileID: 11400000, guid: 8c23c1b8750e2f142805c49b805dad7b, type: 2}
   nextSceneToLoad: Battle
   navigationManager: {fileID: 504569330}
+  lockInPrompt: {fileID: 6648115286080216170}
   playerInventoryUI1: {fileID: 820402337}
   playerInventoryUI2: {fileID: 216594844}
 --- !u!114 &820402337 stripped
@@ -3251,6 +3252,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LockInPrompt
       objectReference: {fileID: 0}
+    - target: {fileID: 2702418334436774387, guid: 22c0735664991f14f874ac74350f66a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8096918871283389990, guid: 22c0735664991f14f874ac74350f66a3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3336,6 +3341,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 22c0735664991f14f874ac74350f66a3, type: 3}
+--- !u!114 &6648115286080216170 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5222954994559315408, guid: 22c0735664991f14f874ac74350f66a3, type: 3}
+  m_PrefabInstance: {fileID: 6648115286080216169}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b25c5cfb8e246ada230676f6aea6537, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.LockInPrompt
 --- !u!1001 &8174829345029742261
 PrefabInstance:
   m_ObjectHideFlags: 0

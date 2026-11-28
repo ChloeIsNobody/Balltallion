@@ -19,17 +19,19 @@ namespace Balltallion.UI.Drafting
         [Header("References")]
         [SerializeField] private Image backgroundImage;
         [SerializeField] private Image icon;
+        [SerializeField] private Image lockIcon;
         [SerializeField] private Button button;
         [SerializeField] private GameObject equippedVisual;
         [SerializeField] private TextMeshProUGUI draftIndexLabel;
 
         private int inventoryIdx;
-        private int draftIdx;
+        private int draftIdx = -1;
         private LocalPlayerSO owningPlayer;
         private PlayerTeamLoadout trackedTeam;
         private BallDataSO ballData; 
 
         private bool isEquipped;
+        private bool isLocked;
 
         private void OnValidate()
         {
@@ -54,20 +56,22 @@ namespace Balltallion.UI.Drafting
         private void OnEnable()
         {
             button.onClick.AddListener(OnButtonClicked);
+            if (trackedTeam != null) trackedTeam.OnLoadoutUpdated += UpdateState; 
         }
 
         private void OnDisable()
         {
             button.onClick.RemoveAllListeners();
+            if (trackedTeam != null) trackedTeam.OnLoadoutUpdated -= UpdateState;
         }
 
         private void OnButtonClicked()
         {
             if (ballData == null) return;
+            if (isLocked) return;
             
             if (!isEquipped)
             {
-                draftIdx = trackedTeam.GetCurrentLoadoutIdx();
                 trackedTeam.DraftBall(ballData, inventoryIdx);
             }
             else
@@ -85,6 +89,8 @@ namespace Balltallion.UI.Drafting
         private void UpdateState()
         {
             SetEquippedFlag(trackedTeam.IsBallEquipped(inventoryIdx));
+            isLocked = draftIdx != -1 && draftIdx != trackedTeam.GetCurrentLoadoutIdx();
+            lockIcon.gameObject.SetActive(isLocked);
         }
 
         private void SetEquippedFlag(bool value)
@@ -92,6 +98,8 @@ namespace Balltallion.UI.Drafting
             if (isEquipped == value) return;
             isEquipped = value;
             equippedVisual.SetActive(value);
+            
+            draftIdx = value ? trackedTeam.GetCurrentLoadoutIdx() : -1;
             draftIndexLabel.text = $"{draftIdx+1}";
             
             float scale = value ? equippedImageScale : normalImageScale;

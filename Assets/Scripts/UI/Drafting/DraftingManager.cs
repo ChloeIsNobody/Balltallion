@@ -14,10 +14,13 @@ namespace Balltallion.UI.Drafting
         
         [Header("References")]
         [SerializeField] private NavigationManager navigationManager;
+        [SerializeField] private LockInPrompt lockInPrompt;
         
         [Space]
         [SerializeField] private PlayerInventoryUI playerInventoryUI1;
         [SerializeField] private PlayerInventoryUI playerInventoryUI2;
+
+        private BallLoadout currentBallLoadout;
         
         private void Awake()
         {
@@ -30,6 +33,34 @@ namespace Balltallion.UI.Drafting
             playerInventoryUI2.BindToPlayer(player2);
             defaultSelection = playerInventoryUI2.GetFirstBallSlot();
             navigationManager.SetDefaultSelectionForPlayer(player2, defaultSelection);
+        }
+
+        private void OnEnable()
+        {
+            navigationManager.OnPlayerTurnStarted += OnPlayerTurnStarted;
+            lockInPrompt.OnLockedIn += OnLockedIn;
+        }
+
+        private void OnDisable()
+        {
+            navigationManager.OnPlayerTurnStarted -= OnPlayerTurnStarted;
+            lockInPrompt.OnLockedIn -= OnLockedIn;
+        }
+        
+        private void Update()
+        {
+            lockInPrompt.SetActive(currentBallLoadout.GetBallData());
+        }
+
+        private void OnPlayerTurnStarted(LocalPlayerSO player)
+        {
+            currentBallLoadout = player.teamLoadout.GetCurrentBallLoadout();
+        }
+
+        private void OnLockedIn()
+        {
+            navigationManager.GetCurrentPlayer().teamLoadout.MoveLoadoutPointer();
+            navigationManager.EndPlayerTurn();
         }
     }
 }

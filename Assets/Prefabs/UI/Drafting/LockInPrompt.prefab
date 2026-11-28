@@ -53,11 +53,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b25c5cfb8e246ada230676f6aea6537, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Balltallion.UI.Drafting.LockInPrompt
+  timeToLockIn: 0.85
+  timeToDecay: 0.6
+  progressBarSensitivity: 1.85
   backgroundPaletteIdx: 3
   progressBarPaletteIdx: 0
+  backgroundInactiveColor: {r: 0.3372549, g: 0.3372549, b: 0.3372549, a: 1}
+  inputIconActiveColor: {r: 1, g: 1, b: 1, a: 1}
+  inputIconInactiveColor: {r: 0.7882353, g: 0.7882353, b: 0.7882353, a: 1}
   inputPrompt: {fileID: 2889051025296767579}
   backgroundImage: {fileID: 4440648803313411359}
   progressBarImage: {fileID: 8180648381271034395}
+  inputIconImage: {fileID: 4194961525619795396}
 --- !u!114 &2889051025296767579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +171,7 @@ GameObject:
   - component: {fileID: 3512916394681598785}
   - component: {fileID: 4194961525619795396}
   m_Layer: 5
-  m_Name: Icon
+  m_Name: InputIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

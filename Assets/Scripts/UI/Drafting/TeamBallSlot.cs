@@ -34,6 +34,16 @@ namespace Balltallion.UI.Drafting
             UpdateUI();
         }
 
+        private void OnEnable()
+        {
+            if (trackedBallLoadout != null) trackedBallLoadout.OnLoadoutUpdated += UpdateUI;
+        }
+
+        private void OnDisable()
+        {
+            if (trackedBallLoadout != null) trackedBallLoadout.OnLoadoutUpdated -= UpdateUI;
+        }
+
         private void UpdateUI()
         {
             BallDataSO ballData = trackedBallLoadout?.GetBallData();
